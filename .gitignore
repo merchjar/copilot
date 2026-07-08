@@ -1,0 +1,31 @@
+# Secrets: never commit. Git history is permanent; a leaked key must be rotated.
+*config.json
+config.json
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+token.json
+*token.json
+*credentials*.json
+id_rsa
+id_rsa.*
+
+# Local state / per-install
+user/
+tmp/
+*.log
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
