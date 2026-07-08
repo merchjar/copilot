@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "pack_version": "1.0.0",
+  "generated": "2026-07-08",
+  "template_count": 5,
+  "templates": [
+    {
+      "id": "core-adaptive-budget-management",
+      "slug": "core-adaptive-budget-management",
+      "name": "Core: Adaptive Budget Management",
+      "path": "copilot-pack/templates/core-adaptive-budget-management.txt",
+      "version": "1.0",
+      "dataset": "Campaigns",
+      "tags": [
+        "budget",
+        "defensive"
+      ],
+      "description": "Prevents budget waste while ensuring adequate spend for data collection and performance scaling.",
+      "last_updated": "2026-06-15",
+      "min_pack_version": "1.0.0",
+      "docs": "merchjar.com/templates?t=core-adaptive-budget-management"
+    },
+    {
+      "id": "core-dynamic-bid-management",
+      "slug": "core-dynamic-bid-management",
+      "name": "Core: Dynamic Bid Management",
+      "path": "copilot-pack/templates/core-dynamic-bid-management.txt",
+      "version": "2.1",
+      "dataset": "Keywords & Targets",
+      "tags": [
+        "bid",
+        "optimization"
+      ],
+      "description": "Adjust bids proportionally to how far ACOS is from target, with CPC-based caps and adaptive cooldown protection. Cooldown scales with the lookback window used - shorter cooldowns when recent data is reliable, longer cooldowns when relying on slower-moving data.",
+      "last_updated": "2026-06-15",
+      "min_pack_version": "1.0.0",
+      "docs": "merchjar.com/templates?t=core-dynamic-bid-management"
+    },
+    {
+      "id": "core-impression-recovery-boost",
+      "slug": "core-impression-recovery-boost",
+      "name": "Core: Impression Recovery Boost",
+      "path": "copilot-pack/templates/core-impression-recovery-boost.txt",
+      "version": "1.0",
+      "dataset": "Keywords & Targets",
+      "tags": [
+        "bid",
+        "harvesting"
+      ],
+      "description": "Increases bids for proven performers when impression volume drops significantly.",
+      "last_updated": "2026-06-15",
+      "min_pack_version": "1.0.0",
+      "docs": "merchjar.com/templates?t=core-impression-recovery-boost"
+    },
+    {
+      "id": "core-product-ad-waste-elimination",
+      "slug": "core-product-ad-waste-elimination",
+      "name": "Core: Product Ad Waste Elimination",
+      "path": "copilot-pack/templates/core-product-ad-waste-elimination.txt",
+      "version": "1.1",
+      "dataset": "Product Ads",
+      "tags": [
+        "waste",
+        "defensive"
+      ],
+      "description": "Pause wasteful product ads that have spent enough without efficient results.",
+      "last_updated": "2026-06-15",
+      "min_pack_version": "1.0.0",
+      "docs": "merchjar.com/templates?t=core-product-ad-waste-elimination"
+    },
+    {
+      "id": "core-search-term-waste-elimination",
+      "slug": "core-search-term-waste-elimination",
+      "name": "Core: Search Term Waste Elimination",
+      "path": "copilot-pack/templates/core-search-term-waste-elimination.txt",
+      "version": "1.0",
+      "dataset": "Search Terms",
+      "tags": [
+        "waste",
+        "negation",
+        "defensive"
+      ],
+      "description": "Intelligently negate wasteful search terms using efficiency targets and performance analysis.",
+      "last_updated": "2026-06-15",
+      "min_pack_version": "1.0.0",
+      "docs": "merchjar.com/templates?t=core-search-term-waste-elimination"
+    }
+  ]
+}

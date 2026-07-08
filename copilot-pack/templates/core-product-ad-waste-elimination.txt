@@ -1,0 +1,108 @@
+/*
+=== Core: Product Ad Waste Elimination ===
+Version: 1.1
+Docs: merchjar.com/templates?t=core-product-ad-waste-elimination
+
+Purpose: Pause wasteful product ads that have spent enough without efficient results.
+Dataset: Product Ads
+Recommended: Set State | Daily Schedule
+Tags: waste, defensive
+Last-Updated: 2026-06-15
+Min-Pack-Version: 1.0.0
+*/
+
+// === Core Settings ===
+let $clicks_threshold = 20;                  // CORE: Base clicks required before evaluation
+let $spend_threshold = 5.00;                 // CORE: Base spend required before evaluation
+
+// === Safeguards ===
+let $safeguard_orders = 10;                  // SAFEGUARD: Never pause ads with this many orders or more
+let $safeguard_acos = 400%;                  // SAFEGUARD: Never pause if ACOS <= (Target x 400%) [e.g., 30% target = 120% threshold]
+
+// === Advanced Settings ===
+let $clicks_scaling_per_order = 20;          // ADVANCED: Additional clicks required per order [e.g., 2 orders = 20 + (2 x 20) = 60 clicks]
+let $spend_scaling_per_order = 5.00;         // ADVANCED: Additional spend required per order [e.g., 2 orders = $5 + (2 x $5) = $15]
+
+// === Segment Filters ===
+let $include_campaigns = [""];               // FILTER: Apply to all campaigns, or specify terms
+let $exclude_campaigns = ["NEVER_MATCH"];    // FILTER: Exclude campaigns containing these terms
+
+// ============================================================================
+// === Segment Logic ===
+// ============================================================================
+// Advanced logic below - modify carefully
+
+// Performance metrics
+let $lifetime_orders = orders(lifetime);
+let $lifetime_clicks = clicks(lifetime);
+let $lifetime_spend = spend(lifetime);
+let $lifetime_acos = acos(lifetime);
+
+// Scaled thresholds - require more data as orders accumulate
+let $clicks_required = $clicks_threshold + ($lifetime_orders * $clicks_scaling_per_order);
+let $spend_required = $spend_threshold + ($lifetime_orders * $spend_scaling_per_order);
+
+// Data sufficiency
+let $sufficient_data = case(
+    $lifetime_clicks >= $clicks_required and $lifetime_spend >= $spend_required => 1,
+    else 0
+);
+
+// Safeguard checks
+let $high_order_protection = case(
+    $lifetime_orders >= $safeguard_orders => 1,
+    else 0
+);
+
+let $acos_protection = case(
+    $lifetime_orders > 0 and target acos > 0 and $lifetime_acos <= target acos * $safeguard_acos => 1,
+    else 0
+);
+
+// === Pausing Paths ===
+// Zero-order waste: sufficient data with no conversions
+let $zero_order_candidate = case(
+    $lifetime_orders = 0 and $sufficient_data = 1 => 1,
+    else 0
+);
+
+// Poor ACOS: has orders, sufficient data, and ACOS exceeds threshold
+let $poor_acos_candidate = case(
+    $lifetime_orders > 0 and $sufficient_data = 1 and target acos > 0 and $lifetime_acos > target acos * $safeguard_acos => 1,
+    else 0
+);
+
+// Combined pausing candidate
+let $pausing_candidate = case(
+    $zero_order_candidate = 1 or $poor_acos_candidate = 1 => 1,
+    else 0
+);
+
+// === Diagnostic Properties ===
+let $reason = case(
+    $high_order_protection = 1 => "Protected - high order volume",
+    $acos_protection = 1 => "Protected - ACOS within acceptable range",
+    $zero_order_candidate = 1 => "Zero orders with sufficient spend/clicks",
+    $poor_acos_candidate = 1 => "ACOS exceeds safeguard threshold",
+    $lifetime_orders = 0 and $lifetime_spend < $spend_required and $lifetime_clicks < $clicks_required => "Insufficient spend and clicks",
+    $lifetime_orders = 0 and $lifetime_spend < $spend_required => "Insufficient spend",
+    $lifetime_orders = 0 => "Insufficient clicks",
+    $lifetime_orders > 0 and $sufficient_data = 0 => "Insufficient data for order volume",
+    $lifetime_orders > 0 and target acos <= 0 => "No target ACOS set",
+    else "Performing within acceptable range"
+);
+
+let $planned_action = case(
+    $high_order_protection = 1 => "Protected - No Action",
+    $acos_protection = 1 => "Protected - No Action",
+    $zero_order_candidate = 1 => "Pause - Zero Orders",
+    $poor_acos_candidate = 1 => "Pause - High ACOS",
+    else "No Action"
+);
+
+// === Final Filter ===
+state = "effectively enabled"
+and (campaign name contains any $include_campaigns)
+and (campaign name does not contain all $exclude_campaigns)
+and $pausing_candidate = 1
+and $high_order_protection = 0

@@ -1,0 +1,139 @@
+/*
+=== Core: Dynamic Bid Management ===
+Version: 2.1
+Docs: merchjar.com/templates?t=core-dynamic-bid-management
+
+Purpose: Adjust bids proportionally to how far ACOS is from target, with CPC-based caps and adaptive cooldown protection. Cooldown scales with the lookback window used - shorter cooldowns when recent data is reliable, longer cooldowns when relying on slower-moving data.
+Dataset: Keywords & Targets
+Recommended: Change Bid: Set ($) using $target_bid | Daily
+Tags: bid, optimization
+Last-Updated: 2026-06-15
+Min-Pack-Version: 1.0.0
+*/
+
+// === Core Settings ===
+let $orders_min = 2;                                    // CORE: Minimum orders required for reliable ACOS evaluation
+let $bid_min_change = 3%;                               // CORE: Minimum bid adjustment when a change is warranted
+let $bid_max_change = 10%;                              // CORE: Maximum bid adjustment at threshold extremes
+
+// === Strategy Settings ===
+let $t_acos_buffer = 10%;                               // STRATEGY: No-change buffer around target ACOS (Target ACOS +/- 10%) [e.g., 30% target = 27-33% no-change zone]
+let $t_acos_threshold_max_increase = 50%;               // STRATEGY: Max increase when ACOS <= (Target ACOS x 50%) [e.g., 30% target = 15% max increase threshold]
+let $t_acos_threshold_max_decrease = 200%;              // STRATEGY: Max decrease when ACOS >= (Target ACOS x 200%) [e.g., 30% target = 60% max decrease threshold]
+
+// === Time Periods & Adaptive Cooldowns ===
+let $period_short = 0d..7d;                             // TIME: Primary evaluation period (7 days including today)
+let $period_medium = 0d..14d;                           // TIME: Secondary evaluation period (14 days including today)
+let $period_long = 0d..30d;                             // TIME: Extended evaluation period (30 days including today)
+let $cooldown_short = 2d;                               // TIME: Cooldown when 7d data is used (high-volume signal)
+let $cooldown_medium = 3d;                              // TIME: Cooldown when 14d data is used
+let $cooldown_long = 5d;                                // TIME: Cooldown when 30d data is used (low-volume fallback)
+
+// === Safeguards ===
+let $bid_limit_cpc_multiplier = 2.0;                    // SAFEGUARD: Max bid = Avg CPC x 2.0 [e.g., $0.50 CPC = $1.00 max]
+let $bid_limit_cpc_period = 90d;                        // SAFEGUARD: Period for calculating CPC-based bid limits
+
+// === Segment Filters ===
+let $include_campaigns = [""];                          // FILTER: Apply to all campaigns, or specify terms like ["SP-", "Auto", "Research"]
+let $exclude_campaigns = ["NEVER_MATCH"];               // FILTER: Exclude campaigns containing these terms, e.g., ["Brand", "Test", "Archive"]
+
+
+// ============================================================================
+// === Segment Logic ===
+// ============================================================================
+// Advanced logic below - modify carefully
+
+// Pre-computed scalars - evaluated once, referenced throughout
+let $buffer_lo = 1 - $t_acos_buffer;                    // e.g., 0.9 when buffer is 10%
+let $buffer_hi = 1 + $t_acos_buffer;                    // e.g., 1.1 when buffer is 10%
+
+// Multi-period data selection - pick the shortest period with enough orders
+let $orders_short = orders($period_short);
+let $orders_medium = orders($period_medium);
+let $orders_long = orders($period_long);
+
+let $evaluation_acos = case(
+    $orders_short >= $orders_min => acos($period_short),
+    $orders_medium >= $orders_min => acos($period_medium),
+    $orders_long >= $orders_min => acos($period_long),
+    else 99999                                          // Sentinel: no reliable data
+);
+
+// Adaptive cooldown cutoff - longer cooldown when relying on longer lookback
+let $cooldown_cutoff = case(
+    $orders_short >= $orders_min => now() - interval($cooldown_short),
+    $orders_medium >= $orders_min => now() - interval($cooldown_medium),
+    else now() - interval($cooldown_long)
+);
+
+// Performance ratio: evaluation ACOS as a multiple of Target ACOS
+// -1 sentinel short-circuits all downstream logic when data or target are invalid
+let $acos_ratio = case(
+    $evaluation_acos = 99999 => -1,                     // No data
+    target acos <= 0 => -1,                             // Invalid target
+    else $evaluation_acos / target acos
+);
+
+// Single consolidated bid adjustment calculation
+// Branches ordered so the first match wins - edge cases first, then scaled regions
+let $adjustment_percent = case(
+    // Invalid data or missing target -> no change
+    $acos_ratio < 0 => 0,
+    // Within buffer zone -> no change
+    $acos_ratio >= $buffer_lo and $acos_ratio <= $buffer_hi => 0,
+    // Max increase: ACOS at or below (Target ACOS x max_increase_threshold)
+    $acos_ratio <= $t_acos_threshold_max_increase => $bid_max_change,
+    // Max decrease: ACOS at or above (Target ACOS x max_decrease_threshold)
+    $acos_ratio >= $t_acos_threshold_max_decrease => -1 * $bid_max_change,
+    // Scaled increase: linear between max_increase threshold and buffer_lo
+    $acos_ratio < $buffer_lo =>
+        $bid_min_change + ((($buffer_lo - $acos_ratio) / ($buffer_lo - $t_acos_threshold_max_increase)) * ($bid_max_change - $bid_min_change)),
+    // Scaled decrease: linear between buffer_hi and max_decrease threshold
+    else -1 * ($bid_min_change + ((($acos_ratio - $buffer_hi) / ($t_acos_threshold_max_decrease - $buffer_hi)) * ($bid_max_change - $bid_min_change)))
+);
+
+// CPC-based bid ceiling - prevents runaway bid growth on volatile keywords
+let $avg_cpc = cpc($bid_limit_cpc_period);
+let $initial_bid = bid * (1 + $adjustment_percent);
+
+let $target_bid = case(
+    $avg_cpc > 0 and $initial_bid > $avg_cpc * $bid_limit_cpc_multiplier => $avg_cpc * $bid_limit_cpc_multiplier,
+    else $initial_bid
+);
+
+// Adaptive cooldown check - skip if a bid change was made within the scaled cooldown window
+let $cooldown_ready = case(
+    is_null(last bid change) => 1,
+    last bid change < $cooldown_cutoff => 1,
+    else 0
+);
+
+// === Diagnostic Properties ===
+let $reason = case(
+    target acos <= 0 => "No target ACOS set",
+    $evaluation_acos = 99999 => "Insufficient order data across all lookback periods",
+    $adjustment_percent = 0 => "Within target ACOS buffer zone",
+    $cooldown_ready = 0 => "Recently changed - cooldown active",
+    $target_bid = bid => "Change needed but blocked by CPC maximum",
+    $adjustment_percent > 0 => "ACOS below target - bid increase warranted",
+    else "ACOS above target - bid decrease warranted"
+);
+
+let $planned_action = case(
+    $cooldown_ready = 0 => "No Action",
+    $target_bid = bid => "No Action",
+    $adjustment_percent >= $bid_max_change => "Bid Increase: Maximum",
+    $adjustment_percent >= $bid_max_change * 0.5 => "Bid Increase: Upper Range",
+    $adjustment_percent > 0 => "Bid Increase: Lower Range",
+    $adjustment_percent <= -1 * $bid_max_change => "Bid Decrease: Maximum",
+    $adjustment_percent <= -1 * $bid_max_change * 0.5 => "Bid Decrease: Upper Range",
+    $adjustment_percent < 0 => "Bid Decrease: Lower Range",
+    else "No Action"
+);
+
+// === Final Filter ===
+state = "effectively enabled"
+and (campaign name contains any $include_campaigns)
+and (campaign name does not contain all $exclude_campaigns)
+and $cooldown_ready = 1
+and $target_bid != bid

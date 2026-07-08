@@ -1,0 +1,226 @@
+/*
+=== Core: Adaptive Budget Management ===
+Version: 1.0
+Docs: merchjar.com/templates?t=core-adaptive-budget-management
+
+Purpose: Prevents budget waste while ensuring adequate spend for data collection and performance scaling.
+Dataset: Campaigns
+Recommended: Change Daily Budget | Set ($) using $new_budget | Daily or Multiple Times Daily
+Tags: budget, defensive
+Last-Updated: 2026-06-15
+Min-Pack-Version: 1.0.0
+*/
+
+// === Core Settings ===
+let $high_utilization = 90%;                    // CORE: Daily spend % that indicates budget constraint
+let $low_utilization = 50%;                     // CORE: Daily budget utilization % that triggers rightsizing
+let $enable_cpc_minimums = 1;                   // ADVANCED: Enable CPC-based budget minimums (1=yes, 0=no)
+
+// === Budget Increases (High Utilization) ===
+let $t_acos_threshold_increase = 130%;          // STRATEGY: Increase budget when ACOS <= (Target ACOS x 130%) [e.g., 30% target = 39% threshold]
+let $budget_increase_pct = 20%;                 // STRATEGY: Percentage increase when scaling up
+let $orders_min = 4;                            // STRATEGY: Minimum orders needed for reliable ACOS evaluation
+let $acos_eval_short = 7d;                      // TIME: Recent performance period
+let $acos_eval_medium = 14d;                    // TIME: Medium-term performance period
+let $acos_eval_long = 30d;                      // TIME: Long-term performance period
+
+// === Budget Rightsizing (Low Utilization) ===
+let $spend_buffer = 130%;                       // STRATEGY: Buffer above avg daily spend when rightsizing (budget set to 130% avg daily spend)
+let $budget_min = 5.00;                         // STRATEGY: Absolute minimum budget floor for rightsizing
+let $cooldown_eval_period = 14d;                // TIME: Period for sustained utilization evaluation
+let $cooldown_period = 14d;                     // TIME: Wait period between rightsizing actions
+
+// === CPC-Based Budget Minimums ===
+let $min_daily_clicks = 5;                      // ADVANCED: Minimum clicks per day budget should support
+let $cpc_eval_period = 60d;                     // ADVANCED: Period for calculating average CPC for minimum budget
+
+// === Segment Filters ===
+let $include_campaigns = [""];                  // FILTER: Apply to all campaigns, or specify terms like ["SP-", "Auto"]
+let $exclude_campaigns = ["NEVER_MATCH"];       // FILTER: Exclude campaigns containing these terms, e.g., ["Brand", "Test", "Archive"]
+
+// ============================================================================
+// === Segment Logic ===
+// ============================================================================
+// Advanced logic below - modify carefully
+
+// Increase Path: Individual daily budget cap analysis
+let $today_spend = spend(0d..0d);
+let $yesterday_spend = spend(1d..1d);
+let $day2_spend = spend(2d..2d);
+let $day3_spend = spend(3d..3d);
+
+let $today_capped = case($today_spend >= budget * $high_utilization => 1, else 0);
+let $yesterday_capped = case($yesterday_spend >= budget * $high_utilization => 1, else 0);
+let $day2_capped = case($day2_spend >= budget * $high_utilization => 1, else 0);
+let $day3_capped = case($day3_spend >= budget * $high_utilization => 1, else 0);
+
+let $any_day_budget_capped = case(
+    $today_capped = 1 or $yesterday_capped = 1 or $day2_capped = 1 or $day3_capped = 1 => 1,
+    else 0
+);
+
+// Increase Path: CPC-based data sufficiency check
+let $avg_cpc = cpc($cpc_eval_period);
+
+let $min_budget_for_data = case(
+    $enable_cpc_minimums = 1 and $avg_cpc > 0 => $avg_cpc * $min_daily_clicks,
+    else 0  // Data minimums disabled or no CPC data
+);
+
+let $budget_too_small = case(
+    $enable_cpc_minimums = 1 and $avg_cpc > 0 and budget < $min_budget_for_data => 1,
+    else 0
+);
+
+// Increase Path: Performance evaluation for increases (prioritize recent data)
+let $orders_short = orders($acos_eval_short);
+let $orders_medium = orders($acos_eval_medium);
+let $orders_long = orders($acos_eval_long);
+
+let $performance_acos = case(
+    $orders_short >= $orders_min => acos($acos_eval_short),
+    $orders_medium >= $orders_min => acos($acos_eval_medium),
+    $orders_long >= $orders_min => acos($acos_eval_long),
+    else 99999  // No reliable ACOS data
+);
+
+let $acos_good_for_increase = case(
+    $performance_acos = 99999 => 1,  // No ACOS data = allow increase
+    target acos <= 0 => 0,  // Invalid target
+    $performance_acos <= (target acos * $t_acos_threshold_increase) => 1,
+    else 0
+);
+
+// Rightsizing Path: Sustained utilization analysis
+let $total_spend = spend($cooldown_eval_period);
+let $days_in_eval = 14;  // Days in 14d period
+let $avg_daily_spend = $total_spend / $days_in_eval;
+
+let $avg_utilization_rate = case(
+    budget > 0 => $avg_daily_spend / budget,
+    else 0
+);
+
+// Calculate effective minimum for decreases early
+let $effective_min_for_decreases = case(
+    $min_budget_for_data > $budget_min => $min_budget_for_data,  // Use CPC minimum if higher
+    else $budget_min  // Otherwise use absolute minimum
+);
+
+let $rightsizing_cooldown_passed = case(
+    is_null(last budget change) => 1,
+    last budget change < now() - interval($cooldown_period) => 1,
+    else 0
+);
+
+// Decision logic by path
+let $should_increase = case(
+    $budget_too_small = 1 => 1,  // Data-starved campaign
+    $any_day_budget_capped = 1 and $acos_good_for_increase = 1 => 1,  // Budget-capped + good performance
+    else 0
+);
+
+let $should_rightsize = case(
+    $rightsizing_cooldown_passed = 0 => 0,  // Cooldown period active
+    budget <= $effective_min_for_decreases => 0,  // Already at or below minimum - don't rightsize
+    $avg_utilization_rate < $low_utilization => 1,  // Sustained low utilization (including 0% from no spend)
+    else 0
+);
+
+// Calculate new budget
+let $increase_budget = budget * (1 + $budget_increase_pct);
+
+// For rightsizing, calculate based on actual usage plus buffer
+let $rightsized_budget = case(
+    $avg_daily_spend > 0 => $avg_daily_spend * $spend_buffer,
+    else $budget_min  // No spend = use minimum budget
+);
+
+let $calculated_budget = case(
+    $should_increase = 1 => $increase_budget,
+    $should_rightsize = 1 => $rightsized_budget,
+    else budget
+);
+
+// Apply minimums - different rules for increases vs decreases
+let $final_minimum = case(
+    $should_rightsize = 1 => case(
+        $effective_min_for_decreases > 1.00 => $effective_min_for_decreases,  // Use effective minimum if higher than platform
+        else 1.00  // Otherwise platform minimum
+    ),
+    $should_increase = 1 and $budget_too_small = 1 => case(
+        $min_budget_for_data > 1.00 => $min_budget_for_data,  // Use CPC minimum for data generation increases
+        else 1.00  // Platform minimum
+    ),
+    else 1.00  // Platform minimum for budget-capping increases
+);
+
+let $new_budget = case(
+    $calculated_budget < $final_minimum => $final_minimum,
+    else $calculated_budget
+);
+
+// === Diagnostic Properties ===
+let $reason = case(
+    target acos <= 0 => "No target ACOS set",
+    $should_increase = 1 and $budget_too_small = 1 => case(
+        $avg_utilization_rate <= 0.10 => "[0-10%] Below CPC minimum threshold",
+        $avg_utilization_rate <= 0.30 => "[10-30%] Below CPC minimum threshold",
+        $avg_utilization_rate <= 0.50 => "[30-50%] Below CPC minimum threshold",
+        $avg_utilization_rate <= 0.70 => "[50-70%] Below CPC minimum threshold",
+        $avg_utilization_rate <= 0.90 => "[70-90%] Below CPC minimum threshold",
+        else "[90%+] Below CPC minimum threshold"
+    ),
+    $should_increase = 1 => case(
+        $avg_utilization_rate <= 0.70 => "[50-70%] Above high utilization threshold, ACOS acceptable",
+        $avg_utilization_rate <= 0.90 => "[70-90%] Above high utilization threshold, ACOS acceptable",
+        else "[90%+] Above high utilization threshold, ACOS acceptable"
+    ),
+    $rightsizing_cooldown_passed = 0 => case(
+        $avg_utilization_rate = 0 => "[0%] Below low utilization threshold, cooldown active",
+        $avg_utilization_rate <= 0.10 => "[0-10%] Below low utilization threshold, cooldown active",
+        $avg_utilization_rate <= 0.30 => "[10-30%] Below low utilization threshold, cooldown active",
+        $avg_utilization_rate <= 0.50 => "[30-50%] Below low utilization threshold, cooldown active",
+        else "[50%+] Below low utilization threshold, cooldown active"
+    ),
+    $should_rightsize = 1 => case(
+        $avg_utilization_rate = 0 => "[0%] Below low utilization threshold",
+        $avg_utilization_rate <= 0.10 => "[0-10%] Below low utilization threshold",
+        $avg_utilization_rate <= 0.30 => "[10-30%] Below low utilization threshold",
+        $avg_utilization_rate <= 0.50 => "[30-50%] Below low utilization threshold",
+        else "[50-70%] Below low utilization threshold"
+    ),
+    $any_day_budget_capped = 1 and $acos_good_for_increase = 0 => case(
+        $avg_utilization_rate <= 0.70 => "[50-70%] Above high utilization threshold, ACOS too high",
+        $avg_utilization_rate <= 0.90 => "[70-90%] Above high utilization threshold, ACOS too high",
+        else "[90%+] Above high utilization threshold, ACOS too high"
+    ),
+    budget <= $effective_min_for_decreases => case(
+        $avg_utilization_rate = 0 => "[0%] Budget below rightsizing minimum",
+        $avg_utilization_rate <= 0.30 => "[0-30%] Budget below rightsizing minimum",
+        else "[30-50%] Budget below rightsizing minimum"
+    ),
+    else case(
+        $avg_utilization_rate = 0 => "[0%] Within acceptable utilization",
+        $avg_utilization_rate <= 0.10 => "[0-10%] Within acceptable utilization",
+        $avg_utilization_rate <= 0.30 => "[10-30%] Within acceptable utilization",
+        $avg_utilization_rate <= 0.50 => "[30-50%] Within acceptable utilization",
+        $avg_utilization_rate <= 0.70 => "[50-70%] Within acceptable utilization",
+        $avg_utilization_rate <= 0.90 => "[70-90%] Within acceptable utilization",
+        else "[90%+] Within acceptable utilization"
+    )
+);
+
+let $planned_action = case(
+    $should_increase = 1 and $budget_too_small = 1 => "Budget Increase: CPC Minimum",
+    $should_increase = 1 => "Budget Increase: High Utilization",
+    $should_rightsize = 1 => "Budget Decrease: Rightsizing",
+    else "No Action"
+);
+
+// === Final Filter ===
+state = "effectively enabled"
+and (campaign name contains any $include_campaigns)
+and (campaign name does not contain all $exclude_campaigns)
+and ($should_increase = 1 or $should_rightsize = 1)
+and $new_budget != budget

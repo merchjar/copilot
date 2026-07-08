@@ -1,0 +1,148 @@
+/*
+=== Core: Impression Recovery Boost ===
+Version: 1.0
+Docs: merchjar.com/templates?t=core-impression-recovery-boost
+
+Purpose: Increases bids for proven performers when impression volume drops significantly.
+Dataset: Keywords & Targets
+Recommended: Change Bid: Set ($) using $target_bid | Daily
+Tags: bid, harvesting
+Last-Updated: 2026-06-15
+Min-Pack-Version: 1.0.0
+*/
+
+// === Core Settings ===
+let $orders_min_lifetime = 15;                  // CORE: Minimum lifetime orders to qualify as "proven performer"
+let $orders_min_baseline = 2;                   // CORE: Minimum orders in baseline period for data reliability
+let $impression_drop_threshold = 40%;           // CORE: Act when impressions drop at least 40% from baseline
+let $bid_change_increase = 10%;                 // CORE: Bid increase amount when conditions are met
+
+// === Strategy Settings ===
+let $t_acos_threshold_increase = 120%;          // STRATEGY: Only increase if ACOS <= (Target ACOS x 120%) [e.g., 30% target = 36% threshold]
+let $impressions_min_daily = 50;                // STRATEGY: Minimum daily impressions for reliable analysis
+
+// === Time Periods ===
+let $period_recent = 7d;                        // TIME: Recent period for drop detection
+let $period_baseline = 30d;                     // TIME: Baseline comparison period
+let $cooldown_period = 3d;                      // TIME: Wait 3 days after bid change before adjusting again
+
+// === Advanced Settings ===
+let $bid_limit_cpc_multiplier = 2.0;            // SAFEGUARD: Max bid = Avg CPC x 2.0 [e.g., $0.50 CPC = $1.00 max]
+let $bid_limit_cpc_period = 90d;                // SAFEGUARD: Period for calculating CPC-based bid limits
+
+// === Segment Filters ===
+let $include_campaigns = [""];                  // FILTER: Apply to all campaigns, or specify terms like ["SP-", "Auto"]
+let $exclude_campaigns = ["NEVER_MATCH"];       // FILTER: Exclude campaigns containing these terms, e.g., ["Brand", "Test"]
+
+// ============================================================================
+// === Segment Logic ===
+// ============================================================================
+// Advanced logic below - modify carefully
+
+// === Impression Analysis ===
+let $recent_impressions = impressions($period_recent);
+let $baseline_impressions = impressions($period_baseline);
+
+let $recent_days = interval($period_recent) / 86400;
+let $baseline_days = interval($period_baseline) / 86400;
+
+let $recent_daily_avg = $recent_impressions / $recent_days;
+let $baseline_daily_avg = $baseline_impressions / $baseline_days;
+
+let $impression_drop_ratio = case(
+    $baseline_daily_avg > 0 => $recent_daily_avg / $baseline_daily_avg,
+    else 1  // No baseline data = no drop detected
+);
+
+let $impression_drop_percent = case(
+    $baseline_daily_avg > 0 => (($baseline_daily_avg - $recent_daily_avg) / $baseline_daily_avg) * 100,
+    else 0  // No baseline data = no drop
+);
+
+// === Performance Protection ===
+let $baseline_orders = orders($period_baseline);
+let $baseline_acos = acos($period_baseline);
+
+let $acos_acceptable = case(
+    target acos > 0 and $baseline_orders >= $orders_min_baseline and $baseline_acos <= (target acos * $t_acos_threshold_increase) => 1,
+    else 0
+);
+
+// === Bid Calculation ===
+let $calculated_target_bid = bid * (1 + $bid_change_increase);
+
+// === Dynamic Bid Cap ===
+let $avg_cpc = cpc($bid_limit_cpc_period);
+
+let $dynamic_cap = case(
+    $avg_cpc > 0 => $avg_cpc * $bid_limit_cpc_multiplier,
+    else 999  // No cap if no CPC history
+);
+
+let $target_bid = case(
+    $calculated_target_bid > $dynamic_cap => $dynamic_cap,
+    $calculated_target_bid < 0.02 => 0.02,
+    else $calculated_target_bid
+);
+
+// === Cooldown Check ===
+// NOTE: Cooldown is intentionally short (3d) - missing a boost window has a real cost for impression-starved targets
+let $cooldown_cutoff = now() - interval($cooldown_period);
+
+let $timing_ready = case(
+    is_null(last bid change) => 1,
+    last bid change < $cooldown_cutoff => 1,
+    else 0
+);
+
+// === Qualification Logic ===
+let $impression_drop_detected = case(
+    $impression_drop_percent >= ($impression_drop_threshold * 100) => 1,
+    else 0
+);
+
+let $action_needed = case(
+    target acos <= 0 => 0,                       // Invalid target
+    orders(lifetime) < $orders_min_lifetime => 0, // Not proven performer
+    $baseline_daily_avg < $impressions_min_daily => 0, // Insufficient baseline data
+    $impression_drop_detected = 0 => 0,          // No drop detected
+    $acos_acceptable = 0 => 0,                   // Poor baseline performance
+    $timing_ready = 0 => 0,                      // Cooldown active
+    $target_bid <= bid => 0,                     // No increase calculated
+    else 1
+);
+
+// === Diagnostic Properties ===
+let $reason = case(
+    target acos <= 0 => "No target ACOS set",
+    orders(lifetime) < $orders_min_lifetime => "Insufficient lifetime orders to qualify as proven performer",
+    $baseline_daily_avg < $impressions_min_daily => "Baseline impression volume too low for reliable analysis",
+    $impression_drop_detected = 0 => "No significant impression drop detected",
+    $acos_acceptable = 0 => "Baseline ACOS exceeds acceptable threshold for bid increase",
+    $timing_ready = 0 => "Recently changed - cooldown active",
+    $target_bid <= bid => "No bid increase calculated",
+    $calculated_target_bid > $dynamic_cap => "Impression drop detected - bid capped by CPC limit",
+    $action_needed = 1 => "Impression drop detected on proven performer - increasing bid",
+    else "Stable impression volume"
+);
+
+let $planned_action = case(
+    $action_needed = 1 => case(
+        $impression_drop_percent >= 75 => "Bid Increase: Major Drop (75%+)",
+        $impression_drop_percent >= 50 => "Bid Increase: Significant Drop (50-75%)",
+        $calculated_target_bid > $dynamic_cap => "Bid Increase: CPC Limited",
+        else "Bid Increase: Moderate Drop"
+    ),
+    $impression_drop_percent >= 75 => "Major Drop (75%+) - No Action",
+    $impression_drop_percent >= 50 => "Significant Drop (50-75%) - No Action",
+    $impression_drop_percent >= 25 => "Moderate Drop (25-50%) - No Action",
+    $impression_drop_percent > 0 => "Minor Drop (<25%) - No Action",
+    $impression_drop_percent < 0 => "Impressions Increased - No Action",
+    else "No Change Detected"
+);
+
+// === Final Filter ===
+state = "effectively enabled"
+and (campaign name contains any $include_campaigns)
+and (campaign name does not contain all $exclude_campaigns)
+and $action_needed = 1

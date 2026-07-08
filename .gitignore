@@ -13,8 +13,9 @@ token.json
 id_rsa
 id_rsa.*
 
-# Local state / per-install
-user/
+# Local state / scratch. The empty per-install scaffold ships in copilot-pack/user/;
+# only a stray repo-root user/ (e.g. a real filled-in install) is ignored.
+/user/
 tmp/
 *.log
 
