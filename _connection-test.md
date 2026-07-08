@@ -1,1 +1,0 @@
-Connection test from Cowork — 2026-07-08T18:04:33Z
