@@ -2,7 +2,7 @@
 
 The source of truth for the Merch Jar AI Copilot Pack, Segment templates, and skills.
 
-Merch Jar (merchjar.com) is automation for Amazon Sponsored Products PPC. The
+Merch Jar (merchjar.com) is automation for Amazon Ads PPC. The
 Copilot Pack lets any AI coding agent (Claude, ChatGPT via Codex, Cursor, and more)
 connect to your live Merch Jar account, run preview queries, and build automation
 that shows its work.
