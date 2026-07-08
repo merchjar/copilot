@@ -1,0 +1,175 @@
+/*
+=== Core: Search Term Waste Elimination ===
+Version: 1.0
+Docs: merchjar.com/templates?t=core-search-term-waste-elimination
+
+Purpose: Intelligently negate wasteful search terms using efficiency targets and performance analysis.
+Dataset: Search Terms
+Recommended: Create Negative Exact Match | Daily
+*/
+
+// === Core Settings ===
+let $clicks_threshold = 20;                  // CORE: Base click threshold for zero-order terms
+let $spend_threshold = 5.00;                 // CORE: Base spend requirement for zero-order terms
+
+// === Strategy Settings ===
+let $orders_min_for_acos_eval = 5;           // STRATEGY: Orders required for ACOS-based evaluation
+let $clicks_min_for_acos_eval = 100;         // STRATEGY: Clicks required for ACOS-based evaluation
+let $t_acos_threshold_negate = 400%;         // STRATEGY: Negate if ACOS >= (Target ACOS x 400%) when min clicks & orders are met [e.g., 30% target = 120% threshold]
+
+// === Advanced Settings ===
+let $clicks_scaling_per_order = 20;          // ADVANCED: Additional clicks allowed per order [e.g., 2 orders = 20 + (2 x 20) = 60 clicks]
+let $spend_scaling_per_order = 5.00;         // ADVANCED: Additional spend required per order [e.g., 2 orders = $5 + (2 x $5) = $15 spend]
+let $irrelevant_terms = ["NEVER_MATCH"];     // ADVANCED: Aggressively negate search terms containing these keywords (unrelated terms)
+let $irrelevant_clicks_threshold = 10;       // ADVANCED: Clicks required to negate irrelevant terms (ignores all scaling and spend requirements)
+
+// === Safeguards ===
+let $safeguard_orders = 10;                  // SAFEGUARD: Never negate terms with this many orders or more
+let $safeguard_min_roas_ratio = 50%;         // SAFEGUARD: Protect terms with ROAS >= (Target ROAS x 50%) [e.g., 3.33 target ROAS = 1.67 protection]
+let $protected_terms = ["NEVER_MATCH"];      // SAFEGUARD: Never negate search terms containing these keywords (your brand, product names, strategic terms)
+
+// === Segment Filters ===
+let $include_campaigns = [""];               // FILTER: Apply to all campaigns, or specify terms like ["SP-", "Auto", "Research"]
+let $exclude_campaigns = ["NEVER_MATCH"];    // FILTER: Exclude campaigns containing these terms, e.g., ["Brand", "Test", "Archive"]
+
+// ============================================================================
+// === Segment Logic ===
+// ============================================================================
+// Advanced logic below - modify carefully
+
+// Pre-calculate performance metrics
+let $lifetime_orders = orders(lifetime);
+let $lifetime_clicks = clicks(lifetime);
+let $lifetime_spend = spend(lifetime);
+let $lifetime_acos = acos(lifetime);
+let $lifetime_roas = roas(lifetime);
+
+// Calculate scaled thresholds based on order history
+let $allowed_clicks = $clicks_threshold + ($lifetime_orders * $clicks_scaling_per_order);
+let $spend_required = $spend_threshold + ($lifetime_orders * $spend_scaling_per_order);
+
+// Data sufficiency check (both clicks and spend)
+let $sufficient_data = case(
+    $lifetime_clicks >= $allowed_clicks and $lifetime_spend >= $spend_required => 1,
+    else 0
+);
+
+// Calculate efficiency for converting terms
+let $actual_clicks_per_order = case(
+    $lifetime_orders > 0 => $lifetime_clicks / $lifetime_orders,
+    else 999  // Treat zero-order terms as infinitely inefficient
+);
+
+// ROAS-based protection calculation
+let $target_roas = case(
+    target acos > 0 => 1 / target acos,
+    else 0
+);
+
+let $roas_protection_threshold = case(
+    $target_roas > 0 => $target_roas * $safeguard_min_roas_ratio,
+    else 0
+);
+
+let $roas_protected = case(
+    $lifetime_orders > 0 and $target_roas > 0 and $lifetime_roas >= $roas_protection_threshold => 1,
+    else 0
+);
+
+// Search term relevance analysis
+let $protected_term = case(
+    search term contains any $protected_terms => 1,
+    else 0
+);
+
+let $irrelevant_term = case(
+    search term contains any $irrelevant_terms => 1,
+    else 0
+);
+
+// Protection safeguards
+let $high_order_protection = case(
+    $lifetime_orders >= $safeguard_orders => 1,
+    else 0
+);
+
+let $protected_overall = case(
+    $high_order_protection = 1 => 1,
+    $protected_term = 1 => 1,
+    $roas_protected = 1 => 1,
+    else 0
+);
+
+// Four negation paths: irrelevant, zero-order waste, efficiency, and ACOS performance
+let $irrelevant_candidate = case(
+    $irrelevant_term = 1 and $lifetime_clicks >= $irrelevant_clicks_threshold => 1,
+    else 0
+);
+
+let $zero_order_waste_candidate = case(
+    $lifetime_orders = 0 and $sufficient_data = 1 => 1,
+    else 0
+);
+
+let $efficiency_candidate = case(
+    $lifetime_orders > 0 and ($lifetime_orders < $orders_min_for_acos_eval or $lifetime_clicks < $clicks_min_for_acos_eval) => case(
+        $actual_clicks_per_order > $clicks_scaling_per_order and $sufficient_data = 1 => 1,
+        else 0
+    ),
+    else 0
+);
+
+let $performance_candidate = case(
+    $lifetime_orders >= $orders_min_for_acos_eval and $lifetime_clicks >= $clicks_min_for_acos_eval => case(
+        target acos > 0 and $lifetime_acos > target acos * $t_acos_threshold_negate => 1,
+        else 0
+    ),
+    else 0
+);
+
+let $negation_candidate = case(
+    $irrelevant_candidate = 1 => 1,
+    $zero_order_waste_candidate = 1 => 1,
+    $efficiency_candidate = 1 => 1,
+    $performance_candidate = 1 => 1,
+    else 0
+);
+
+// === Diagnostic Properties ===
+let $reason = case(
+    $high_order_protection = 1 => "Protected - too many orders to negate",
+    $protected_term = 1 => "Protected - contains protected keyword",
+    $roas_protected = 1 => "Protected - ROAS above safeguard threshold",
+    $irrelevant_candidate = 1 => "Contains irrelevant terms, met click threshold",
+    $irrelevant_term = 1 and $lifetime_clicks < $irrelevant_clicks_threshold => "Contains irrelevant terms, needs more clicks",
+    $zero_order_waste_candidate = 1 => "Zero orders, met click threshold",
+    $efficiency_candidate = 1 and $actual_clicks_per_order >= $clicks_scaling_per_order * 2 => "Greatly exceeds click-per-order limit",
+    $efficiency_candidate = 1 => "Exceeds click-per-order limit",
+    $performance_candidate = 1 => "ACOS far above target threshold",
+    $sufficient_data = 0 and $lifetime_spend < $spend_required and $lifetime_clicks < $allowed_clicks => "Insufficient spend and clicks",
+    $sufficient_data = 0 and $lifetime_spend < $spend_required => "Insufficient spend",
+    $sufficient_data = 0 => "Insufficient clicks for order level",
+    $lifetime_orders > 0 and ($lifetime_orders < $orders_min_for_acos_eval or $lifetime_clicks < $clicks_min_for_acos_eval) => "Converting within click-per-order limit",
+    $lifetime_orders >= $orders_min_for_acos_eval and $lifetime_clicks >= $clicks_min_for_acos_eval => "ACOS below negation threshold",
+    else "Zero orders, needs more clicks"
+);
+
+let $planned_action = case(
+    $zero_order_waste_candidate = 1 => "Negate - Zero Orders, High Clicks",
+    $irrelevant_candidate = 1 => "Negate - Irrelevant Term",
+    $efficiency_candidate = 1 => case(
+        $lifetime_orders = 1 => "Negate - Single Order, High Clicks",
+        $lifetime_orders >= 2 => "Negate - Converting but Inefficient",
+        else "Negate - Over Click Limit"
+    ),
+    $performance_candidate = 1 => "Negate - High ACOS (Converting Well)",
+    $high_order_protection = 1 or $protected_term = 1 or $roas_protected = 1 => "Protected - No Action",
+    else "No Action"
+);
+
+// === Final Filter ===
+negated = false
+and (campaign name contains any $include_campaigns)
+and (campaign name does not contain all $exclude_campaigns)
+and $negation_candidate = 1
+and $protected_overall = 0
