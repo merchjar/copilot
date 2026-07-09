@@ -1,0 +1,191 @@
+/*
+=== Anomaly Detection: Spend ===
+Version: 1.0
+Docs: merchjar.com/templates?t=insight-anomaly-detection-spend
+
+Purpose: Identifies entities driving spend changes for account-level investigation. Surfaces spend anomalies and attributes each to click-volume vs CPC, with performance context. Read-only investigation tool - takes no action.
+Dataset: Any level (Campaigns to Search Terms)
+Recommended: Ad-hoc investigation tool | Change dataset based on investigation depth needed
+Tags: anomaly, spend, diagnostics, one-off, find-opportunities
+Last-Updated: 2026-07-09
+Min-Pack-Version: 1.0.0
+*/
+
+// === Time Periods ===
+let $period_recent = 0d..7d;                    // TIME: Recent spend window (7 days)
+let $period_baseline = 8d..35d;                 // TIME: Baseline comparison (28 days)
+// === Reliability Thresholds ===
+let $spend_min = 5.00;                          // CORE: Minimum baseline spend for reliable analysis [e.g., $5+ spend]
+let $impressions_min = 50;                      // CORE: Minimum baseline impressions for meaningful context [e.g., 50+ impressions]
+let $clicks_min = 5;                            // CORE: Minimum baseline clicks for reliable spend attribution [e.g., 5+ clicks]
+// === Shift Detection ===
+let $spend_moderate = 30%;                      // STRATEGY: Moderate spend shift threshold [e.g., 30% = $100 to $130 or $70]
+let $spend_severe = 75%;                        // STRATEGY: Severe spend shift threshold [e.g., 75% = $100 to $175 or $25]
+let $component_threshold = 25%;                 // STRATEGY: Click/CPC shift to attribute root cause [e.g., 25% shift = meaningful driver]
+// === Performance Context ===
+let $acos_acceptable_threshold = 120%;          // STRATEGY: ACOS threshold for performance assessment [e.g., 120% = 30% target → 36% acceptable]
+let $acos_problem_threshold = 150%;             // STRATEGY: ACOS threshold for problem identification [e.g., 150% = 30% target → 45% problem]
+// === Segment Filters ===
+let $include_campaigns = [""];                  // FILTER: Apply to all campaigns, or specify terms like ["SP-", "Auto", "Research"]
+let $exclude_campaigns = ["NEVER_MATCH"];       // FILTER: Exclude campaigns containing these terms, e.g., ["Brand", "Test", "Archive"]
+// ============================================================================
+// === Segment Logic ===
+// ============================================================================
+// === Baseline & Recent Metrics ===
+let $spend_recent = spend($period_recent);
+let $spend_baseline = spend($period_baseline);
+let $impressions_recent = impressions($period_recent);
+let $impressions_baseline = impressions($period_baseline);
+let $clicks_recent = clicks($period_recent);
+let $clicks_baseline = clicks($period_baseline);
+let $cpc_recent = cpc($period_recent);
+let $cpc_baseline = cpc($period_baseline);
+let $acos_recent = acos($period_recent);
+let $acos_baseline = acos($period_baseline);
+let $orders_recent = orders($period_recent);
+let $orders_baseline = orders($period_baseline);
+// === Data Reliability ===
+let $sufficient_data = case(
+    $spend_baseline >= $spend_min and $impressions_baseline >= $impressions_min and $clicks_baseline >= $clicks_min => 1,
+    else 0
+);
+let $sufficient_for_acos = case(
+    $orders_recent >= 1 and $orders_baseline >= 1 => 1,
+    else 0
+);
+// === Calculate Changes ===
+// Spend = Clicks × CPC, so analyze these components
+let $spend_change = case(
+    $spend_baseline > 0 => ($spend_recent - $spend_baseline) / $spend_baseline,
+    else 0
+);
+let $clicks_change = case(
+    $clicks_baseline > 0 => ($clicks_recent - $clicks_baseline) / $clicks_baseline,
+    else 0
+);
+let $cpc_change = case(
+    $cpc_baseline > 0 => ($cpc_recent - $cpc_baseline) / $cpc_baseline,
+    else 0
+);
+let $acos_change = case(
+    $sufficient_for_acos = 1 and $acos_baseline > 0 => ($acos_recent - $acos_baseline) / $acos_baseline,
+    else 0
+);
+// === Severity Assessment ===
+let $spend_severity = case(
+    $spend_change >= $spend_severe => "severe_increase",
+    $spend_change >= $spend_moderate => "moderate_increase",
+    $spend_change <= -1 * $spend_severe => "severe_decrease",
+    $spend_change <= -1 * $spend_moderate => "moderate_decrease",
+    else "normal"
+);
+let $has_anomaly = case(
+    $spend_severity != "normal" => 1,
+    else 0
+);
+// === Root Cause Analysis ===
+// Determine if spend change is driven by click volume or cost per click
+let $driven_by_clicks = case(
+    $clicks_change >= $component_threshold or $clicks_change <= -1 * $component_threshold => 1,
+    else 0
+);
+let $driven_by_cpc = case(
+    $cpc_change >= $component_threshold or $cpc_change <= -1 * $component_threshold => 1,
+    else 0
+);
+let $change_driver = case(
+    $driven_by_clicks = 1 and $driven_by_cpc = 1 => "clicks_and_cpc",
+    $driven_by_clicks = 1 => "click_volume",
+    $driven_by_cpc = 1 => "cost_per_click",
+    else "minor_shifts"
+);
+// === Performance Assessment ===
+let $performance_status = case(
+    $sufficient_for_acos = 0 => "insufficient_data",
+    target acos <= 0 => "no_target",
+    $acos_recent > target acos * $acos_problem_threshold => "poor_efficiency",
+    $acos_recent > target acos * $acos_acceptable_threshold => "acceptable_efficiency",
+    $acos_recent > target acos => "near_target",
+    else "good_efficiency"
+);
+// === Spend Impact Assessment ===
+let $spend_impact = case(
+    $spend_recent >= 50.00 => "high_impact",
+    $spend_recent >= 20.00 => "medium_impact",
+    $spend_recent >= 5.00 => "low_impact",
+    else "minimal_impact"
+);
+// === Diagnostic Properties ===
+let $reason = case(
+    $sufficient_data = 0 => "Insufficient spend history",
+    $has_anomaly = 0 => "No significant spend shift detected",
+    // Severe increases with performance context
+    $spend_severity = "severe_increase" and $performance_status = "poor_efficiency" and $change_driver = "click_volume" => "Severe spend increase from click volume growth with poor ACOS",
+    $spend_severity = "severe_increase" and $performance_status = "poor_efficiency" and $change_driver = "cost_per_click" => "Severe spend increase from CPC escalation with poor ACOS",
+    $spend_severity = "severe_increase" and $performance_status = "poor_efficiency" => "Severe spend increase with poor efficiency",
+    $spend_severity = "severe_increase" and $change_driver = "click_volume" => "Severe spend increase driven by click volume growth",
+    $spend_severity = "severe_increase" and $change_driver = "cost_per_click" => "Severe spend increase driven by CPC escalation",
+    $spend_severity = "severe_increase" and $change_driver = "clicks_and_cpc" => "Severe spend increase from both click volume and CPC rises",
+    $spend_severity = "severe_increase" => "Severe spend increase detected",
+    // Moderate increases with performance context
+    $spend_severity = "moderate_increase" and $performance_status = "poor_efficiency" and $change_driver = "click_volume" => "Moderate spend increase from click volume with poor ACOS",
+    $spend_severity = "moderate_increase" and $performance_status = "poor_efficiency" and $change_driver = "cost_per_click" => "Moderate spend increase from CPC rise with poor ACOS",
+    $spend_severity = "moderate_increase" and $performance_status = "poor_efficiency" => "Moderate spend increase with poor efficiency",
+    $spend_severity = "moderate_increase" and $change_driver = "click_volume" => "Moderate spend increase from click volume growth",
+    $spend_severity = "moderate_increase" and $change_driver = "cost_per_click" => "Moderate spend increase from CPC rise",
+    $spend_severity = "moderate_increase" and $change_driver = "clicks_and_cpc" => "Moderate spend increase from click volume and CPC",
+    $spend_severity = "moderate_increase" => "Moderate spend increase detected",
+    // Decreases with performance context
+    $spend_severity = "severe_decrease" and $performance_status = "good_efficiency" and $change_driver = "click_volume" => "Severe spend drop from lost clicks despite good ACOS",
+    $spend_severity = "severe_decrease" and $change_driver = "click_volume" => "Severe spend drop due to lost clicks",
+    $spend_severity = "severe_decrease" and $change_driver = "cost_per_click" => "Severe spend drop due to CPC decrease",
+    $spend_severity = "severe_decrease" and $change_driver = "clicks_and_cpc" => "Severe spend drop from both click and CPC declines",
+    $spend_severity = "severe_decrease" => "Severe spend decrease detected",
+    $spend_severity = "moderate_decrease" and $performance_status = "good_efficiency" and $change_driver = "click_volume" => "Moderate spend drop from reduced clicks despite good ACOS",
+    $spend_severity = "moderate_decrease" and $change_driver = "click_volume" => "Moderate spend drop from reduced clicks",
+    $spend_severity = "moderate_decrease" and $change_driver = "cost_per_click" => "Moderate spend drop from CPC decrease",
+    $spend_severity = "moderate_decrease" and $change_driver = "clicks_and_cpc" => "Moderate spend drop from click and CPC declines",
+    $spend_severity = "moderate_decrease" => "Moderate spend decrease detected",
+    else "No significant spend pattern change"
+);
+let $result = case(
+    $sufficient_data = 0 => "insufficient_data",
+    $has_anomaly = 0 => "insufficient_data",
+    // Problem increases (high spend + poor efficiency) - sort to top
+    $spend_severity = "severe_increase" and $performance_status = "poor_efficiency" and $spend_impact = "high_impact" => "Problem: Severe Increase + Poor ACOS [High $]",
+    $spend_severity = "severe_increase" and $performance_status = "poor_efficiency" => "Problem: Severe Increase + Poor ACOS",
+    $spend_severity = "moderate_increase" and $performance_status = "poor_efficiency" and $spend_impact = "high_impact" => "Problem: Moderate Increase + Poor ACOS [High $]",
+    $spend_severity = "moderate_increase" and $performance_status = "poor_efficiency" => "Problem: Moderate Increase + Poor ACOS",
+    // Neutral/good increases
+    $spend_severity = "severe_increase" and $performance_status = "good_efficiency" and $change_driver = "click_volume" => "Scaling: Severe Increase (Clicks) + Good ACOS",
+    $spend_severity = "severe_increase" and $change_driver = "click_volume" => "Increase: Severe (Click Volume)",
+    $spend_severity = "severe_increase" and $change_driver = "cost_per_click" => "Increase: Severe (CPC Spike)",
+    $spend_severity = "severe_increase" and $change_driver = "clicks_and_cpc" => "Increase: Severe (Clicks + CPC)",
+    $spend_severity = "severe_increase" => "Increase: Severe",
+    $spend_severity = "moderate_increase" and $performance_status = "good_efficiency" and $change_driver = "click_volume" => "Scaling: Moderate Increase (Clicks) + Good ACOS",
+    $spend_severity = "moderate_increase" and $change_driver = "click_volume" => "Increase: Moderate (Click Volume)",
+    $spend_severity = "moderate_increase" and $change_driver = "cost_per_click" => "Increase: Moderate (CPC)",
+    $spend_severity = "moderate_increase" and $change_driver = "clicks_and_cpc" => "Increase: Moderate (Clicks + CPC)",
+    $spend_severity = "moderate_increase" => "Increase: Moderate",
+    // Opportunity decreases (good performers losing volume)
+    $spend_severity = "severe_decrease" and $performance_status = "good_efficiency" and $change_driver = "click_volume" => "Opportunity: Severe Decrease (Clicks) + Good ACOS",
+    $spend_severity = "moderate_decrease" and $performance_status = "good_efficiency" and $change_driver = "click_volume" => "Opportunity: Moderate Decrease (Clicks) + Good ACOS",
+    // Normal decreases
+    $spend_severity = "severe_decrease" and $change_driver = "click_volume" => "Decrease: Severe (Click Loss)",
+    $spend_severity = "severe_decrease" and $change_driver = "cost_per_click" => "Decrease: Severe (CPC Drop)",
+    $spend_severity = "severe_decrease" and $change_driver = "clicks_and_cpc" => "Decrease: Severe (Clicks + CPC)",
+    $spend_severity = "severe_decrease" => "Decrease: Severe",
+    $spend_severity = "moderate_decrease" and $change_driver = "click_volume" => "Decrease: Moderate (Click Loss)",
+    $spend_severity = "moderate_decrease" and $change_driver = "cost_per_click" => "Decrease: Moderate (CPC Drop)",
+    $spend_severity = "moderate_decrease" and $change_driver = "clicks_and_cpc" => "Decrease: Moderate (Clicks + CPC)",
+    $spend_severity = "moderate_decrease" => "Decrease: Moderate",
+    // Catch-all for any edge cases
+    else "insufficient_data"
+);
+// === Final Filter ===
+state = "effectively enabled"
+and (campaign name contains any $include_campaigns)
+and (campaign name does not contain any $exclude_campaigns)
+and $sufficient_data = 1
+and $has_anomaly = 1
+and $result != "insufficient_data"

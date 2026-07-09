@@ -6,7 +6,7 @@ Docs: merchjar.com/templates?t=core-impression-recovery-boost
 Purpose: Increases bids for proven performers when impression volume drops significantly.
 Dataset: Keywords & Targets
 Recommended: Change Bid: Set ($) using $target_bid | Daily
-Tags: bid, harvesting
+Tags: bid, harvesting, default
 Last-Updated: 2026-06-15
 Min-Pack-Version: 1.0.0
 */

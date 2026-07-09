@@ -6,7 +6,7 @@ Docs: merchjar.com/templates?t=core-dynamic-bid-management
 Purpose: Adjust bids proportionally to how far ACOS is from target, with CPC-based caps and adaptive cooldown protection. Cooldown scales with the lookback window used - shorter cooldowns when recent data is reliable, longer cooldowns when relying on slower-moving data.
 Dataset: Keywords & Targets
 Recommended: Change Bid: Set ($) using $target_bid | Daily
-Tags: bid, optimization
+Tags: bid, optimization, default
 Last-Updated: 2026-06-15
 Min-Pack-Version: 1.0.0
 */

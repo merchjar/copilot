@@ -6,7 +6,7 @@ Docs: merchjar.com/templates?t=core-search-term-waste-elimination
 Purpose: Intelligently negate wasteful search terms using efficiency targets and performance analysis.
 Dataset: Search Terms
 Recommended: Create Negative Exact Match | Daily
-Tags: waste, negation, defensive
+Tags: waste, negation, defensive, default
 Last-Updated: 2026-06-15
 Min-Pack-Version: 1.0.0
 */

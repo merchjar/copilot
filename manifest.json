@@ -3,19 +3,40 @@
   "pack_version": "1.0.0",
   "tag": "v1.0.0",
   "generated": "2026-07-09",
-  "template_count": 5,
+  "template_count": 6,
   "templates": [
+    {
+      "id": "insight-anomaly-detection-spend",
+      "slug": "insight-anomaly-detection-spend",
+      "name": "Anomaly Detection: Spend",
+      "path": "templates/insight/insight-anomaly-detection-spend.txt",
+      "category": "insight",
+      "version": "1.0",
+      "dataset": "Any level (Campaigns to Search Terms)",
+      "tags": [
+        "anomaly",
+        "spend",
+        "diagnostics",
+        "one-off",
+        "find-opportunities"
+      ],
+      "description": "Identifies entities driving spend changes for account-level investigation. Surfaces spend anomalies and attributes each to click-volume vs CPC, with performance context. Read-only investigation tool - takes no action.",
+      "last_updated": "2026-07-09",
+      "min_pack_version": "1.0.0",
+      "docs": "merchjar.com/templates?t=insight-anomaly-detection-spend"
+    },
     {
       "id": "core-adaptive-budget-management",
       "slug": "core-adaptive-budget-management",
       "name": "Core: Adaptive Budget Management",
-      "path": "templates/core/core-adaptive-budget-management.txt",
-      "category": "core",
+      "path": "templates/optimize/core-adaptive-budget-management.txt",
+      "category": "optimize",
       "version": "1.0",
       "dataset": "Campaigns",
       "tags": [
         "budget",
-        "defensive"
+        "defensive",
+        "default"
       ],
       "description": "Prevents budget waste while ensuring adequate spend for data collection and performance scaling.",
       "last_updated": "2026-06-15",
@@ -26,13 +47,14 @@
       "id": "core-dynamic-bid-management",
       "slug": "core-dynamic-bid-management",
       "name": "Core: Dynamic Bid Management",
-      "path": "templates/core/core-dynamic-bid-management.txt",
-      "category": "core",
+      "path": "templates/optimize/core-dynamic-bid-management.txt",
+      "category": "optimize",
       "version": "2.1",
       "dataset": "Keywords & Targets",
       "tags": [
         "bid",
-        "optimization"
+        "optimization",
+        "default"
       ],
       "description": "Adjust bids proportionally to how far ACOS is from target, with CPC-based caps and adaptive cooldown protection. Cooldown scales with the lookback window used - shorter cooldowns when recent data is reliable, longer cooldowns when relying on slower-moving data.",
       "last_updated": "2026-06-15",
@@ -43,13 +65,14 @@
       "id": "core-impression-recovery-boost",
       "slug": "core-impression-recovery-boost",
       "name": "Core: Impression Recovery Boost",
-      "path": "templates/core/core-impression-recovery-boost.txt",
-      "category": "core",
+      "path": "templates/optimize/core-impression-recovery-boost.txt",
+      "category": "optimize",
       "version": "1.0",
       "dataset": "Keywords & Targets",
       "tags": [
         "bid",
-        "harvesting"
+        "harvesting",
+        "default"
       ],
       "description": "Increases bids for proven performers when impression volume drops significantly.",
       "last_updated": "2026-06-15",
@@ -60,13 +83,14 @@
       "id": "core-product-ad-waste-elimination",
       "slug": "core-product-ad-waste-elimination",
       "name": "Core: Product Ad Waste Elimination",
-      "path": "templates/core/core-product-ad-waste-elimination.txt",
-      "category": "core",
+      "path": "templates/optimize/core-product-ad-waste-elimination.txt",
+      "category": "optimize",
       "version": "1.1",
       "dataset": "Product Ads",
       "tags": [
         "waste",
-        "defensive"
+        "defensive",
+        "default"
       ],
       "description": "Pause wasteful product ads that have spent enough without efficient results.",
       "last_updated": "2026-06-15",
@@ -77,14 +101,15 @@
       "id": "core-search-term-waste-elimination",
       "slug": "core-search-term-waste-elimination",
       "name": "Core: Search Term Waste Elimination",
-      "path": "templates/core/core-search-term-waste-elimination.txt",
-      "category": "core",
+      "path": "templates/optimize/core-search-term-waste-elimination.txt",
+      "category": "optimize",
       "version": "1.0",
       "dataset": "Search Terms",
       "tags": [
         "waste",
         "negation",
-        "defensive"
+        "defensive",
+        "default"
       ],
       "description": "Intelligently negate wasteful search terms using efficiency targets and performance analysis.",
       "last_updated": "2026-06-15",
