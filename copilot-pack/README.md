@@ -24,7 +24,7 @@ The pack works in any AI coding agent with file access. There are two underlying
 | **Codex CLI** | `AGENTS.md` | `tools/merchjar_client.py` (direct shell) |
 | **Cursor / Aider / other** | `CLAUDE.md` or `AGENTS.md` | `tools/merchjar_client.py` (direct shell) |
 
-The agent decides behaviorally: in Cowork / Claude Desktop it uses the browser-mediated path (Claude in Chrome extension); in a shell environment it uses the Python client. It does NOT decide by sniffing its tool list — in Cowork, tools are often deferred and not immediately visible, so a missing-tool check would misfire. If unsure, it tries one path and falls back to the other. Behavior is identical across runtimes — same brain, same skills, same templates.
+The agent decides behaviorally: in Cowork / Claude Desktop it uses the browser-mediated path (Claude in Chrome extension); in a shell environment it uses the Python client. It does NOT decide by sniffing its tool list — in Cowork, tools are often deferred and not immediately visible, so a missing-tool check would misfire. If unsure, it tries one path and falls back to the other. Behavior is identical across runtimes: same brain, same skills.
 
 ---
 
@@ -91,11 +91,14 @@ copilot-pack/
 ├── .claude/skills/       # Generated from skills/ — auto-discovered by Claude
 ├── .agents/skills/       # Generated from skills/ — auto-discovered by Codex
 ├── reference/            # API reference, DSL syntax, segment guidelines
-├── templates/            # Validated segment templates
 ├── tools/
 │   └── merchjar_client.py # Local API client used by shell runtimes
 └── user/                 # API key, profile state, deployment log (per-install)
 ```
+
+The pack ships no templates. The core automations are deployed to your Merch
+Jar account by the app, and the full template library lives in this repo under
+`templates/`, fetched on demand.
 
 ---
 
@@ -103,7 +106,7 @@ copilot-pack/
 
 - **Connects to your live Merch Jar account** and runs preview queries before deploying anything
 - **Surfaces dollar-impact findings first** — search term waste, bid inefficiency, budget waste, missed opportunities
-- **Builds automation Segments** from validated templates or custom logic, always previewed and always deployed disabled by default
+- **Builds automation Segments** from the Merch Jar template library or custom logic, always previewed and always deployed disabled by default
 - **Tracks what's running** in `user/MJ_COPILOT_LOG.md` so future sessions know your account history
 - **Explains every decision** — Show Your Work mode surfaces the full DSL before deploy
 

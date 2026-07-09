@@ -1,14 +1,15 @@
 {
   "schema_version": 1,
   "pack_version": "1.0.0",
-  "generated": "2026-07-08",
+  "generated": "2026-07-09",
   "template_count": 5,
   "templates": [
     {
       "id": "core-adaptive-budget-management",
       "slug": "core-adaptive-budget-management",
       "name": "Core: Adaptive Budget Management",
-      "path": "copilot-pack/templates/core-adaptive-budget-management.txt",
+      "path": "templates/core/core-adaptive-budget-management.txt",
+      "category": "core",
       "version": "1.0",
       "dataset": "Campaigns",
       "tags": [
@@ -24,7 +25,8 @@
       "id": "core-dynamic-bid-management",
       "slug": "core-dynamic-bid-management",
       "name": "Core: Dynamic Bid Management",
-      "path": "copilot-pack/templates/core-dynamic-bid-management.txt",
+      "path": "templates/core/core-dynamic-bid-management.txt",
+      "category": "core",
       "version": "2.1",
       "dataset": "Keywords & Targets",
       "tags": [
@@ -40,7 +42,8 @@
       "id": "core-impression-recovery-boost",
       "slug": "core-impression-recovery-boost",
       "name": "Core: Impression Recovery Boost",
-      "path": "copilot-pack/templates/core-impression-recovery-boost.txt",
+      "path": "templates/core/core-impression-recovery-boost.txt",
+      "category": "core",
       "version": "1.0",
       "dataset": "Keywords & Targets",
       "tags": [
@@ -56,7 +59,8 @@
       "id": "core-product-ad-waste-elimination",
       "slug": "core-product-ad-waste-elimination",
       "name": "Core: Product Ad Waste Elimination",
-      "path": "copilot-pack/templates/core-product-ad-waste-elimination.txt",
+      "path": "templates/core/core-product-ad-waste-elimination.txt",
+      "category": "core",
       "version": "1.1",
       "dataset": "Product Ads",
       "tags": [
@@ -72,7 +76,8 @@
       "id": "core-search-term-waste-elimination",
       "slug": "core-search-term-waste-elimination",
       "name": "Core: Search Term Waste Elimination",
-      "path": "copilot-pack/templates/core-search-term-waste-elimination.txt",
+      "path": "templates/core/core-search-term-waste-elimination.txt",
+      "category": "core",
       "version": "1.0",
       "dataset": "Search Terms",
       "tags": [

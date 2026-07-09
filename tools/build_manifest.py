@@ -10,7 +10,8 @@ from per-template front-matter, never hand-edited. Run from the repo root:
     python tools/build_manifest.py --pack-version 1.0.0 --check    # validate only, no write
 
 Front-matter source: the leading C-style /* ... */ header in each
-copilot-pack/templates/core-*.txt DSL file. Header fields parsed:
+templates/<category>/*.txt DSL file (the top-level master library). Header
+fields parsed:
     === <Name> ===   -> name
     Version:         -> version   (template-level; not pack semver)
     Docs:            -> docs
@@ -32,11 +33,14 @@ from pathlib import Path
 
 SCHEMA_VERSION = 1
 REPO_ROOT = Path(__file__).resolve().parent.parent
-TEMPLATE_DIR = REPO_ROOT / "copilot-pack" / "templates"
-TEMPLATE_GLOB = "core-*.txt"
+# Top-level master library, organized by category subdirectory. The pack ships
+# no templates (core automations are auto-deployed to accounts by the app); the
+# manifest catalogs the full library that the Copilot fetches on demand.
+TEMPLATE_DIR = REPO_ROOT / "templates"
+TEMPLATE_GLOB = "*/*.txt"  # templates/<category>/<slug>.txt
 MANIFEST_PATH = REPO_ROOT / "manifest.json"
 
-REQUIRED = ["id", "slug", "name", "path", "version", "dataset",
+REQUIRED = ["id", "slug", "name", "path", "category", "version", "dataset",
             "tags", "description", "last_updated", "min_pack_version"]
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
@@ -68,12 +72,14 @@ def build_entry(path, pack_version):
     text = path.read_text(encoding="utf-8")
     f = parse_header(text)
     slug = path.stem  # filename without .txt == stable id/slug
+    category = path.parent.name  # templates/<category>/<slug>.txt
     tags = [t.strip() for t in f.get("tags", "").split(",") if t.strip()]
     entry = {
         "id": slug,
         "slug": slug,
         "name": f.get("_name") or slug,
-        "path": f"copilot-pack/templates/{path.name}",
+        "path": "templates/" + category + "/" + path.name,
+        "category": category,
         "version": f.get("version", ""),
         "dataset": f.get("dataset", ""),
         "tags": tags,
@@ -93,23 +99,22 @@ def validate(entries):
         for k in REQUIRED:
             v = e.get(k)
             if v in (None, "", []):
-                errors.append(f"{label}: missing required field '{k}'")
+                errors.append(label + ": missing required field '" + k + "'")
         if e["id"] in seen:
-            errors.append(f"{label}: duplicate id")
+            errors.append(label + ": duplicate id")
         seen.add(e["id"])
         p = REPO_ROOT / e["path"]
         if not p.exists():
-            errors.append(f"{label}: path does not exist: {e['path']}")
+            errors.append(label + ": path does not exist: " + e["path"])
         if e.get("last_updated") and not DATE_RE.match(e["last_updated"]):
-            errors.append(f"{label}: last_updated not YYYY-MM-DD: {e['last_updated']}")
-    # orphan check: every core-*.txt on disk must be represented
-    on_disk = {f"copilot-pack/templates/{p.name}"
+            errors.append(label + ": last_updated not YYYY-MM-DD: " + e["last_updated"])
+    on_disk = {str(p.relative_to(REPO_ROOT)).replace("\\", "/")
                for p in sorted(TEMPLATE_DIR.glob(TEMPLATE_GLOB))}
     in_manifest = {e["path"] for e in entries}
     for orphan in on_disk - in_manifest:
-        errors.append(f"orphan template not in manifest: {orphan}")
+        errors.append("orphan template not in manifest: " + orphan)
     for missing in in_manifest - on_disk:
-        errors.append(f"manifest references missing template: {missing}")
+        errors.append("manifest references missing template: " + missing)
     return errors
 
 
@@ -121,7 +126,7 @@ def main():
 
     paths = sorted(TEMPLATE_DIR.glob(TEMPLATE_GLOB))
     if not paths:
-        print(f"ERROR: no templates found in {TEMPLATE_DIR}", file=sys.stderr)
+        print("ERROR: no templates found in " + str(TEMPLATE_DIR), file=sys.stderr)
         return 2
 
     entries = [build_entry(p, args.pack_version) for p in paths]
@@ -129,7 +134,7 @@ def main():
     if errors:
         print("VALIDATION FAILED:", file=sys.stderr)
         for e in errors:
-            print(f"  - {e}", file=sys.stderr)
+            print("  - " + e, file=sys.stderr)
         return 1
 
     manifest = {
@@ -141,13 +146,14 @@ def main():
     }
 
     if args.check:
-        print(f"OK  {len(entries)} templates valid (schema_version={SCHEMA_VERSION}, "
-              f"pack_version={args.pack_version}). --check: not written.")
+        print("OK  " + str(len(entries)) + " templates valid (schema_version="
+              + str(SCHEMA_VERSION) + ", pack_version=" + args.pack_version
+              + "). --check: not written.")
         return 0
 
     MANIFEST_PATH.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
-    print(f"wrote {MANIFEST_PATH.relative_to(REPO_ROOT)}  "
-          f"({len(entries)} templates, pack_version={args.pack_version})")
+    print("wrote " + str(MANIFEST_PATH.relative_to(REPO_ROOT)) + "  ("
+          + str(len(entries)) + " templates, pack_version=" + args.pack_version + ")")
     return 0
 
 
