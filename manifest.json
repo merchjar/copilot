@@ -1,6 +1,7 @@
 {
   "schema_version": 1,
   "pack_version": "1.0.0",
+  "tag": "v1.0.0",
   "generated": "2026-07-09",
   "template_count": 5,
   "templates": [

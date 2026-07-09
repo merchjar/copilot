@@ -140,6 +140,9 @@ def main():
     manifest = {
         "schema_version": SCHEMA_VERSION,
         "pack_version": args.pack_version,
+        # Git tag this catalog is cut from; raw template URLs pin to it so the
+        # manifest and the files it points at always come from the same tag.
+        "tag": "v" + args.pack_version,
         "generated": date.today().isoformat(),
         "template_count": len(entries),
         "templates": entries,

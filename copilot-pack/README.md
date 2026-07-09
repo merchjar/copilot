@@ -85,6 +85,7 @@ copilot-pack/
 ├── build.sh              # Sync script for skills/ → .claude/skills/ + .agents/skills/
 ├── docs/
 │   ├── copilot.md        # The operating brain (runtime-agnostic)
+│   ├── library.md        # How to reach the GitHub template library
 │   ├── runtime-browser.md # Cowork-specific API mechanics
 │   └── runtime-shell.md   # Shell-runtime API mechanics
 ├── skills/               # Canonical skill source (8 skills)
@@ -92,7 +93,8 @@ copilot-pack/
 ├── .agents/skills/       # Generated from skills/ — auto-discovered by Codex
 ├── reference/            # API reference, DSL syntax, segment guidelines
 ├── tools/
-│   └── merchjar_client.py # Local API client used by shell runtimes
+│   ├── merchjar_client.py # Local API client used by shell runtimes
+│   └── library.py         # Fetch client for the GitHub template library
 └── user/                 # API key, profile state, deployment log (per-install)
 ```
 

@@ -616,18 +616,18 @@ Segments aren't just a replacement — they're an upgrade. When migrating, point
 | `reference/MJ_API_REFERENCE.md` | System | API endpoints, request/response formats | API-heavy workflows |
 | `reference/V2_SYNTAX_REFERENCE.md` | System | DSL syntax for writing and validating segments | Writing or debugging segment logic |
 | `reference/SEGMENT_CREATION_GUIDELINES.md` | System | Standards and patterns for creating segments | Building or reviewing segments |
-| `templates/README.md` | System | Template manifest — local inventory, deployment status, registry URL | When selecting a template |
-| `templates/core-*.txt` | System | Individual segment template files | When building a specific segment type |
+| `tools/library.py` | Runtime | Fetch client for the GitHub template library (list, search, fetch, check-updates) | Selecting, fetching, or update-checking templates |
+| `docs/library.md` | System | How to reach the template library (library.py plus plain-URL fallback) | When selecting or fetching a template |
 | `tools/merchjar_client.py` | Runtime | Python API client used by shell runtimes | Used by docs/runtime-shell.md |
 | `skills/` | System | Canonical skill source — built copies live at `.claude/skills/` and `.agents/skills/` | Auto-discovered by runtime |
 
 **Upgrade rule:** System files are replaced on version updates. User files (`user/`) are never overwritten — they persist across upgrades.
 
-**Template Registry (two-step fetch):**
-1. **Discovery:** If no local template matches the user's need, fetch the registry index at `https://www.merchjar.com/help/api-template-index` to list available templates (names, descriptions, tags).
-2. **Retrieval:** When the user selects a template, fetch the individual template page at `https://www.merchjar.com/templates/[slug]` for the full DSL code. Each template has its own page.
-3. **Save locally:** Write the DSL to a `.txt` file in `templates/` and add a row to the manifest in `README.md` with `Source: Registry`.
-4. **After deployment:** Update the manifest's "Deployed On" column with the profile name.
+**Template library (GitHub source of truth):**
+The full library lives in the public `merchjar/copilot` repo and is fetched on demand; the pack ships no template files, and the core automations are already deployed on the account by the app. Full detail and the plain-URL fallback are in `docs/library.md`.
+1. **Discovery:** shell runtimes run `python tools/library.py list` (or `search "<term>"`, `list --category <c>`, `list --tag <t>`). Web-fetch-only runtimes fetch the catalog at `https://github.com/merchjar/copilot/releases/latest/download/manifest.json` and read its `templates` array.
+2. **Retrieval:** shell runtimes run `python tools/library.py fetch <id>` (prints the DSL; `--out <dir>` to save). Web-fetch-only runtimes fetch the entry's `path` from `https://raw.githubusercontent.com/merchjar/copilot/<tag>/<path>`, using the manifest's `tag`.
+3. **Update check:** `python tools/library.py check-updates` reports new, updated, or removed templates since the last check.
 
 Skills load their own context as needed. Do not preload reference files proactively — load only when the active workflow requires them.
 

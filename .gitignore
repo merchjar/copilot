@@ -30,3 +30,6 @@ venv/
 Thumbs.db
 .idea/
 .vscode/
+
+# library.py runtime cache (per-install)
+.library-cache.json
