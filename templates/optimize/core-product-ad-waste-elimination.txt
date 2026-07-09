@@ -6,7 +6,7 @@ Docs: merchjar.com/templates?t=core-product-ad-waste-elimination
 Purpose: Pause wasteful product ads that have spent enough without efficient results.
 Dataset: Product Ads
 Recommended: Set State | Daily Schedule
-Tags: waste, defensive, default
+Tags: waste, default
 Last-Updated: 2026-06-15
 Min-Pack-Version: 1.0.0
 */

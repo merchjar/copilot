@@ -9,7 +9,7 @@ description: Show what automation segments have done recently — bid changes, n
 
 1. `reference/MJ_API_REFERENCE.md` — for `GET /audit-logs` endpoint
 
-Do NOT load syntax reference, creation guidelines, or templates — this skill reads history, not segments.
+Do NOT load syntax reference, creation guidelines, or the template library — this skill reads history, not segments.
 
 ---
 
@@ -69,4 +69,4 @@ Your segments made changes on [N] separate runs:
   You may want to check if this segment is still enabled.
 ```
 
-Offer to investigate anomalies with the `troubleshoot` skill.
+Offer to investigate anomalies with the `troublesho

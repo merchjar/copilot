@@ -15,8 +15,8 @@ Stdlib only, no dependencies. Run from the pack root.
 | Command | What it does |
 |---|---|
 | `python tools/library.py list` | List the whole library (id, category, dataset, tags, description). |
-| `python tools/library.py list --category core` | Filter by category. |
-| `python tools/library.py list --tag waste` | Filter by metadata tag. |
+| `python tools/library.py list --category optimize` | Filter by category (`optimize`, `insight`, `utility`). |
+| `python tools/library.py list --tag default` | Filter by metadata tag. |
 | `python tools/library.py search "search term waste"` | Keyword search across id, name, tags, dataset, description. |
 | `python tools/library.py info <id>` | Show one template's metadata and its raw URL. |
 | `python tools/library.py fetch <id>` | Print the template DSL to stdout. |
@@ -54,4 +54,4 @@ prompt for an explicit enable afterward.
 - `MJ_COPILOT_REPO` points the client at a different repo (default `merchjar/copilot`).
 - `MJ_MANIFEST_URL` overrides the manifest URL.
 - `MJ_COPILOT_REF` pins the manifest and raw fetches to a branch or tag (for example
-  `main`) instead of the latest release. Useful before the first release exists.
+  `main`) instead of the latest release.

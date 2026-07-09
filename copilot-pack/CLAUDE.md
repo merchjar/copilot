@@ -62,8 +62,8 @@ Setup is the only thing this file handles end-to-end. Everything beyond it is ro
 - **`docs/copilot.md`** — the operating brain. Initialization detail, deployment safety protocol, quick scan, intent routing, data presentation standard, segment management, skills index. Read it once the user moves past setup into real work.
 - **Runtime doc** — `docs/runtime-browser.md` (Cowork) or `docs/runtime-shell.md` (shell). Read the one for your runtime for exact API call mechanics and runtime-specific error handling.
 - **Skills** — the brain routes a user's intent to a skill by name; read `skills/NAME/SKILL.md` and follow it. `.claude/skills/` is a generated mirror for environments that auto-discover (Claude Code CLI); Cowork uses the brain's routing.
-- **Reference + templates** — `reference/` (API, DSL syntax, segment guidelines) and `templates/` load on demand per the routing in the brain.
+- **Reference** — `reference/` (API, DSL syntax, segment guidelines) loads on demand per the routing in the brain. The pack ships no `templates/`; templates are fetched from the GitHub library on demand (see `docs/library.md`).
 
 ## Editing the pack
 
-Edit `skills/` (canonical), then run `python tools/build_skills.py` (or `./build.sh`) to sync `.claude/skills/` and `.agents/skills/`. Never edit the mirrors directly — they regenerate. **`CLAUDE.md` and `AGENTS.md` share the cold-start protocol above verbatim — if you change one, change the other to match.**
+Edit `skills/` (canonical), then run `python tools/build_skills.py` (or `./build.sh`) to sync `.claude/skills/` and `.agents/skills/`. Never edit the mirrors directly — they regenerate. **`CLAUDE.md` and `AGENTS.md` share the co

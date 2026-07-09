@@ -17,8 +17,9 @@ The quick scan (in docs/copilot.md) already covers search term waste. This skill
 ## Context to Load Before Starting
 
 1. `reference/MJ_API_REFERENCE.md` — needed for preview queries and segment fetching
-2. `templates/README.md` — needed for automation coverage mapping
-3. `user/MJ_COPILOT_LOG.md` — load if the user has done a previous review (compare findings)
+2. `user/MJ_COPILOT_LOG.md` — load if the user has done a previous review (compare findings)
+
+Coverage mapping needs no template file — the five categories are inferred from the live segments (see Step 2). Named-template recommendations pull specifics from the GitHub library (see `docs/library.md`), not a bundled file.
 
 Do NOT load V2_SYNTAX_REFERENCE.md or SEGMENT_CREATION_GUIDELINES.md — this skill reads data, it doesn't write segments.
 
@@ -36,6 +37,8 @@ Identify which profile to analyze. If the user hasn't specified:
 ### Step 2 — Check What's Already Running
 
 Fetch existing segments: `GET /api/v5/segments` with `profileid` header.
+
+**Framing:** the five core automations are deployed to every account by the app (disabled until enabled), so on most accounts this snapshot is "what's already live or installed," not "what you'd have to build from scratch." A disabled core with no run history is installed-but-off — present it as a one-click enable, not a gap. A category is only a true gap if no segment covers it at all (the user deleted the core).
 
 Map each segment to the five core automation categories:
 
@@ -61,6 +64,15 @@ Map each segment to the five core automation categories:
 **Note:** Bid management covers both underperforming keywords AND unmanaged keywords (those with no bid history). Don't present unmanaged keywords as a separate coverage gap — they're handled by the same segment.
 
 **For existing Merch Jar users:** This step is especially important. They may have Recipes or Smart Bids running. Check audit logs (`GET /api/v5/audit-logs`) for recent activity — the `source_type` field shows `"recipe"` for both Recipes and Segments, and `meta.event` contains the automation name and trigger logic. If you find Recipe activity, summarize what the Recipes are doing and map them to the same five coverage categories. This gives the user a complete picture without requiring them to manually report what's running. If no audit log activity is found, ask: "Do you also have Recipes or Smart Bids active? The audit log didn't show recent activity, but there may be automation that hasn't run recently."
+
+### Step 2.6 — Check for Library Updates (present at the check)
+
+Right after the coverage snapshot, run an updates check against the library — but only if you present the result immediately. The check overwrites the local cache as it runs, so the diff is one-shot: you cannot run it now and report later.
+
+- **Shell runtimes:** `python tools/library.py check-updates`.
+- **Web-fetch-only runtimes:** fetch the release manifest, diff each template's `last_updated` and the top-level `pack_version` against the cached copy in `user/.library-cache.json`, report, then rewrite the cache. See `docs/library.md` → update check for the exact procedure.
+
+Surface the headline inline: "The library has a newer version of [template] than the one you're running" or "[N] new templates since you last looked, here they are." If nothing changed, skip it silently and continue to the diagnostics.
 
 ### Step 2.5 — Reference Quick Scan Results
 
@@ -166,7 +178,7 @@ After running through queries conversationally, pull it together:
 >
 > **Where I'd start:** [Highest dollar impact action — usually search term negation, then bid management]
 
-Then offer to start building. Hand off to `build-segment` for each recommended action.
+Then offer to start building. Hand off to `build-segment` for each recommended action, naming the template by its library id (e.g. `core-search-term-waste-elimination`) so the build skill fetches the right one. For a core category that's present-but-disabled, frame the hand-off as "enable the one that's already installed," not "build a new one." Pull any specific template name and one-line description from the library manifest (see `docs/library.md`), not a bundled file.
 
 **Recommendation framing:** Connect each automation recommendation to a specific finding from the review. Don't just list segment names — explain what each one fixes:
 - "Search Term Waste Elimination handles the [N] terms we found — negates the existing waste and catches new ones going forward"
@@ -192,52 +204,3 @@ List all managed profiles sorted by 30-day spend descending:
 | # | Profile | Country | 30d Spend |
 |---|---------|---------|-----------|
 | 1 | Brand A | US | $45,200 |
-| 2 | Brand B | US | $31,800 |
-
-### Step 2 — Portfolio Waste Scan
-
-Run the quick scan search term waste query per profile to estimate waste:
-
-```json
-{
-  "profile_id": "[each managed profile]",
-  "ad_type": "search_terms",
-  "trigger": "[same quick scan from docs/copilot.md]",
-  "action": "create_negatives",
-  "action_params": {}
-}
-```
-
-> Rate limit: 120 req/min. Safe for up to ~100 profiles. For 50+ profiles, batch in groups of 40 with a brief pause.
-
-### Step 3 — Priority Ranking
-
-| # | Profile | 30d Spend | ST Waste (90d) | ST Waste (Lifetime) | Priority |
-|---|---------|-----------|----------------|---------------------|----------|
-| 1 | Brand B | $31,800 | $3,400 | $8,400 | 🔴 High |
-| 2 | Brand A | $45,200 | $1,200 | $3,200 | 🟡 Medium |
-
-Priority:
-- 🔴 High: 90d waste > 10% of 30d spend, OR 90d waste > $2,000
-- 🟡 Medium: 90d waste > 5% of 30d spend, OR 90d waste > $500
-- 🟢 Low: Below medium thresholds
-
-### Step 4 — Deep Dive
-
-Ask which profiles to analyze in depth. Run the full single-account flow on selected profiles. Default suggestion: start with the highest-priority profile.
-
----
-
-## Future: Exportable Report
-
-The full audit should eventually produce a downloadable artifact (PDF or structured report) that users can keep, share with clients, or reference later. This is especially valuable for agencies presenting findings to brand owners. Not built yet — design as a separate skill when ready.
-
----
-
-## Preview Query Notes
-
-- Preview queries are read-only regardless of the action specified
-- `totals` fields give cumulative values across all matching rows — no pagination needed for totals
-- `pagination.total` gives entity count without fetching all rows
-- Always specify time periods when presenting numbers to users — be precise
-- Follow the data presentation standard in docs/copilot.md for all output

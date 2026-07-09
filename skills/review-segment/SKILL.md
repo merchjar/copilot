@@ -9,7 +9,7 @@ description: Review an existing segment against current quality standards and up
 
 1. `reference/V2_SYNTAX_REFERENCE.md` — for parsing and understanding the DSL
 2. `reference/SEGMENT_CREATION_GUIDELINES.md` — for standards comparison
-3. Matching template from `templates/` if the segment maps to a core category (load only the matching one)
+3. The matching library template — if the segment maps to a known category, fetch it by id for comparison (see `docs/library.md`). This is a remote fetch, not a bundled file. If the library is unreachable, fall back to comparing against `SEGMENT_CREATION_GUIDELINES.md` and tell the user the live template couldn't be fetched.
 
 Do NOT load `reference/MJ_API_REFERENCE.md` unless the user wants to preview/deploy after the review.
 
@@ -38,7 +38,7 @@ Identify:
 - Which template category it maps to (if any)
 - Current version number (from header comment, if present)
 
-Load the matching template for comparison if one exists.
+Fetch the matching library template for comparison if the segment maps to a known category (`library.py fetch <id>` in shell, the raw URL from the manifest in web-fetch runtimes — see `docs/library.md`). If the fetch fails, degrade gracefully: compare against `SEGMENT_CREATION_GUIDELINES.md` and tell the user you couldn't pull the current library version.
 
 ### Step 3 — Standards Check
 
@@ -88,12 +88,4 @@ Version: [found] → should be [recommended]
 
 ### Step 5 — Offer Upgrade
 
-Produce an upgraded version of the segment with all required fixes applied and recommended improvements incorporated. Preserve the core intent and any custom logic the user has added.
-
-Show the user what changed (diff-style explanation, not raw diffs). Ask if they want to keep, modify, or deploy the upgraded version.
-
-### Step 6 — Validate and Deploy (if requested)
-
-If the user accepts the upgrade, validate and offer to deploy using the `build-segment` workflow (Steps 4–6).
-
-**When showing preview data** at any point in this skill, follow the data presentation standard in docs/copilot.md: entity name, $reason, $planned_action, plus 1-2 context metrics. Don't dump all columns.
+Produce an upgraded version of the segment with all required fixes applied and recommended improvements incorporated. Preserve the core intent and any custom logic 

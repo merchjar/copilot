@@ -6,7 +6,7 @@ Docs: merchjar.com/templates?t=core-adaptive-budget-management
 Purpose: Prevents budget waste while ensuring adequate spend for data collection and performance scaling.
 Dataset: Campaigns
 Recommended: Change Daily Budget | Set ($) using $new_budget | Daily or Multiple Times Daily
-Tags: budget, defensive, default
+Tags: budget, default
 Last-Updated: 2026-06-15
 Min-Pack-Version: 1.0.0
 */

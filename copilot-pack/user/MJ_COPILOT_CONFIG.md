@@ -46,7 +46,7 @@ Automation Style: conservative
 <!-- Options: conservative | moderate | aggressive -->
 <!-- Sets default thresholds for all segment builds: -->
 <!--   conservative — Larger safety margins, tighter data requirements, smaller bid/budget changes (default) -->
-<!--   moderate — Standard thresholds from templates as-is -->
+<!--   moderate — Standard thresholds from the template's defaults -->
 <!--   aggressive — Looser data requirements, larger changes, faster reaction to signals -->
 <!-- You can always override individual settings during a build. This sets the starting point. -->
 
@@ -104,4 +104,4 @@ Notes:
 - The `user/` folder is yours — it survives version upgrades
 - Never commit `user/` to version control; it contains your API key and account data
 - Never share your API key publicly
-- Say "update my preferences" or "help" anytime
+- Say "update my preferences" or "help" 

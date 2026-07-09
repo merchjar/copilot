@@ -10,9 +10,8 @@ description: Build and deploy a new Merch Jar automation segment. Use when the u
 1. `reference/MJ_API_REFERENCE.md` — for validate, preview, create, and PATCH endpoints
 2. `reference/V2_SYNTAX_REFERENCE.md` — for writing valid DSL
 3. `reference/SEGMENT_CREATION_GUIDELINES.md` — for quality standards and patterns
-4. `templates/README.md` — to identify the right template
-5. Specific template file (once the right template is identified — load only that one)
-6. User preferences from `user/MJ_COPILOT_CONFIG.md` (already loaded)
+4. The template library — see `docs/library.md` for how to discover and fetch templates. The pack ships no bundled template files: the five core automations are already deployed on the account by the app, and everything else is fetched from the GitHub library on demand.
+5. User preferences from `user/MJ_COPILOT_CONFIG.md` (already loaded)
 
 ---
 
@@ -62,11 +61,25 @@ This mode is designed for the common post-review flow and for demos where you wa
 
 If the user described a business goal ("I'm losing money on bad search terms"), translate it to the appropriate template. If the user specified a segment type directly ("build a search term negation segment"), proceed.
 
-Use `templates/README.md` to match goal → template. If no template fits, build from scratch using the guidelines.
+**The five core automations are already deployed on the account (disabled) by the app.** So for a core goal, the default path is not "build from scratch" — it's find the app-deployed core in Step 2 and enable or tune it. Create-from-fetch only fires when a core category is genuinely missing (the user deleted it) or the goal maps to a non-core library template.
 
-Tell the user what template you're going to use and why before loading it. Example: "For search term waste, I'll use the Search Term Waste Elimination template — it handles zero-order terms, inefficient converters, and ACOS-based negation in one segment. Let me load it up."
+**Goal → core template id** (advisory quick map — confirm against the manifest when you fetch):
+
+| Goal | Core template id |
+|---|---|
+| Wasteful / zero-order search terms | `core-search-term-waste-elimination` |
+| Bids off target / unmanaged keywords | `core-dynamic-bid-management` |
+| Budget-capped or over-budgeted campaigns | `core-adaptive-budget-management` |
+| Wasteful product ads | `core-product-ad-waste-elimination` |
+| Lost impressions on proven performers | `core-impression-recovery-boost` |
+
+For non-core goals, discover the right template through the library (see `docs/library.md` — `library.py search` in shell runtimes, the release manifest in web-fetch runtimes). If nothing fits, build from scratch using the guidelines.
+
+Tell the user what template you're going to use and why before you fetch it. Example: "For search term waste, I'll use the Search Term Waste Elimination template — it handles zero-order terms, inefficient converters, and ACOS-based negation in one segment. It's already on your account, so let me pull it up and check whether it's live." Retrieval is a library fetch (`library.py fetch <id>` in shell, the raw URL from the manifest in web-fetch runtimes — see `docs/library.md`), never a local file read.
 
 ### Step 2 — Pre-flight Duplicate Check (mandatory)
+
+**On most accounts this check is the main event, not an edge case.** Because the app pre-deploys the five cores (disabled), a build request for a core goal will usually find the matching core already on the profile — route to the enable/tune path, do not create a duplicate. Creating from a fetched template is the exception, for a genuinely missing category.
 
 Before anything else on the API side, call `GET /api/v5/segments` with the `profileid` header and scan the existing list for the active profile. Look for:
 
@@ -76,8 +89,9 @@ Before anything else on the API side, call `GET /api/v5/segments` with the `prof
 **Log reconciliation (piggyback on this same call):** Compare the GET response against `user/MJ_COPILOT_LOG.md` entries for this profile. If a logged segment ID is missing from the response, mark the log entry as deleted in place (update the existing row with `Status: Deleted (reconciled [date])` rather than appending a new one). Note the cleanup to the user in one line: "Cleaned up [N] log entries for segments that are no longer on this profile."
 
 **Branching:**
-- **No match** → proceed to Step 3.
-- **Match found on name or purpose** → surface it: "There's already a segment named '[existing name]' on this profile (ID: [id], currently [enabled/disabled]) — it [one-line summary of what it does]. Update it instead, or create a separate new segment?" Default recommendation: update.
+- **No match** → the category is genuinely missing (the core was deleted). Fetch the core template by id from the library (Step 1's map + `docs/library.md`) and proceed to Step 3 to build it.
+- **Match found and it's a disabled core** (name/header matches one of the five core ids, no run history) → this is the app-deployed core that was never turned on. Surface the stronger beat: "Good news — the [name] automation is already installed on your account, just turned off. Want me to preview what it'd catch on your live data and enable it?" On yes, go straight to preview (Step 6) against the existing segment, then the enable prompt (Step 8). No create; no PATCH unless the user wants to tune it.
+- **Match found on name or purpose (enabled, or a customized segment)** → surface it: "There's already a segment named '[existing name]' on this profile (ID: [id], currently [enabled/disabled]) — it [one-line summary of what it does]. Update it instead, or create a separate new segment?" Default recommendation: update.
   - If the user says update, modify, adjust, tune → switch to the **Update Path** (Step 7 — Update Path).
   - If the user explicitly says "create a new one anyway" → proceed to Step 3 with a distinguishing name suffix.
 
@@ -131,12 +145,14 @@ In batch build mode, this step collapses to a single compact confirmation per se
 
 ### Step 5 — Validate
 
-**Check `templates/README.md` first.** The manifest has two verification columns: `Syntax validated` and `Preview verified`. The skip rule depends on both:
+**The skip-validate rule keys on where the DSL came from, not a manifest column:**
 
-- **Template is Preview verified (✅ in both columns):** Skip the validate API call and proceed directly to preview. Say: "Using the confirmed core template — previewing against your live data now."
-- **Template is Syntax validated only (✅ syntax, ⚠️ preview):** Still skip validate, but expect that preview may fail. If preview returns 500, see Step 6 — Preview Failure Handling. Do NOT mark the segment as deploy-ready until preview succeeds or the user explicitly overrides.
-- **Template is ⏳ Pending or not in manifest:** Validate first, then preview. Both must succeed.
-- **User customized DSL or wrote custom DSL:** Validate, then preview. Both must succeed.
+- **An unmodified template fetched from the library (any category) → skip the validate API call, go straight to preview.** Anything published to the library is already syntax- and preview-tested before it goes up, so validating it again adds nothing. Say: "Using the published [name] template — previewing against your live data now."
+- **Custom or hand-written DSL, or a library template whose trigger logic you structurally changed → validate first, then preview. Both must succeed.** This is the only unvetted code the Copilot ever deploys.
+
+**What counts as "structurally changed":** added or removed conditions, rewritten `let` blocks, or new `case` paths in the trigger logic. Pre-populating settings in Step 3 (protected terms, ACOS, campaign filters) is a **settings-value substitution within the template, not a structural edit** — it does NOT trigger validate. If it did, the skip would be nullified on nearly every build.
+
+**Preview-500 residual net:** if preview 500s (known open bug — see Step 6) and the user chooses to deploy without preview (option 2), that segment would otherwise ship with neither validate nor preview. On that branch, run validate first as the fallback safety check. (Preview itself 422s on bad syntax, so skipping validate is safe wherever preview actually runs.)
 
 POST to `/api/v5/segments/validate` with the final trigger expression and ad_type.
 
@@ -302,32 +318,4 @@ Output:
 >
 > Want me to enable it now, or review it in the app first?
 
-Wait for an explicit "enable," "turn it on," "yes," "go live" — then `PATCH /api/v5/segments/:id` with `{ "enabled": true, "ad_type": "[same ad_type]" }` and confirm the segment is live. Update the log row from "Created (disabled)" to "Created + Enabled."
-
-If the user says "keep it disabled" / "I'll enable it later in the app" / "review first" → confirm and offer: "No rush. Say 'enable [segment name]' when you're ready and I'll flip it from here. You can also enable it directly in the Merch Jar app."
-
-If the user says "enable it" but the preview was suspicious (see Step 6 sanity checks), push back once: "Just to flag — the preview matched [N] entities, which felt high for this template. Do you want to re-preview with tighter thresholds first, or are you comfortable enabling as-is?" Accept their judgment either way.
-
-Bid management is a single `keywords_and_targets` segment, so enabling is one action — it covers manual keywords and auto-targets together. (There is no longer a separate keywords segment and targets segment to keep in sync.)
-
-### Step 9 — Next Steps
-
-After deploying (whether enabled or still disabled), offer natural follow-up actions:
-- "Want me to build [next recommended segment from account review]?"
-- "You can monitor what this segment does using 'show my audit log' after it runs — the first results will appear after the next scheduled run"
-- "If it's too aggressive, say 'tune this segment' and I can adjust the settings, or 'disable this segment' to stop it"
-- "To deploy this same segment to your other accounts, say 'deploy to [profile name]' and I'll walk through it for each one"
-
-If the user didn't come from an account review and there's no prior review in `user/MJ_COPILOT_LOG.md`, add: "If you want a full picture of what else to automate, say 'review my account' — I'll find your biggest waste areas and rank them by dollar impact."
-
-**Multi-profile deployment:** When the user wants to deploy the same segment type to multiple profiles, walk through each profile individually: pre-flight duplicate check per profile, confirm the profile, check for profile-specific config (protected campaigns, naming conventions), validate and preview per-profile, deploy disabled with confirmation, enable prompt. Don't batch-deploy across profiles without per-profile review — settings that work for one account may not work for another.
-
----
-
-## Segment Naming Convention
-
-Use the template's collection name + a profile-specific identifier if needed. Examples:
-- "Core: Dynamic Bid Management"
-- "Core: Search Term Waste Elimination"
-
-**ASCII only — strictly enforced:** Use only ASCII characters in segment names. No em-dashes (—), smart quotes (smart double and single quotes), ellipses (…), or any other Unicode characters. Use hyphens (-), colons (:), or forward slashes (/) instead. Em-dashes in particular cause API response parsing failures (the create endpoint returns 201 but with an empty body — see API reference Known limitations). Sanitize any user-supplied names before using them in the POST body.
+Wait for an explicit "enable," "turn it on," "yes," "go live" — then `PATCH /api/v5/segments

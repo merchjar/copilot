@@ -37,6 +37,46 @@ The sandbox shell cannot reach `app.merchjar.com`. Always use the Claude in Chro
 
 ---
 
+## Reaching the Template Library
+
+The pack ships no template files. The template library lives in the public `merchjar/copilot` GitHub repo and is fetched on demand. This runtime has **no shell**, so `tools/library.py` is not available — fetch plain URLs via the Chrome extension (`javascript_tool`), exactly as you do for API calls. Both endpoints are public, CDN-served, and need no auth. Do **not** use the GitHub REST API (it rate-limits unauthenticated callers at 60 requests/hour).
+
+**1. Catalog / discovery — fetch the release manifest:**
+
+```javascript
+(async () => {
+  const r = await fetch("https://github.com/merchjar/copilot/releases/latest/download/manifest.json");
+  return JSON.stringify(await r.json());
+})();
+```
+
+This URL redirects to the latest release asset. If the extension's fetch does not follow the redirect (or CORS blocks it), fall back to the raw manifest on the pinned ref: `https://raw.githubusercontent.com/merchjar/copilot/<tag>/manifest.json` (pre-release, use `main`). Read the `templates` array to list or filter; read `pack_version` and each template's `last_updated` for the update check.
+
+**2. Template bytes — fetch one template's DSL:**
+
+Read the chosen template's `path` and the manifest's top-level `tag`, then:
+
+```javascript
+(async () => {
+  const r = await fetch("https://raw.githubusercontent.com/merchjar/copilot/<tag>/<path>");
+  return await r.text();
+})();
+```
+
+Pinning to the manifest's `tag` guarantees the catalog and the files agree.
+
+**3. Update check (manifest diff — no `check-updates` command here):**
+
+1. Fetch the release manifest (step 1).
+2. Read the cached copy at `user/.library-cache.json`. **Absent on a fresh install** — treat that as first run: write the cache, report nothing.
+3. Compare each template's `last_updated` and the top-level `pack_version`. Collect new / updated / removed ids.
+4. Report the differences to the user **inline, at the moment you run the check** — the next step overwrites the cache, so the diff is one-shot.
+5. Overwrite `user/.library-cache.json` with the freshly fetched manifest.
+
+Deploy safety is unchanged: fetching a template never touches the account. Preview, deploy-disabled, and explicit-enable still apply on every build.
+
+---
+
 ## API Key Paste Handling
 
 Cowork has built-in safety behavior around pasted credentials: when the user pastes a raw token (anything matching `mj_live_...` or other credential-like patterns), Cowork flags it as a potentially accidental paste and prompts the user before letting the Copilot act on it. This conflicts with the initialization protocol in `docs/copilot.md`, which assumes a key paste is intentional setup.
@@ -57,37 +97,4 @@ If the user types `init` expecting the Copilot's initialization to run, redirect
 
 If `tabs_context_mcp` fails or `javascript_tool` is unavailable, tell the user:
 
-> "I need the Claude for Chrome extension to make API calls. If it's not installed, the setup guide is at https://www.merchjar.com/help/docs/api-ai-copilot-quickstart"
-
-### Chrome extension content filter blocks
-
-Certain return-value patterns trigger the Chrome extension's content filter — notably `=` signs in strings, base64 (`btoa()`) output, and some Unicode characters (em-dashes especially).
-
-**Symptoms:** the JS ran successfully but `javascript_tool` returned an empty string, a partial result, or a "blocked" message.
-
-**Workarounds in order:**
-
-1. **Pre-process on the page.** Parse the API response inside the `(async () => ...)` block and return a clean primitive (number, short string) or a JSON string with problematic characters stripped/replaced.
-2. **Pipe-delimit multi-field returns** instead of returning raw JSON. Example: `return row.name + "|" + row.id + "|" + row.cost;` and split in the next JS call.
-3. **Stash in `window` and fetch in pieces.** Store the large response in `window._mjResponse` on one call, then return one field at a time in subsequent calls.
-4. **Last resort:** Render results into DOM and read with `get_page_text`.
-
-Narrate the workaround briefly — "The response got filtered by the browser extension, so I'm going to re-run it pipe-delimited" — instead of silently retrying.
-
-### Empty response after a 201 (segment create)
-
-If `POST /api/v5/segments` returns 201 but the response body comes back empty (likely a content filter hit on the response payload), do not retry. Instead, immediately call `GET /api/v5/segments` and check whether the segment was actually created. Report what you find before deciding next steps.
-
----
-
-## Files and Paths
-
-In Cowork, the pack lives in a workspace folder the user has selected. File operations use the Read, Write, and Edit tools at absolute paths under that workspace folder. Do not assume any specific location — use the paths the user's environment exposes.
-
-For shell operations (rare in this runtime), the workspace folder is mounted under `/sessions/.../mnt/<folder-name>/` from inside the bash sandbox. The bash sandbox cannot reach external network endpoints.
-
----
-
-## Universal Errors
-
-For non-runtime-specific errors (401, 429, malformed key, empty response on a non-create endpoint, preview errors), see the Error Handling section in `docs/copilot.md`.
+> "I need the Claude for Chrome extension to make API calls. If it's not installed, the setup guide is at https://

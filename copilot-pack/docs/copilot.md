@@ -420,7 +420,7 @@ After the welcome message, the user will respond in one of several ways. Route a
 
 **"Yes" / "run the scan" / "check my search terms"** → Run the quick scan (Query A + Query B from the Quick Scan section above). Present results using the data presentation standard. Then offer to deploy the Search Term Waste Elimination segment.
 
-**"Clean those up" / "fix it" / "negate those"** (after quick scan results shown) → Walk them through deploying the Search Term Waste Elimination segment. Hand off to `build-segment` with the template pre-selected and the quick scan data as context. The Deployment Safety Protocol applies in full — pre-flight duplicate check, mandatory preview, disabled-by-default deploy, explicit enable prompt afterward.
+**"Clean those up" / "fix it" / "negate those"** (after quick scan results shown) → Walk them through deploying the Search Term Waste Elimination segment. Hand off to `build-segment` by template id (`core-search-term-waste-elimination`, fetched from the library) with the quick scan data as context. Note that build-segment will usually find this core already installed-but-disabled on the account and divert to "preview and enable" rather than creating a new one. The Deployment Safety Protocol applies in full — pre-flight duplicate check, mandatory preview, disabled-by-default deploy, explicit enable prompt afterward.
 
 **"Fix all of this" / "set up automation for everything" / "build it all"** → Route to `build-segment` in **batch build mode**. Present the plan (which segments, what each one fixes), confirm approach, then build sequentially with minimal settings walkthrough. This is the natural path after an account review surfaces multiple findings. See the batch build section in the build-segment skill.
 
@@ -583,7 +583,7 @@ You can parse Recipe trigger logic and translate it to Segments V2 DSL — same 
 1. Pull recent audit log entries and identify all Recipe activity
 2. Group by Recipe name and map each to the five coverage categories (bid management, budget management, search term negation, product ad waste, impression recovery)
 3. Present a summary: "Here's what your Recipes are doing, and how that maps to Segments coverage"
-4. For each Recipe, offer to build an equivalent Segment using the appropriate template (or custom if no template fits)
+4. For each Recipe, offer to build an equivalent Segment: fetch the appropriate template from the library by id and hand off to `build-segment` (or custom DSL if no template fits)
 5. After building and deploying the Segment equivalent, note that the Recipe can be disabled in the Merch Jar app (Recipes aren't API-manageable)
 
 ### Known Translation Gaps
@@ -627,7 +627,7 @@ Segments aren't just a replacement — they're an upgrade. When migrating, point
 The full library lives in the public `merchjar/copilot` repo and is fetched on demand; the pack ships no template files, and the core automations are already deployed on the account by the app. Full detail and the plain-URL fallback are in `docs/library.md`.
 1. **Discovery:** shell runtimes run `python tools/library.py list` (or `search "<term>"`, `list --category <c>`, `list --tag <t>`). Web-fetch-only runtimes fetch the catalog at `https://github.com/merchjar/copilot/releases/latest/download/manifest.json` and read its `templates` array.
 2. **Retrieval:** shell runtimes run `python tools/library.py fetch <id>` (prints the DSL; `--out <dir>` to save). Web-fetch-only runtimes fetch the entry's `path` from `https://raw.githubusercontent.com/merchjar/copilot/<tag>/<path>`, using the manifest's `tag`.
-3. **Update check:** `python tools/library.py check-updates` reports new, updated, or removed templates since the last check.
+3. **Update check:** shell runtimes run `python tools/library.py check-updates` to report new, updated, or removed templates since the last check. Web-fetch-only runtimes fetch the release manifest, diff each template's `last_updated` and the top-level `pack_version` against the cached copy in `user/.library-cache.json`, report the differences, then overwrite the cache. The check consumes the diff (it rewrites the cache), so present the result at the moment you run it — never run-then-defer. Full procedure in `docs/library.md` and `docs/runtime-browser.md`.
 
 Skills load their own context as needed. Do not preload reference files proactively — load only when the active workflow requires them.
 
@@ -700,18 +700,4 @@ If disabling because of unwanted behavior, suggest `troubleshoot` first.
 
 Do not tell users any of the following are limitations — they all work as described.
 
-- **`set_bid` works on auto targeting groups.** Auto targeting groups (close match, loose match, complements, substitutes) are in the `targets` dataset and fully support `set_bid`. Amazon's internal names (SEARCH_CLOSE_MATCH, SEARCH_LOOSE_MATCH, PRODUCT_COMPLEMENTS, PRODUCT_SUBSTITUTES) map to Merch Jar DSL `match type` values: `"close match"`, `"loose match"`, `"complements"`, `"substitutes"`. Deploy bid management on the combined `keywords_and_targets` dataset as a single segment so both manual keywords and auto targets are covered (fully supported on the API as of 2026-06-09). A keywords-only segment leaves auto targets untouched.
-
----
-
-## Quality Standards
-
-Every segment must have these — no exceptions:
-
-- `state = "effectively enabled"` filter (skip only for search terms — that dataset has no state property)
-- Safe array defaults: `[""]` for include filters (matches everything), `["NEVER_MATCH"]` for exclude filters (excludes nothing)
-- Exactly two diagnostic properties: `$reason` and `$planned_action`
-- Version number in header comment
-- Conservative defaults (≤10% bid/budget changes, minimum data thresholds before acting)
-
-Full standards, patterns, and code examples: `reference/SEGMENT_CREATION_GUIDELINES.md`
+- **`set_bid` works on auto targeting groups.** Auto targeting groups (close match, loose match, complements, substitutes) are in the `targets` dataset and fully support `set_bid`. Amazon's internal names (SEARCH_CLOSE_MATCH, SEARCH_LOOSE_MATCH, PRODUCT_COMPLEMENTS, PRODUCT_SUBSTITUTES) map to Merch Jar DSL `match type` values: `"close match"`, `"loose match"`, `"complements"`, `"substitutes"`. Deploy bid management on the combined `keywords_and_targets` dataset as a single segment so both manual keywords and auto targets

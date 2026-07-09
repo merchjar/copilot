@@ -119,7 +119,7 @@ If the pack root isn't writable for `tmp/`, fall back to inline `--body` for sho
 
 ## Files and Paths
 
-In shell runtimes, the pack lives at the path the user opened. All files (skills, reference, templates, config, log) are accessible directly via filesystem reads.
+In shell runtimes, the pack lives at the path the user opened. All bundled files (skills, reference, config, log) are accessible directly via filesystem reads. Templates are not bundled — they're fetched from the GitHub library on demand (`tools/library.py`; see `docs/library.md`).
 
 The bundled client expects `user/MJ_COPILOT_CONFIG.md` to live in the pack root's `user/` folder. The client resolves this relative to its own location, so `python tools/merchjar_client.py ...` works from the pack root regardless of cwd.
 
@@ -127,4 +127,4 @@ The bundled client expects `user/MJ_COPILOT_CONFIG.md` to live in the pack root'
 
 ## Universal Errors
 
-For non-runtime-specific errors (401, 429, malformed key, empty responses, preview errors), see the Error Handling section in `docs/copilot.md`.
+For non-runtime-specifi

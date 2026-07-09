@@ -35,7 +35,6 @@
       "dataset": "Campaigns",
       "tags": [
         "budget",
-        "defensive",
         "default"
       ],
       "description": "Prevents budget waste while ensuring adequate spend for data collection and performance scaling.",
@@ -71,7 +70,6 @@
       "dataset": "Keywords & Targets",
       "tags": [
         "bid",
-        "harvesting",
         "default"
       ],
       "description": "Increases bids for proven performers when impression volume drops significantly.",
@@ -89,7 +87,6 @@
       "dataset": "Product Ads",
       "tags": [
         "waste",
-        "defensive",
         "default"
       ],
       "description": "Pause wasteful product ads that have spent enough without efficient results.",
@@ -108,7 +105,6 @@
       "tags": [
         "waste",
         "negation",
-        "defensive",
         "default"
       ],
       "description": "Intelligently negate wasteful search terms using efficiency targets and performance analysis.",

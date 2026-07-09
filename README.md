@@ -12,10 +12,11 @@ automation that shows its work.
 
 This repo is both the master library and the thin client that reads it.
 
-- `templates/` is the master Segment-template library, organized by category
-  (`core/`, `defensive/`, `harvesting/`, `branded/`, and more). It grows over
-  time and is the canonical home for every template. The Copilot fetches from
-  here on demand, pinned to a released tag.
+- `templates/` is the master Segment-template library, organized into three
+  category folders (`optimize/`, `insight/`, `utility/`) with finer classification
+  as header tags (`default`, `bid`, `waste`, and more). It grows over time and is
+  the canonical home for every template. The Copilot fetches from here on demand,
+  pinned to a released tag.
 - `skills/` holds the canonical skill sources. A subset ships in the pack as the
   operating brain; others are library skills the Copilot can pull.
 - `copilot-pack/` is the download: a thin client (the brain, the operating
@@ -44,5 +45,4 @@ Each release also attaches the full pack as a downloadable zip.
 ## License
 
 Proprietary. Use requires an active Merch Jar account. See `LICENSE`. This is
-not open source, and redistribution or derivative works outside the Merch Jar
-service are not permitted.
+not open source, and redistribu

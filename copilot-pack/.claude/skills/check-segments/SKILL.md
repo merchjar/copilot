@@ -8,8 +8,9 @@ description: List and inventory what automation segments are currently running f
 ## Context to Load Before Starting
 
 1. `reference/MJ_API_REFERENCE.md` — for `GET /segments` endpoint
-2. `templates/README.md` — for automation coverage mapping
-3. `user/MJ_COPILOT_LOG.md` — optional, load if the user wants to compare API state against what the Copilot deployed
+2. `user/MJ_COPILOT_LOG.md` — optional, load if the user wants to compare API state against what the Copilot deployed
+
+Coverage mapping needs no template file — the five categories are inferred from the live segments (see Step 4). Comparing a segment against the current library version is a remote fetch (route to `review-segment`), not a bundled-file read.
 
 ---
 
@@ -49,6 +50,15 @@ Flag potential issues:
 - Segments with outdated patterns (detectable from trigger syntax — single conditions, no LET variables, etc.)
 - Duplicate coverage (two bid management segments that might conflict)
 
+### Step 4.5 — Check for Library Updates (present at the check)
+
+After the coverage analysis, run an updates check against the library — but present the result immediately. The check overwrites the local cache as it runs, so the diff is one-shot; you cannot run it now and report later.
+
+- **Shell runtimes:** `python tools/library.py check-updates`.
+- **Web-fetch-only runtimes:** fetch the release manifest, diff each template's `last_updated` and the top-level `pack_version` against the cached copy in `user/.library-cache.json`, report, then rewrite the cache. See `docs/library.md` → update check for the exact procedure.
+
+Surface the headline inline: "The library has a newer version of [template] you're running" or "[N] new templates since you last looked." If nothing changed, skip it silently.
+
 ### Step 5 — Present Results
 
 Present the inventory and coverage analysis:
@@ -66,15 +76,4 @@ Present the inventory and coverage analysis:
 - ✅ Bid Management: Core: Dynamic Bid Management
 - ✅ Search Term Negation: Core: Search Term Waste Elimination
 - ❌ Budget Management: Not set up
-- ❌ Product Ad Waste: Not set up
-- ❌ Impression Recovery: Not set up
-
-### Issues
-- ⚠️ [Segment Name] hasn't run in 5 days (expected: daily)
-- ⚠️ [Segment Name] uses outdated patterns — missing multi-period logic and diagnostics
-```
-
-Offer natural follow-up:
-- For missing coverage: "Want me to build a [Search Term Waste Elimination] segment?"
-- For outdated segments: "This segment looks like it's missing some of the safeguards in the current template. Want me to review it?"
-- For disabled segments: First cross-reference `user/MJ_COPILOT_LOG.md`. If the log shows `Created (disabled)` and no later enable entry, this is a pending-enable segment — surface as "This segment is saved but never got enabled — want me to preview it and turn it on?" If the log shows it was enabled and later disabled (or has no matching log entry and has run history), treat it as an intentional disable — surface as "This segment is disabled — do you want to re-enable it or find out why it's off?"
+- ❌ Prod
