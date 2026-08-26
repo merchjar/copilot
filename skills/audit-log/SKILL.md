@@ -69,4 +69,4 @@ Your segments made changes on [N] separate runs:
   You may want to check if this segment is still enabled.
 ```
 
-Offer to investigate anomalies with the `troublesho
+Offer to investigate anomalies with the `troubleshoot` skill.

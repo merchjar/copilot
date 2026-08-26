@@ -75,6 +75,8 @@ If the user described a business goal ("I'm losing money on bad search terms"), 
 
 For non-core goals, discover the right template through the library (see `docs/library.md` — `library.py search` in shell runtimes, the release manifest in web-fetch runtimes). If nothing fits, build from scratch using the guidelines.
 
+**Goals that reference business data Amazon doesn't have** — "bid to my margins," "treat launch products differently," "skip out-of-stock products" — need that data on the account as custom fields before a segment can use it. Check the field catalog (`GET /api/v5/custom-fields/catalog/:entityType`); if the fields exist, build with `custom.<key>` in the logic (see Custom Fields in Segment Logic below). If they don't, offer the `enrich-account` skill first: "To bid against margins, I first need your margins on the account. Want me to set that up? Then I'll build the segment on top of it."
+
 Tell the user what template you're going to use and why before you fetch it. Example: "For search term waste, I'll use the Search Term Waste Elimination template — it handles zero-order terms, inefficient converters, and ACOS-based negation in one segment. It's already on your account, so let me pull it up and check whether it's live." Retrieval is a library fetch (`library.py fetch <id>` in shell, the raw URL from the manifest in web-fetch runtimes — see `docs/library.md`), never a local file read.
 
 ### Step 2 — Pre-flight Duplicate Check (mandatory)
@@ -318,4 +320,58 @@ Output:
 >
 > Want me to enable it now, or review it in the app first?
 
-Wait for an explicit "enable," "turn it on," "yes," "go live" — then `PATCH /api/v5/segments
+Wait for an explicit "enable," "turn it on," "yes," "go live" — then `PATCH /api/v5/segments/:id` with `{ "enabled": true, "ad_type": "[same ad_type]" }` and confirm the segment is live. Update the log row from "Created (disabled)" to "Created + Enabled."
+
+If the user says "keep it disabled" / "I'll enable it later in the app" / "review first" → confirm and offer: "No rush. Say 'enable [segment name]' when you're ready and I'll flip it from here. You can also enable it directly in the Merch Jar app."
+
+If the user says "enable it" but the preview was suspicious (see Step 6 sanity checks), push back once: "Just to flag — the preview matched [N] entities, which felt high for this template. Do you want to re-preview with tighter thresholds first, or are you comfortable enabling as-is?" Accept their judgment either way.
+
+Bid management is a single `keywords_and_targets` segment, so enabling is one action — it covers manual keywords and auto-targets together. (There is no longer a separate keywords segment and targets segment to keep in sync.)
+
+### Step 9 — Next Steps
+
+After deploying (whether enabled or still disabled), offer natural follow-up actions:
+- "Want me to build [next recommended segment from account review]?"
+- "You can monitor what this segment does using 'show my audit log' after it runs — the first results will appear after the next scheduled run"
+- "If it's too aggressive, say 'tune this segment' and I can adjust the settings, or 'disable this segment' to stop it"
+- "To deploy this same segment to your other accounts, say 'deploy to [profile name]' and I'll walk through it for each one"
+
+If the user didn't come from an account review and there's no prior review in `user/MJ_COPILOT_LOG.md`, add: "If you want a full picture of what else to automate, say 'review my account' — I'll find your biggest waste areas and rank them by dollar impact."
+
+**Multi-profile deployment:** When the user wants to deploy the same segment type to multiple profiles, walk through each profile individually: pre-flight duplicate check per profile, confirm the profile, check for profile-specific config (protected campaigns, naming conventions), validate and preview per-profile, deploy disabled with confirmation, enable prompt. Don't batch-deploy across profiles without per-profile review — settings that work for one account may not work for another.
+
+---
+
+## Segment Naming Convention
+
+Use the template's collection name + a profile-specific identifier if needed. Examples:
+- "Core: Dynamic Bid Management"
+- "Core: Search Term Waste Elimination"
+
+**ASCII only — strictly enforced:** Use only ASCII characters in segment names. No em-dashes (—), smart quotes (smart double and single quotes), ellipses (…), or any other Unicode characters. Use hyphens (-), colons (:), or forward slashes (/) instead. Em-dashes in particular cause API response parsing failures (the create endpoint returns 201 but with an empty body — see API reference Known limitations). Sanitize any user-supplied names before using them in the POST body.
+
+---
+
+## Custom Fields in Segment Logic
+
+Custom fields let segments act on business data the ad console doesn't have — profit margins, lifecycle phase, inventory flags, labels. They're defined and populated via the `enrich-account` skill and read in DSL as `custom.<key>`.
+
+Rules when building with them:
+
+1. **Confirm the key from the catalog first.** `GET /api/v5/custom-fields/catalog/:entityType` (scope `custom_fields:read`). Keys look like `cf_<slug>` and are generated from the field name — never guess the key from the display name.
+2. **Match the entity type to the dataset.** A field defined on `campaign` is readable in campaign segments; `target` fields belong to keywords/targets segments. A field defined on the wrong entity type won't be visible to the segment.
+3. **Gate on unset values.** Entities that haven't been enriched read as null. Use bare `is_null(custom.<key>)` (never `is_null(...) = true/false` — known engine issue; see `reference/V2_SYNTAX_REFERENCE.md`) or route the branch through `case()` so the segment doesn't act on un-enriched entities with default assumptions.
+4. **Preview reveals coverage.** The preview run is where you see how many matched entities actually carry the field. If a margin-based segment previews against a profile where only 10% of targets have margins set, say so — and offer to widen enrichment before enabling.
+5. **Coordinate deletes.** If the user later deletes a custom field, segments referencing it get disabled (`disabled_dependants`). When a build depends on a field, note that in the segment's header comment so the dependency is visible.
+
+Example (profit-true bid ceiling on enriched targets):
+
+```dsl
+/* Margin-Aware ACOS Guard v1.0
+   Requires custom field: cf_profit_margin (number, entity: target)
+   Acts only on enriched targets; un-enriched targets are skipped. */
+let $enriched = case(is_null(custom.cf_profit_margin) => 0, else 1);
+let $reason = case($enriched = 1 and acos(30d) > custom.cf_profit_margin => "ACOS above this target's profit margin", else "Within margin");
+let $planned_action = case($enriched = 1 and acos(30d) > custom.cf_profit_margin => "Reduce bid", else "No action");
+$enriched = 1 and acos(30d) > custom.cf_profit_margin and clicks(30d) >= 15 and state = "effectively enabled"
+```

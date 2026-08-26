@@ -312,12 +312,30 @@ Note: cannot accept Time Period values
 Note: Limit nesting to 2 levels deep maximum. Deeper nesting causes significant query performance issues at scale. Maximum of 10 match arms per case statement recommended.
 
 is_null(property)
-Returns true if property value is null, false otherwise. Commonly used with timestamp properties.
-Examples: 
-is_null(last bid change)              // True if never changed (implicit = true)
-is_null(last bid change) = true       // Explicit version
-is_null(last bid change) = false      // Has been changed
-is_null(last budget change) = true    // Never changed budget
+Returns true if property value is null, false otherwise. Supported on the timestamp properties (last bid change, last budget change) and custom fields (custom.<key>).
+Examples:
+is_null(last bid change)              // True if never changed
+is_null(last budget change)           // True if budget never changed
+is_null(custom.cf_profit_margin)      // True if this field was never set on the entity
+
+⚠️ KNOWN ISSUE — use the bare form only. Comparing is_null() to a literal (is_null(X) = true, is_null(X) = false) inside an AND chain causes the engine to silently ignore the rest of that AND chain, regardless of position. Until this is fixed:
+- Write null checks as bare is_null(X) — never = true.
+- Avoid is_null(X) = false entirely. To branch on "has a value," route the logic through case() instead: case(is_null(X) => <null path>, else <has-value path>).
+
+Custom Fields (custom.<key>)
+User-defined typed fields attached to entities through the Custom Fields API (see MJ_API_REFERENCE.md → Custom Fields). Once defined and populated for a profile, they are readable in segment logic on the matching dataset as custom.<key>.
+- Key format: custom.cf_<slug>. The exact key is listed in the field catalog (GET /api/v5/custom-fields/catalog/:entityType) — always confirm the key there before writing DSL; it is generated from the field name, not identical to it.
+- Types: number, boolean, string (set at definition time). Number fields participate in math and comparisons like any numeric property.
+- Entities where the field is unset read as null — gate with bare is_null(custom.<key>) (see above) so segments don't act on entities that haven't been enriched yet.
+Examples:
+// Profit-true bidding: per-entity ACOS ceiling from an enriched margin field
+let $margin_ceiling = custom.cf_profit_margin;
+acos(30d) > $margin_ceiling AND clicks(30d) > 20
+
+// Only act on enriched entities: route the null check through case()
+// (avoids the is_null-comparison issue inside AND chains)
+let $margin_ok = case(is_null(custom.cf_profit_margin) => 0, else 1);
+$margin_ok = 1 AND acos(30d) > custom.cf_profit_margin
 
 let function_name(param) = expression;
 Defines a reusable custom function that accepts a time period parameter. Useful for applying the same calculation across multiple time periods without repeating logic.

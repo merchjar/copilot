@@ -74,6 +74,15 @@ Right after the coverage snapshot, run an updates check against the library — 
 
 Surface the headline inline: "The library has a newer version of [template] than the one you're running" or "[N] new templates since you last looked, here they are." If nothing changed, skip it silently and continue to the diagnostics.
 
+### Step 2.4 — Custom Fields Check (quick, non-blocking)
+
+While segments are fetched, also pull the custom-fields catalog for the main entity types (`GET /api/v5/custom-fields/catalog/campaign` and `/target`, scope `custom_fields:read`). Two outcomes:
+
+- **Fields exist:** note them in the coverage picture ("You've also got [N] custom fields set up — margins on [M] targets"). If any existing segment references `custom.<key>`, that's advanced automation worth calling out positively. If fields exist but nothing uses them, flag the gap: "You have margin data on the account but no segment is using it — that's an easy upgrade."
+- **No fields:** don't lecture. But if a finding later in the review would be materially better with business data (e.g., bid management where the user mentions margins vary a lot by product), mention once: "If we put your margins on the account as custom fields, bid automation can work against actual profitability instead of one account-wide ACOS target. Say 'set up my margins' and I'll do it." Route to `enrich-account`.
+
+If the key lacks `custom_fields:read` (403), skip silently — don't derail the review over an optional check.
+
 ### Step 2.5 — Reference Quick Scan Results
 
 If the quick scan already ran earlier this session, reference those results before moving to new diagnostics. Don't silently skip them — the user needs to see the full picture in one place.
@@ -204,3 +213,52 @@ List all managed profiles sorted by 30-day spend descending:
 | # | Profile | Country | 30d Spend |
 |---|---------|---------|-----------|
 | 1 | Brand A | US | $45,200 |
+| 2 | Brand B | US | $31,800 |
+
+### Step 2 — Portfolio Waste Scan
+
+Run the quick scan search term waste query per profile to estimate waste:
+
+```json
+{
+  "profile_id": "[each managed profile]",
+  "ad_type": "search_terms",
+  "trigger": "[same quick scan from docs/copilot.md]",
+  "action": "create_negatives",
+  "action_params": {}
+}
+```
+
+> Rate limit: 120 req/min. Safe for up to ~100 profiles. For 50+ profiles, batch in groups of 40 with a brief pause.
+
+### Step 3 — Priority Ranking
+
+| # | Profile | 30d Spend | ST Waste (90d) | ST Waste (Lifetime) | Priority |
+|---|---------|-----------|----------------|---------------------|----------|
+| 1 | Brand B | $31,800 | $3,400 | $8,400 | 🔴 High |
+| 2 | Brand A | $45,200 | $1,200 | $3,200 | 🟡 Medium |
+
+Priority:
+- 🔴 High: 90d waste > 10% of 30d spend, OR 90d waste > $2,000
+- 🟡 Medium: 90d waste > 5% of 30d spend, OR 90d waste > $500
+- 🟢 Low: Below medium thresholds
+
+### Step 4 — Deep Dive
+
+Ask which profiles to analyze in depth. Run the full single-account flow on selected profiles. Default suggestion: start with the highest-priority profile.
+
+---
+
+## Future: Exportable Report
+
+The full audit should eventually produce a downloadable artifact (PDF or structured report) that users can keep, share with clients, or reference later. This is especially valuable for agencies presenting findings to brand owners. Not built yet — design as a separate skill when ready.
+
+---
+
+## Preview Query Notes
+
+- Preview queries are read-only regardless of the action specified
+- `totals` fields give cumulative values across all matching rows — no pagination needed for totals
+- `pagination.total` gives entity count without fetching all rows
+- Always specify time periods when presenting numbers to users — be precise
+- Follow the data presentation standard in docs/copilot.md for all output

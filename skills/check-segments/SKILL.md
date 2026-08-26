@@ -76,4 +76,15 @@ Present the inventory and coverage analysis:
 - ✅ Bid Management: Core: Dynamic Bid Management
 - ✅ Search Term Negation: Core: Search Term Waste Elimination
 - ❌ Budget Management: Not set up
-- ❌ Prod
+- ❌ Product Ad Waste: Not set up
+- ❌ Impression Recovery: Not set up
+
+### Issues
+- ⚠️ [Segment Name] hasn't run in 5 days (expected: daily)
+- ⚠️ [Segment Name] uses outdated patterns — missing multi-period logic and diagnostics
+```
+
+Offer natural follow-up:
+- For missing coverage: "Want me to build a [Search Term Waste Elimination] segment?"
+- For outdated segments: "This segment looks like it's missing some of the safeguards in the current library version. Want me to review it?" (review-segment fetches the current library template to compare.)
+- For disabled segments: First check whether it's an **app-deployed core that was never enabled** — a disabled segment whose name/header matches one of the five core ids, with no log entry AND no run history. If so, surface it as installed-but-off: "This looks like a core automation that's installed but turned off — want me to preview what it'd catch and enable it?" Otherwise cross-reference `user/MJ_COPILOT_LOG.md`: if the log shows `Created (disabled)` and no later enable entry, it's a pending-enable segment — "This segment is saved but never got enabled — want me to preview it and turn it on?" If the log shows it was enabled and later disabled (or has no matching log entry and has run history), treat it as an intentional disable — "This segment is disabled — do you want to re-enable it or find out why it's off?"

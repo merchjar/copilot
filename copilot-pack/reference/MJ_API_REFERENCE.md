@@ -30,6 +30,8 @@ Each API key is granted one or more scopes that control which endpoints it can a
 | `segments:preview` | POST /api/v5/segments/preview |
 | `segments:validate` | POST /api/v5/segments/validate |
 | `audit_logs:read` | GET /api/v5/audit-logs |
+| `custom_fields:read` | GET custom-fields catalog, values, history; snapshot + CSV export |
+| `custom_fields:write` | Create/update/delete custom field definitions; bulk value writes; rollback; CSV import |
 
 A request to an endpoint whose scope is not present on the key returns `403 Forbidden`.
 
@@ -467,6 +469,68 @@ Delete a segment (soft-delete). The segment is disabled and marked as deleted.
 **Required header:** `profileid: <Amazon Advertising profile ID>`
 
 Returns `{ "success": true }` on success, `404` if not found.
+
+---
+
+### Custom Fields
+
+User-defined typed fields on ad entities, settable via the API and readable in the Segments DSL as `custom.<key>` (including `is_null(custom.<key>)`). Use them to attach business data the ad console doesn't have — profit margins, product lifecycle phase, inventory or seasonality flags, labels — and then reference that data in segment logic. See `reference/V2_SYNTAX_REFERENCE.md` for DSL usage and the `enrich-account` skill for the write workflow.
+
+**Scopes:** `custom_fields:read` / `custom_fields:write` — selectable at key creation, deliberately separate: read never implies write. If a call returns `403`, the user's key was created without the custom-fields scopes; they need a new key from https://app.merchjar.com/api-keys with all scopes enabled.
+
+**All endpoints require the `profileid` header.**
+
+**Entity types:** `campaign`, `ad_group`, `target` (keywords & targets), `ad`.
+**Data types (integer in requests):** `1` = number, `2` = boolean, `3` = string.
+**Quotas:** 50 definitions per profile + entity type, 100,000 values per profile + entity type. Check the catalog counts before creating definitions or bulk-writing values.
+
+#### GET /api/v5/custom-fields/catalog/:entityType — scope `custom_fields:read`
+
+Definitions + quota counts for one entity type. Returns `definitions[]` (each with `definition_id`, `key` like `cf_<slug>`, `name`, `data_type`, `version`), `definition_count`/`limit`, `value_count`/`limit`, and a catalog `version`. Supports ETag/If-None-Match.
+
+#### POST /api/v5/custom-fields/definitions — scope `custom_fields:write`
+
+Body: `{ "entity_type": "campaign", "name": "...", "description": "..."|null, "data_type": 3 }` → `201 { definition }`. The `key` (used in DSL as `custom.<key>`) is generated from the name; re-creating a soft-deleted name gets a suffixed key (`_2`, `_3`, ...).
+
+#### PATCH /api/v5/custom-fields/definitions/:definitionId — scope `custom_fields:write`
+
+Body: `{ "entity_type", "expected_version", "name", "description"? }`. Optimistic concurrency via `expected_version` — fetch the current version from the catalog first.
+
+#### DELETE /api/v5/custom-fields/definitions/:definitionId — scope `custom_fields:write`
+
+Body: `{ "entity_type", "expected_version", "disable_dependants"?: bool }`. Soft-deletes the definition; returns it with `deleted_at` set plus `disabled_dependants[]` — the segments that referenced the field. **Deleting a field can disable live segments.** Always check for dependants and warn the user before deleting.
+
+#### GET /api/v5/custom-fields/values/:entityType?entity_id=... — scope `custom_fields:read`
+
+Values for the given entity ids (`entity_id` repeated, or `entity_ids=a,b`), keyed `values[entity_id][field_key]`.
+
+#### POST /api/v5/custom-fields/values/:entityType/snapshot — scope `custom_fields:read`
+
+Body `{ "entity_ids": [...] }` — bounded body-based read for large selections.
+
+#### GET /api/v5/custom-fields/values/:entityType/definition/:definitionId — scope `custom_fields:read`
+
+All values for one field, paginated (`limit` 1-200, `after_entity_id`, `next_cursor`). Also handy for discovering entity ids.
+
+#### POST /api/v5/custom-fields/values/:entityType/bulk — scope `custom_fields:write`
+
+Body: `{ "mutations": [{ "field_definition_id", "entity_id", "operation": "set"|"clear", "value"?, "expected_version"? }], "source_reference"?: "<audit tag, max 100 chars>" }`. `set` requires `value` (string; booleans as booleans for type 2; **numbers are sent as strings**); `clear` must omit it. Returns updated values + the new `value_count`.
+
+**Copilot convention: always send `source_reference`** on every bulk write (e.g., `mj-copilot: margin enrichment 2026-08-26`). It lands in the per-entity audit history and is how the user traces what the Copilot changed and why. A write without a source_reference is an unattributed write — don't do it.
+
+#### GET /api/v5/custom-fields/values/:entityType/:entityId/history — scope `custom_fields:read`
+
+Full audit trail per entity: `operation`, `value`, actor, `source_type` (1 = UI, 2 = API), `source_reference`, timestamps. Filters: `definition_id`, `before_id`, `limit` 1-200. Use this to read back and verify writes.
+
+#### POST /api/v5/custom-fields/history/:historyId/rollback — scope `custom_fields:write`
+
+Body: `{ "entity_type", "expected_version": string|null }`. Reverts one history entry.
+
+#### CSV bulk (async jobs)
+
+For large value sets: `POST /custom-fields/csv/imports/:entityType` (Content-Type `text/csv`, max 25 MiB, `?dry_run=true|false`, write scope) → `202 { job }` · `POST /csv/exports/:entityType` (read) · `GET /csv/jobs/:jobId` · `POST /csv/jobs/:jobId/cancel` (write) · `GET /csv/jobs/:jobId/errors` and `/download` (read, returns CSV). **Always run an import with `dry_run=true` first** and show the user the result before the real import.
+
+**Gotcha:** there is no `GET /campaigns` endpoint in v5 — it returns a bare `401` (not a scope error) even with a full-scope key. To discover entity ids, use segment preview results or the values-by-definition endpoint above.
 
 ---
 

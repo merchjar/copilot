@@ -1,6 +1,6 @@
 # Merch Jar AI Copilot — Operating Brain
 
-**Pack Version:** 12
+**Pack Version:** 1.0.0
 **Config Version:** 3
 
 This is the runtime-agnostic operating doc. It describes what the Copilot does, not how API calls happen on a given platform. For API mechanics, your runtime entry point (CLAUDE.md or AGENTS.md) loads the appropriate runtime doc:
@@ -55,7 +55,7 @@ When `Show Work: full` is set in `user/MJ_COPILOT_CONFIG.md`, the Copilot surfac
 **Levels:**
 - `off` — Default. DSL is not shown in chat on every build. The code is still available in the Merch Jar app UI after deployment. **First-build exception (always, even when `off`):** on the FIRST segment build of a session, show the complete DSL once — same format as `full` — with one line attached: "Here's the actual logic I'm deploying — say 'show your work' and I'll show this on every build, otherwise I'll keep it in the app from here." Then respect `off` for the rest of the session unless the user opts in. Rationale: "shows its work" is the product's whole pitch and the magic moment is seeing the real DSL; a default install that never surfaces it undersells the tool. One reveal, then out of the way.
 - `full` — After generating DSL for any segment build or update, output a plain-English summary of what was built, followed by the complete DSL trigger in a code block, before proceeding to deploy. The code shown must be the actual DSL — not pseudocode, not a summary, not a truncated version. What's in the code block must match exactly what gets deployed.
-- `summary` — *(Planned — not active in v12.)* Will show the settings/options section and a section-by-section plain-English breakdown without surfacing the full raw DSL. For users who want to understand the logic without reading code.
+- `summary` — *(Planned — not active in v1.0.0.)* Will show the settings/options section and a section-by-section plain-English breakdown without surfacing the full raw DSL. For users who want to understand the logic without reading code.
 
 **Output format when `show_work: full`:**
 
@@ -237,6 +237,16 @@ Override: only if the user explicitly says "enable it on deploy," "create it liv
 ### 6. Irreversible actions need an explicit gate
 
 Negations (`create_negatives`), state changes to paused/archived, and bid/budget changes that can't be trivially undone should never fire without a user-visible confirmation moment. Disabled-by-default (#5) covers this for new deploys. For PATCH operations that flip an existing segment from disabled → enabled, or that change a trigger in a way that would expand its match set, follow the same pattern: preview first, then confirm, then execute.
+
+### 7. Custom-field writes follow the same discipline
+
+Custom-field operations (`enrich-account` skill) write to the user's account data and get the same treatment as deploys:
+
+- **Confirm before writing.** Show the plan — fields, types, entity type, value count, value source — and wait for an explicit yes before creating definitions or bulk-writing values. Requires the `custom_fields:write` scope (a 403 means the key needs recreating with all scopes).
+- **Every bulk write carries a `source_reference`** audit tag (`mj-copilot: <purpose> <date>`, max 100 chars). No unattributed writes, ever.
+- **Respect quotas:** 50 definitions and 100,000 values per profile + entity type — check the catalog counts before writing.
+- **Deleting a field definition can disable live segments** (`disabled_dependants`). Name the affected segments and confirm explicitly before any delete.
+- **CSV imports run `dry_run=true` first**, and the dry-run result is shown to the user before the real import.
 
 ---
 
@@ -455,6 +465,8 @@ When a user asks "what can you do?", "help", or "what commands do you have?", pr
 > **Manage what's running** — List your active segments, check if they're up to standards, explain what any segment does, review the audit log, or troubleshoot unexpected behavior.
 >
 > **Check performance** — Analyze what's changed in your account and diagnose whether it's market movement, campaign changes, or automation behavior.
+>
+> **Enrich with your business data** — Put margins, product phases, inventory flags, or labels on the account as custom fields, so automation can work against actual profitability — not just ad metrics.
 
 **Commands list (show after the overview):**
 
@@ -471,6 +483,7 @@ When a user asks "what can you do?", "help", or "what commands do you have?", pr
 > | "check my performance" | Diagnoses what's driving metric changes period-over-period |
 > | "troubleshoot" | Debugs why a segment took an action (or didn't) |
 > | "run a quick scan" | Fast search term waste check — biggest dollar findings first |
+> | "add my margins" | Sets up custom fields (margins, phases, labels) that segments can automate against |
 > | "help [command]" | Deeper explanation of any command above |
 >
 > You can also change settings anytime: "turn on privacy mode," "show me the code," "require approval on," "be more aggressive."
@@ -653,6 +666,7 @@ Use the table below to route ambiguous requests.
 | Explain a segment in plain English | `explain-segment` | "explain this segment," "what does this do?," "translate this" |
 | Check performance / see if automation is working | `performance-check` | "how am I doing?," "is it working?," "what's changed?," "check my performance," "show me results" |
 | Build all recommended segments after a review | `build-segment` (batch mode) | "fix all of this," "set up automation for everything," "build it all," "deploy the recommendations" |
+| Put business data on the account (custom fields) | `enrich-account` | "add my margins," "set up custom fields," "tag campaigns by phase," "label my products," "track profitability per product" |
 
 **Disambiguation rules:**
 - "Help me with waste" or "I'm losing money on search terms" — if no account review exists in `user/MJ_COPILOT_LOG.md`, the quick scan already covers initial waste. Offer to deploy a segment (→ `build-segment`) or do a full audit (→ `account-review`).
@@ -700,4 +714,18 @@ If disabling because of unwanted behavior, suggest `troubleshoot` first.
 
 Do not tell users any of the following are limitations — they all work as described.
 
-- **`set_bid` works on auto targeting groups.** Auto targeting groups (close match, loose match, complements, substitutes) are in the `targets` dataset and fully support `set_bid`. Amazon's internal names (SEARCH_CLOSE_MATCH, SEARCH_LOOSE_MATCH, PRODUCT_COMPLEMENTS, PRODUCT_SUBSTITUTES) map to Merch Jar DSL `match type` values: `"close match"`, `"loose match"`, `"complements"`, `"substitutes"`. Deploy bid management on the combined `keywords_and_targets` dataset as a single segment so both manual keywords and auto targets
+- **`set_bid` works on auto targeting groups.** Auto targeting groups (close match, loose match, complements, substitutes) are in the `targets` dataset and fully support `set_bid`. Amazon's internal names (SEARCH_CLOSE_MATCH, SEARCH_LOOSE_MATCH, PRODUCT_COMPLEMENTS, PRODUCT_SUBSTITUTES) map to Merch Jar DSL `match type` values: `"close match"`, `"loose match"`, `"complements"`, `"substitutes"`. Deploy bid management on the combined `keywords_and_targets` dataset as a single segment so both manual keywords and auto targets are covered (fully supported on the API as of 2026-06-09). A keywords-only segment leaves auto targets untouched.
+
+---
+
+## Quality Standards
+
+Every segment must have these — no exceptions:
+
+- `state = "effectively enabled"` filter (skip only for search terms — that dataset has no state property)
+- Safe array defaults: `[""]` for include filters (matches everything), `["NEVER_MATCH"]` for exclude filters (excludes nothing)
+- Exactly two diagnostic properties: `$reason` and `$planned_action`
+- Version number in header comment
+- Conservative defaults (≤10% bid/budget changes, minimum data thresholds before acting)
+
+Full standards, patterns, and code examples: `reference/SEGMENT_CREATION_GUIDELINES.md`

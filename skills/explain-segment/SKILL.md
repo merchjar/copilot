@@ -76,4 +76,4 @@ After explaining, offer:
 - No DSL terms in explanations. Say "it waits 2 days before adjusting again" not "the cooldown_period is set to 2d."
 - Use concrete numbers from the segment's actual settings, not abstract descriptions
 - Advertising analogies: "like a thermostat" for bid management, "like a blacklist" for protected terms, "like a waiting period" for cooldowns
-- Always explain the *why* behind a design choice, not just the *what*: "The cooldown exists because Amazon's algorithm needs time to respond to bid changes — touching it every day would be like adjusting your thermo
+- Always explain the *why* behind a design choice, not just the *what*: "The cooldown exists because Amazon's algorithm needs time to respond to bid changes — touching it every day would be like adjusting your thermostat every 5 minutes"

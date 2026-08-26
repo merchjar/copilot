@@ -88,4 +88,12 @@ Version: [found] → should be [recommended]
 
 ### Step 5 — Offer Upgrade
 
-Produce an upgraded version of the segment with all required fixes applied and recommended improvements incorporated. Preserve the core intent and any custom logic 
+Produce an upgraded version of the segment with all required fixes applied and recommended improvements incorporated. Preserve the core intent and any custom logic the user has added.
+
+Show the user what changed (diff-style explanation, not raw diffs). Ask if they want to keep, modify, or deploy the upgraded version.
+
+### Step 6 — Validate and Deploy (if requested)
+
+If the user accepts the upgrade, validate and offer to deploy using the `build-segment` workflow (Steps 4–6).
+
+**When showing preview data** at any point in this skill, follow the data presentation standard in docs/copilot.md: entity name, $reason, $planned_action, plus 1-2 context metrics. Don't dump all columns.
