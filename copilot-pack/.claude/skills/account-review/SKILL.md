@@ -38,9 +38,9 @@ Identify which profile to analyze. If the user hasn't specified:
 
 Fetch existing segments: `GET /api/v5/segments` with `profileid` header.
 
-**Framing:** the five core automations are deployed to every account by the app (disabled until enabled), so on most accounts this snapshot is "what's already live or installed," not "what you'd have to build from scratch." A disabled core with no run history is installed-but-off — present it as a one-click enable, not a gap. A category is only a true gap if no segment covers it at all (the user deleted the core).
+**Framing:** the six core automations are deployed to every account by the app (disabled until enabled), so on most accounts this snapshot is "what's already live or installed," not "what you'd have to build from scratch." A disabled core with no run history is installed-but-off — present it as a one-click enable, not a gap. A category is only a true gap if no segment covers it at all (the user deleted the core).
 
-Map each segment to the five core automation categories:
+Map each segment to the six core automation categories:
 
 | Category | What to look for |
 |---|---|
@@ -49,6 +49,7 @@ Map each segment to the five core automation categories:
 | Search Term Negation | `create_negatives` action on search terms |
 | Product Ad Waste | State changes on product ads based on spend/orders |
 | Impression Recovery | Bid increases triggered by impression drops |
+| Underperformer Pausing | `set_state` pause on keywords/targets with proven unprofitable spend |
 
 **Present as a quick coverage snapshot — not a report section:**
 
@@ -58,6 +59,7 @@ Map each segment to the five core automation categories:
 > - ❌ Budget management — nothing set up
 > - ❌ Product ad waste — nothing set up
 > - ❌ Impression recovery — nothing set up
+> - ❌ Underperformer pausing — nothing set up
 
 **Flag outdated segments:** Single-condition triggers, no multi-period logic, missing $reason/$planned_action diagnostics, no state filtering. Mention these as upgrade opportunities — don't lecture.
 

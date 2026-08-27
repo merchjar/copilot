@@ -2,8 +2,8 @@
   "schema_version": 1,
   "pack_version": "1.0.0",
   "tag": "v1.0.0",
-  "generated": "2026-07-09",
-  "template_count": 6,
+  "generated": "2026-08-26",
+  "template_count": 7,
   "templates": [
     {
       "id": "insight-anomaly-detection-spend",
@@ -76,6 +76,25 @@
       "last_updated": "2026-06-15",
       "min_pack_version": "1.0.0",
       "docs": "merchjar.com/templates?t=core-impression-recovery-boost"
+    },
+    {
+      "id": "core-pause-underperforming-keywords-targets",
+      "slug": "core-pause-underperforming-keywords-targets",
+      "name": "Core: Pause Underperforming Keywords & Targets",
+      "path": "templates/optimize/core-pause-underperforming-keywords-targets.txt",
+      "category": "optimize",
+      "version": "1.0",
+      "dataset": "Keywords & Targets",
+      "tags": [
+        "pause",
+        "waste",
+        "cleanup",
+        "default"
+      ],
+      "description": "Pause keywords and targets that spent enough to prove they are not converting profitably.",
+      "last_updated": "2026-08-26",
+      "min_pack_version": "1.0.0",
+      "docs": "merchjar.com/templates?t=core-pause-underperforming-keywords-targets"
     },
     {
       "id": "core-product-ad-waste-elimination",

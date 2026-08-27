@@ -1,0 +1,128 @@
+/*
+=== Core: Pause Underperforming Keywords & Targets ===
+Version: 1.0
+Docs: merchjar.com/templates?t=core-pause-underperforming-keywords-targets
+
+Purpose: Pause keywords and targets that spent enough to prove they are not converting profitably.
+Dataset: Keywords & Targets
+Recommended: Set State: Paused | Daily
+Tags: pause, waste, cleanup, default
+Last-Updated: 2026-08-26
+Min-Pack-Version: 1.0.0
+*/
+
+// === Core Settings ===
+let $orders_min_for_acos = 5;                  // CORE: Minimum lifetime orders before ACOS is trusted for pausing
+let $spend_min = 5.00;                         // CORE: Minimum lifetime spend before an entity is eligible to pause ($5.00)
+
+// === Strategy Settings ===
+// Match-type click thresholds: lifetime clicks with no efficient result before an entity can be paused.
+
+// Manual keywords
+let $clicks_exact = 20;                        // STRATEGY: Exact match keywords - base clicks before evaluation
+let $clicks_phrase = 30;                       // STRATEGY: Phrase match keywords - base clicks before evaluation
+let $clicks_broad = 50;                        // STRATEGY: Broad match keywords - base clicks before evaluation
+
+// Product targeting
+let $clicks_product = 20;                      // STRATEGY: Product (ASIN) targeting - base clicks before evaluation
+let $clicks_expanded = 40;                     // STRATEGY: Expanded product targeting - base clicks before evaluation
+
+// Auto targeting
+let $clicks_auto = 50;                         // STRATEGY: Auto-targeting groups - base clicks before evaluation
+
+// === Advanced Settings ===
+let $clicks_scaling_per_order = 20;            // ADVANCED: Extra clicks required per lifetime order [e.g. 2 orders = base + (2 x 20)]
+let $t_acos_threshold_pause = 300%;            // STRATEGY: Pause when ACOS >= (Target ACOS x 300%) [e.g. 30% target = 90% threshold]
+
+// === Safeguards ===
+let $safeguard_orders = 10;                    // SAFEGUARD: Never pause entities with this many lifetime orders or more
+
+// === Segment Filters ===
+let $include_campaigns = [""];                 // FILTER: Apply to all campaigns, or specify terms like ["SP-", "Auto"]
+let $exclude_campaigns = ["NEVER_MATCH"];      // FILTER: Exclude campaigns containing these terms, e.g. ["Brand", "Test"]
+
+// ============================================================================
+// === Segment Logic ===
+// ============================================================================
+// Advanced logic below - modify carefully
+
+// Lifetime performance metrics
+let $lifetime_orders = orders(lifetime);
+let $lifetime_clicks = clicks(lifetime);
+let $lifetime_spend = spend(lifetime);
+let $lifetime_acos = acos(lifetime);
+
+// Match-type-aware base click requirement (match-type values are API-level)
+let $base_clicks = case(
+    match type = "exact" => $clicks_exact,
+    match type = "phrase" => $clicks_phrase,
+    match type = "broad" => $clicks_broad,
+    match type = "product exact" => $clicks_product,
+    match type = "similar" => $clicks_expanded,
+    match type = "close match" => $clicks_auto,
+    match type = "loose match" => $clicks_auto,
+    match type = "complements" => $clicks_auto,
+    match type = "substitutes" => $clicks_auto,
+    else $clicks_expanded
+);
+
+// Clicks required scales up as orders accumulate (more evidence before pausing a converter)
+let $clicks_required = $base_clicks + ($lifetime_orders * $clicks_scaling_per_order);
+
+// Data sufficiency: enough clicks AND enough spend to judge
+let $sufficient_data = case(
+    $lifetime_clicks >= $clicks_required and $lifetime_spend >= $spend_min => 1,
+    else 0
+);
+
+// ACOS pause threshold, relative to the account Target ACOS
+let $acos_pause_threshold = target acos * $t_acos_threshold_pause;
+
+// Safeguard: protect proven converters
+let $protected = case(
+    $lifetime_orders >= $safeguard_orders => 1,
+    else 0
+);
+
+// Path 1 - zero-order waste: enough data, still no orders
+let $zero_order_waste = case(
+    $lifetime_orders = 0 and $sufficient_data = 1 => 1,
+    else 0
+);
+
+// Path 2 - poor ACOS: has orders, enough data, ACOS above the pause threshold
+let $poor_acos = case(
+    $lifetime_orders >= $orders_min_for_acos and $sufficient_data = 1 and $lifetime_acos > $acos_pause_threshold => 1,
+    else 0
+);
+
+// Pause candidate (either path), unless protected
+let $pause_candidate = case(
+    $protected = 1 => 0,
+    $zero_order_waste = 1 => 1,
+    $poor_acos = 1 => 1,
+    else 0
+);
+
+// === Diagnostics ===
+let $reason = case(
+    $protected = 1 => "Protected - proven converter",
+    $sufficient_data = 0 and $lifetime_spend < $spend_min => "Insufficient spend to evaluate",
+    $sufficient_data = 0 => "Insufficient clicks for match type",
+    $zero_order_waste = 1 => "Spend with zero orders",
+    $poor_acos = 1 => "ACOS above pause threshold",
+    $lifetime_orders > 0 => "Converting within acceptable range",
+    else "No action needed"
+);
+
+let $result = case(
+    $pause_candidate = 1 and $zero_order_waste = 1 => "Pause - Zero Orders",
+    $pause_candidate = 1 and $poor_acos = 1 => "Pause - Poor ACOS",
+    else "No Action"
+);
+
+// === Final Filter ===
+state = "effectively enabled"
+and (campaign name contains any $include_campaigns)
+and (campaign name does not contain all $exclude_campaigns)
+and $pause_candidate = 1

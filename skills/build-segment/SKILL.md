@@ -10,7 +10,7 @@ description: Build and deploy a new Merch Jar automation segment. Use when the u
 1. `reference/MJ_API_REFERENCE.md` — for validate, preview, create, and PATCH endpoints
 2. `reference/V2_SYNTAX_REFERENCE.md` — for writing valid DSL
 3. `reference/SEGMENT_CREATION_GUIDELINES.md` — for quality standards and patterns
-4. The template library — see `docs/library.md` for how to discover and fetch templates. The pack ships no bundled template files: the five core automations are already deployed on the account by the app, and everything else is fetched from the GitHub library on demand.
+4. The template library — see `docs/library.md` for how to discover and fetch templates. The pack ships no bundled template files: the six core automations are already deployed on the account by the app, and everything else is fetched from the GitHub library on demand.
 5. User preferences from `user/MJ_COPILOT_CONFIG.md` (already loaded)
 
 ---
@@ -61,7 +61,7 @@ This mode is designed for the common post-review flow and for demos where you wa
 
 If the user described a business goal ("I'm losing money on bad search terms"), translate it to the appropriate template. If the user specified a segment type directly ("build a search term negation segment"), proceed.
 
-**The five core automations are already deployed on the account (disabled) by the app.** So for a core goal, the default path is not "build from scratch" — it's find the app-deployed core in Step 2 and enable or tune it. Create-from-fetch only fires when a core category is genuinely missing (the user deleted it) or the goal maps to a non-core library template.
+**The six core automations are already deployed on the account (disabled) by the app.** So for a core goal, the default path is not "build from scratch" — it's find the app-deployed core in Step 2 and enable or tune it. Create-from-fetch only fires when a core category is genuinely missing (the user deleted it) or the goal maps to a non-core library template.
 
 **Goal → core template id** (advisory quick map — confirm against the manifest when you fetch):
 
@@ -72,6 +72,7 @@ If the user described a business goal ("I'm losing money on bad search terms"), 
 | Budget-capped or over-budgeted campaigns | `core-adaptive-budget-management` |
 | Wasteful product ads | `core-product-ad-waste-elimination` |
 | Lost impressions on proven performers | `core-impression-recovery-boost` |
+| Keywords/targets that spent enough with no profitable orders — pause them | `core-pause-underperforming-keywords-targets` |
 
 For non-core goals, discover the right template through the library (see `docs/library.md` — `library.py search` in shell runtimes, the release manifest in web-fetch runtimes). If nothing fits, build from scratch using the guidelines.
 
@@ -81,7 +82,7 @@ Tell the user what template you're going to use and why before you fetch it. Exa
 
 ### Step 2 — Pre-flight Duplicate Check (mandatory)
 
-**On most accounts this check is the main event, not an edge case.** Because the app pre-deploys the five cores (disabled), a build request for a core goal will usually find the matching core already on the profile — route to the enable/tune path, do not create a duplicate. Creating from a fetched template is the exception, for a genuinely missing category.
+**On most accounts this check is the main event, not an edge case.** Because the app pre-deploys the six cores (disabled), a build request for a core goal will usually find the matching core already on the profile — route to the enable/tune path, do not create a duplicate. Creating from a fetched template is the exception, for a genuinely missing category.
 
 Before anything else on the API side, call `GET /api/v5/segments` with the `profileid` header and scan the existing list for the active profile. Look for:
 
@@ -92,7 +93,7 @@ Before anything else on the API side, call `GET /api/v5/segments` with the `prof
 
 **Branching:**
 - **No match** → the category is genuinely missing (the core was deleted). Fetch the core template by id from the library (Step 1's map + `docs/library.md`) and proceed to Step 3 to build it.
-- **Match found and it's a disabled core** (name/header matches one of the five core ids, no run history) → this is the app-deployed core that was never turned on. Surface the stronger beat: "Good news — the [name] automation is already installed on your account, just turned off. Want me to preview what it'd catch on your live data and enable it?" On yes, go straight to preview (Step 6) against the existing segment, then the enable prompt (Step 8). No create; no PATCH unless the user wants to tune it.
+- **Match found and it's a disabled core** (name/header matches one of the six core ids, no run history) → this is the app-deployed core that was never turned on. Surface the stronger beat: "Good news — the [name] automation is already installed on your account, just turned off. Want me to preview what it'd catch on your live data and enable it?" On yes, go straight to preview (Step 6) against the existing segment, then the enable prompt (Step 8). No create; no PATCH unless the user wants to tune it.
 - **Match found on name or purpose (enabled, or a customized segment)** → surface it: "There's already a segment named '[existing name]' on this profile (ID: [id], currently [enabled/disabled]) — it [one-line summary of what it does]. Update it instead, or create a separate new segment?" Default recommendation: update.
   - If the user says update, modify, adjust, tune → switch to the **Update Path** (Step 7 — Update Path).
   - If the user explicitly says "create a new one anyway" → proceed to Step 3 with a distinguishing name suffix.
