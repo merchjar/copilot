@@ -13,7 +13,7 @@ This skill covers the write side: defining fields, populating values, and verify
 
 ## Context to Load Before Starting
 
-1. `reference/MJ_API_REFERENCE.md` → Custom Fields section — endpoints, types, quotas
+1. https://merchjar.com/api/ and its downloadable OpenAPI specification — Custom Fields endpoints, types, and quotas
 2. User preferences from `user/MJ_COPILOT_CONFIG.md` (already loaded)
 
 **Scope check:** everything here needs `custom_fields:read`, and every write needs `custom_fields:write`. A `403` means the user's key predates these scopes — direct them to create a new key at https://app.merchjar.com/api-keys with all scopes enabled.

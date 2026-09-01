@@ -16,7 +16,7 @@ The quick scan (in docs/copilot.md) already covers search term waste. This skill
 
 ## Context to Load Before Starting
 
-1. `reference/MJ_API_REFERENCE.md` — needed for preview queries and segment fetching
+1. https://merchjar.com/api/ and its downloadable OpenAPI specification — needed for preview queries and segment fetching
 2. `user/MJ_COPILOT_LOG.md` — load if the user has done a previous review (compare findings)
 
 Coverage mapping needs no template file — the five categories are inferred from the live segments (see Step 2). Named-template recommendations pull specifics from the GitHub library (see `docs/library.md`), not a bundled file.

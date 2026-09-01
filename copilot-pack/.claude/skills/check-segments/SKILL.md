@@ -7,7 +7,7 @@ description: List and inventory what automation segments are currently running f
 
 ## Context to Load Before Starting
 
-1. `reference/MJ_API_REFERENCE.md` — for `GET /segments` endpoint
+1. https://merchjar.com/api/ and its downloadable OpenAPI specification — for `GET /segments` endpoint
 2. `user/MJ_COPILOT_LOG.md` — optional, load if the user wants to compare API state against what the Copilot deployed
 
 Coverage mapping needs no template file — the five categories are inferred from the live segments (see Step 4). Comparing a segment against the current library version is a remote fetch (route to `review-segment`), not a bundled-file read.

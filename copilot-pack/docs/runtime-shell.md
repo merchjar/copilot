@@ -8,6 +8,8 @@ This runtime applies when the Copilot is running in an environment with a local 
 
 If `mcp__Claude_in_Chrome__*` tools are NOT exposed and you have a shell tool that can reach external URLs, you are in this runtime.
 
+The calls below are practical client recipes. The canonical public API page at https://merchjar.com/api/ and its downloadable OpenAPI specification remain authoritative for current schemas, scopes, limits, and behavior.
+
 ---
 
 ## Network Access Prerequisite (Codex)
@@ -51,10 +53,10 @@ python tools/merchjar_client.py request DELETE /api/v5/segments/123456 --profile
 
 - Prefer the bundled client over ad-hoc HTTP (`curl`, raw `requests`, etc.). The client handles auth, JSON parsing, and error reporting consistently.
 - Use `--body-file` for any payload longer than ~100 characters — easier to inspect, version, and reuse.
-- **PowerShell (Windows): NEVER use inline `--body` for a DSL/segment payload — always write a file and use `--body-file`.** PowerShell splits a quoted JSON string into multiple arguments at spaces and special characters, so an inline `--body '{...}'` arrives at the client mangled and validate/preview fails before it ever hits the API (observed in live testing). DSL triggers are full of spaces and quotes, so this hits every real payload. Write the JSON to `tmp/payload.json` (see the PowerShell example below) and pass `--body-file tmp/payload.json`. Inline `--body` is only ever safe for trivial, space-free payloads.
+- **PowerShell (Windows): NEVER use inline `--body` for a DSL/segment payload — always write a file and use `--body-file`.** PowerShell splits a quoted JSON string into multiple arguments at spaces and special characters, so an inline `--body '{...}'` arrives at the client mangled and validate/preview fails before it ever hits the API (observed in live testing). DSL triggers are full of spaces and quotes, so this hits every real payload. Write it to `tmp/payload.json` (see the PowerShell example below) and pass `--body-file tmp/payload.json`. Inline `--body` is only ever safe for trivial, space-free payloads.
 - Use `--profileid` for profile-scoped GET endpoints when required by the API.
 - `per_page` for preview queries belongs in the JSON body, **not** the URL query string. Max 100, default 25.
-- `set_state` action_params: use `{"value": 1}` for enabled, `{"value": 2}` for paused — not `{"state": "enabled"}`.
+- `set_state` action_params: use `{ "value": 1 }` for enabled, `{ "value": 2 }` for paused — not `{ "state": "enabled" }`.
 - Report raw API errors exactly before recovering.
 
 ### Working with payload files
@@ -127,4 +129,4 @@ The bundled client expects `user/MJ_COPILOT_CONFIG.md` to live in the pack root'
 
 ## Universal Errors
 
-For non-runtime-specific errors (401, 429, malformed key, empty responses, preview errors), see the Error Handling section in `docs/copilot.md`.
+For non-runtime-specific errors (401, 429, malformed key, empty responses, preview errors), see the Error Handling section in `docs/copilot.md`. For current API schemas, scopes, limits, and contract details, consult https://merchjar.com/api/ and its downloadable OpenAPI specification.

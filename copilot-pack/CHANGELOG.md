@@ -6,7 +6,7 @@
 
 Documentation sync with the new canonical API reference at https://merchjar.com/api/ (no behavior changes to the skills).
 
-- The public API reference now lives on the website (rendered from the OpenAPI contract). The in-pack `reference/MJ_API_REFERENCE.md` points there and is trimmed to the Copilot's working summary plus operational gotchas.
+- The public API reference now lives on the website (rendered from the OpenAPI contract). The in-pack reference was retired; use the canonical page and its downloadable OpenAPI specification instead.
 - Rate limits corrected: 1,200 requests per minute per key (was documented as 120), plus the separate preview burst limit.
 - New API surfaces documented: segment schedules, audit-log change items, per-entity bid history, and Sponsored Products entity creation (targets, negative targets, product ads). Campaign and ad-group creation are documented as known-broken until the schema fix lands.
 - Fixed a dead template-registry link in the README.

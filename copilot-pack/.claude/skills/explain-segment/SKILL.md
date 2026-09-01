@@ -8,7 +8,7 @@ description: Explain what a segment does in plain English. Use when the user ask
 ## Context to Load Before Starting
 
 1. `reference/V2_SYNTAX_REFERENCE.md` — for parsing DSL
-2. `reference/MJ_API_REFERENCE.md` — only if the user provides a segment ID instead of pasting DSL (needed to fetch the segment)
+2. https://merchjar.com/api/ and its downloadable OpenAPI specification — only if the user provides a segment ID instead of pasting DSL (needed to fetch the segment)
 
 Do NOT load creation guidelines or fetch from the template library — this skill explains, it doesn't create or deploy.
 
@@ -24,7 +24,7 @@ Parse a segment and explain it in plain English — what it does, when it acts, 
 
 ### Step 1 — Receive the Segment
 
-User pastes DSL or provides a segment ID. If ID, fetch via API (load `reference/MJ_API_REFERENCE.md` first).
+User pastes DSL or provides a segment ID. If ID, fetch via API after consulting https://merchjar.com/api/ and its downloadable OpenAPI specification.
 
 ### Step 2 — Parse Structure
 

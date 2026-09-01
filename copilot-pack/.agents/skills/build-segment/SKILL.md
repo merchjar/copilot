@@ -7,7 +7,7 @@ description: Build and deploy a new Merch Jar automation segment. Use when the u
 
 ## Context to Load Before Starting
 
-1. `reference/MJ_API_REFERENCE.md` — for validate, preview, create, and PATCH endpoints
+1. https://merchjar.com/api/ and its downloadable OpenAPI specification — for validate, preview, create, and PATCH endpoints
 2. `reference/V2_SYNTAX_REFERENCE.md` — for writing valid DSL
 3. `reference/SEGMENT_CREATION_GUIDELINES.md` — for quality standards and patterns
 4. The template library — see `docs/library.md` for how to discover and fetch templates. The pack ships no bundled template files: the six core automations are already deployed on the account by the app, and everything else is fetched from the GitHub library on demand.

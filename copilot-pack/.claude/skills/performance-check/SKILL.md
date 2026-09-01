@@ -13,7 +13,7 @@ The user wants to understand their account performance — whether it's improvin
 
 ## Context to Load
 
-1. `reference/MJ_API_REFERENCE.md` — for preview and audit-log queries
+1. https://merchjar.com/api/ and its downloadable OpenAPI specification — for preview and audit-log queries
 2. `user/MJ_COPILOT_LOG.md` — previous review findings and deployed segment dates (baseline for comparison)
 3. User preferences from `user/MJ_COPILOT_CONFIG.md` (already loaded)
 

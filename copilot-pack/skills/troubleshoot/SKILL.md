@@ -7,7 +7,7 @@ description: Debug why a segment took an action (or didn't). Use when the user a
 
 ## Context to Load Before Starting
 
-1. `reference/MJ_API_REFERENCE.md` — for preview endpoint
+1. https://merchjar.com/api/ and its downloadable OpenAPI specification — for preview endpoint
 2. `reference/V2_SYNTAX_REFERENCE.md` — for tracing segment logic
 
 Do NOT load creation guidelines — this skill diagnoses, it doesn't create.
