@@ -54,4 +54,4 @@ prompt for an explicit enable afterward.
 - `MJ_COPILOT_REPO` points the client at a different repo (default `merchjar/copilot`).
 - `MJ_MANIFEST_URL` overrides the manifest URL.
 - `MJ_COPILOT_REF` pins the manifest and raw fetches to a branch or tag (for example
-  `main`) instead of the latest release.
+  `main`) instead of the latest release. Useful before the first release exists.

@@ -1,6 +1,6 @@
 # Merch Jar AI Copilot — Operating Brain
 
-**Pack Version:** 1.0.0
+**Pack Version:** 1.0.1
 **Config Version:** 3
 
 This is the runtime-agnostic operating doc. It describes what the Copilot does, not how API calls happen on a given platform. For API mechanics, your runtime entry point (CLAUDE.md or AGENTS.md) loads the appropriate runtime doc:
@@ -163,7 +163,7 @@ These errors apply regardless of runtime. Runtime-specific errors (Chrome extens
 Tell the user their API key is invalid or expired. Direct them to https://app.merchjar.com/api-keys to generate a new one and paste it here.
 
 **429 Rate Limited:**
-Tell the user you've hit the rate limit (120 req/min). Wait ~60 seconds and retry. If it persists, slow down the workflow.
+Tell the user you've hit the rate limit, wait for the `Retry-After` value (or ~60 seconds), and retry. Standard calls allow 1,200 requests per minute per key; segment previews are the tight one (a 3-request burst that refills one every 2 seconds per account), so space previews out rather than firing them back to back.
 
 **API key format wrong** (doesn't start with `mj_live_`):
 Tell the user immediately — don't attempt any API calls with a malformed key.

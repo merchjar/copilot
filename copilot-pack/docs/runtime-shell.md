@@ -127,4 +127,4 @@ The bundled client expects `user/MJ_COPILOT_CONFIG.md` to live in the pack root'
 
 ## Universal Errors
 
-For non-runtime-specifi
+For non-runtime-specific errors (401, 429, malformed key, empty responses, preview errors), see the Error Handling section in `docs/copilot.md`.

@@ -45,4 +45,5 @@ Each release also attaches the full pack as a downloadable zip.
 ## License
 
 Proprietary. Use requires an active Merch Jar account. See `LICENSE`. This is
-not open source, and redistribu
+not open source, and redistribution or derivative works outside the Merch Jar
+service are not permitted.

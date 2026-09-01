@@ -97,4 +97,37 @@ If the user types `init` expecting the Copilot's initialization to run, redirect
 
 If `tabs_context_mcp` fails or `javascript_tool` is unavailable, tell the user:
 
-> "I need the Claude for Chrome extension to make API calls. If it's not installed, the setup guide is at https://
+> "I need the Claude for Chrome extension to make API calls. If it's not installed, the setup guide is at https://www.merchjar.com/help/docs/api-ai-copilot-quickstart"
+
+### Chrome extension content filter blocks
+
+Certain return-value patterns trigger the Chrome extension's content filter — notably `=` signs in strings, base64 (`btoa()`) output, and some Unicode characters (em-dashes especially).
+
+**Symptoms:** the JS ran successfully but `javascript_tool` returned an empty string, a partial result, or a "blocked" message.
+
+**Workarounds in order:**
+
+1. **Pre-process on the page.** Parse the API response inside the `(async () => ...)` block and return a clean primitive (number, short string) or a JSON string with problematic characters stripped/replaced.
+2. **Pipe-delimit multi-field returns** instead of returning raw JSON. Example: `return row.name + "|" + row.id + "|" + row.cost;` and split in the next JS call.
+3. **Stash in `window` and fetch in pieces.** Store the large response in `window._mjResponse` on one call, then return one field at a time in subsequent calls.
+4. **Last resort:** Render results into DOM and read with `get_page_text`.
+
+Narrate the workaround briefly — "The response got filtered by the browser extension, so I'm going to re-run it pipe-delimited" — instead of silently retrying.
+
+### Empty response after a 201 (segment create)
+
+If `POST /api/v5/segments` returns 201 but the response body comes back empty (likely a content filter hit on the response payload), do not retry. Instead, immediately call `GET /api/v5/segments` and check whether the segment was actually created. Report what you find before deciding next steps.
+
+---
+
+## Files and Paths
+
+In Cowork, the pack lives in a workspace folder the user has selected. File operations use the Read, Write, and Edit tools at absolute paths under that workspace folder. Do not assume any specific location — use the paths the user's environment exposes.
+
+For shell operations (rare in this runtime), the workspace folder is mounted under `/sessions/.../mnt/<folder-name>/` from inside the bash sandbox. The bash sandbox cannot reach external network endpoints.
+
+---
+
+## Universal Errors
+
+For non-runtime-specific errors (401, 429, malformed key, empty response on a non-create endpoint, preview errors), see the Error Handling section in `docs/copilot.md`.

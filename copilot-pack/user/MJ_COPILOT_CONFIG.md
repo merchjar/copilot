@@ -104,4 +104,4 @@ Notes:
 - The `user/` folder is yours — it survives version upgrades
 - Never commit `user/` to version control; it contains your API key and account data
 - Never share your API key publicly
-- Say "update my preferences" or "help" 
+- Say "update my preferences" or "help" anytime

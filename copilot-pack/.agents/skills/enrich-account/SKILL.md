@@ -67,7 +67,7 @@ Wait for explicit confirmation.
 
 ### Step 5 — Write Values
 
-- **Up to a few hundred values:** `POST /api/v5/custom-fields/values/:entityType/bulk` with a `mutations` array (`set` operations; numbers as strings) and the `source_reference`. Batch sensibly; respect the 120 req/min rate limit.
+- **Up to a few hundred values:** `POST /api/v5/custom-fields/values/:entityType/bulk` with a `mutations` array (`set` operations; numbers as strings) and the `source_reference`. Batch sensibly; the standard limit is 1,200 requests per minute per key, so a few hundred values in batches of 100 is fine.
 - **Large sets:** CSV import (`POST /custom-fields/csv/imports/:entityType`). **Run `dry_run=true` first**, show the user the dry-run result (rows accepted / errored), then run the real import and poll the job.
 - **Entity id discovery:** there is no `GET /campaigns` endpoint. Get entity ids from segment preview results, or from the values-by-definition endpoint for already-enriched fields.
 

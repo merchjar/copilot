@@ -231,7 +231,7 @@ Run the quick scan search term waste query per profile to estimate waste:
 }
 ```
 
-> Rate limit: 120 req/min. Safe for up to ~100 profiles. For 50+ profiles, batch in groups of 40 with a brief pause.
+> Rate limit: previews are admitted in bursts of 3, refilling one every 2 seconds per account. Space preview calls ~2 seconds apart; for 50+ profiles expect roughly 2 minutes of previews and say so up front.
 
 ### Step 3 — Priority Ranking
 

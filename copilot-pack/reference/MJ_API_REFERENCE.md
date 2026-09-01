@@ -2,6 +2,8 @@
 
 **Base URL:** `https://app.merchjar.com/api/v5`
 
+> **Canonical contract:** https://merchjar.com/api/ (machine-readable OpenAPI 3.1: https://merchjar.com/api/openapi.json). That page is the source of truth for endpoints, scopes, schemas, and rate limits. This file is the Copilot's working summary plus the operational gotchas that the contract doesn't cover. If the two disagree, the website wins; fetch the OpenAPI document when you need an exact request or response schema (for example, the entity-creation payloads) rather than guessing.
+
 ---
 
 ## Authentication
@@ -25,11 +27,17 @@ Each API key is granted one or more scopes that control which endpoints it can a
 | Scope | Grants access to |
 |---|---|
 | `profiles:read` | GET /api/v5/profiles |
-| `segments:read` | GET /api/v5/segments, GET /api/v5/segments/:id |
-| `segments:write` | POST /api/v5/segments, PATCH /api/v5/segments/:id, DELETE /api/v5/segments/:id |
+| `segments:read` | GET /api/v5/segments, GET /api/v5/segments/:id, GET schedule + schedule timezones |
+| `segments:write` | POST /api/v5/segments, PATCH /api/v5/segments/:id, DELETE /api/v5/segments/:id, PUT/DELETE schedule, POST schedule/preview |
 | `segments:preview` | POST /api/v5/segments/preview |
 | `segments:validate` | POST /api/v5/segments/validate |
-| `audit_logs:read` | GET /api/v5/audit-logs |
+| `audit_logs:read` | GET /api/v5/audit-logs, GET /api/v5/audit-logs/:id/items |
+| `history:read` | GET /api/v5/history/:entity_type/:entity_id |
+| `campaigns:write` | POST /api/v5/campaigns |
+| `ad_groups:write` | POST /api/v5/ad-groups |
+| `ads:write` | POST /api/v5/product-ads |
+| `targets:write` | POST /api/v5/targets |
+| `negative-targets:write` | POST /api/v5/negative-targets |
 | `custom_fields:read` | GET custom-fields catalog, values, history; snapshot + CSV export |
 | `custom_fields:write` | Create/update/delete custom field definitions; bulk value writes; rollback; CSV import |
 
@@ -39,9 +47,17 @@ A request to an endpoint whose scope is not present on the key returns `403 Forb
 
 ## Rate Limiting
 
-Requests are rate-limited per API key using a sliding window of 120 requests per minute.
+Limits are enforced before the operation runs. Use the response headers to decide when to retry.
 
-Every response includes these headers:
+| Request type | Limit |
+|---|---|
+| Standard operations | 1,200 requests per minute per API key by default (a key may carry a configured override) |
+| `POST /segments/preview` | In addition to the standard limit: a 3-request burst per account (shared across its keys) that refills one request every 2 seconds |
+| Entity creation (`/campaigns`, `/ad-groups`, `/product-ads`, `/targets`, `/negative-targets`) | No rate-limit middleware currently: no rate-limit headers, no 429s. Batch inside one request (1 to 1,000 items) instead of looping single creates |
+
+Practical rule for the Copilot: previews are the tight one. Space preview calls at least 2 seconds apart when running more than three in a row.
+
+Every rate-limited response includes these headers:
 
 | Header | Description |
 |---|---|
@@ -531,6 +547,61 @@ Body: `{ "entity_type", "expected_version": string|null }`. Reverts one history 
 For large value sets: `POST /custom-fields/csv/imports/:entityType` (Content-Type `text/csv`, max 25 MiB, `?dry_run=true|false`, write scope) → `202 { job }` · `POST /csv/exports/:entityType` (read) · `GET /csv/jobs/:jobId` · `POST /csv/jobs/:jobId/cancel` (write) · `GET /csv/jobs/:jobId/errors` and `/download` (read, returns CSV). **Always run an import with `dry_run=true` first** and show the user the result before the real import.
 
 **Gotcha:** there is no `GET /campaigns` endpoint in v5 — it returns a bare `401` (not a scope error) even with a full-scope key. To discover entity ids, use segment preview results or the values-by-definition endpoint above.
+
+---
+
+### Segment schedules
+
+Clock-based scheduling for a segment (the "Scheduled" workflow in the app). The segment must use `frequency: manual` (by design: a scheduled segment runs on its clock, not after every sync) and cannot be a negative type. All calls take the `profileid` header.
+
+| Endpoint | Scope | Notes |
+|---|---|---|
+| `GET /segments/:id/schedule/timezones` | `segments:read` | Full IANA timezone list for the picker |
+| `GET /segments/:id/schedule` | `segments:read` | Current schedule, or empty if none |
+| `PUT /segments/:id/schedule` | `segments:write` | Body: `{ "kind": "cron", "timezone": "America/New_York", "cron_expression": "0 9 * * *" }` or `{ "kind": "once", "timezone": "...", "run_once_at": "<ISO-8601>" }` |
+| `POST /segments/:id/schedule/preview` | `segments:write` | Validates a proposed schedule and returns its next occurrences without saving |
+| `DELETE /segments/:id/schedule` | `segments:write` | Removes the schedule |
+
+`PATCH /segments/:id` with `paused: true` pauses future scheduled runs without disabling the segment; `enabled: false` also skips them.
+
+---
+
+### GET /api/v5/audit-logs/:id/items
+
+**Required scope:** `audit_logs:read` · **Required header:** `profileid`
+
+The per-entity change rows for one audit-log entry (one segment run). Filter with `target_type` (`campaigns`, `ad_groups`, `product_ads`, `keywords`, `targets`, `search_terms`, `placements`, negative types, ...). Paginated. Use this when the user asks "what exactly did that run change" rather than the aggregate counts on `/audit-logs`.
+
+---
+
+### GET /api/v5/history/:entity_type/:entity_id
+
+**Required scope:** `history:read` · **Required header:** `profileid`
+
+Per-entity bid/budget change history, newest first, paginated. `entity_type` is one of `campaigns` (budget changes), `ad_groups` (default bid), `keywords`, `targets` (bid). Each row carries the change type (for example `BID_AMOUNT`), previous and new value, and timestamp. This is separate from the segment audit log: it answers "how has this keyword's bid moved over time" for one entity id.
+
+---
+
+### Entity creation (Sponsored Products)
+
+Create-only endpoints that proxy Amazon Ads v1 batch creates. There is no public update, archive, or delete: cleanup happens in the Merch Jar or Amazon UI. Always create in `state: PAUSED` and tell the user what was created and where.
+
+| Endpoint | Scope | Body key | Status |
+|---|---|---|---|
+| `POST /campaigns` | `campaigns:write` | `campaigns[]` | **Known broken (Sep 2026):** the strict schema omits Amazon-required `budgets`, `marketplaceScope`, `startDateTime`, so every valid request fails at Amazon with a 400. Do not offer campaign creation until this is fixed; create the campaign in the app instead. |
+| `POST /ad-groups` | `ad_groups:write` | `adGroups[]` | **Known broken (Sep 2026):** schema omits Amazon-required `bid`. Same failure mode. |
+| `POST /targets` | `targets:write` | `targets[]` | Working. Keyword targets (exact / broad / phrase), theme targets (show as "keyword group" in the Amazon console), product targets (need an eligible, not-already-targeted ASIN), and **campaign-level negative keywords** (this endpoint, not `/negative-targets`). |
+| `POST /negative-targets` | `negative-targets:write` | `negativeTargets[]` | Working. Ad-group-level negative **product** targets only (ASIN, `PRODUCT_EXACT`). Amazon archives negatives rather than pausing them; the app may display them as paused. |
+| `POST /product-ads` | `ads:write` | `productAds[]` | Working. Needs an eligible, non-duplicate ASIN (or SKU with `productIdType: SKU`). |
+
+Rules that apply to all five:
+
+- **Schemas are strict.** Undeclared fields (including `profile_id` in the body) are rejected with `400 invalid_request` before Amazon is called. Get the exact item schema from https://merchjar.com/api/openapi.json; do not improvise fields.
+- **Batch of 1 to 1,000 items per request.** Amazon's per-index results come back as-is.
+- **HTTP 200 does not mean success.** The 200 body is Amazon's raw batch envelope with `success[]`, `partialSuccess[]`, and `error[]` arrays. Read `error[]` per item and report failures (for example `DUPLICATE`, `PRODUCT_INELIGIBLE`) to the user in plain language. A `502` means the request may or may not have reached Amazon.
+- **No idempotency and no automatic retry.** If the outcome is unknown, check the app (or segment preview) for the entity before re-sending; blind retries create duplicates.
+- **Eventual consistency.** Created entities appear in browse data and previews after the next projection, not instantly.
+- `campaignId` / `adGroupId` are forwarded to Amazon unchecked: send them as decimal strings, never as JavaScript numbers (ids exceed 2^53).
 
 ---
 
