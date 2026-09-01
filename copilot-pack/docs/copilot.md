@@ -151,7 +151,7 @@ API mechanics depend on the runtime. Your entry point (CLAUDE.md or AGENTS.md) l
 - **Browser-mediated** (Cowork): see `docs/runtime-browser.md` — Chrome extension `javascript_tool` for fetch.
 - **Direct shell** (Codex CLI, Claude Code CLI, anything with local shell + network access): see `docs/runtime-shell.md` — `tools/merchjar_client.py` Python client.
 
-Endpoints, payloads, and response shapes are runtime-agnostic. Read `reference/MJ_API_REFERENCE.md` for the API surface.
+Endpoints, payloads, and response shapes are runtime-agnostic. Read https://merchjar.com/api/ and its downloadable OpenAPI specification for the API surface.
 
 ---
 
@@ -626,7 +626,7 @@ Segments aren't just a replacement — they're an upgrade. When migrating, point
 | `docs/runtime-shell.md` | Runtime | API mechanics for Codex / Claude Code CLI / shell environments | Loaded by AGENTS.md or CLAUDE.md when not in Cowork |
 | `user/MJ_COPILOT_CONFIG.md` | User | API key, profiles, preferences | Every session (auto) |
 | `user/MJ_COPILOT_LOG.md` | User | Deployed segments + review history | When skills need historical context |
-| `reference/MJ_API_REFERENCE.md` | System | API endpoints, request/response formats | API-heavy workflows |
+| https://merchjar.com/api/ | Public API | API endpoints, request/response formats, and downloadable OpenAPI spec | API-heavy workflows |
 | `reference/V2_SYNTAX_REFERENCE.md` | System | DSL syntax for writing and validating segments | Writing or debugging segment logic |
 | `reference/SEGMENT_CREATION_GUIDELINES.md` | System | Standards and patterns for creating segments | Building or reviewing segments |
 | `tools/library.py` | Runtime | Fetch client for the GitHub template library (list, search, fetch, check-updates) | Selecting, fetching, or update-checking templates |
@@ -686,7 +686,7 @@ Use the table below to route ambiguous requests.
 
 ## Segment Management (Enable / Disable / Update / Delete)
 
-Simple API operations — no dedicated skill needed. Load `reference/MJ_API_REFERENCE.md` for endpoint details. **Always include `ad_type` in PATCH bodies** as a defensive habit — historical behavior returned 422 without it, current behavior is more permissive, but the validation could come back.
+Simple API operations — no dedicated skill needed. Load https://merchjar.com/api/ and its downloadable OpenAPI specification for endpoint details. **Always include `ad_type` in PATCH bodies** as a defensive habit — historical behavior returned 422 without it, current behavior is more permissive, but the validation could come back.
 
 **Disable a segment:** `PATCH /api/v5/segments/:id` with `profileid` header and `{ "enabled": false, "ad_type": "[existing ad_type]" }`. Confirm with the user first. Update `user/MJ_COPILOT_LOG.md`.
 

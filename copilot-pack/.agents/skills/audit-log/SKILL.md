@@ -7,7 +7,7 @@ description: Show what automation segments have done recently — bid changes, n
 
 ## Context to Load Before Starting
 
-1. `reference/MJ_API_REFERENCE.md` — for `GET /audit-logs` endpoint
+1. https://merchjar.com/api/ and its downloadable OpenAPI specification — for `GET /audit-logs` endpoint
 
 Do NOT load syntax reference, creation guidelines, or the template library — this skill reads history, not segments.
 

@@ -11,7 +11,7 @@ description: Review an existing segment against current quality standards and up
 2. `reference/SEGMENT_CREATION_GUIDELINES.md` — for standards comparison
 3. The matching library template — if the segment maps to a known category, fetch it by id for comparison (see `docs/library.md`). This is a remote fetch, not a bundled file. If the library is unreachable, fall back to comparing against `SEGMENT_CREATION_GUIDELINES.md` and tell the user the live template couldn't be fetched.
 
-Do NOT load `reference/MJ_API_REFERENCE.md` unless the user wants to preview/deploy after the review.
+Do not load public API documentation unless the user wants to preview or deploy after the review.
 
 ---
 
@@ -29,7 +29,7 @@ Two ways the user provides a segment:
 - Pastes DSL directly into chat
 - Gives a segment name or ID → fetch via `GET /api/v5/segments/:id`
 
-If fetching via API, load `reference/MJ_API_REFERENCE.md` first.
+If fetching via API, consult https://merchjar.com/api/ and its downloadable OpenAPI specification first.
 
 ### Step 2 — Parse and Categorize
 

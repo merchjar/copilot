@@ -323,7 +323,7 @@ is_null(custom.cf_profit_margin)      // True if this field was never set on the
 - Avoid is_null(X) = false entirely. To branch on "has a value," route the logic through case() instead: case(is_null(X) => <null path>, else <has-value path>).
 
 Custom Fields (custom.<key>)
-User-defined typed fields attached to entities through the Custom Fields API (see MJ_API_REFERENCE.md → Custom Fields). Once defined and populated for a profile, they are readable in segment logic on the matching dataset as custom.<key>.
+User-defined typed fields attached to entities through the Custom Fields API (see https://merchjar.com/api/ and its downloadable OpenAPI specification). Once defined and populated for a profile, they are readable in segment logic on the matching dataset as custom.<key>.
 - Key format: custom.cf_<slug>. The exact key is listed in the field catalog (GET /api/v5/custom-fields/catalog/:entityType) — always confirm the key there before writing DSL; it is generated from the field name, not identical to it.
 - Types: number, boolean, string (set at definition time). Number fields participate in math and comparisons like any numeric property.
 - Entities where the field is unset read as null — gate with bare is_null(custom.<key>) (see above) so segments don't act on entities that haven't been enriched yet.
