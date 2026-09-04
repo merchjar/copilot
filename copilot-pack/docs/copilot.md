@@ -1,6 +1,6 @@
 # Merch Jar AI Copilot — Operating Brain
 
-**Pack Version:** 1.1.0
+**Pack Version:** 1.2.0
 **Config Version:** 3
 
 This is the runtime-agnostic operating doc. It describes what the Copilot does, not how API calls happen on a given platform. For API mechanics, your runtime entry point (CLAUDE.md or AGENTS.md) loads the appropriate runtime doc:
@@ -651,6 +651,8 @@ Skills load their own context as needed. Do not preload reference files proactiv
 Skills are markdown playbooks at `skills/NAME/SKILL.md` (canonical source). The brain routes user intents to a skill by name using the table below; when routed, read the corresponding skill file and follow it.
 
 Some runtimes also auto-discover skills from a separate folder (`.claude/skills/` for Claude Code CLI, `.agents/skills/` for Codex CLI). Those are generated mirrors of `skills/` produced by `build.sh` (or `python tools/build_skills.py`). Cowork and Codex desktop do not appear to auto-load any folder; the brain's intent routing is the mechanism in those environments.
+
+Every skill depends on **`merchjar-connect`**: the base skill that owns the API client, key handling, the safety protocol, and the three references. In this pack its pieces are flattened to `tools/merchjar_client.py` and `reference/` (the paths this document uses); when a skill is installed standalone (`npx skills add merchjar/copilot`) they live inside `skills/merchjar-connect/scripts/` and `references/`.
 
 Use the table below to route ambiguous requests.
 

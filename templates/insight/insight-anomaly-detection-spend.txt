@@ -1,13 +1,19 @@
 /*
 === Anomaly Detection: Spend ===
-Version: 1.0
+Version: 1.1
 Docs: merchjar.com/templates?t=insight-anomaly-detection-spend
+Changelog: v1.1 - Exclusion filter fixed to `does not contain all` (the `any` form silently disabled it); diagnostic renamed $result -> $planned_action per guidelines.
 
 Purpose: Identifies entities driving spend changes for account-level investigation. Surfaces spend anomalies and attributes each to click-volume vs CPC, with performance context. Read-only investigation tool - takes no action.
 Dataset: Any level (Campaigns to Search Terms)
 Recommended: Ad-hoc investigation tool | Change dataset based on investigation depth needed
 Tags: anomaly, spend, diagnostics, one-off, find-opportunities
-Last-Updated: 2026-07-09
+Risk: read-only
+Schedule: on-demand
+Goal: understand
+Requires-Properties: none
+Pairs-With: performance-check, troubleshoot
+Last-Updated: 2026-09-04
 Min-Pack-Version: 1.0.0
 */
 
@@ -148,7 +154,7 @@ let $reason = case(
     $spend_severity = "moderate_decrease" => "Moderate spend decrease detected",
     else "No significant spend pattern change"
 );
-let $result = case(
+let $planned_action = case(
     $sufficient_data = 0 => "insufficient_data",
     $has_anomaly = 0 => "insufficient_data",
     // Problem increases (high spend + poor efficiency) - sort to top
@@ -185,7 +191,7 @@ let $result = case(
 // === Final Filter ===
 state = "effectively enabled"
 and (campaign name contains any $include_campaigns)
-and (campaign name does not contain any $exclude_campaigns)
+and (campaign name does not contain all $exclude_campaigns)
 and $sufficient_data = 1
 and $has_anomaly = 1
-and $result != "insufficient_data"
+and $planned_action != "insufficient_data"

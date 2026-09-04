@@ -1,13 +1,25 @@
 ---
 name: audit-log
 description: Show what automation segments have done recently — bid changes, negations, budget adjustments, pauses. Use when the user asks "what did my segments do," "show my audit log," "what happened this week," "any changes," "what changed recently," or wants to know the impact of their automation. Also use proactively when the user asks "is my automation working."
+license: Proprietary. Use requires an active Merch Jar account; see LICENSE in the repo root.
+compatibility: Any Agent Skills client with shell + network access (Claude Code, Codex, Cursor, Gemini CLI) or Claude Desktop/Cowork via the Chrome extension. Needs a Merch Jar API key.
+metadata:
+  version: "1.0"
+  tags: "audit-log, history, what-changed"
+  goal: "understand"
+  risk: "read-only"
+  requires-skills: "merchjar-connect"
+  requires-scopes: "audit_logs:read, segments:read"
+  produces: "a plain-English summary of what automation changed and when"
+  last-updated: "2026-09-04"
 ---
 
 # Audit Log Skill
 
 ## Context to Load Before Starting
 
-1. https://merchjar.com/api/ and its downloadable OpenAPI specification — for `GET /audit-logs` endpoint
+0. **`merchjar-connect`** (required): the API client, key handling, safety protocol, and the three references below. In the pack they are `tools/merchjar_client.py` + `reference/`; installed standalone they are `../merchjar-connect/scripts/` + `../merchjar-connect/references/`.
+1. `reference/MJ_API_REFERENCE.md` — for `GET /audit-logs` endpoint
 
 Do NOT load syntax reference, creation guidelines, or the template library — this skill reads history, not segments.
 

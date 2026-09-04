@@ -49,13 +49,30 @@ settings below the header are grouped into `CORE` (safety mechanics), `STRATEGY`
 has an inline comment explaining what it does, so you can read and adjust the
 logic yourself.
 
+### Header v2 fields (added Sep 2026)
+
+Every header also carries, after `Tags:`:
+
+- `Risk:` what running it changes: `read-only`, `bids`, `budgets`, `state`, `negatives`.
+- `Schedule:` how it is meant to run: `daily`, `on-demand`, `cron`, `once`.
+- `Goal:` the Library's browse axis: `cut-waste`, `grow`, `protect`, `understand`, `set-up`.
+- `Requires-Properties:` property sets (custom fields) the logic reads, or `none`.
+- `Pairs-With:` skills or templates it belongs with (ids).
+- `Changelog:` one line per version, newest first. Any body change needs a `Version:`
+  bump and a changelog line; `tools/library_lint.py --online` fails the release otherwise.
+
+Standards the lint enforces: exclusion filters use `does not contain all`; the
+action diagnostic is `$planned_action` (with a `$reason`); the final filter never
+starts with `is_null(...)`; bid templates run on the combined `Keywords & Targets`
+dataset.
+
 ## The manifest
 
 `manifest.json` at the repo root is the generated catalog of every template: id,
 name, path, category, tags, description, and last-updated date. The Copilot
 fetches it to list the library, filter by tag, and check for updates. It is
-generated from the template headers by `tools/build_manifest.py`, never
-hand-edited.
+generated from the template headers by `tools/build_manifest.py` (schema v2, which also
+catalogs skills, property sets, and collections), never hand-edited.
 
 ## Deploy safety
 

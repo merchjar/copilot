@@ -1,6 +1,17 @@
 ---
 name: performance-check
 description: Analyze account performance and diagnose what's driving changes. Use when the user asks "how am I doing?", "is it working?", "what's changed?", "check my performance", "why is my ACOS up?", "performance is down", or comes back after deploying segments and wants to see the impact. Also use when the user asks a general "why" question about their account metrics — not a specific segment behavior question.
+license: Proprietary. Use requires an active Merch Jar account; see LICENSE in the repo root.
+compatibility: Any Agent Skills client with shell + network access (Claude Code, Codex, Cursor, Gemini CLI) or Claude Desktop/Cowork via the Chrome extension. Needs a Merch Jar API key.
+metadata:
+  version: "1.0"
+  tags: "performance, acos, diagnosis, trends"
+  goal: "understand"
+  risk: "read-only"
+  requires-skills: "merchjar-connect"
+  requires-scopes: "segments:preview, audit_logs:read"
+  produces: "a performance diagnosis with the drivers of change"
+  last-updated: "2026-09-04"
 ---
 
 # Performance Check
@@ -13,7 +24,8 @@ The user wants to understand their account performance — whether it's improvin
 
 ## Context to Load
 
-1. https://merchjar.com/api/ and its downloadable OpenAPI specification — for preview and audit-log queries
+0. **`merchjar-connect`** (required): the API client, key handling, safety protocol, and the three references below. In the pack they are `tools/merchjar_client.py` + `reference/`; installed standalone they are `../merchjar-connect/scripts/` + `../merchjar-connect/references/`.
+1. `reference/MJ_API_REFERENCE.md` — for preview and audit-log queries
 2. `user/MJ_COPILOT_LOG.md` — previous review findings and deployed segment dates (baseline for comparison)
 3. User preferences from `user/MJ_COPILOT_CONFIG.md` (already loaded)
 

@@ -1,13 +1,25 @@
 ---
 name: check-segments
 description: List and inventory what automation segments are currently running for a profile. Use when the user asks "what segments do I have," "what's running," "show my automation," "what's set up," "am I covered," or wants to know if specific automation types are in place. Also use when comparing what's deployed against what should be deployed based on best practices.
+license: Proprietary. Use requires an active Merch Jar account; see LICENSE in the repo root.
+compatibility: Any Agent Skills client with shell + network access (Claude Code, Codex, Cursor, Gemini CLI) or Claude Desktop/Cowork via the Chrome extension. Needs a Merch Jar API key.
+metadata:
+  version: "1.0"
+  tags: "inventory, coverage, segments"
+  goal: "understand"
+  risk: "read-only"
+  requires-skills: "merchjar-connect"
+  requires-scopes: "segments:read"
+  produces: "an inventory of deployed segments and coverage gaps against the core six"
+  last-updated: "2026-09-04"
 ---
 
 # Check Segments Skill
 
 ## Context to Load Before Starting
 
-1. https://merchjar.com/api/ and its downloadable OpenAPI specification — for `GET /segments` endpoint
+0. **`merchjar-connect`** (required): the API client, key handling, safety protocol, and the three references below. In the pack they are `tools/merchjar_client.py` + `reference/`; installed standalone they are `../merchjar-connect/scripts/` + `../merchjar-connect/references/`.
+1. `reference/MJ_API_REFERENCE.md` — for `GET /segments` endpoint
 2. `user/MJ_COPILOT_LOG.md` — optional, load if the user wants to compare API state against what the Copilot deployed
 
 Coverage mapping needs no template file — the five categories are inferred from the live segments (see Step 4). Comparing a segment against the current library version is a remote fetch (route to `review-segment`), not a bundled-file read.

@@ -1,6 +1,17 @@
 ---
 name: enrich-account
 description: Set up and populate custom fields on a Merch Jar account — profit margins, product lifecycle phase, inventory or seasonality flags, labels — so segments can automate against business data Amazon doesn't have. Use when the user says "add my margins," "set up custom fields," "tag my campaigns by phase," "label my products," "track profitability per product," or when build-segment or account-review surfaces a goal that needs business data the account doesn't carry yet.
+license: Proprietary. Use requires an active Merch Jar account; see LICENSE in the repo root.
+compatibility: Any Agent Skills client with shell + network access (Claude Code, Codex, Cursor, Gemini CLI) or Claude Desktop/Cowork via the Chrome extension. Needs a Merch Jar API key.
+metadata:
+  version: "1.0"
+  tags: "custom-properties, custom-fields, margins, lifecycle, labels"
+  goal: "set-up"
+  risk: "state"
+  requires-skills: "merchjar-connect"
+  requires-scopes: "custom_fields:read, custom_fields:write, segments:preview"
+  produces: "custom-property definitions and bulk values on the account, with a source_reference audit tag"
+  last-updated: "2026-09-04"
 ---
 
 # Enrich Account (Custom Fields)
@@ -13,7 +24,8 @@ This skill covers the write side: defining fields, populating values, and verify
 
 ## Context to Load Before Starting
 
-1. https://merchjar.com/api/ and its downloadable OpenAPI specification — Custom Fields endpoints, types, and quotas
+0. **`merchjar-connect`** (required): the API client, key handling, safety protocol, and the three references below. In the pack they are `tools/merchjar_client.py` + `reference/`; installed standalone they are `../merchjar-connect/scripts/` + `../merchjar-connect/references/`.
+1. `reference/MJ_API_REFERENCE.md` → Custom Fields section — endpoints, types, quotas
 2. User preferences from `user/MJ_COPILOT_CONFIG.md` (already loaded)
 
 **Scope check:** everything here needs `custom_fields:read`, and every write needs `custom_fields:write`. A `403` means the user's key predates these scopes — direct them to create a new key at https://app.merchjar.com/api-keys with all scopes enabled.

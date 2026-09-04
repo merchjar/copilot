@@ -33,3 +33,6 @@ Thumbs.db
 
 # library.py runtime cache (per-install)
 .library-cache.json
+
+# release assets are attached to GitHub Releases, never committed
+*.zip

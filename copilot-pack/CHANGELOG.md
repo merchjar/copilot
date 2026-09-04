@@ -2,6 +2,12 @@
 
 ---
 
+## v1.2.0 (2026-09-04)
+
+Skills move to the Agent Skills standard. New base skill `merchjar-connect` (API client, key handling incl. `MERCHJAR_API_KEY`, safety protocol, references); every other skill declares it as a dependency and carries spec frontmatter (`metadata`: version, tags, goal, risk, required scopes). `tools/merchjar_client.py` and `reference/` are now generated copies of that skill's `scripts/` and `references/`. Library: header v2 on every template, manifest schema v2 (templates + skills + property sets + collections), Anomaly Detection: Spend v1.1 and Core: Pause Underperforming v1.1 (standards fixes, logic unchanged). No change to how the Copilot behaves in a session.
+
+---
+
 ## v1.1.0 (2026-09-04)
 
 Library release: Core: Search Term Waste Elimination v1.1 (CTR-relevance scaling). The pack itself is unchanged apart from the version stamp; the Copilot picks the new template up from the library on its next fetch (`check-updates`).

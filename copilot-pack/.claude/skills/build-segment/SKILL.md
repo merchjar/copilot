@@ -1,13 +1,25 @@
 ---
 name: build-segment
 description: Build and deploy a new Merch Jar automation segment. Use when the user wants to create automation, set up bid management, automate search term negation, configure budget automation, or says "build a segment," "automate my [bids/budget/search terms]," "I want to automate X," "help me with [waste/impressions/budget]," or accepts a recommendation from account review. Also use when the user describes a business goal that maps to a segment (e.g., "I'm wasting money on bad search terms," "my bids are all over the place," "some campaigns keep hitting their budget cap").
+license: Proprietary. Use requires an active Merch Jar account; see LICENSE in the repo root.
+compatibility: Any Agent Skills client with shell + network access (Claude Code, Codex, Cursor, Gemini CLI) or Claude Desktop/Cowork via the Chrome extension. Needs a Merch Jar API key.
+metadata:
+  version: "1.0"
+  tags: "build, deploy, segments, automation"
+  goal: "set-up"
+  risk: "state"
+  requires-skills: "merchjar-connect"
+  requires-scopes: "segments:read, segments:validate, segments:preview, segments:write"
+  produces: "a previewed segment deployed disabled, with an explicit enable step"
+  last-updated: "2026-09-04"
 ---
 
 # Build Segment Skill
 
 ## Context to Load Before Starting
 
-1. https://merchjar.com/api/ and its downloadable OpenAPI specification — for validate, preview, create, and PATCH endpoints
+0. **`merchjar-connect`** (required): the API client, key handling, safety protocol, and the three references below. In the pack they are `tools/merchjar_client.py` + `reference/`; installed standalone they are `../merchjar-connect/scripts/` + `../merchjar-connect/references/`.
+1. `reference/MJ_API_REFERENCE.md` — for validate, preview, create, and PATCH endpoints
 2. `reference/V2_SYNTAX_REFERENCE.md` — for writing valid DSL
 3. `reference/SEGMENT_CREATION_GUIDELINES.md` — for quality standards and patterns
 4. The template library — see `docs/library.md` for how to discover and fetch templates. The pack ships no bundled template files: the six core automations are already deployed on the account by the app, and everything else is fetched from the GitHub library on demand.

@@ -1,0 +1,3 @@
+{
+  "core-product-ad-waste-elimination@2751686654039572": "ads-dataset preview times out (500 internal_error) on this 1.6M-product-ad profile; any case() expression on `ads` fails here. Same template passes on smaller profiles. Engine scale issue, known (Postgres migration)."
+}

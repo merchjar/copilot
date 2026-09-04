@@ -1,17 +1,29 @@
 ---
 name: review-segment
 description: Review an existing segment against current quality standards and upgrade it if needed. Use when the user pastes a segment and asks if it's good, asks to review or audit a segment, says "is this up to date," "check this against standards," "upgrade my segment," "tune this segment," "adjust the settings on this," or wants to know if their existing logic is correct. Also use when a segment fetched from the API looks outdated (missing diagnostics, simple single-condition triggers, hard-coded thresholds).
+license: Proprietary. Use requires an active Merch Jar account; see LICENSE in the repo root.
+compatibility: Any Agent Skills client with shell + network access (Claude Code, Codex, Cursor, Gemini CLI) or Claude Desktop/Cowork via the Chrome extension. Needs a Merch Jar API key.
+metadata:
+  version: "1.0"
+  tags: "review, upgrade, standards, tune"
+  goal: "protect"
+  risk: "state"
+  requires-skills: "merchjar-connect"
+  requires-scopes: "segments:read, segments:validate, segments:preview, segments:write"
+  produces: "a standards review and, on request, an upgraded segment via PATCH"
+  last-updated: "2026-09-04"
 ---
 
 # Review Segment Skill
 
 ## Context to Load Before Starting
 
+0. **`merchjar-connect`** (required): the API client, key handling, safety protocol, and the three references below. In the pack they are `tools/merchjar_client.py` + `reference/`; installed standalone they are `../merchjar-connect/scripts/` + `../merchjar-connect/references/`.
 1. `reference/V2_SYNTAX_REFERENCE.md` — for parsing and understanding the DSL
 2. `reference/SEGMENT_CREATION_GUIDELINES.md` — for standards comparison
 3. The matching library template — if the segment maps to a known category, fetch it by id for comparison (see `docs/library.md`). This is a remote fetch, not a bundled file. If the library is unreachable, fall back to comparing against `SEGMENT_CREATION_GUIDELINES.md` and tell the user the live template couldn't be fetched.
 
-Do not load public API documentation unless the user wants to preview or deploy after the review.
+Do NOT load `reference/MJ_API_REFERENCE.md` unless the user wants to preview/deploy after the review.
 
 ---
 
@@ -29,7 +41,7 @@ Two ways the user provides a segment:
 - Pastes DSL directly into chat
 - Gives a segment name or ID → fetch via `GET /api/v5/segments/:id`
 
-If fetching via API, consult https://merchjar.com/api/ and its downloadable OpenAPI specification first.
+If fetching via API, load `reference/MJ_API_REFERENCE.md` first.
 
 ### Step 2 — Parse and Categorize
 

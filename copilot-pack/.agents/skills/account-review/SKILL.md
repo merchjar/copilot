@@ -1,6 +1,17 @@
 ---
 name: account-review
 description: Full account diagnostic — runs multiple queries to find waste, automation gaps, and opportunities across the entire account. Use when the user explicitly asks for a comprehensive review, full audit, or "check my whole account." The quick scan (offered at session start) covers initial search term waste — this skill goes deeper across all categories.
+license: Proprietary. Use requires an active Merch Jar account; see LICENSE in the repo root.
+compatibility: Any Agent Skills client with shell + network access (Claude Code, Codex, Cursor, Gemini CLI) or Claude Desktop/Cowork via the Chrome extension. Needs a Merch Jar API key.
+metadata:
+  version: "1.0"
+  tags: "audit, review, waste, coverage"
+  goal: "understand"
+  risk: "read-only"
+  requires-skills: "merchjar-connect"
+  requires-scopes: "segments:read, segments:preview, audit_logs:read"
+  produces: "a prioritized findings report with dollar figures and recommended segments"
+  last-updated: "2026-09-04"
 ---
 
 # Account Review (Full Audit)
@@ -16,7 +27,8 @@ The quick scan (in docs/copilot.md) already covers search term waste. This skill
 
 ## Context to Load Before Starting
 
-1. https://merchjar.com/api/ and its downloadable OpenAPI specification — needed for preview queries and segment fetching
+0. **`merchjar-connect`** (required): the API client, key handling, safety protocol, and the three references below. In the pack they are `tools/merchjar_client.py` + `reference/`; installed standalone they are `../merchjar-connect/scripts/` + `../merchjar-connect/references/`.
+1. `reference/MJ_API_REFERENCE.md` — needed for preview queries and segment fetching
 2. `user/MJ_COPILOT_LOG.md` — load if the user has done a previous review (compare findings)
 
 Coverage mapping needs no template file — the five categories are inferred from the live segments (see Step 2). Named-template recommendations pull specifics from the GitHub library (see `docs/library.md`), not a bundled file.

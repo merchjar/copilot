@@ -1,0 +1,12 @@
+{
+  "name": "merchjar",
+  "owner": { "name": "Merch Jar" },
+  "description": "Merch Jar Copilot skills: connect any AI agent to your Amazon Sponsored Products account through the Merch Jar API, audit waste, and build automation Segments that show their work.",
+  "plugins": [
+    {
+      "name": "merchjar-copilot",
+      "source": "./",
+      "description": "All Merch Jar Copilot skills (connect, account review, build/review/explain segments, custom properties, performance, troubleshooting)."
+    }
+  ]
+}

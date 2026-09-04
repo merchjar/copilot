@@ -5,6 +5,28 @@ record of what changed in each version. This file is a thin pointer.
 
 See the full history at: https://github.com/merchjar/copilot/releases
 
+## v1.2.0 (2026-09-04)
+
+Library foundation release.
+
+- **Skills on the Agent Skills standard.** Every skill carries spec frontmatter
+  (`license`, `compatibility`, `metadata` with version / tags / goal / risk /
+  required scopes). New base skill **`merchjar-connect`** owns the API client
+  (`scripts/merchjar_client.py`, now also reads `MERCHJAR_API_KEY`), key handling,
+  the safety protocol, and the API / DSL / guidelines references. Skills install
+  standalone with `npx skills add merchjar/copilot`; a Claude Code plugin
+  marketplace (`.claude-plugin/`) is included. Mirrors added for GitHub Copilot /
+  VS Code (`.github/skills/`) and Gemini CLI (`.gemini/skills/`).
+- **Template header v2**: `Risk`, `Schedule`, `Goal`, `Requires-Properties`,
+  `Pairs-With`, `Changelog` on every template. **Manifest schema v2** catalogs
+  templates, skills, property sets, and collections. New `collections/` (The Core
+  Six) and `properties/` shelves.
+- **Standards fixes**: Anomaly Detection: Spend v1.1 (exclusion filter `does not
+  contain all`; `$planned_action`), Core: Pause Underperforming Keywords & Targets
+  v1.1 (`$planned_action`). Logic unchanged.
+- **Tooling**: `tools/library_lint.py`, `tools/library_test.py` (live, read-only),
+  `tools/library_drift.py`, `tools/release.py` (the one-command release gate).
+
 ## v1.1.0 (2026-09-04)
 
 Library update: **Core: Search Term Waste Elimination v1.1** ships CTR-relevance

@@ -1,14 +1,26 @@
 ---
 name: explain-segment
 description: Explain what a segment does in plain English. Use when the user asks "explain this segment," "what does this do," "translate this to English," "break this down for me," "help me understand this," or pastes segment code and seems to want to understand it rather than edit or deploy it. Also use when a non-technical user wants to understand a segment that someone else built.
+license: Proprietary. Use requires an active Merch Jar account; see LICENSE in the repo root.
+compatibility: Any Agent Skills client with shell + network access (Claude Code, Codex, Cursor, Gemini CLI) or Claude Desktop/Cowork via the Chrome extension. Needs a Merch Jar API key.
+metadata:
+  version: "1.0"
+  tags: "explain, dsl, plain-english"
+  goal: "understand"
+  risk: "read-only"
+  requires-skills: "merchjar-connect"
+  requires-scopes: "segments:read"
+  produces: "a plain-English explanation of a segment's logic"
+  last-updated: "2026-09-04"
 ---
 
 # Explain Segment Skill
 
 ## Context to Load Before Starting
 
+0. **`merchjar-connect`** (required): the API client, key handling, safety protocol, and the three references below. In the pack they are `tools/merchjar_client.py` + `reference/`; installed standalone they are `../merchjar-connect/scripts/` + `../merchjar-connect/references/`.
 1. `reference/V2_SYNTAX_REFERENCE.md` — for parsing DSL
-2. https://merchjar.com/api/ and its downloadable OpenAPI specification — only if the user provides a segment ID instead of pasting DSL (needed to fetch the segment)
+2. `reference/MJ_API_REFERENCE.md` — only if the user provides a segment ID instead of pasting DSL (needed to fetch the segment)
 
 Do NOT load creation guidelines or fetch from the template library — this skill explains, it doesn't create or deploy.
 
@@ -24,7 +36,7 @@ Parse a segment and explain it in plain English — what it does, when it acts, 
 
 ### Step 1 — Receive the Segment
 
-User pastes DSL or provides a segment ID. If ID, fetch via API after consulting https://merchjar.com/api/ and its downloadable OpenAPI specification.
+User pastes DSL or provides a segment ID. If ID, fetch via API (load `reference/MJ_API_REFERENCE.md` first).
 
 ### Step 2 — Parse Structure
 

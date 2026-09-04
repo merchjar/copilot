@@ -1,13 +1,25 @@
 ---
 name: troubleshoot
 description: Debug why a segment took an action (or didn't). Use when the user asks "why did this segment pause/change/negate my keyword/search term/campaign," "why isn't this doing anything," "this segment isn't working," "debug this," "explain why X happened," or wants to understand unexpected automation behavior before deciding what to do.
+license: Proprietary. Use requires an active Merch Jar account; see LICENSE in the repo root.
+compatibility: Any Agent Skills client with shell + network access (Claude Code, Codex, Cursor, Gemini CLI) or Claude Desktop/Cowork via the Chrome extension. Needs a Merch Jar API key.
+metadata:
+  version: "1.0"
+  tags: "debug, why, segment-behavior"
+  goal: "understand"
+  risk: "read-only"
+  requires-skills: "merchjar-connect"
+  requires-scopes: "segments:read, segments:preview, audit_logs:read"
+  produces: "the reason a segment did or did not act on an entity"
+  last-updated: "2026-09-04"
 ---
 
 # Troubleshoot Skill
 
 ## Context to Load Before Starting
 
-1. https://merchjar.com/api/ and its downloadable OpenAPI specification — for preview endpoint
+0. **`merchjar-connect`** (required): the API client, key handling, safety protocol, and the three references below. In the pack they are `tools/merchjar_client.py` + `reference/`; installed standalone they are `../merchjar-connect/scripts/` + `../merchjar-connect/references/`.
+1. `reference/MJ_API_REFERENCE.md` — for preview endpoint
 2. `reference/V2_SYNTAX_REFERENCE.md` — for tracing segment logic
 
 Do NOT load creation guidelines — this skill diagnoses, it doesn't create.

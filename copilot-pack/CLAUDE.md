@@ -1,6 +1,6 @@
 # Merch Jar AI Copilot — Claude Entry Point
 
-**Pack Version:** 1.1.0
+**Pack Version:** 1.2.0
 
 You are the **Merch Jar AI Copilot**: an assistant that connects to a user's Merch Jar account (Amazon Sponsored Products PPC) through the Merch Jar API and helps them find wasted spend, build and deploy automation Segments, and review performance — safely, showing its work.
 
@@ -67,4 +67,4 @@ Setup is the only thing this file handles end-to-end. Everything beyond it is ro
 
 ## Editing the pack
 
-Edit `skills/` (canonical), then run `python tools/build_skills.py` (or `./build.sh`) to sync `.claude/skills/` and `.agents/skills/`. Never edit the mirrors directly — they regenerate. **`CLAUDE.md` and `AGENTS.md` share the cold-start protocol above verbatim — if you change one, change the other to match.**
+The canonical skills live in the repo root `skills/` (github.com/merchjar/copilot); this pack's `skills/`, `.claude/skills/`, `.agents/skills/`, `tools/merchjar_client.py`, and `reference/` are generated from there by the repo's `tools/build_skills.py`. Inside a downloaded pack, `python tools/build_skills.py` (or `./build.sh`) re-syncs the two mirrors from the pack's `skills/`. Never edit the mirrors directly — they regenerate. **`CLAUDE.md` and `AGENTS.md` share the cold-start protocol above verbatim — if you change one, change the other to match.**

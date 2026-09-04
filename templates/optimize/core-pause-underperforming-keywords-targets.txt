@@ -1,13 +1,19 @@
 /*
 === Core: Pause Underperforming Keywords & Targets ===
-Version: 1.0
+Version: 1.1
 Docs: merchjar.com/templates?t=core-pause-underperforming-keywords-targets
+Changelog: v1.1 - Diagnostic renamed $result -> $planned_action per guidelines. Logic unchanged.
 
 Purpose: Pause keywords and targets that spent enough to prove they are not converting profitably.
 Dataset: Keywords & Targets
 Recommended: Set State: Paused | Daily
 Tags: pause, waste, cleanup, default
-Last-Updated: 2026-08-26
+Risk: state
+Schedule: daily
+Goal: cut-waste
+Requires-Properties: none
+Pairs-With: build-segment, check-segments
+Last-Updated: 2026-09-04
 Min-Pack-Version: 1.0.0
 */
 
@@ -115,7 +121,7 @@ let $reason = case(
     else "No action needed"
 );
 
-let $result = case(
+let $planned_action = case(
     $pause_candidate = 1 and $zero_order_waste = 1 => "Pause - Zero Orders",
     $pause_candidate = 1 and $poor_acos = 1 => "Pause - Poor ACOS",
     else "No Action"

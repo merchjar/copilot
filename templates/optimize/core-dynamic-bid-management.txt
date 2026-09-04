@@ -7,6 +7,11 @@ Purpose: Adjust bids proportionally to how far ACOS is from target, with CPC-bas
 Dataset: Keywords & Targets
 Recommended: Change Bid: Set ($) using $target_bid | Daily
 Tags: bid, optimization, default
+Risk: bids
+Schedule: daily
+Goal: cut-waste
+Requires-Properties: none
+Pairs-With: build-segment, check-segments
 Last-Updated: 2026-06-15
 Min-Pack-Version: 1.0.0
 */

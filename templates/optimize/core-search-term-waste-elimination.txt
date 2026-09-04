@@ -8,6 +8,11 @@ Purpose: Intelligently negate wasteful search terms using efficiency, performanc
 Dataset: Search Terms
 Recommended: Create Negative Exact Match | Daily
 Tags: waste, negation, default
+Risk: negatives
+Schedule: daily
+Goal: cut-waste
+Requires-Properties: none
+Pairs-With: build-segment, check-segments
 Last-Updated: 2026-09-04
 Min-Pack-Version: 1.0.0
 */

@@ -1,9 +1,15 @@
 {
-  "schema_version": 1,
-  "pack_version": "1.1.0",
-  "tag": "v1.1.0",
+  "schema_version": 2,
+  "pack_version": "1.2.0",
+  "tag": "v1.2.0",
   "generated": "2026-09-04",
   "template_count": 7,
+  "counts": {
+    "templates": 7,
+    "skills": 10,
+    "properties": 0,
+    "collections": 1
+  },
   "templates": [
     {
       "id": "insight-anomaly-detection-spend",
@@ -11,8 +17,9 @@
       "name": "Anomaly Detection: Spend",
       "path": "templates/insight/insight-anomaly-detection-spend.txt",
       "category": "insight",
-      "version": "1.0",
+      "version": "1.1",
       "dataset": "Any level (Campaigns to Search Terms)",
+      "ad_type": null,
       "tags": [
         "anomaly",
         "spend",
@@ -21,9 +28,23 @@
         "find-opportunities"
       ],
       "description": "Identifies entities driving spend changes for account-level investigation. Surfaces spend anomalies and attributes each to click-volume vs CPC, with performance context. Read-only investigation tool - takes no action.",
-      "last_updated": "2026-07-09",
+      "recommended": "Ad-hoc investigation tool | Change dataset based on investigation depth needed",
+      "risk": "read-only",
+      "schedule": "on-demand",
+      "goal": "understand",
+      "requires_properties": [],
+      "pairs_with": [
+        "performance-check",
+        "troubleshoot"
+      ],
+      "changelog": [
+        "v1.1 - Exclusion filter fixed to `does not contain all` (the `any` form silently disabled it); diagnostic renamed $result -> $planned_action per guidelines."
+      ],
+      "last_updated": "2026-09-04",
       "min_pack_version": "1.0.0",
-      "docs": "merchjar.com/templates?t=insight-anomaly-detection-spend"
+      "body_sha": "5144026a98ba0a49",
+      "docs": "merchjar.com/templates?t=insight-anomaly-detection-spend",
+      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.0/templates/insight/insight-anomaly-detection-spend.txt"
     },
     {
       "id": "core-adaptive-budget-management",
@@ -33,14 +54,27 @@
       "category": "optimize",
       "version": "1.0",
       "dataset": "Campaigns",
+      "ad_type": "campaigns",
       "tags": [
         "budget",
         "default"
       ],
       "description": "Prevents budget waste while ensuring adequate spend for data collection and performance scaling.",
+      "recommended": "Change Daily Budget | Set ($) using $new_budget | Daily or Multiple Times Daily",
+      "risk": "budgets",
+      "schedule": "daily",
+      "goal": "grow",
+      "requires_properties": [],
+      "pairs_with": [
+        "build-segment",
+        "check-segments"
+      ],
+      "changelog": [],
       "last_updated": "2026-06-15",
       "min_pack_version": "1.0.0",
-      "docs": "merchjar.com/templates?t=core-adaptive-budget-management"
+      "body_sha": "de5635a7f37bf36c",
+      "docs": "merchjar.com/templates?t=core-adaptive-budget-management",
+      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.0/templates/optimize/core-adaptive-budget-management.txt"
     },
     {
       "id": "core-dynamic-bid-management",
@@ -50,15 +84,28 @@
       "category": "optimize",
       "version": "2.1",
       "dataset": "Keywords & Targets",
+      "ad_type": "keywords_and_targets",
       "tags": [
         "bid",
         "optimization",
         "default"
       ],
       "description": "Adjust bids proportionally to how far ACOS is from target, with CPC-based caps and adaptive cooldown protection. Cooldown scales with the lookback window used - shorter cooldowns when recent data is reliable, longer cooldowns when relying on slower-moving data.",
+      "recommended": "Change Bid: Set ($) using $target_bid | Daily",
+      "risk": "bids",
+      "schedule": "daily",
+      "goal": "cut-waste",
+      "requires_properties": [],
+      "pairs_with": [
+        "build-segment",
+        "check-segments"
+      ],
+      "changelog": [],
       "last_updated": "2026-06-15",
       "min_pack_version": "1.0.0",
-      "docs": "merchjar.com/templates?t=core-dynamic-bid-management"
+      "body_sha": "6c3ed39d54f1dfc9",
+      "docs": "merchjar.com/templates?t=core-dynamic-bid-management",
+      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.0/templates/optimize/core-dynamic-bid-management.txt"
     },
     {
       "id": "core-impression-recovery-boost",
@@ -68,14 +115,27 @@
       "category": "optimize",
       "version": "1.0",
       "dataset": "Keywords & Targets",
+      "ad_type": "keywords_and_targets",
       "tags": [
         "bid",
         "default"
       ],
       "description": "Increases bids for proven performers when impression volume drops significantly.",
+      "recommended": "Change Bid: Set ($) using $target_bid | Daily",
+      "risk": "bids",
+      "schedule": "daily",
+      "goal": "grow",
+      "requires_properties": [],
+      "pairs_with": [
+        "build-segment",
+        "check-segments"
+      ],
+      "changelog": [],
       "last_updated": "2026-06-15",
       "min_pack_version": "1.0.0",
-      "docs": "merchjar.com/templates?t=core-impression-recovery-boost"
+      "body_sha": "fdb8f0a86ad913ed",
+      "docs": "merchjar.com/templates?t=core-impression-recovery-boost",
+      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.0/templates/optimize/core-impression-recovery-boost.txt"
     },
     {
       "id": "core-pause-underperforming-keywords-targets",
@@ -83,8 +143,9 @@
       "name": "Core: Pause Underperforming Keywords & Targets",
       "path": "templates/optimize/core-pause-underperforming-keywords-targets.txt",
       "category": "optimize",
-      "version": "1.0",
+      "version": "1.1",
       "dataset": "Keywords & Targets",
+      "ad_type": "keywords_and_targets",
       "tags": [
         "pause",
         "waste",
@@ -92,9 +153,23 @@
         "default"
       ],
       "description": "Pause keywords and targets that spent enough to prove they are not converting profitably.",
-      "last_updated": "2026-08-26",
+      "recommended": "Set State: Paused | Daily",
+      "risk": "state",
+      "schedule": "daily",
+      "goal": "cut-waste",
+      "requires_properties": [],
+      "pairs_with": [
+        "build-segment",
+        "check-segments"
+      ],
+      "changelog": [
+        "v1.1 - Diagnostic renamed $result -> $planned_action per guidelines. Logic unchanged."
+      ],
+      "last_updated": "2026-09-04",
       "min_pack_version": "1.0.0",
-      "docs": "merchjar.com/templates?t=core-pause-underperforming-keywords-targets"
+      "body_sha": "06732ebf7d89d47b",
+      "docs": "merchjar.com/templates?t=core-pause-underperforming-keywords-targets",
+      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.0/templates/optimize/core-pause-underperforming-keywords-targets.txt"
     },
     {
       "id": "core-product-ad-waste-elimination",
@@ -104,14 +179,27 @@
       "category": "optimize",
       "version": "1.1",
       "dataset": "Product Ads",
+      "ad_type": "ads",
       "tags": [
         "waste",
         "default"
       ],
       "description": "Pause wasteful product ads that have spent enough without efficient results.",
+      "recommended": "Set State | Daily Schedule",
+      "risk": "state",
+      "schedule": "daily",
+      "goal": "cut-waste",
+      "requires_properties": [],
+      "pairs_with": [
+        "build-segment",
+        "check-segments"
+      ],
+      "changelog": [],
       "last_updated": "2026-06-15",
       "min_pack_version": "1.0.0",
-      "docs": "merchjar.com/templates?t=core-product-ad-waste-elimination"
+      "body_sha": "08bc63567c130a76",
+      "docs": "merchjar.com/templates?t=core-product-ad-waste-elimination",
+      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.0/templates/optimize/core-product-ad-waste-elimination.txt"
     },
     {
       "id": "core-search-term-waste-elimination",
@@ -121,15 +209,384 @@
       "category": "optimize",
       "version": "1.1",
       "dataset": "Search Terms",
+      "ad_type": "search_terms",
       "tags": [
         "waste",
         "negation",
         "default"
       ],
       "description": "Intelligently negate wasteful search terms using efficiency, performance, and CTR-relevance analysis.",
+      "recommended": "Create Negative Exact Match | Daily",
+      "risk": "negatives",
+      "schedule": "daily",
+      "goal": "cut-waste",
+      "requires_properties": [],
+      "pairs_with": [
+        "build-segment",
+        "check-segments"
+      ],
+      "changelog": [
+        "v1.1 - CTR-relevance scaling: CTR scales the click threshold (low CTR negates sooner, high CTR earns runway)."
+      ],
       "last_updated": "2026-09-04",
       "min_pack_version": "1.0.0",
-      "docs": "merchjar.com/templates?t=core-search-term-waste-elimination"
+      "body_sha": "8624e23ab36b27a1",
+      "docs": "merchjar.com/templates?t=core-search-term-waste-elimination",
+      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.0/templates/optimize/core-search-term-waste-elimination.txt"
+    }
+  ],
+  "skills": [
+    {
+      "id": "account-review",
+      "name": "account-review",
+      "path": "skills/account-review/SKILL.md",
+      "dir": "skills/account-review",
+      "description": "Full account diagnostic \u2014 runs multiple queries to find waste, automation gaps, and opportunities across the entire account. Use when the user explicitly asks for a comprehensive review, full audit, or \"check my whole account.\" The quick scan (offered at session start) covers initial search term waste \u2014 this skill goes deeper across all categories.",
+      "version": "1.0",
+      "tags": [
+        "audit",
+        "review",
+        "waste",
+        "coverage"
+      ],
+      "goal": "understand",
+      "requires_scopes": [
+        "segments:read",
+        "segments:preview",
+        "audit_logs:read"
+      ],
+      "requires_skills": [
+        "merchjar-connect"
+      ],
+      "requires_properties": [],
+      "produces": "a prioritized findings report with dollar figures and recommended segments",
+      "risk": "read-only",
+      "compatibility": "Any Agent Skills client with shell + network access (Claude Code, Codex, Cursor, Gemini CLI) or Claude Desktop/Cowork via the Chrome extension. Needs a Merch Jar API key.",
+      "license": "Proprietary. Use requires an active Merch Jar account; see LICENSE in the repo root.",
+      "last_updated": "2026-09-04",
+      "ships_in_pack": true,
+      "has_scripts": false,
+      "has_references": false,
+      "body_sha": "d719a155a3e2e2a2",
+      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.0/skills/account-review/SKILL.md"
+    },
+    {
+      "id": "audit-log",
+      "name": "audit-log",
+      "path": "skills/audit-log/SKILL.md",
+      "dir": "skills/audit-log",
+      "description": "Show what automation segments have done recently \u2014 bid changes, negations, budget adjustments, pauses. Use when the user asks \"what did my segments do,\" \"show my audit log,\" \"what happened this week,\" \"any changes,\" \"what changed recently,\" or wants to know the impact of their automation. Also use proactively when the user asks \"is my automation working.",
+      "version": "1.0",
+      "tags": [
+        "audit-log",
+        "history",
+        "what-changed"
+      ],
+      "goal": "understand",
+      "requires_scopes": [
+        "audit_logs:read",
+        "segments:read"
+      ],
+      "requires_skills": [
+        "merchjar-connect"
+      ],
+      "requires_properties": [],
+      "produces": "a plain-English summary of what automation changed and when",
+      "risk": "read-only",
+      "compatibility": "Any Agent Skills client with shell + network access (Claude Code, Codex, Cursor, Gemini CLI) or Claude Desktop/Cowork via the Chrome extension. Needs a Merch Jar API key.",
+      "license": "Proprietary. Use requires an active Merch Jar account; see LICENSE in the repo root.",
+      "last_updated": "2026-09-04",
+      "ships_in_pack": true,
+      "has_scripts": false,
+      "has_references": false,
+      "body_sha": "4172dfd11e57d495",
+      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.0/skills/audit-log/SKILL.md"
+    },
+    {
+      "id": "build-segment",
+      "name": "build-segment",
+      "path": "skills/build-segment/SKILL.md",
+      "dir": "skills/build-segment",
+      "description": "Build and deploy a new Merch Jar automation segment. Use when the user wants to create automation, set up bid management, automate search term negation, configure budget automation, or says \"build a segment,\" \"automate my [bids/budget/search terms],\" \"I want to automate X,\" \"help me with [waste/impressions/budget],\" or accepts a recommendation from account review. Also use when the user describes a business goal that maps to a segment (e.g., \"I'm wasting money on bad search terms,\" \"my bids are all over the place,\" \"some campaigns keep hitting their budget cap\").",
+      "version": "1.0",
+      "tags": [
+        "build",
+        "deploy",
+        "segments",
+        "automation"
+      ],
+      "goal": "set-up",
+      "requires_scopes": [
+        "segments:read",
+        "segments:validate",
+        "segments:preview",
+        "segments:write"
+      ],
+      "requires_skills": [
+        "merchjar-connect"
+      ],
+      "requires_properties": [],
+      "produces": "a previewed segment deployed disabled, with an explicit enable step",
+      "risk": "state",
+      "compatibility": "Any Agent Skills client with shell + network access (Claude Code, Codex, Cursor, Gemini CLI) or Claude Desktop/Cowork via the Chrome extension. Needs a Merch Jar API key.",
+      "license": "Proprietary. Use requires an active Merch Jar account; see LICENSE in the repo root.",
+      "last_updated": "2026-09-04",
+      "ships_in_pack": true,
+      "has_scripts": false,
+      "has_references": false,
+      "body_sha": "e5df0885d09b307b",
+      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.0/skills/build-segment/SKILL.md"
+    },
+    {
+      "id": "check-segments",
+      "name": "check-segments",
+      "path": "skills/check-segments/SKILL.md",
+      "dir": "skills/check-segments",
+      "description": "List and inventory what automation segments are currently running for a profile. Use when the user asks \"what segments do I have,\" \"what's running,\" \"show my automation,\" \"what's set up,\" \"am I covered,\" or wants to know if specific automation types are in place. Also use when comparing what's deployed against what should be deployed based on best practices.",
+      "version": "1.0",
+      "tags": [
+        "inventory",
+        "coverage",
+        "segments"
+      ],
+      "goal": "understand",
+      "requires_scopes": [
+        "segments:read"
+      ],
+      "requires_skills": [
+        "merchjar-connect"
+      ],
+      "requires_properties": [],
+      "produces": "an inventory of deployed segments and coverage gaps against the core six",
+      "risk": "read-only",
+      "compatibility": "Any Agent Skills client with shell + network access (Claude Code, Codex, Cursor, Gemini CLI) or Claude Desktop/Cowork via the Chrome extension. Needs a Merch Jar API key.",
+      "license": "Proprietary. Use requires an active Merch Jar account; see LICENSE in the repo root.",
+      "last_updated": "2026-09-04",
+      "ships_in_pack": true,
+      "has_scripts": false,
+      "has_references": false,
+      "body_sha": "d44aabedc4d2166d",
+      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.0/skills/check-segments/SKILL.md"
+    },
+    {
+      "id": "enrich-account",
+      "name": "enrich-account",
+      "path": "skills/enrich-account/SKILL.md",
+      "dir": "skills/enrich-account",
+      "description": "Set up and populate custom fields on a Merch Jar account \u2014 profit margins, product lifecycle phase, inventory or seasonality flags, labels \u2014 so segments can automate against business data Amazon doesn't have. Use when the user says \"add my margins,\" \"set up custom fields,\" \"tag my campaigns by phase,\" \"label my products,\" \"track profitability per product,\" or when build-segment or account-review surfaces a goal that needs business data the account doesn't carry yet.",
+      "version": "1.0",
+      "tags": [
+        "custom-properties",
+        "custom-fields",
+        "margins",
+        "lifecycle",
+        "labels"
+      ],
+      "goal": "set-up",
+      "requires_scopes": [
+        "custom_fields:read",
+        "custom_fields:write",
+        "segments:preview"
+      ],
+      "requires_skills": [
+        "merchjar-connect"
+      ],
+      "requires_properties": [],
+      "produces": "custom-property definitions and bulk values on the account, with a source_reference audit tag",
+      "risk": "state",
+      "compatibility": "Any Agent Skills client with shell + network access (Claude Code, Codex, Cursor, Gemini CLI) or Claude Desktop/Cowork via the Chrome extension. Needs a Merch Jar API key.",
+      "license": "Proprietary. Use requires an active Merch Jar account; see LICENSE in the repo root.",
+      "last_updated": "2026-09-04",
+      "ships_in_pack": true,
+      "has_scripts": false,
+      "has_references": false,
+      "body_sha": "4b33fadc6a38fdf8",
+      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.0/skills/enrich-account/SKILL.md"
+    },
+    {
+      "id": "explain-segment",
+      "name": "explain-segment",
+      "path": "skills/explain-segment/SKILL.md",
+      "dir": "skills/explain-segment",
+      "description": "Explain what a segment does in plain English. Use when the user asks \"explain this segment,\" \"what does this do,\" \"translate this to English,\" \"break this down for me,\" \"help me understand this,\" or pastes segment code and seems to want to understand it rather than edit or deploy it. Also use when a non-technical user wants to understand a segment that someone else built.",
+      "version": "1.0",
+      "tags": [
+        "explain",
+        "dsl",
+        "plain-english"
+      ],
+      "goal": "understand",
+      "requires_scopes": [
+        "segments:read"
+      ],
+      "requires_skills": [
+        "merchjar-connect"
+      ],
+      "requires_properties": [],
+      "produces": "a plain-English explanation of a segment's logic",
+      "risk": "read-only",
+      "compatibility": "Any Agent Skills client with shell + network access (Claude Code, Codex, Cursor, Gemini CLI) or Claude Desktop/Cowork via the Chrome extension. Needs a Merch Jar API key.",
+      "license": "Proprietary. Use requires an active Merch Jar account; see LICENSE in the repo root.",
+      "last_updated": "2026-09-04",
+      "ships_in_pack": true,
+      "has_scripts": false,
+      "has_references": false,
+      "body_sha": "de9bbb13612087f1",
+      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.0/skills/explain-segment/SKILL.md"
+    },
+    {
+      "id": "merchjar-connect",
+      "name": "merchjar-connect",
+      "path": "skills/merchjar-connect/SKILL.md",
+      "dir": "skills/merchjar-connect",
+      "description": "Connect an AI agent to a Merch Jar account (Amazon Sponsored Products PPC) through the Merch Jar API. Use when starting any Merch Jar session, and whenever another Merch Jar skill needs the API client, the API key, the safety protocol, or the DSL and API references. Handles key setup (config file or MERCHJAR_API_KEY), profile discovery, the shell client, and the non-negotiable deploy safety rules.",
+      "version": "1.0",
+      "tags": [
+        "connect",
+        "api",
+        "setup",
+        "safety",
+        "references"
+      ],
+      "goal": "set-up",
+      "requires_scopes": [
+        "profiles:read"
+      ],
+      "requires_skills": [],
+      "requires_properties": [],
+      "produces": "a connected account (profiles listed) and a working API client the other skills call",
+      "risk": "read-only",
+      "compatibility": "Shell + network access (Claude Code, Codex, Cursor, Gemini CLI, any Agent Skills client that can run Python 3.9+). Claude Desktop/Cowork uses the Chrome extension instead of the shell client; the safety rules and references still apply.",
+      "license": "Proprietary. Use requires an active Merch Jar account; see LICENSE in the repo root.",
+      "last_updated": "2026-09-04",
+      "ships_in_pack": true,
+      "has_scripts": true,
+      "has_references": true,
+      "body_sha": "5b256f8c9d232d34",
+      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.0/skills/merchjar-connect/SKILL.md"
+    },
+    {
+      "id": "performance-check",
+      "name": "performance-check",
+      "path": "skills/performance-check/SKILL.md",
+      "dir": "skills/performance-check",
+      "description": "Analyze account performance and diagnose what's driving changes. Use when the user asks \"how am I doing?\", \"is it working?\", \"what's changed?\", \"check my performance\", \"why is my ACOS up?\", \"performance is down\", or comes back after deploying segments and wants to see the impact. Also use when the user asks a general \"why\" question about their account metrics \u2014 not a specific segment behavior question.",
+      "version": "1.0",
+      "tags": [
+        "performance",
+        "acos",
+        "diagnosis",
+        "trends"
+      ],
+      "goal": "understand",
+      "requires_scopes": [
+        "segments:preview",
+        "audit_logs:read"
+      ],
+      "requires_skills": [
+        "merchjar-connect"
+      ],
+      "requires_properties": [],
+      "produces": "a performance diagnosis with the drivers of change",
+      "risk": "read-only",
+      "compatibility": "Any Agent Skills client with shell + network access (Claude Code, Codex, Cursor, Gemini CLI) or Claude Desktop/Cowork via the Chrome extension. Needs a Merch Jar API key.",
+      "license": "Proprietary. Use requires an active Merch Jar account; see LICENSE in the repo root.",
+      "last_updated": "2026-09-04",
+      "ships_in_pack": true,
+      "has_scripts": false,
+      "has_references": false,
+      "body_sha": "c72a822887f4aab5",
+      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.0/skills/performance-check/SKILL.md"
+    },
+    {
+      "id": "review-segment",
+      "name": "review-segment",
+      "path": "skills/review-segment/SKILL.md",
+      "dir": "skills/review-segment",
+      "description": "Review an existing segment against current quality standards and upgrade it if needed. Use when the user pastes a segment and asks if it's good, asks to review or audit a segment, says \"is this up to date,\" \"check this against standards,\" \"upgrade my segment,\" \"tune this segment,\" \"adjust the settings on this,\" or wants to know if their existing logic is correct. Also use when a segment fetched from the API looks outdated (missing diagnostics, simple single-condition triggers, hard-coded thresholds).",
+      "version": "1.0",
+      "tags": [
+        "review",
+        "upgrade",
+        "standards",
+        "tune"
+      ],
+      "goal": "protect",
+      "requires_scopes": [
+        "segments:read",
+        "segments:validate",
+        "segments:preview",
+        "segments:write"
+      ],
+      "requires_skills": [
+        "merchjar-connect"
+      ],
+      "requires_properties": [],
+      "produces": "a standards review and, on request, an upgraded segment via PATCH",
+      "risk": "state",
+      "compatibility": "Any Agent Skills client with shell + network access (Claude Code, Codex, Cursor, Gemini CLI) or Claude Desktop/Cowork via the Chrome extension. Needs a Merch Jar API key.",
+      "license": "Proprietary. Use requires an active Merch Jar account; see LICENSE in the repo root.",
+      "last_updated": "2026-09-04",
+      "ships_in_pack": true,
+      "has_scripts": false,
+      "has_references": false,
+      "body_sha": "47d074e975d69955",
+      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.0/skills/review-segment/SKILL.md"
+    },
+    {
+      "id": "troubleshoot",
+      "name": "troubleshoot",
+      "path": "skills/troubleshoot/SKILL.md",
+      "dir": "skills/troubleshoot",
+      "description": "Debug why a segment took an action (or didn't). Use when the user asks \"why did this segment pause/change/negate my keyword/search term/campaign,\" \"why isn't this doing anything,\" \"this segment isn't working,\" \"debug this,\" \"explain why X happened,\" or wants to understand unexpected automation behavior before deciding what to do.",
+      "version": "1.0",
+      "tags": [
+        "debug",
+        "why",
+        "segment-behavior"
+      ],
+      "goal": "understand",
+      "requires_scopes": [
+        "segments:read",
+        "segments:preview",
+        "audit_logs:read"
+      ],
+      "requires_skills": [
+        "merchjar-connect"
+      ],
+      "requires_properties": [],
+      "produces": "the reason a segment did or did not act on an entity",
+      "risk": "read-only",
+      "compatibility": "Any Agent Skills client with shell + network access (Claude Code, Codex, Cursor, Gemini CLI) or Claude Desktop/Cowork via the Chrome extension. Needs a Merch Jar API key.",
+      "license": "Proprietary. Use requires an active Merch Jar account; see LICENSE in the repo root.",
+      "last_updated": "2026-09-04",
+      "ships_in_pack": true,
+      "has_scripts": false,
+      "has_references": false,
+      "body_sha": "4b0997ab390eb8df",
+      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.0/skills/troubleshoot/SKILL.md"
+    }
+  ],
+  "properties": [],
+  "collections": [
+    {
+      "id": "core-six",
+      "name": "The Core Six",
+      "path": "collections/core-six.md",
+      "description": "The six automations Merch Jar deploys (disabled) to every account. Enable them in order and most accounts are covered.",
+      "goal": "cut-waste",
+      "items": [
+        "core-search-term-waste-elimination",
+        "core-dynamic-bid-management",
+        "core-adaptive-budget-management",
+        "core-impression-recovery-boost",
+        "core-product-ad-waste-elimination",
+        "core-pause-underperforming-keywords-targets",
+        "check-segments",
+        "build-segment"
+      ],
+      "featured": true,
+      "story": "Every Merch Jar account starts with these six Segments already installed, disabled. They cover the loop most sellers run by hand: stop paying for search terms that never convert, move bids toward your target ACOS, keep budgets from capping proven campaigns, recover lost impressions on winners, and pause the product ads and targets that have had their chance.\n\nTurn them on in this order: search-term waste first (it only adds negatives), then bid management, then budgets. Give each one a week before the next. Ask your Copilot to \"check my segments\" to see which are on, or \"enable the core six\" to walk through them with a preview at every step."
     }
   ]
 }
