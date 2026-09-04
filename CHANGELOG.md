@@ -5,6 +5,15 @@ record of what changed in each version. This file is a thin pointer.
 
 See the full history at: https://github.com/merchjar/copilot/releases
 
+## v1.1.0 (2026-09-04)
+
+Library update: **Core: Search Term Waste Elimination v1.1** ships CTR-relevance
+scaling (low CTR negates sooner, high CTR earns more runway) with new
+`$ctr_reference` / `$ctr_low_floor` / `$ctr_high_ceiling` settings and CTR-aware
+diagnostics. Validated and previewed on a live account before release. Stray
+empty template folders removed from the dev tree; the three-folder taxonomy
+(optimize / insight / utility) plus tags stands. No skill behavior changes.
+
 ## v1.0.1 (2026-09-01)
 
 Documentation sync with the canonical public API reference at

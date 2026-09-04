@@ -1,24 +1,30 @@
 /*
 === Core: Search Term Waste Elimination ===
-Version: 1.0
+Version: 1.1
 Docs: merchjar.com/templates?t=core-search-term-waste-elimination
+Changelog: v1.1 - CTR-relevance scaling: CTR scales the click threshold (low CTR negates sooner, high CTR earns runway).
 
-Purpose: Intelligently negate wasteful search terms using efficiency targets and performance analysis.
+Purpose: Intelligently negate wasteful search terms using efficiency, performance, and CTR-relevance analysis.
 Dataset: Search Terms
 Recommended: Create Negative Exact Match | Daily
 Tags: waste, negation, default
-Last-Updated: 2026-06-15
+Last-Updated: 2026-09-04
 Min-Pack-Version: 1.0.0
 */
 
 // === Core Settings ===
-let $clicks_threshold = 20;                  // CORE: Base click threshold for zero-order terms
+let $clicks_threshold = 20;                  // CORE: Base click threshold for zero-order terms (scaled by CTR below)
 let $spend_threshold = 5.00;                 // CORE: Base spend requirement for zero-order terms
 
 // === Strategy Settings ===
 let $orders_min_for_acos_eval = 5;           // STRATEGY: Orders required for ACOS-based evaluation
 let $clicks_min_for_acos_eval = 100;         // STRATEGY: Clicks required for ACOS-based evaluation
 let $t_acos_threshold_negate = 400%;         // STRATEGY: Negate if ACOS >= (Target ACOS x 400%) when min clicks & orders are met [e.g., 30% target = 120% threshold]
+
+// === CTR Relevance Scaling ===
+let $ctr_reference = 0.30%;                  // STRATEGY: Baseline CTR; above = relevant, below = weak relevance
+let $ctr_low_floor = 0.15%;                  // STRATEGY: At/below this: clearly irrelevant, most aggressive (0.5x click bar)
+let $ctr_high_ceiling = 0.60%;               // STRATEGY: At/above this: strongly relevant, most runway (1.5x click bar)
 
 // === Advanced Settings ===
 let $clicks_scaling_per_order = 20;          // ADVANCED: Additional clicks allowed per order [e.g., 2 orders = 20 + (2 x 20) = 60 clicks]
@@ -46,9 +52,26 @@ let $lifetime_clicks = clicks(lifetime);
 let $lifetime_spend = spend(lifetime);
 let $lifetime_acos = acos(lifetime);
 let $lifetime_roas = roas(lifetime);
+let $lifetime_impressions = impressions(lifetime);
 
-// Calculate scaled thresholds based on order history
-let $allowed_clicks = $clicks_threshold + ($lifetime_orders * $clicks_scaling_per_order);
+// CTR as a ratio (clicks / impressions), guarded against zero impressions
+let $lifetime_ctr = case(
+    $lifetime_impressions > 0 => $lifetime_clicks / $lifetime_impressions,
+    else 0
+);
+
+// CTR multiplier: weak relevance lowers the click bar, strong relevance raises it
+let $ctr_multiplier = case(
+    $lifetime_ctr <= $ctr_low_floor => 0.5,
+    $lifetime_ctr < $ctr_reference => 0.75,
+    $lifetime_ctr >= $ctr_high_ceiling => 1.5,
+    $lifetime_ctr >= $ctr_reference => 1.25,
+    else 1.0
+);
+
+// Calculate scaled thresholds based on order history and CTR relevance
+let $clicks_threshold_adj = $clicks_threshold * $ctr_multiplier;
+let $allowed_clicks = $clicks_threshold_adj + ($lifetime_orders * $clicks_scaling_per_order);
 let $spend_required = $spend_threshold + ($lifetime_orders * $spend_scaling_per_order);
 
 // Data sufficiency check (both clicks and spend)
@@ -145,10 +168,13 @@ let $reason = case(
     $roas_protected = 1 => "Protected - ROAS above safeguard threshold",
     $irrelevant_candidate = 1 => "Contains irrelevant terms, met click threshold",
     $irrelevant_term = 1 and $lifetime_clicks < $irrelevant_clicks_threshold => "Contains irrelevant terms, needs more clicks",
+    $zero_order_waste_candidate = 1 and $ctr_multiplier <= 0.75 => "Zero orders, weak CTR accelerated negation",
     $zero_order_waste_candidate = 1 => "Zero orders, met click threshold",
+    $efficiency_candidate = 1 and $ctr_multiplier <= 0.75 => "Inefficient clicks-per-order, weak CTR",
     $efficiency_candidate = 1 and $actual_clicks_per_order >= $clicks_scaling_per_order * 2 => "Greatly exceeds click-per-order limit",
     $efficiency_candidate = 1 => "Exceeds click-per-order limit",
     $performance_candidate = 1 => "ACOS far above target threshold",
+    $sufficient_data = 0 and $ctr_multiplier >= 1.25 => "Strong CTR - earning runway before negation",
     $sufficient_data = 0 and $lifetime_spend < $spend_required and $lifetime_clicks < $allowed_clicks => "Insufficient spend and clicks",
     $sufficient_data = 0 and $lifetime_spend < $spend_required => "Insufficient spend",
     $sufficient_data = 0 => "Insufficient clicks for order level",

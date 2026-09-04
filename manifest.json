@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "pack_version": "1.0.1",
-  "tag": "v1.0.1",
-  "generated": "2026-09-01",
+  "pack_version": "1.1.0",
+  "tag": "v1.1.0",
+  "generated": "2026-09-04",
   "template_count": 7,
   "templates": [
     {
@@ -119,15 +119,15 @@
       "name": "Core: Search Term Waste Elimination",
       "path": "templates/optimize/core-search-term-waste-elimination.txt",
       "category": "optimize",
-      "version": "1.0",
+      "version": "1.1",
       "dataset": "Search Terms",
       "tags": [
         "waste",
         "negation",
         "default"
       ],
-      "description": "Intelligently negate wasteful search terms using efficiency targets and performance analysis.",
-      "last_updated": "2026-06-15",
+      "description": "Intelligently negate wasteful search terms using efficiency, performance, and CTR-relevance analysis.",
+      "last_updated": "2026-09-04",
       "min_pack_version": "1.0.0",
       "docs": "merchjar.com/templates?t=core-search-term-waste-elimination"
     }
