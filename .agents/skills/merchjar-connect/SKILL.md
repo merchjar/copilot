@@ -4,14 +4,14 @@ description: Connect an AI agent to a Merch Jar account (Amazon Sponsored Produc
 license: Proprietary. Use requires an active Merch Jar account; see LICENSE in the repo root.
 compatibility: Shell + network access (Claude Code, Codex, Cursor, Gemini CLI, any Agent Skills client that can run Python 3.9+). Claude Desktop/Cowork uses the Chrome extension instead of the shell client; the safety rules and references still apply.
 metadata:
-  version: "1.0"
+  version: "1.2"
   tags: "connect, api, setup, safety, references"
   goal: "set-up"
   risk: "read-only"
   requires-skills: ""
   requires-scopes: "profiles:read"
   produces: "a connected account (profiles listed) and a working API client the other skills call"
-  last-updated: "2026-09-04"
+  last-updated: "2026-09-08"
 ---
 
 # Merch Jar Connect
@@ -66,12 +66,15 @@ Rules that keep calls working:
 
 - **Write JSON payloads to a file and pass `--body-file`.** Never inline `--body` for DSL payloads; PowerShell splits them at spaces and quotes before the call is made.
 - `per_page` for previews goes in the JSON body (max 100), not the URL.
-- Profile-scoped GET / PATCH / DELETE need `--profileid`. Preview and create carry `profile_id` in the body.
+- Profile-scoped entity calls, including campaign/ad-group/ad/target creates, need `--profileid`. Segment preview/create carry `profile_id` in the body. Entity-create schemas reject body `profile_id`; follow the live contract for each endpoint.
+- Entity updates, archives and bulk actions use `--idempotency-key <unique-request-key>` where required by the live contract. Persist the key with the exact method, path, profile and body; reuse it only for an identical request. This option does not make entity creation idempotent, and the client does not automatically retry.
 - `set_state` params are `{"value": 1}` (enabled) or `{"value": 2}` (paused).
 - Report raw API errors exactly before recovering. `HTTP 401` on an unknown path means the endpoint does not exist (there is no `GET /campaigns`; discover entities via preview).
 - The preview endpoint has a tight burst bucket: space repeated previews out, and back off on 429.
 
 ## Safety rules (non-negotiable, every skill inherits them)
+
+For automatic campaign creation, load the Entity creation section of the API reference. `autoCreateTargets: true` selects automatic targeting; Amazon generates the four groups. Create the campaign, ad group and Product Ad PAUSED, then inspect the generated targets. Do not POST four duplicate THEME targets. Generated targets can have enabled own state while paused parents prevent delivery. Empty Merch Jar previews do not establish their absence in Amazon. Reconcile in Amazon before retrying any unknown creation outcome.
 
 - **Deploy disabled.** Every `POST /api/v5/segments` uses `"enabled": false`. Enabling is a separate, explicit step the user asks for.
 - **Preview first.** Run `POST /api/v5/segments/preview` and show the headline result (rows, spend, sample) before any create or trigger change.

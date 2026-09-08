@@ -91,9 +91,13 @@ def load_body(body: str | None, body_file: str | None) -> Any:
     return None
 
 
-def request_json(method: str, path: str, api_key: str, profileid: str | None = None, body: Any = None) -> Any:
+def request_json(method: str, path: str, api_key: str, profileid: str | None = None, body: Any = None, idempotency_key: str | None = None) -> Any:
     url = f"{BASE_URL}{path}"
     headers = {"Authorization": f"Bearer {api_key}", "Accept": "application/json"}
+    if idempotency_key is not None:
+        if not idempotency_key.strip() or any(c in idempotency_key for c in '\r\n'):
+            raise RuntimeError("Idempotency key must be non-empty and contain no line breaks.")
+        headers["Idempotency-Key"] = idempotency_key
     data = None
     if profileid:
         headers["profileid"] = profileid
@@ -121,6 +125,7 @@ def main() -> int:
     r.add_argument("method", help="HTTP method")
     r.add_argument("path", help="API path, e.g. /api/v5/segments")
     r.add_argument("--profileid", help="Optional profileid header")
+    r.add_argument("--idempotency-key", help="Stable key for one immutable update/archive request; reuse only for the identical request")
     r.add_argument("--body", help="Inline JSON body (avoid for DSL payloads; use --body-file)")
     r.add_argument("--body-file", help="Path to a JSON file body")
     sub.add_parser("whereis", help="Show which config file (if any) the client would read")
@@ -142,7 +147,7 @@ def main() -> int:
             return 0
         if args.command == "request":
             body = load_body(args.body, args.body_file)
-            result = request_json(args.method, args.path, api_key, profileid=args.profileid, body=body)
+            result = request_json(args.method, args.path, api_key, profileid=args.profileid, body=body, idempotency_key=args.idempotency_key)
             print(json.dumps(result, indent=2))
             return 0
     except RuntimeError as exc:

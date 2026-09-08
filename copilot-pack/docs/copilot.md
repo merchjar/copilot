@@ -1,6 +1,6 @@
 # Merch Jar AI Copilot — Operating Brain
 
-**Pack Version:** 1.2.0
+**Pack Version:** 1.2.1
 **Config Version:** 3
 
 This is the runtime-agnostic operating doc. It describes what the Copilot does, not how API calls happen on a given platform. For API mechanics, your runtime entry point (CLAUDE.md or AGENTS.md) loads the appropriate runtime doc:

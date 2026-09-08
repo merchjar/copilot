@@ -582,26 +582,66 @@ Per-entity bid/budget change history, newest first, paginated. `entity_type` is 
 
 ---
 
+### Entity update and archive (in the live OpenAPI spec 2026-09-04; not yet exercised)
+
+`https://merchjar.com/api/openapi.json` (fetch with a browser User-Agent; the default Python UA gets a 403) now lists, beyond the create endpoints above:
+
+| Endpoint | Body | Notes |
+|---|---|---|
+| `PATCH /ad-groups/:id` | `{ "bid": { "defaultBid": n } }` and/or `{ "state": "ENABLED" \| "PAUSED" }` | Only those two fields. `Idempotency-Key` header required. |
+| `DELETE /ad-groups/:id` | none | Archives the ad group and confirms Amazon reports `ARCHIVED` before local projection. Scope `ad_groups:archive`. `Idempotency-Key` required. |
+| `PATCH /targets/:id` | `{ "bid": { "bid": n } }` and/or `{ "state": ... }` | Keywords and targets. `Idempotency-Key` required. |
+| `DELETE /targets/:id` | none | Archives the target. Scope `targets:archive`. |
+| `PATCH /product-ads/:id` | `{ "state": ... }` | State only. |
+| `DELETE /product-ads/:id` | none | Archives the product ad; Amazon may omit an archived ad from read-back. Scope `ads:archive`. |
+
+`PATCH /campaigns/:id` still rejects `state`, and there is no `DELETE /campaigns/:id`. The Sep 7 live contract provides campaign state changes and archival through `POST /bulk-actions`, with `entity_type: campaigns`, exact `entity_ids`, and `action: {type: set_state, state: paused|archived}` (lowercase state). Follow the live schema and scope requirements, including `campaigns:archive` for archival and `bulk_actions:read` for polling. Archive scopes are separate from write scopes. Use `--idempotency-key` with the client for endpoints requiring that header; keep the same key only for an identical request. Inspect every result and reconcile unknown outcomes before retrying. The existence of a contract is not proof every operation has passed a live test.
+
+
+---
+
 ### Entity creation (Sponsored Products)
 
-Create-only endpoints that proxy Amazon Ads v1 batch creates. There is no public update, archive, or delete: cleanup happens in the Merch Jar or Amazon UI. Always create in `state: PAUSED` and tell the user what was created and where.
+Create endpoints proxy Amazon Ads v1 batch creates. Campaign settings use `PATCH /campaigns/:id`; campaign state/archive uses `/bulk-actions` as described above. Create campaigns, ad groups and Product Ads in `state: PAUSED` and report their exact IDs. Generated automatic targets can have enabled own state while their paused parents prevent serving; distinguish own state from effective delivery status.
 
 | Endpoint | Scope | Body key | Status |
 |---|---|---|---|
-| `POST /campaigns` | `campaigns:write` | `campaigns[]` | **Known broken (Sep 2026):** the strict schema omits Amazon-required `budgets`, `marketplaceScope`, `startDateTime`, so every valid request fails at Amazon with a 400. Do not offer campaign creation until this is fixed; create the campaign in the app instead. |
-| `POST /ad-groups` | `ad_groups:write` | `adGroups[]` | **Known broken (Sep 2026):** schema omits Amazon-required `bid`. Same failure mode. |
-| `POST /targets` | `targets:write` | `targets[]` | Working. Keyword targets (exact / broad / phrase), theme targets (show as "keyword group" in the Amazon console), product targets (need an eligible, not-already-targeted ASIN), and **campaign-level negative keywords** (this endpoint, not `/negative-targets`). |
+| `POST /campaigns` | `campaigns:write` | `campaigns[]` | Manual and automatic creates verified Sep 7. Send `marketplaceScope`, `marketplaces`, `startDateTime`, `budgets`, and both `autoCreationSettings` booleans. `autoCreateTargets: true` selects automatic targeting; false selects manual targeting. Keep `autoManageCampaign: false` unless lifecycle management is explicitly intended. |
+| `POST /ad-groups` | `ad_groups:write` | `adGroups[]` | Working (MER-3148, verified 2026-09-03). `bid.defaultBid` + `currencyCode` required. Keyword/theme targets and product targets must live in separate ad groups. |
+| `POST /targets` | `targets:write` | `targets[]` | Strict schema supports keyword, product, product-category and THEME branches; Amazon validates business combinations. Do not explicitly create the four automatic groups, which Amazon generates for an automatic campaign. The Sep 6 attempt to create those themes under a manual campaign returned an unknown outcome; it does not prove a general endpoint failure. |
 | `POST /negative-targets` | `negative-targets:write` | `negativeTargets[]` | Working. Ad-group-level negative **product** targets only (ASIN, `PRODUCT_EXACT`). Amazon archives negatives rather than pausing them; the app may display them as paused. |
-| `POST /product-ads` | `ads:write` | `productAds[]` | Working. Needs an eligible, non-duplicate ASIN (or SKU with `productIdType: SKU`). |
+| `POST /product-ads` | `ads:write` | `ads[]` | Verified Sep 7 with a real DE ASIN. Needs an eligible product (ASIN, or SKU with `productIdType: SKU`) and a valid parent ad group. |
 
 Rules that apply to all five:
 
 - **Schemas are strict.** Undeclared fields (including `profile_id` in the body) are rejected with `400 invalid_request` before Amazon is called. Get the exact item schema from https://merchjar.com/api/openapi.json; do not improvise fields.
 - **Batch of 1 to 1,000 items per request.** Amazon's per-index results come back as-is.
 - **HTTP 200 does not mean success.** The 200 body is Amazon's raw batch envelope with `success[]`, `partialSuccess[]`, and `error[]` arrays. Read `error[]` per item and report failures (for example `DUPLICATE`, `PRODUCT_INELIGIBLE`) to the user in plain language. A `502` means the request may or may not have reached Amazon.
-- **No idempotency and no automatic retry.** If the outcome is unknown, check the app (or segment preview) for the entity before re-sending; blind retries create duplicates.
+- **No create idempotency and no automatic retry.** If the outcome is unknown, reconcile in Amazon before re-sending. An empty Merch Jar preview or UI is not proof Amazon created nothing. Update/archive idempotency does not apply to creates.
 - **Eventual consistency.** Created entities appear in browse data and previews after the next projection, not instantly.
 - `campaignId` / `adGroupId` are forwarded to Amazon unchecked: send them as decimal strings, never as JavaScript numbers (ids exceed 2^53).
+
+**Automatic discovery workflow, verified Sep 7:** create a PAUSED campaign with `autoCreationSettings: {autoCreateTargets: true, autoManageCampaign: false}`, a PAUSED ad group with explicit default bid/currency, and a PAUSED Product Ad. Read back the four generated groups (close, loose, substitutes, complements); do not POST them again. In the DE test Amazon showed all four at the €0.20 default bid, enabled individually but effectively paused under paused parents. Merch Jar initially showed zero generated targets while the three explicitly created entities appeared. Treat that as incomplete synchronization/readback, not missing Amazon targets. Do not promise immediate target visibility or submit duplicate creates to fill the empty table. See [Amazon's automatic-campaign guide](https://advertising.amazon.com/API/docs/en-us/guides/sponsored-products/get-started/auto-campaigns).
+
+**Readback pitfalls observed Sep 7:** Amazon showed down-only bidding while Merch Jar displayed Unknown. One campaign preview contained a row but `pagination.total: 0`; inspect both returned rows and totals, and stop on inconsistencies before assuming a name is unused.
+
+#### Repeatable campaign launches
+
+For a requested Auto/Research/Exact structure, plan one campaign, one ad group and one Product Ad per role and ASIN. Include a positive keyword in each manual group only when requested. Placeholder terms are not researched keyword recommendations. Show the exact names, products, configured budgets and bids for approval before creating anything. The sum of daily budgets is a configured total, not a guaranteed daily spending ceiling.
+
+After approval, create campaigns first and map successful responses to their request indexes and names. Use those exact decimal-string IDs for ad groups, then the successful group IDs for ads and keywords. Preserve request/response receipts and parent mappings at each step. Inspect partial successes and per-item errors before continuing; do not attach children to a failed parent or retry an uncertain create blindly. Check current non-archived entities for duplicates; never replay an old creation manifest as a new request.
+
+**Positive keyword create shape, verified against the live OpenAPI September 8:** use exactly `adGroupId`, `adProduct`, `negative`, `state`, `targetType` and `targetDetails`. This branch rejects create-time `bid`, `campaignId` and `userSelectedKeyword`. Set the common launch bid with `bid.defaultBid` on the parent ad group, then verify the created keyword's inherited bid. For a different keyword bid, follow the current target-update contract after creation.
+
+```json
+{"targets":[{"adGroupId":"1234567890123456","adProduct":"SPONSORED_PRODUCTS","negative":false,"state":"PAUSED","targetType":"KEYWORD","targetDetails":{"keywordTarget":{"keyword":"replace me broad","matchType":"BROAD"}}}]}
+```
+
+The ID above is an example; substitute the successfully created parent group's ID. Use `EXACT` for an exact-match keyword. Fetch the full OpenAPI JSON for strict item variants rather than relying on one rendered PRODUCT example.
+
+Create all explicit entities paused. Amazon generates the four automatic groups from the Auto campaign flag; do not add THEME targets for this combined Auto structure. Verify generated groups in Amazon when Merch Jar's readback is incomplete. A September 7 test product showed only three groups after more than five minutes, so do not assume every product has all four or repair the gap with an unverified create. Confirm eligibility and effective delivery state per product.
+
+**Other observed limitations, September 7:** generated targets and bidding strategy remained absent or inconsistent in Merch Jar for more than 32 minutes after Amazon showed them. Campaign archive via bulk actions could falsely skip a fresh campaign as already archived; verify the exact campaign's state in Amazon before declaring cleanup complete. Negative-keyword creation could return `503 public_create_projection_pending` after Amazon succeeded; reconcile before retrying. These are observed discrepancies, not fixed API behavior.
 
 ---
 

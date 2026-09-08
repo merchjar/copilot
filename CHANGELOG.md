@@ -5,6 +5,14 @@ record of what changed in each version. This file is a thin pointer.
 
 See the full history at: https://github.com/merchjar/copilot/releases
 
+## v1.2.1 (2026-09-08)
+
+- Correct automatic campaign creation: use `autoCreateTargets: true` and inspect Amazon-generated groups instead of explicitly creating them.
+- Correct Product Ad `ads[]` and profile-header guidance; remove obsolete campaign/ad-group creation failure claims.
+- Add `--idempotency-key` for supported update/archive requests, with no automatic retries.
+- Add the verified positive-keyword request shape, inherited-bid checks and ordered parent-ID handling for repeatable campaign launches.
+- Document target synchronization, own versus effective state, bidding-strategy display, and inconsistent preview-count findings from paused DE tests.
+
 ## v1.2.0 (2026-09-04)
 
 Library foundation release.
