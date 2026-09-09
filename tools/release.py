@@ -65,7 +65,7 @@ def build_zip(version: str) -> Path:
     name = REPO_ROOT / f"merch-jar-copilot-pack-v{version}.zip"
     with zipfile.ZipFile(name, "w", zipfile.ZIP_DEFLATED) as z:
         for f in sorted((REPO_ROOT / "copilot-pack").rglob("*")):
-            if f.is_file() and "__pycache__" not in f.parts and f.suffix != ".pyc" and f.name != ".library-cache.json":
+            if f.is_file() and "__pycache__" not in f.parts and f.suffix != ".pyc" and f.name != ".library-cache.json" and f.name not in ("campaign-structures.json", "campaign-structures.json.lock") and not f.name.startswith(".structures-"):
                 z.write(f, "merch-jar-copilot-pack/" + f.relative_to(REPO_ROOT / "copilot-pack").as_posix())
     return name
 

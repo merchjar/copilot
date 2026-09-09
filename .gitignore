@@ -16,6 +16,9 @@ id_rsa.*
 # Local state / scratch. The empty per-install scaffold ships in copilot-pack/user/;
 # only a stray repo-root user/ (e.g. a real filled-in install) is ignored.
 /user/
+**/user/campaign-structures.json
+**/user/campaign-structures.json.lock
+**/user/.structures-*
 tmp/
 *.log
 

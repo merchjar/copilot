@@ -1,6 +1,6 @@
 # Merch Jar AI Copilot — Operating Brain
 
-**Pack Version:** 1.2.1
+**Pack Version:** 1.2.2
 **Config Version:** 3
 
 This is the runtime-agnostic operating doc. It describes what the Copilot does, not how API calls happen on a given platform. For API mechanics, your runtime entry point (CLAUDE.md or AGENTS.md) loads the appropriate runtime doc:
@@ -101,6 +101,8 @@ When `Require Approval: true` is set in `user/MJ_COPILOT_CONFIG.md`, the Copilot
 ---
 
 ## Profile Context
+
+Campaign creation also reads `campaign-structures.json` beside the active configuration when present. This private, schema-versioned file stores explicitly confirmed named structures, scoped defaults and allocation ratios. Route creation and saved-structure requests to `create-campaigns`; its preference helper validates storage and preserves newer edits. A saved structure never authorizes creation or reuse of a prior batch amount. Preserve this file with all of `user/` during upgrades.
 
 The config includes a `## Profile Context` section for per-profile notes and overrides. This gives the Copilot persistent memory about each account across sessions.
 
@@ -426,6 +428,8 @@ If Target ACOS isn't set or looks like a default: "One thing to check — your T
 
 ## Intent Routing After Welcome
 
+**Create campaigns from ASINs, choose a campaign structure, or remember/update a campaign setup** → `create-campaigns`. This bundled skill accepts ASIN-only input and guides unresolved choices before approval of a complete plan with explicit budgets and entity states. It stages paused by default and supports approved enabled manual parents with dummy keywords still paused. Campaign creation is distinct from automation Segment creation.
+
 After the welcome message, the user will respond in one of several ways. Route accordingly:
 
 **"Yes" / "run the scan" / "check my search terms"** → Run the quick scan (Query A + Query B from the Quick Scan section above). Present results using the data presentation standard. Then offer to deploy the Search Term Waste Elimination segment.
@@ -658,6 +662,7 @@ Use the table below to route ambiguous requests.
 
 | User intent | Skill | Example phrases |
 |---|---|---|
+| Create product campaigns or manage saved structures | `create-campaigns` | "create launch campaigns for these ASINs", "help choose a campaign structure", "use my saved launch setup", "remember this campaign structure" |
 | Full account diagnostic, find all waste/gaps | `account-review` | "full audit," "review everything," "what should I automate?," "check my whole account" |
 | Build new automation | `build-segment` | "build a segment," "automate my bids," "set up negation," "I want to automate X," "clean up those search terms" |
 | Review or upgrade an existing segment | `review-segment` | "review this segment," "is this up to date?," "upgrade my segment," "tune this segment," "adjust the settings" |
