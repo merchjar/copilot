@@ -25,7 +25,7 @@ Skill rules (Agent Skills spec + our metadata contract):
   S2  description 1-1024 chars, says what AND when
   S3  metadata keys are strings only (spec) and include version, tags, goal, risk
   S4  SKILL.md body under 500 lines (spec recommendation) -> warning
-  S5  every skill except merchjar-connect declares requires-skills: merchjar-connect
+  S5  account skills declare requires-skills: merchjar-connect; local installation is exempt
 
 Exit 1 on any error; warnings never fail the run.
 """
@@ -133,7 +133,7 @@ def lint_skill(path: Path) -> tuple[list[str], list[str]]:
         for req in ("version", "tags", "goal", "risk"):
             if not meta.get(req):
                 errors.append(f"S3 metadata.{req} missing")
-        if name != "merchjar-connect" and "merchjar-connect" not in str(meta.get("requires-skills", "")):
+        if name not in {"merchjar-connect", "manage-library"} and "merchjar-connect" not in str(meta.get("requires-skills", "")):
             errors.append("S5 metadata.requires-skills must include merchjar-connect")
     if body.count("\n") > 500:
         warnings.append(f"S4 SKILL.md body is {body.count(chr(10))} lines (>500); move detail to references/")

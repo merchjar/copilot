@@ -1,6 +1,6 @@
 # Merch Jar AI Copilot — Operating Brain
 
-**Pack Version:** 1.2.2
+**Pack Version:** 1.2.3
 **Config Version:** 3
 
 This is the runtime-agnostic operating doc. It describes what the Copilot does, not how API calls happen on a given platform. For API mechanics, your runtime entry point (CLAUDE.md or AGENTS.md) loads the appropriate runtime doc:
@@ -656,12 +656,13 @@ Skills are markdown playbooks at `skills/NAME/SKILL.md` (canonical source). The 
 
 Some runtimes also auto-discover skills from a separate folder (`.claude/skills/` for Claude Code CLI, `.agents/skills/` for Codex CLI). Those are generated mirrors of `skills/` produced by `build.sh` (or `python tools/build_skills.py`). Cowork and Codex desktop do not appear to auto-load any folder; the brain's intent routing is the mechanism in those environments.
 
-Every skill depends on **`merchjar-connect`**: the base skill that owns the API client, key handling, the safety protocol, and the three references. In this pack its pieces are flattened to `tools/merchjar_client.py` and `reference/` (the paths this document uses); when a skill is installed standalone (`npx skills add merchjar/copilot`) they live inside `skills/merchjar-connect/scripts/` and `references/`.
+Account skills depend on **`merchjar-connect`**: the base skill that owns the API client, key handling, the safety protocol, and the three references. In this pack its pieces are flattened to `tools/merchjar_client.py` and `reference/` (the paths this document uses); when a skill is installed standalone (`npx skills add merchjar/copilot`) they live inside `skills/merchjar-connect/scripts/` and `references/`. Local Library installation through `manage-library` needs no account connection.
 
 Use the table below to route ambiguous requests.
 
 | User intent | Skill | Example phrases |
 |---|---|---|
+| Install a Library skill or inspect an individual installation | `manage-library` | "install this skill", "add this from the Library", a copied Library setup request |
 | Create product campaigns or manage saved structures | `create-campaigns` | "create launch campaigns for these ASINs", "help choose a campaign structure", "use my saved launch setup", "remember this campaign structure" |
 | Full account diagnostic, find all waste/gaps | `account-review` | "full audit," "review everything," "what should I automate?," "check my whole account" |
 | Build new automation | `build-segment` | "build a segment," "automate my bids," "set up negation," "I want to automate X," "clean up those search terms" |

@@ -55,6 +55,17 @@ Claude Code users can also add the plugin marketplace:
     /plugin install merchjar-copilot@merchjar
 
 Always install `merchjar-connect`; the other skills call its client and references.
+The CLI installs selected folders; it does not resolve our `requires-skills`
+metadata. For an individual account skill, select its connection dependency too:
+
+    npx skills add merchjar/copilot --skill create-campaigns merchjar-connect
+
+The default pack also bundles `manage-library` and a Python installer. Paste a
+Library item's setup request into your Copilot and it checks the files, installs
+the selected skill and preserves local changes. Installation needs file, shell
+and HTTPS access, but no API key. The current installer adds missing files;
+differing existing files require comparison before an update can proceed.
+
 Set `MERCHJAR_API_KEY` in your environment (or let the skill save the key to a
 config file) and say "connect my Merch Jar account".
 

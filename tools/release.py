@@ -86,6 +86,7 @@ def main() -> int:
         lint.append("--online")
     run(lint, "lint")
     run([PY, "tools/build_skills.py"], "skills sync")
+    run([PY, "tools/test_library_install.py"], "bundled Library installer checks")
     if args.test:
         if not args.profiles:
             print("--test needs --profiles", file=sys.stderr); return 2
