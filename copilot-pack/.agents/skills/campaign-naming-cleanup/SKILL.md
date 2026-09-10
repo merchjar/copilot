@@ -3,7 +3,7 @@ name: campaign-naming-cleanup
 description: Choose and save an account's campaign naming convention, audit existing Amazon campaign names against real products and targeting, and apply reviewed renames through Merch Jar. Use when cleaning up names, choosing naming standards or saving ongoing naming preferences. Campaign restructuring is separate.
 license: Proprietary. Requires an active Merch Jar subscription.
 metadata:
-  version: "0.3.0"
+  version: "0.4.0"
   tags: "campaigns, naming, cleanup, preferences"
   goal: "set-up"
   risk: "state"
@@ -16,7 +16,7 @@ metadata:
 
 # Campaign Naming
 
-Support choosing or changing a convention, saving it without renaming existing campaigns, applying reviewed renames, and checking later departures. Load the shared preference contract and helper from `merchjar-connect` 1.4 or later. A naming check reads the saved convention first and never starts a fresh convention-selection process unless the user requests it. Existing names can be consistent without a saved convention. Report deliberate exceptions and missing evidence separately from confirmed departures; do not promise continuous monitoring.
+Support choosing or changing a convention, saving it without renaming existing campaigns, applying reviewed renames, and checking later departures. Load the shared preference contract and helper from `merchjar-connect` 1.5 or later. A naming check reads the saved convention first and never starts a fresh convention-selection process unless the user requests it. Existing names can be consistent without a saved convention. Report deliberate exceptions and missing evidence separately from confirmed departures; do not promise continuous monitoring.
 
 Store durable rename mappings and stable per-campaign suffix/exception choices under `campaign-naming-records/` beside the active private config, grouped by profile ID. Read relevant prior records on later checks. Keep IDs, original/applied names, the convention revision and user-approved exceptions; do not use temporary files or chat history as the sole persistence. Saving a convention alone does not require campaign writes.
 
@@ -24,13 +24,19 @@ Help the user make an existing account easier to navigate and establish the nami
 
 Read the installed `merchjar-connect` skill for credential discovery, the API client, current contract and runtime instructions. If it is unavailable, explain that this skill extends the Merch Jar Copilot and needs its connection capability. Never ask the user to put credentials into this skill.
 
-Campaign renaming is supported through PATCH with the name field; discovery uses Segment preview. Read [references/api-and-evidence.md](references/api-and-evidence.md) for verified mechanics. Resolve real discrepancies against the current contract, rather than treating known rename support as an unknown feature every session.
+Campaign renaming is supported through PATCH with the name field; discovery uses Segment preview. Read [references/api-and-evidence.md](references/api-and-evidence.md) when inspecting real campaigns or preparing a rename. Resolve real discrepancies against the current contract, rather than treating known rename support as an unknown feature every session.
+
+## Give a useful first answer
+
+Choose the depth from the request. Choosing an ongoing convention is a design conversation; it does not require a complete account audit. Lead with a recommended taxonomy, its field meanings and a clearly illustrative name before extensive API work. If the request also asks how existing names would change, follow with a small representative sample, usually three campaigns including an exception. State that coverage is a sample. Complete the requested mapping after the user chooses the convention; do not silently drop it or make them repeat the request.
+
+Resolve existing preferences first when the profile is known. For account examples, list campaigns, apply exclusions before child queries, and inspect only the selected sample's products and targets. Stop expanding the sample when it is sufficient to explain the choice. If a query is slow or incomplete, give the design recommendation with the evidence still missing instead of delaying all useful output. A full audit, full mapping, and the pre-write dependency check remain complete for their selected scope when those stages are reached. Saving a convention alone needs none of those full-account checks.
 
 ## Establish the account and inspect
 
 Use the account the user selected. Respect exclusions and existing protection rules. Default a naming audit to active and paused campaigns; state that archived campaigns are excluded. Resolve ambiguous account selection before writes.
 
-Resolve the shared naming preference using [references/preferences.md](references/preferences.md). A selected account convention is the starting point; do not ask the user to choose again unless they want to revise it. Inventory campaigns, related ad groups, advertised Product Ads and positive targets. Use the actual API, not screenshots or old names alone, to determine product associations and targeting. Use retrieved target data before recommending names or diagnosing overlap.
+Resolve the shared naming preference using [references/preferences.md](references/preferences.md). A selected account convention is the starting point; do not ask the user to choose again unless they want to revise it. For the sample or full mapping currently needed, inventory campaigns, advertised Product Ads and positive targets. Fetch separate ad-group detail only when the selected fields or a real ambiguity require it. Use the actual API, not screenshots or old names alone, to determine product associations and targeting. Use retrieved target data before proposing concrete existing-campaign names or diagnosing overlap.
 
 Read [references/api-and-evidence.md](references/api-and-evidence.md) for the query/readback mechanics and evidence pitfalls.
 
@@ -48,7 +54,7 @@ Do not infer "winner", "brand defense", "competitor" or "research" from a name o
 
 ## Guide the convention
 
-Read [references/naming-conventions.md](references/naming-conventions.md) for researched options and tradeoffs. If the user asks to choose a structure first, briefly explain the relevant options and then inspect enough real campaigns to ground the recommendation. Do not turn a naming choice into a campaign-restructuring questionnaire. If they want cleanup, inspect first and lead with a recommendation. Keep the initial choice to two or three relevant examples; the user need not design a template.
+Read [references/naming-conventions.md](references/naming-conventions.md) for options, field definitions and tradeoffs. Establishing a reusable convention calls for a taxonomy, not merely the same two fields in a different order. Recommend useful fields and a small vocabulary, with purpose distinguished from targeting method and match type. Offer a simpler alternative when useful. Keep the first choice to a few examples; the user need not design a template or answer a campaign-restructuring questionnaire.
 
 Start from the user's stated priorities. When they want ASINs in names, include the full verified advertised ASIN for single-ASIN campaigns. It is a stable product identifier. Suggest a short product label only when a verified catalog title or supplied mapping supports it.
 
@@ -56,7 +62,7 @@ Offer one recommended convention and, when the tradeoff is useful, one alternati
 
 `ASIN | Short product label | Targeting or confirmed purpose`
 
-ASIN-first makes the exact product easy to find. A product-label-first option may scan better when the operator thinks in product names. Do not insist on a universal field order, a decorative prefix or an extra label when the account does not need it.
+ASIN-first makes the exact product easy to find. A product-label-first option may scan better when the operator thinks in product names. The format above is a compact option, not the default answer to a request for an ongoing naming system. Do not insist on a universal field order, a decorative prefix or an extra label when the account does not need it. Keep unresolved purposes and notes in separate review columns, never inside a proposed name. Group campaigns needing the same decision; avoid a one-question-per-campaign interview.
 
 Handle exceptions explicitly:
 
@@ -95,6 +101,6 @@ For a requested rollback, use the saved campaign IDs and original names. Restore
 
 ## Retain the convention
 
-Follow [references/preferences.md](references/preferences.md) to save the approved profile convention, resolve it again and report its actual location. Treat this as the second outcome alongside existing-name cleanup. Preserve unrelated preferences and saved launch structures. If saving was declined or persistence is unavailable, say so plainly.
+Follow [references/preferences.md](references/preferences.md) to save the approved profile convention, resolve it again and report its actual location. Compare the saved field meanings, order, vocabulary and exception rules to the accepted proposal. In particular, never substitute match type for an approved method field or add a consolidation rule to fill a required storage field. Unsupported choices require an explicit explanation, not a silent approximation. Treat persistence as an outcome separate from existing-name cleanup. Preserve unrelated preferences and saved launch structures. If saving was declined or persistence is unavailable, say so plainly.
 
 Confirm that the installed creation skill consumes the shared naming preference before claiming future reuse. The user's next creation request should inherit this convention, while an explicit one-time naming override remains possible and does not rewrite the default. Do not imply unsupported skills, other computers or other AI clients automatically share local files.

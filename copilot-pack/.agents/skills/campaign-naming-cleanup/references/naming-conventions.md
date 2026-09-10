@@ -12,7 +12,26 @@ Offer two or three relevant options with the same real campaign. Recommend one u
 | Targeting / confirmed purpose first | `{targeting} | {asin}` or `{purpose} | {asin} | {targeting}` | Operator works an account by targeting type or a confirmed business objective | Purpose cannot be inferred from match type; product lookup is less prominent |
 | Brand / portfolio first | `{brand} | {asin} | {targeting}` | Several brands or exported cross-account views need context | Adds noise within a single-brand account; changing portfolio membership can make labels stale |
 
-Examples show order, not a required number of fields. Add market or ad product when they distinguish otherwise mixed reports. Omit fields that tell the user nothing new. For a user prioritizing full ASINs in a single US profile, ASIN-first plus accurate targeting is a reasonable initial recommendation; human product labels remain optional.
+Examples show order, not a required number of fields. They are compact cleanup options. For an ongoing convention, start with the reusable taxonomy below, then simplify it to fit the user's needs. Human product labels remain optional.
+
+## An ongoing taxonomy
+
+A useful starting proposal is `{ad_product} | {asin} | {purpose} | {method}`, with `{group}` replacing `{asin}` for multiple advertised products. This is a design recommendation, not a universal best practice or an instruction to change campaign structure. Explain the fields together so the user can choose a system in one pass:
+
+| Field | Meaning and suggested labels | Evidence or choice |
+|---|---|---|
+| Ad product | The advertising format, such as SP for an actual Sponsored Products campaign | Actual format; a vocabulary example does not imply support for creating other ad products |
+| Product | Full advertised ASIN, or an approved group label for multiple products | Verified association for existing campaigns; planned advertised products for creation |
+| Purpose | The business job; propose a small relevant set such as Discovery, Sales, Defense, Competitor | User intent or previously confirmed context; these are choices, not facts inferred from targets |
+| Method | Auto, KW (manual keywords), PT (product targeting), Mixed | Actual campaign mode and complete relevant target evidence |
+| Optional match detail | Broad, Phrase, Exact, or an accurate mixed label | Add at campaign level when useful and consistent across it; ad-group detail otherwise stays separate |
+| Optional context | Marketplace, brand, confirmed theme or stable variant | Include when it helps how the user scans or exports data |
+
+An illustrative name is `SP | B0828NCLVB | Discovery | KW`. Label it illustrative until the advertised product, method and purpose for a real campaign are established. An Exact and a Broad keyword campaign both use method KW; a match-specific convention can include `{targeting}` separately. Do not claim that everyone should have one match type per campaign or that choosing a name authorizes restructuring ad groups.
+
+Offer an overlapping purpose vocabulary only when the user has a clear distinction for those terms. A broader taxonomy does not solve collisions by itself. If several campaigns have the same confirmed job and configuration, preserve distinctions or propose stable variants; do not conclude that they should be consolidated. Missing purpose can remain unresolved while the convention is saved. Put suggested purpose and confirmation status in separate columns, leaving proposed names free of emoji and review annotations.
+
+Save approved field vocabularies in the shared contract's `field_values`, rather than leaving them only in chat. Keep unsupported or unconfirmed group labels out of real examples. An advertised ASIN set does not establish a shared product family, and a product-targeted ASIN does not establish competitor ownership.
 
 ## Field decisions
 
@@ -28,8 +47,8 @@ Examples show order, not a required number of fields. Add market or ad product w
 
 ## Conversation shape
 
-If the user asks for structure selection first, explain the two or three relevant ordering choices briefly. Inspect enough real data before producing concrete names. If they ask for cleanup, lead with findings and a recommendation after inspection.
+When choosing an ongoing convention, lead with the taxonomy and a clearly illustrative example, then ground it with a small scoped sample when the user also asks about existing names. Full inventory and dependency review belong to preparing the complete rename mapping. A request specifically for a full audit still receives full coverage.
 
-Show the same representative campaigns in the alternative order, including one exception. Explain the scanning tradeoff in a sentence. Accept a simple preference such as ASIN first, product names first, or keep our existing order. Resolve only missing facts that affect the proposal, then show the full mapping.
+Show representative campaigns, including one exception, and explain the useful tradeoff in a sentence. Accept a simple preference such as use the core, ASIN first, or keep our existing order. Resolve only missing facts that affect the proposal, grouping shared decisions rather than interviewing the user about every row, then complete the requested mapping.
 
 Include the future-use decision naturally: ask whether to use the selected convention for new campaigns in this account. Once approved, save it through the shared preference helper and verify it can be loaded. The same preference should be used by the updated creation skill, without asking the user to reconstruct it next time.

@@ -90,6 +90,46 @@ class PreferenceTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             naming.validate({'schema_version': 1, 'conventions': [invalid]})
 
+    def test_taxonomy_round_trip_keeps_method_distinct_from_match(self):
+        item = definition()
+        item['single_asin'] = 'SP | {asin} | {purpose} | {method}'
+        item['multi_asin'] = 'SP | {group} | {purpose} | {method}'
+        item['field_values'] = {'method': ['Auto', 'KW', 'PT', 'Mixed'],
+                                'purpose': ['Discovery', 'Sales']}
+        self.put(item)
+        selected = naming.resolve(naming.read_store(self.store)[0], '123')
+        self.assertEqual(selected, item)
+        for targeting in ('Broad', 'Phrase', 'Exact'):
+            facts = {'asins': ['B0828NCLVB'], 'purpose': 'Discovery',
+                     'method': 'KW', 'targeting': targeting}
+            self.assertEqual(naming.render(selected, facts), 'SP | B0828NCLVB | Discovery | KW')
+        with self.assertRaises(ValueError):
+            naming.render(selected, {'asins': ['B0828NCLVB'], 'purpose': 'Discovery',
+                                     'targeting': 'Exact'})
+
+    def test_approved_vocabulary_rejects_silent_substitution(self):
+        item = definition()
+        item['single_asin'] = '{asin} | {purpose} | {method}'
+        item['field_values'] = {'method': ['Auto', 'KW', 'PT'], 'purpose': ['Discovery']}
+        self.put(item)
+        for method, purpose in [('Exact', 'Discovery'), ('KW', 'Research')]:
+            with self.assertRaises(ValueError):
+                naming.render(item, {'asins': ['B0828NCLVB'], 'method': method, 'purpose': purpose})
+        self.assertEqual(naming.render(item, {'asins': ['B0828NCLVB'], 'method': 'Auto',
+                                             'purpose': 'Discovery'}),
+                         'B0828NCLVB | Discovery | Auto')
+
+    def test_invalid_vocabulary_preserves_saved_convention(self):
+        self.put(definition())
+        before = self.store.read_bytes()
+        for values in ({'method': []}, {'method': ['KW', 'KW']}, {'made_up': ['x']},
+                       {'method': 'KW'}, {'method': [None]}):
+            item = definition()
+            item['field_values'] = values
+            with self.assertRaises(ValueError):
+                self.put(item)
+            self.assertEqual(before, self.store.read_bytes())
+
     def test_unknown_facts_and_missing_products_require_review(self):
         for facts in ({'asins': []}, {'asins': ['B0828NCLVB']}, {'asins': ['invalid']}):
             with self.assertRaises(ValueError):

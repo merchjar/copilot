@@ -8,6 +8,8 @@ Current explicit naming instructions take precedence, then the shared profile co
 
 Render against actual planned advertised ASINs and evidence-backed token values with the naming helper, then check the whole batch for collisions and compare existing names. The helper is offline and does not authorize creation. Never infer business purpose from a match type. Keep the resolved convention and its revision with the private plan, then re-resolve immediately before creation. If the effective convention changed, reconcile the plan before writes. A changed unrelated profile does not invalidate this profile's unchanged convention. Report the actual effective source in the creation plan.
 
+For conventions using `{method}` or `field_values`, require Connect 1.5 or later. Supply method separately from match detail: planned Auto is `Auto`, manual keywords are `KW` even for an Exact campaign, product targets are `PT`. Follow the shared contract for mixed targeting. Preserve the user's field meanings and approved vocabulary; do not silently translate a method field into Broad/Exact. Show a proposed purpose separately as awaiting confirmation when it is not known. Existing paused ads are existing associations, not currently serving campaigns. Do not claim an excluded campaign covers an ASIN unless that association was actually inspected.
+
 Saving a launch structure must not silently overwrite the shared naming convention. Its required legacy `naming` field can retain a compatible pattern for older consumers, but the shared convention remains authoritative in this version. When there is no shared store, an existing launch structure remains fully usable without creating a naming preference implicitly.
 
 ## Structure settings

@@ -4,7 +4,7 @@ description: Help choose, review and create a campaign structure from pasted ASI
 license: Proprietary. Use requires an active Merch Jar account; see LICENSE in the repo root.
 compatibility: Merch Jar Connect and account access. Python 3.9+ for local input and preference helpers; conversation-only fallback when persistent files are unavailable.
 metadata:
-  version: "1.2"
+  version: "1.3"
   tags: "campaigns, creation, launch, asin, preferences"
   goal: "set-up"
   risk: "state"

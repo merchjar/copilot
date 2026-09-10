@@ -1,6 +1,6 @@
 # Merch Jar AI Copilot Pack
 
-**Pack Version:** 1.2.4
+**Pack Version:** 1.2.5
 
 The Merch Jar AI Copilot is a stateful, agent-agnostic pack for Amazon Sponsored Products PPC automation. It runs in any AI coding agent that has file access and either browser or shell capabilities — Claude Code, Cowork, Codex CLI, Cursor, Aider, and more.
 

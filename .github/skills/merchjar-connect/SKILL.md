@@ -4,7 +4,7 @@ description: Connect an AI agent to a Merch Jar account (Amazon Sponsored Produc
 license: Proprietary. Use requires an active Merch Jar account; see LICENSE in the repo root.
 compatibility: Shell + network access (Claude Code, Codex, Cursor, Gemini CLI, any Agent Skills client that can run Python 3.9+). Claude Desktop/Cowork uses the Chrome extension instead of the shell client; the safety rules and references still apply.
 metadata:
-  version: "1.4"
+  version: "1.5"
   tags: "connect, api, setup, safety, references"
   goal: "set-up"
   risk: "read-only"
@@ -68,6 +68,7 @@ python scripts/merchjar_client.py request PATCH /api/v5/segments/123 --profileid
 
 Rules that keep calls working:
 
+- In Windows Git Bash/MSYS, prefix CLI calls that pass `/api/...` with `MSYS_NO_PATHCONV=1` so the shell does not turn the API route into a filesystem path. PowerShell does not need that prefix. Save successful responses for local inspection instead of repeating a network call just to see raw output.
 - **Write JSON payloads to a file and pass `--body-file`.** Never inline `--body` for DSL payloads; PowerShell splits them at spaces and quotes before the call is made.
 - `per_page` for previews goes in the JSON body (max 100), not the URL.
 - Profile-scoped entity calls, including campaign/ad-group/ad/target creates, need `--profileid`. Segment preview/create carry `profile_id` in the body. Entity-create schemas reject body `profile_id`; follow the live contract for each endpoint.

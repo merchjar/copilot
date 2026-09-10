@@ -8,7 +8,7 @@ import re
 import string
 import tempfile
 
-TOKENS = {'asin', 'product', 'group', 'targeting', 'purpose', 'market',
+TOKENS = {'asin', 'product', 'group', 'targeting', 'method', 'purpose', 'market',
           'ad_product', 'portfolio', 'brand', 'theme', 'variant'}
 
 
@@ -35,7 +35,7 @@ def validate(data):
     require(isinstance(data['conventions'], list), 'Invalid conventions')
     scopes = set()
     for item in data['conventions']:
-        require(isinstance(item, dict) and set(item) == {
+        require(isinstance(item, dict) and set(item) - {'field_values'} == {
             'scope', 'name', 'single_asin', 'multi_asin', 'vocabulary', 'rules', 'provenance'},
             'Invalid convention fields')
         scope = item['scope']
@@ -46,6 +46,12 @@ def validate(data):
         require(isinstance(item['name'], str) and item['name'].strip(), 'Missing convention name')
         fields(item['single_asin'])
         require('asin' not in fields(item['multi_asin']), 'Multi-ASIN pattern cannot imply a single ASIN')
+        allowed = item.get('field_values', {})
+        require(isinstance(allowed, dict) and all(
+            key in TOKENS and isinstance(values, list) and values
+            and all(isinstance(v, str) and v.strip() for v in values)
+            and len(values) == len(set(values))
+            for key, values in allowed.items()), 'Invalid field vocabulary')
         require(isinstance(item['vocabulary'], dict) and all(
             isinstance(k, str) and k.strip() and isinstance(v, str) and v.strip()
             for k, v in item['vocabulary'].items()), 'Invalid vocabulary')
@@ -123,6 +129,10 @@ def render(convention, facts):
     needed = fields(pattern)
     require(all(isinstance(values.get(k), str) and values[k].strip() for k in needed),
             'Missing naming facts; resolve before rendering')
+    for key in needed:
+        allowed = convention.get('field_values', {}).get(key)
+        require(allowed is None or values[key] in allowed,
+                'Naming value outside approved vocabulary: ' + key)
     result = pattern.format_map(values)
     require(1 <= len(result) <= 255 and not any(ord(c) < 32 for c in result), 'Invalid campaign name length/control character')
     return result
