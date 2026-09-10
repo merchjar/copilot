@@ -96,6 +96,28 @@ def parse_skills():
     return result
 
 
+def update_files():
+    """Return default pack files plus installable optional skill files."""
+    result = {}
+    for path in sorted(PACK.rglob('*')):
+        if path.is_file():
+            relative = path.relative_to(PACK).as_posix()
+            if included(relative):
+                result[relative] = path.read_bytes()
+    optional = sorted(set(parse_skills()) - set(DEFAULT_SKILLS))
+    for skill_id in optional:
+        source = ROOT / 'skills' / skill_id
+        for path in sorted(source.rglob('*')):
+            if not path.is_file() or '__pycache__' in path.parts or path.suffix == '.pyc':
+                continue
+            suffix = path.relative_to(source).as_posix()
+            for prefix in ('skills', '.agents/skills', '.claude/skills',
+                           '.gemini/skills', '.github/skills'):
+                relative = f'{prefix}/{skill_id}/{suffix}'
+                result[relative] = path.read_bytes()
+    return result
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--version', required=True)
@@ -113,13 +135,7 @@ def main():
     archive_path = OUT / archive_name
     files = []
     with zipfile.ZipFile(archive_path, 'w', zipfile.ZIP_DEFLATED) as archive:
-        for path in sorted(PACK.rglob('*')):
-            if not path.is_file():
-                continue
-            relative = path.relative_to(PACK).as_posix()
-            if not included(relative):
-                continue
-            data = path.read_bytes()
+        for relative, data in sorted(update_files().items()):
             archive.writestr(relative, data)
             files.append({'path': relative, 'archivePath': relative,
                           'sha256': digest(data), 'owner': owner(relative)})

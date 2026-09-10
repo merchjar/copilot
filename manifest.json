@@ -366,7 +366,7 @@
       "compatibility": "",
       "license": "Proprietary. Requires an active Merch Jar subscription.",
       "last_updated": "2026-09-10",
-      "ships_in_pack": true,
+      "ships_in_pack": false,
       "has_scripts": true,
       "has_references": true,
       "body_sha": "b7cca926b1523939",

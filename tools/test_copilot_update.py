@@ -10,6 +10,7 @@ import sys
 import unittest
 from unittest.mock import patch
 import uuid
+import zipfile
 
 sys.dont_write_bytecode = True
 ROOT = Path(__file__).resolve().parents[1]
@@ -119,6 +120,8 @@ class UpdateTests(unittest.TestCase):
 
     def test_custom_skill_and_newer_official_skill_are_preserved(self):
         self.current()
+        naming_source = ROOT / 'skills/campaign-naming-cleanup'
+        shutil.copytree(naming_source, self.folder / 'skills/campaign-naming-cleanup')
         custom = self.folder / 'skills/my-own-skill/SKILL.md'
         custom.parent.mkdir()
         custom.write_text('---\nname: my-own-skill\ndescription: Mine\n---\nKeep me\n')
@@ -199,6 +202,15 @@ class UpdateTests(unittest.TestCase):
         self.assertNotIn('installed-skills.json', paths)
         self.assertFalse(any('campaign-naming' in path and not path.startswith(
             ('skills/', '.agents/', '.claude/', '.gemini/', '.github/')) for path in paths))
+
+    def test_default_zip_excludes_optional_naming_but_update_archive_includes_it(self):
+        full_zip = ROOT / 'merch-jar-copilot-pack-v1.2.6.zip'
+        with zipfile.ZipFile(full_zip) as archive:
+            names = set(archive.namelist())
+        self.assertFalse(any('/skills/campaign-naming-cleanup/' in name for name in names))
+        update_paths = {item['path'] for item in self.manifest['files']}
+        self.assertIn('skills/campaign-naming-cleanup/SKILL.md', update_paths)
+        self.assertNotIn('campaign-naming-cleanup', self.manifest['defaultSkills'])
 
 
 if __name__ == '__main__':

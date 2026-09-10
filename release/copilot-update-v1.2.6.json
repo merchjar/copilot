@@ -5,7 +5,7 @@
   "packVersion": "1.2.6",
   "released": "2026-09-10",
   "archive": "copilot-update-v1.2.6.zip",
-  "archiveSha256": "75c866dbc24450ba0fe006bb45c0dd8b3f850c258400ef1c68974ed91b89078c",
+  "archiveSha256": "6fee78406f721501c0983754130891eb5494cc963d6f9c33e59b345d4b458f01",
   "defaultSkills": [
     "account-review",
     "audit-log",
@@ -129,6 +129,12 @@
       "owner": "skill:build-segment"
     },
     {
+      "path": ".agents/skills/campaign-naming-cleanup/SKILL.md",
+      "archivePath": ".agents/skills/campaign-naming-cleanup/SKILL.md",
+      "sha256": "43a00a7358c21a2940ee59ee24917dcd51f8a5cdcad6a49596328a6a9b3f372e",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
       "path": ".agents/skills/campaign-naming-cleanup/references/api-and-evidence.md",
       "archivePath": ".agents/skills/campaign-naming-cleanup/references/api-and-evidence.md",
       "sha256": "6645669fea79b11856325f1e2c2541403737cac019b2de5ca8a226e9d1a90a48",
@@ -153,16 +159,16 @@
       "owner": "skill:campaign-naming-cleanup"
     },
     {
-      "path": ".agents/skills/campaign-naming-cleanup/SKILL.md",
-      "archivePath": ".agents/skills/campaign-naming-cleanup/SKILL.md",
-      "sha256": "43a00a7358c21a2940ee59ee24917dcd51f8a5cdcad6a49596328a6a9b3f372e",
-      "owner": "skill:campaign-naming-cleanup"
-    },
-    {
       "path": ".agents/skills/check-segments/SKILL.md",
       "archivePath": ".agents/skills/check-segments/SKILL.md",
       "sha256": "03c7b9d30d5271a375342c50420765c2de887ee9c0c175929cc232dc8adf9e06",
       "owner": "skill:check-segments"
+    },
+    {
+      "path": ".agents/skills/create-campaigns/SKILL.md",
+      "archivePath": ".agents/skills/create-campaigns/SKILL.md",
+      "sha256": "06ade09edd94827e8dc7f7db1c85fbb8abedfa0d4bd3d388435e3c2fc7116960",
+      "owner": "skill:create-campaigns"
     },
     {
       "path": ".agents/skills/create-campaigns/references/conversations.md",
@@ -195,12 +201,6 @@
       "owner": "skill:create-campaigns"
     },
     {
-      "path": ".agents/skills/create-campaigns/SKILL.md",
-      "archivePath": ".agents/skills/create-campaigns/SKILL.md",
-      "sha256": "06ade09edd94827e8dc7f7db1c85fbb8abedfa0d4bd3d388435e3c2fc7116960",
-      "owner": "skill:create-campaigns"
-    },
-    {
       "path": ".agents/skills/enrich-account/SKILL.md",
       "archivePath": ".agents/skills/enrich-account/SKILL.md",
       "sha256": "91fe1c2563d6823185b03fdee215058d323135e98fcf9d6642ca68f20d0629b9",
@@ -211,6 +211,12 @@
       "archivePath": ".agents/skills/explain-segment/SKILL.md",
       "sha256": "9edfb4f74d2a8d76be44ff4b072f20363eccb3e5b031a97a2ef0c33f5a72871d",
       "owner": "skill:explain-segment"
+    },
+    {
+      "path": ".agents/skills/manage-library/SKILL.md",
+      "archivePath": ".agents/skills/manage-library/SKILL.md",
+      "sha256": "49094f1ac150dda8a34063b1041ef318b218b93e07e702095d6f3e5375cb3ab4",
+      "owner": "skill:manage-library"
     },
     {
       "path": ".agents/skills/manage-library/scripts/install_skill.py",
@@ -231,15 +237,9 @@
       "owner": "skill:manage-library"
     },
     {
-      "path": ".agents/skills/manage-library/SKILL.md",
-      "archivePath": ".agents/skills/manage-library/SKILL.md",
-      "sha256": "49094f1ac150dda8a34063b1041ef318b218b93e07e702095d6f3e5375cb3ab4",
-      "owner": "skill:manage-library"
-    },
-    {
-      "path": ".agents/skills/merchjar-connect/references/campaign-naming.md",
-      "archivePath": ".agents/skills/merchjar-connect/references/campaign-naming.md",
-      "sha256": "a7b07c12fc9c06aac6aa0efd8698368efbd50c8050d1af58bb46c62e0eb32955",
+      "path": ".agents/skills/merchjar-connect/SKILL.md",
+      "archivePath": ".agents/skills/merchjar-connect/SKILL.md",
+      "sha256": "e41c1334eb0edefcdcdde7caa53139617af09d2ea750e65f1fe44a68d1e0b01c",
       "owner": "skill:merchjar-connect"
     },
     {
@@ -261,6 +261,12 @@
       "owner": "skill:merchjar-connect"
     },
     {
+      "path": ".agents/skills/merchjar-connect/references/campaign-naming.md",
+      "archivePath": ".agents/skills/merchjar-connect/references/campaign-naming.md",
+      "sha256": "a7b07c12fc9c06aac6aa0efd8698368efbd50c8050d1af58bb46c62e0eb32955",
+      "owner": "skill:merchjar-connect"
+    },
+    {
       "path": ".agents/skills/merchjar-connect/scripts/campaign_naming.py",
       "archivePath": ".agents/skills/merchjar-connect/scripts/campaign_naming.py",
       "sha256": "89c45f85f4d34a359424620634778c37d4260792135ba508f0bea2de6a2ce1e7",
@@ -270,12 +276,6 @@
       "path": ".agents/skills/merchjar-connect/scripts/merchjar_client.py",
       "archivePath": ".agents/skills/merchjar-connect/scripts/merchjar_client.py",
       "sha256": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911",
-      "owner": "skill:merchjar-connect"
-    },
-    {
-      "path": ".agents/skills/merchjar-connect/SKILL.md",
-      "archivePath": ".agents/skills/merchjar-connect/SKILL.md",
-      "sha256": "e41c1334eb0edefcdcdde7caa53139617af09d2ea750e65f1fe44a68d1e0b01c",
       "owner": "skill:merchjar-connect"
     },
     {
@@ -315,6 +315,12 @@
       "owner": "skill:build-segment"
     },
     {
+      "path": ".claude/skills/campaign-naming-cleanup/SKILL.md",
+      "archivePath": ".claude/skills/campaign-naming-cleanup/SKILL.md",
+      "sha256": "43a00a7358c21a2940ee59ee24917dcd51f8a5cdcad6a49596328a6a9b3f372e",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
       "path": ".claude/skills/campaign-naming-cleanup/references/api-and-evidence.md",
       "archivePath": ".claude/skills/campaign-naming-cleanup/references/api-and-evidence.md",
       "sha256": "6645669fea79b11856325f1e2c2541403737cac019b2de5ca8a226e9d1a90a48",
@@ -339,16 +345,16 @@
       "owner": "skill:campaign-naming-cleanup"
     },
     {
-      "path": ".claude/skills/campaign-naming-cleanup/SKILL.md",
-      "archivePath": ".claude/skills/campaign-naming-cleanup/SKILL.md",
-      "sha256": "43a00a7358c21a2940ee59ee24917dcd51f8a5cdcad6a49596328a6a9b3f372e",
-      "owner": "skill:campaign-naming-cleanup"
-    },
-    {
       "path": ".claude/skills/check-segments/SKILL.md",
       "archivePath": ".claude/skills/check-segments/SKILL.md",
       "sha256": "03c7b9d30d5271a375342c50420765c2de887ee9c0c175929cc232dc8adf9e06",
       "owner": "skill:check-segments"
+    },
+    {
+      "path": ".claude/skills/create-campaigns/SKILL.md",
+      "archivePath": ".claude/skills/create-campaigns/SKILL.md",
+      "sha256": "06ade09edd94827e8dc7f7db1c85fbb8abedfa0d4bd3d388435e3c2fc7116960",
+      "owner": "skill:create-campaigns"
     },
     {
       "path": ".claude/skills/create-campaigns/references/conversations.md",
@@ -381,12 +387,6 @@
       "owner": "skill:create-campaigns"
     },
     {
-      "path": ".claude/skills/create-campaigns/SKILL.md",
-      "archivePath": ".claude/skills/create-campaigns/SKILL.md",
-      "sha256": "06ade09edd94827e8dc7f7db1c85fbb8abedfa0d4bd3d388435e3c2fc7116960",
-      "owner": "skill:create-campaigns"
-    },
-    {
       "path": ".claude/skills/enrich-account/SKILL.md",
       "archivePath": ".claude/skills/enrich-account/SKILL.md",
       "sha256": "91fe1c2563d6823185b03fdee215058d323135e98fcf9d6642ca68f20d0629b9",
@@ -397,6 +397,12 @@
       "archivePath": ".claude/skills/explain-segment/SKILL.md",
       "sha256": "9edfb4f74d2a8d76be44ff4b072f20363eccb3e5b031a97a2ef0c33f5a72871d",
       "owner": "skill:explain-segment"
+    },
+    {
+      "path": ".claude/skills/manage-library/SKILL.md",
+      "archivePath": ".claude/skills/manage-library/SKILL.md",
+      "sha256": "49094f1ac150dda8a34063b1041ef318b218b93e07e702095d6f3e5375cb3ab4",
+      "owner": "skill:manage-library"
     },
     {
       "path": ".claude/skills/manage-library/scripts/install_skill.py",
@@ -417,15 +423,9 @@
       "owner": "skill:manage-library"
     },
     {
-      "path": ".claude/skills/manage-library/SKILL.md",
-      "archivePath": ".claude/skills/manage-library/SKILL.md",
-      "sha256": "49094f1ac150dda8a34063b1041ef318b218b93e07e702095d6f3e5375cb3ab4",
-      "owner": "skill:manage-library"
-    },
-    {
-      "path": ".claude/skills/merchjar-connect/references/campaign-naming.md",
-      "archivePath": ".claude/skills/merchjar-connect/references/campaign-naming.md",
-      "sha256": "a7b07c12fc9c06aac6aa0efd8698368efbd50c8050d1af58bb46c62e0eb32955",
+      "path": ".claude/skills/merchjar-connect/SKILL.md",
+      "archivePath": ".claude/skills/merchjar-connect/SKILL.md",
+      "sha256": "e41c1334eb0edefcdcdde7caa53139617af09d2ea750e65f1fe44a68d1e0b01c",
       "owner": "skill:merchjar-connect"
     },
     {
@@ -447,6 +447,12 @@
       "owner": "skill:merchjar-connect"
     },
     {
+      "path": ".claude/skills/merchjar-connect/references/campaign-naming.md",
+      "archivePath": ".claude/skills/merchjar-connect/references/campaign-naming.md",
+      "sha256": "a7b07c12fc9c06aac6aa0efd8698368efbd50c8050d1af58bb46c62e0eb32955",
+      "owner": "skill:merchjar-connect"
+    },
+    {
       "path": ".claude/skills/merchjar-connect/scripts/campaign_naming.py",
       "archivePath": ".claude/skills/merchjar-connect/scripts/campaign_naming.py",
       "sha256": "89c45f85f4d34a359424620634778c37d4260792135ba508f0bea2de6a2ce1e7",
@@ -456,12 +462,6 @@
       "path": ".claude/skills/merchjar-connect/scripts/merchjar_client.py",
       "archivePath": ".claude/skills/merchjar-connect/scripts/merchjar_client.py",
       "sha256": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911",
-      "owner": "skill:merchjar-connect"
-    },
-    {
-      "path": ".claude/skills/merchjar-connect/SKILL.md",
-      "archivePath": ".claude/skills/merchjar-connect/SKILL.md",
-      "sha256": "e41c1334eb0edefcdcdde7caa53139617af09d2ea750e65f1fe44a68d1e0b01c",
       "owner": "skill:merchjar-connect"
     },
     {
@@ -501,6 +501,12 @@
       "owner": "skill:build-segment"
     },
     {
+      "path": ".gemini/skills/campaign-naming-cleanup/SKILL.md",
+      "archivePath": ".gemini/skills/campaign-naming-cleanup/SKILL.md",
+      "sha256": "43a00a7358c21a2940ee59ee24917dcd51f8a5cdcad6a49596328a6a9b3f372e",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
       "path": ".gemini/skills/campaign-naming-cleanup/references/api-and-evidence.md",
       "archivePath": ".gemini/skills/campaign-naming-cleanup/references/api-and-evidence.md",
       "sha256": "6645669fea79b11856325f1e2c2541403737cac019b2de5ca8a226e9d1a90a48",
@@ -525,16 +531,16 @@
       "owner": "skill:campaign-naming-cleanup"
     },
     {
-      "path": ".gemini/skills/campaign-naming-cleanup/SKILL.md",
-      "archivePath": ".gemini/skills/campaign-naming-cleanup/SKILL.md",
-      "sha256": "43a00a7358c21a2940ee59ee24917dcd51f8a5cdcad6a49596328a6a9b3f372e",
-      "owner": "skill:campaign-naming-cleanup"
-    },
-    {
       "path": ".gemini/skills/check-segments/SKILL.md",
       "archivePath": ".gemini/skills/check-segments/SKILL.md",
       "sha256": "03c7b9d30d5271a375342c50420765c2de887ee9c0c175929cc232dc8adf9e06",
       "owner": "skill:check-segments"
+    },
+    {
+      "path": ".gemini/skills/create-campaigns/SKILL.md",
+      "archivePath": ".gemini/skills/create-campaigns/SKILL.md",
+      "sha256": "06ade09edd94827e8dc7f7db1c85fbb8abedfa0d4bd3d388435e3c2fc7116960",
+      "owner": "skill:create-campaigns"
     },
     {
       "path": ".gemini/skills/create-campaigns/references/conversations.md",
@@ -567,12 +573,6 @@
       "owner": "skill:create-campaigns"
     },
     {
-      "path": ".gemini/skills/create-campaigns/SKILL.md",
-      "archivePath": ".gemini/skills/create-campaigns/SKILL.md",
-      "sha256": "06ade09edd94827e8dc7f7db1c85fbb8abedfa0d4bd3d388435e3c2fc7116960",
-      "owner": "skill:create-campaigns"
-    },
-    {
       "path": ".gemini/skills/enrich-account/SKILL.md",
       "archivePath": ".gemini/skills/enrich-account/SKILL.md",
       "sha256": "91fe1c2563d6823185b03fdee215058d323135e98fcf9d6642ca68f20d0629b9",
@@ -583,6 +583,12 @@
       "archivePath": ".gemini/skills/explain-segment/SKILL.md",
       "sha256": "9edfb4f74d2a8d76be44ff4b072f20363eccb3e5b031a97a2ef0c33f5a72871d",
       "owner": "skill:explain-segment"
+    },
+    {
+      "path": ".gemini/skills/manage-library/SKILL.md",
+      "archivePath": ".gemini/skills/manage-library/SKILL.md",
+      "sha256": "49094f1ac150dda8a34063b1041ef318b218b93e07e702095d6f3e5375cb3ab4",
+      "owner": "skill:manage-library"
     },
     {
       "path": ".gemini/skills/manage-library/scripts/install_skill.py",
@@ -603,15 +609,9 @@
       "owner": "skill:manage-library"
     },
     {
-      "path": ".gemini/skills/manage-library/SKILL.md",
-      "archivePath": ".gemini/skills/manage-library/SKILL.md",
-      "sha256": "49094f1ac150dda8a34063b1041ef318b218b93e07e702095d6f3e5375cb3ab4",
-      "owner": "skill:manage-library"
-    },
-    {
-      "path": ".gemini/skills/merchjar-connect/references/campaign-naming.md",
-      "archivePath": ".gemini/skills/merchjar-connect/references/campaign-naming.md",
-      "sha256": "a7b07c12fc9c06aac6aa0efd8698368efbd50c8050d1af58bb46c62e0eb32955",
+      "path": ".gemini/skills/merchjar-connect/SKILL.md",
+      "archivePath": ".gemini/skills/merchjar-connect/SKILL.md",
+      "sha256": "e41c1334eb0edefcdcdde7caa53139617af09d2ea750e65f1fe44a68d1e0b01c",
       "owner": "skill:merchjar-connect"
     },
     {
@@ -633,6 +633,12 @@
       "owner": "skill:merchjar-connect"
     },
     {
+      "path": ".gemini/skills/merchjar-connect/references/campaign-naming.md",
+      "archivePath": ".gemini/skills/merchjar-connect/references/campaign-naming.md",
+      "sha256": "a7b07c12fc9c06aac6aa0efd8698368efbd50c8050d1af58bb46c62e0eb32955",
+      "owner": "skill:merchjar-connect"
+    },
+    {
       "path": ".gemini/skills/merchjar-connect/scripts/campaign_naming.py",
       "archivePath": ".gemini/skills/merchjar-connect/scripts/campaign_naming.py",
       "sha256": "89c45f85f4d34a359424620634778c37d4260792135ba508f0bea2de6a2ce1e7",
@@ -642,12 +648,6 @@
       "path": ".gemini/skills/merchjar-connect/scripts/merchjar_client.py",
       "archivePath": ".gemini/skills/merchjar-connect/scripts/merchjar_client.py",
       "sha256": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911",
-      "owner": "skill:merchjar-connect"
-    },
-    {
-      "path": ".gemini/skills/merchjar-connect/SKILL.md",
-      "archivePath": ".gemini/skills/merchjar-connect/SKILL.md",
-      "sha256": "e41c1334eb0edefcdcdde7caa53139617af09d2ea750e65f1fe44a68d1e0b01c",
       "owner": "skill:merchjar-connect"
     },
     {
@@ -687,6 +687,12 @@
       "owner": "skill:build-segment"
     },
     {
+      "path": ".github/skills/campaign-naming-cleanup/SKILL.md",
+      "archivePath": ".github/skills/campaign-naming-cleanup/SKILL.md",
+      "sha256": "43a00a7358c21a2940ee59ee24917dcd51f8a5cdcad6a49596328a6a9b3f372e",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
       "path": ".github/skills/campaign-naming-cleanup/references/api-and-evidence.md",
       "archivePath": ".github/skills/campaign-naming-cleanup/references/api-and-evidence.md",
       "sha256": "6645669fea79b11856325f1e2c2541403737cac019b2de5ca8a226e9d1a90a48",
@@ -711,16 +717,16 @@
       "owner": "skill:campaign-naming-cleanup"
     },
     {
-      "path": ".github/skills/campaign-naming-cleanup/SKILL.md",
-      "archivePath": ".github/skills/campaign-naming-cleanup/SKILL.md",
-      "sha256": "43a00a7358c21a2940ee59ee24917dcd51f8a5cdcad6a49596328a6a9b3f372e",
-      "owner": "skill:campaign-naming-cleanup"
-    },
-    {
       "path": ".github/skills/check-segments/SKILL.md",
       "archivePath": ".github/skills/check-segments/SKILL.md",
       "sha256": "03c7b9d30d5271a375342c50420765c2de887ee9c0c175929cc232dc8adf9e06",
       "owner": "skill:check-segments"
+    },
+    {
+      "path": ".github/skills/create-campaigns/SKILL.md",
+      "archivePath": ".github/skills/create-campaigns/SKILL.md",
+      "sha256": "06ade09edd94827e8dc7f7db1c85fbb8abedfa0d4bd3d388435e3c2fc7116960",
+      "owner": "skill:create-campaigns"
     },
     {
       "path": ".github/skills/create-campaigns/references/conversations.md",
@@ -753,12 +759,6 @@
       "owner": "skill:create-campaigns"
     },
     {
-      "path": ".github/skills/create-campaigns/SKILL.md",
-      "archivePath": ".github/skills/create-campaigns/SKILL.md",
-      "sha256": "06ade09edd94827e8dc7f7db1c85fbb8abedfa0d4bd3d388435e3c2fc7116960",
-      "owner": "skill:create-campaigns"
-    },
-    {
       "path": ".github/skills/enrich-account/SKILL.md",
       "archivePath": ".github/skills/enrich-account/SKILL.md",
       "sha256": "91fe1c2563d6823185b03fdee215058d323135e98fcf9d6642ca68f20d0629b9",
@@ -769,6 +769,12 @@
       "archivePath": ".github/skills/explain-segment/SKILL.md",
       "sha256": "9edfb4f74d2a8d76be44ff4b072f20363eccb3e5b031a97a2ef0c33f5a72871d",
       "owner": "skill:explain-segment"
+    },
+    {
+      "path": ".github/skills/manage-library/SKILL.md",
+      "archivePath": ".github/skills/manage-library/SKILL.md",
+      "sha256": "49094f1ac150dda8a34063b1041ef318b218b93e07e702095d6f3e5375cb3ab4",
+      "owner": "skill:manage-library"
     },
     {
       "path": ".github/skills/manage-library/scripts/install_skill.py",
@@ -789,15 +795,9 @@
       "owner": "skill:manage-library"
     },
     {
-      "path": ".github/skills/manage-library/SKILL.md",
-      "archivePath": ".github/skills/manage-library/SKILL.md",
-      "sha256": "49094f1ac150dda8a34063b1041ef318b218b93e07e702095d6f3e5375cb3ab4",
-      "owner": "skill:manage-library"
-    },
-    {
-      "path": ".github/skills/merchjar-connect/references/campaign-naming.md",
-      "archivePath": ".github/skills/merchjar-connect/references/campaign-naming.md",
-      "sha256": "a7b07c12fc9c06aac6aa0efd8698368efbd50c8050d1af58bb46c62e0eb32955",
+      "path": ".github/skills/merchjar-connect/SKILL.md",
+      "archivePath": ".github/skills/merchjar-connect/SKILL.md",
+      "sha256": "e41c1334eb0edefcdcdde7caa53139617af09d2ea750e65f1fe44a68d1e0b01c",
       "owner": "skill:merchjar-connect"
     },
     {
@@ -819,6 +819,12 @@
       "owner": "skill:merchjar-connect"
     },
     {
+      "path": ".github/skills/merchjar-connect/references/campaign-naming.md",
+      "archivePath": ".github/skills/merchjar-connect/references/campaign-naming.md",
+      "sha256": "a7b07c12fc9c06aac6aa0efd8698368efbd50c8050d1af58bb46c62e0eb32955",
+      "owner": "skill:merchjar-connect"
+    },
+    {
       "path": ".github/skills/merchjar-connect/scripts/campaign_naming.py",
       "archivePath": ".github/skills/merchjar-connect/scripts/campaign_naming.py",
       "sha256": "89c45f85f4d34a359424620634778c37d4260792135ba508f0bea2de6a2ce1e7",
@@ -828,12 +834,6 @@
       "path": ".github/skills/merchjar-connect/scripts/merchjar_client.py",
       "archivePath": ".github/skills/merchjar-connect/scripts/merchjar_client.py",
       "sha256": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911",
-      "owner": "skill:merchjar-connect"
-    },
-    {
-      "path": ".github/skills/merchjar-connect/SKILL.md",
-      "archivePath": ".github/skills/merchjar-connect/SKILL.md",
-      "sha256": "e41c1334eb0edefcdcdde7caa53139617af09d2ea750e65f1fe44a68d1e0b01c",
       "owner": "skill:merchjar-connect"
     },
     {
@@ -861,12 +861,6 @@
       "owner": "copilot"
     },
     {
-      "path": "build.sh",
-      "archivePath": "build.sh",
-      "sha256": "546ffc5f75c64c2d4a878cf145fa2bd587046eb04e3fcc380ea68bd0e728866e",
-      "owner": "copilot"
-    },
-    {
       "path": "CHANGELOG.md",
       "archivePath": "CHANGELOG.md",
       "sha256": "2e8dbb5d318270f7a9e39a35270effeefddf77bed65fe1980d4e168177ac0bd2",
@@ -876,6 +870,18 @@
       "path": "CLAUDE.md",
       "archivePath": "CLAUDE.md",
       "sha256": "996e5736ea713e2cf260cd30ce710871848a7a3d29d5fd3fd49300fc4284a5e3",
+      "owner": "copilot"
+    },
+    {
+      "path": "README.md",
+      "archivePath": "README.md",
+      "sha256": "b7cf46bc41a443979da54f78007513cfc637576e272af26c66abbae4cad6722f",
+      "owner": "copilot"
+    },
+    {
+      "path": "build.sh",
+      "archivePath": "build.sh",
+      "sha256": "546ffc5f75c64c2d4a878cf145fa2bd587046eb04e3fcc380ea68bd0e728866e",
       "owner": "copilot"
     },
     {
@@ -900,12 +906,6 @@
       "path": "docs/runtime-shell.md",
       "archivePath": "docs/runtime-shell.md",
       "sha256": "ccccbe3dedb3025edd83c3f7238d8a8c3821b57bd242df315381381b56ac119a",
-      "owner": "copilot"
-    },
-    {
-      "path": "README.md",
-      "archivePath": "README.md",
-      "sha256": "b7cf46bc41a443979da54f78007513cfc637576e272af26c66abbae4cad6722f",
       "owner": "copilot"
     },
     {
@@ -945,6 +945,12 @@
       "owner": "skill:build-segment"
     },
     {
+      "path": "skills/campaign-naming-cleanup/SKILL.md",
+      "archivePath": "skills/campaign-naming-cleanup/SKILL.md",
+      "sha256": "43a00a7358c21a2940ee59ee24917dcd51f8a5cdcad6a49596328a6a9b3f372e",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
       "path": "skills/campaign-naming-cleanup/references/api-and-evidence.md",
       "archivePath": "skills/campaign-naming-cleanup/references/api-and-evidence.md",
       "sha256": "6645669fea79b11856325f1e2c2541403737cac019b2de5ca8a226e9d1a90a48",
@@ -969,16 +975,16 @@
       "owner": "skill:campaign-naming-cleanup"
     },
     {
-      "path": "skills/campaign-naming-cleanup/SKILL.md",
-      "archivePath": "skills/campaign-naming-cleanup/SKILL.md",
-      "sha256": "43a00a7358c21a2940ee59ee24917dcd51f8a5cdcad6a49596328a6a9b3f372e",
-      "owner": "skill:campaign-naming-cleanup"
-    },
-    {
       "path": "skills/check-segments/SKILL.md",
       "archivePath": "skills/check-segments/SKILL.md",
       "sha256": "03c7b9d30d5271a375342c50420765c2de887ee9c0c175929cc232dc8adf9e06",
       "owner": "skill:check-segments"
+    },
+    {
+      "path": "skills/create-campaigns/SKILL.md",
+      "archivePath": "skills/create-campaigns/SKILL.md",
+      "sha256": "06ade09edd94827e8dc7f7db1c85fbb8abedfa0d4bd3d388435e3c2fc7116960",
+      "owner": "skill:create-campaigns"
     },
     {
       "path": "skills/create-campaigns/references/conversations.md",
@@ -1011,12 +1017,6 @@
       "owner": "skill:create-campaigns"
     },
     {
-      "path": "skills/create-campaigns/SKILL.md",
-      "archivePath": "skills/create-campaigns/SKILL.md",
-      "sha256": "06ade09edd94827e8dc7f7db1c85fbb8abedfa0d4bd3d388435e3c2fc7116960",
-      "owner": "skill:create-campaigns"
-    },
-    {
       "path": "skills/enrich-account/SKILL.md",
       "archivePath": "skills/enrich-account/SKILL.md",
       "sha256": "91fe1c2563d6823185b03fdee215058d323135e98fcf9d6642ca68f20d0629b9",
@@ -1027,6 +1027,12 @@
       "archivePath": "skills/explain-segment/SKILL.md",
       "sha256": "9edfb4f74d2a8d76be44ff4b072f20363eccb3e5b031a97a2ef0c33f5a72871d",
       "owner": "skill:explain-segment"
+    },
+    {
+      "path": "skills/manage-library/SKILL.md",
+      "archivePath": "skills/manage-library/SKILL.md",
+      "sha256": "49094f1ac150dda8a34063b1041ef318b218b93e07e702095d6f3e5375cb3ab4",
+      "owner": "skill:manage-library"
     },
     {
       "path": "skills/manage-library/scripts/install_skill.py",
@@ -1047,15 +1053,9 @@
       "owner": "skill:manage-library"
     },
     {
-      "path": "skills/manage-library/SKILL.md",
-      "archivePath": "skills/manage-library/SKILL.md",
-      "sha256": "49094f1ac150dda8a34063b1041ef318b218b93e07e702095d6f3e5375cb3ab4",
-      "owner": "skill:manage-library"
-    },
-    {
-      "path": "skills/merchjar-connect/references/campaign-naming.md",
-      "archivePath": "skills/merchjar-connect/references/campaign-naming.md",
-      "sha256": "a7b07c12fc9c06aac6aa0efd8698368efbd50c8050d1af58bb46c62e0eb32955",
+      "path": "skills/merchjar-connect/SKILL.md",
+      "archivePath": "skills/merchjar-connect/SKILL.md",
+      "sha256": "e41c1334eb0edefcdcdde7caa53139617af09d2ea750e65f1fe44a68d1e0b01c",
       "owner": "skill:merchjar-connect"
     },
     {
@@ -1077,6 +1077,12 @@
       "owner": "skill:merchjar-connect"
     },
     {
+      "path": "skills/merchjar-connect/references/campaign-naming.md",
+      "archivePath": "skills/merchjar-connect/references/campaign-naming.md",
+      "sha256": "a7b07c12fc9c06aac6aa0efd8698368efbd50c8050d1af58bb46c62e0eb32955",
+      "owner": "skill:merchjar-connect"
+    },
+    {
       "path": "skills/merchjar-connect/scripts/campaign_naming.py",
       "archivePath": "skills/merchjar-connect/scripts/campaign_naming.py",
       "sha256": "89c45f85f4d34a359424620634778c37d4260792135ba508f0bea2de6a2ce1e7",
@@ -1086,12 +1092,6 @@
       "path": "skills/merchjar-connect/scripts/merchjar_client.py",
       "archivePath": "skills/merchjar-connect/scripts/merchjar_client.py",
       "sha256": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911",
-      "owner": "skill:merchjar-connect"
-    },
-    {
-      "path": "skills/merchjar-connect/SKILL.md",
-      "archivePath": "skills/merchjar-connect/SKILL.md",
-      "sha256": "e41c1334eb0edefcdcdde7caa53139617af09d2ea750e65f1fe44a68d1e0b01c",
       "owner": "skill:merchjar-connect"
     },
     {

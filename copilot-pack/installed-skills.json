@@ -51,26 +51,6 @@
       "missing_dependencies": []
     },
     {
-      "id": "campaign-naming-cleanup",
-      "declared_name": "campaign-naming-cleanup",
-      "version": "0.4.0",
-      "description": "Choose and save an account's campaign naming convention, audit existing Amazon campaign names against real products and targeting, and apply reviewed renames through Merch Jar. Use when cleaning up names, choosing naming standards or saving ongoing naming preferences. Campaign restructuring is separate.",
-      "entry": "skills/campaign-naming-cleanup/SKILL.md",
-      "requires": [
-        "merchjar-connect"
-      ],
-      "files_sha256": {
-        "SKILL.md": "43a00a7358c21a2940ee59ee24917dcd51f8a5cdcad6a49596328a6a9b3f372e",
-        "references/api-and-evidence.md": "6645669fea79b11856325f1e2c2541403737cac019b2de5ca8a226e9d1a90a48",
-        "references/naming-conventions.md": "0a836fb4a84aa1e3f6931b05f001db7e0c7d57248be729bfd9acbdff2448076e",
-        "references/preferences.md": "56179b119f793cca77e32428745ebd161a17c6b08800ba2c90231752db5c02bb",
-        "scripts/campaign_naming.py": "a8ffca5de8f6f05fd2d5c38b8ddcfd22e64efb9ddbf6333566dd4cb7c30c9aff"
-      },
-      "skipped_links": [],
-      "update_status": "not_checked",
-      "missing_dependencies": []
-    },
-    {
       "id": "check-segments",
       "declared_name": "check-segments",
       "version": "1.0",

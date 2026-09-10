@@ -37,17 +37,24 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent.parent
 SOURCE = REPO_ROOT / "skills"
 PACK = REPO_ROOT / "copilot-pack"
-TARGETS = [
+PACK_TARGETS = [
     PACK / "skills",
     PACK / ".claude" / "skills",
     PACK / ".agents" / "skills",
     PACK / ".github" / "skills",
     PACK / ".gemini" / "skills",
+]
+REPO_TARGETS = [
     REPO_ROOT / ".claude" / "skills",
     REPO_ROOT / ".agents" / "skills",
     REPO_ROOT / ".github" / "skills",
     REPO_ROOT / ".gemini" / "skills",
 ]
+DEFAULT_SKILLS = {
+    "account-review", "audit-log", "build-segment", "check-segments",
+    "create-campaigns", "enrich-account", "explain-segment", "manage-library",
+    "merchjar-connect", "performance-check", "review-segment", "troubleshoot",
+}
 CONNECT = SOURCE / "merchjar-connect"
 FLAT = [
     (CONNECT / "scripts" / "merchjar_client.py", PACK / "tools" / "merchjar_client.py"),
@@ -59,21 +66,26 @@ FLAT = [
 IGNORE = shutil.ignore_patterns("__pycache__", "*.pyc", ".DS_Store")
 
 
-def sync(source: Path, target: Path) -> tuple[int, list[str]]:
+def sync(source: Path, target: Path, include: set[str] | None = None) -> tuple[int, list[str]]:
     warnings: list[str] = []
     target.parent.mkdir(parents=True, exist_ok=True)
+    selected = [child for child in source.iterdir()
+                if child.is_dir() and (include is None or child.name in include)]
     try:
         if target.exists():
             shutil.rmtree(target)
-        shutil.copytree(source, target, ignore=IGNORE)
+        target.mkdir(parents=True)
+        for child in selected:
+            shutil.copytree(child, target / child.name, ignore=IGNORE)
     except PermissionError:
         warnings.append(f"could not clear {target} (sandbox); merged instead, removed skills may linger")
         target.mkdir(parents=True, exist_ok=True)
-        for f in source.rglob("*"):
-            if f.is_file() and "__pycache__" not in f.parts:
-                d = target / f.relative_to(source)
-                d.parent.mkdir(parents=True, exist_ok=True)
-                shutil.copy2(f, d)
+        for child in selected:
+            for f in child.rglob("*"):
+                if f.is_file() and "__pycache__" not in f.parts:
+                    d = target / f.relative_to(source)
+                    d.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(f, d)
     return sum(1 for c in target.iterdir() if c.is_dir()), warnings
 
 
@@ -84,7 +96,11 @@ def main() -> int:
     n = sum(1 for c in SOURCE.iterdir() if c.is_dir())
     print(f"source: skills/ ({n} skills)")
     warnings: list[str] = []
-    for t in TARGETS:
+    for t in PACK_TARGETS:
+        count, w = sync(SOURCE, t, DEFAULT_SKILLS)
+        warnings += w
+        print(f"  -> {t.relative_to(REPO_ROOT).as_posix()} ({count})")
+    for t in REPO_TARGETS:
         count, w = sync(SOURCE, t)
         warnings += w
         print(f"  -> {t.relative_to(REPO_ROOT).as_posix()} ({count})")
