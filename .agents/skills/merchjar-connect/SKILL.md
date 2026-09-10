@@ -4,14 +4,14 @@ description: Connect an AI agent to a Merch Jar account (Amazon Sponsored Produc
 license: Proprietary. Use requires an active Merch Jar account; see LICENSE in the repo root.
 compatibility: Shell + network access (Claude Code, Codex, Cursor, Gemini CLI, any Agent Skills client that can run Python 3.9+). Claude Desktop/Cowork uses the Chrome extension instead of the shell client; the safety rules and references still apply.
 metadata:
-  version: "1.2"
+  version: "1.4"
   tags: "connect, api, setup, safety, references"
   goal: "set-up"
   risk: "read-only"
   requires-skills: ""
   requires-scopes: "profiles:read"
   produces: "a connected account (profiles listed) and a working API client the other skills call"
-  last-updated: "2026-09-08"
+  last-updated: "2026-09-10"
 ---
 
 # Merch Jar Connect
@@ -21,6 +21,10 @@ The base skill every other Merch Jar skill depends on. It owns three things:
 1. **The API client** at `scripts/merchjar_client.py` (stdlib only).
 2. **The key and profile handling** (below).
 3. **The references** in `references/`: `MJ_API_REFERENCE.md` (endpoints, gotchas), `V2_SYNTAX_REFERENCE.md` (the Segment DSL), `SEGMENT_CREATION_GUIDELINES.md` (quality standards). Load only the one a task needs.
+
+## Shared naming preferences
+
+Campaign-authoring skills resolve `campaign-naming.json` beside the active private configuration through [references/campaign-naming.md](references/campaign-naming.md) and `scripts/campaign_naming.py`. This helper is offline and needs no credentials. Campaign Naming guides convention selection; Creation and relevant reviews read the same preference without needing the optional naming skill installed. Preserve this file, `campaign-naming-records/`, and saved launch structures during updates. Resolve the profile explicitly and never treat a malformed store as absent.
 
 ## Two layouts, same skill
 

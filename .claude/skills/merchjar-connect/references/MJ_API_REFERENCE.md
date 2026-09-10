@@ -582,6 +582,10 @@ Per-entity bid/budget change history, newest first, paginated. `entity_type` is 
 
 ---
 
+### Campaign naming
+
+Campaign rename is supported: `PATCH /api/v5/campaigns/{id}` with only `{"name":"approved name"}`, `profileid` and an explicit `Idempotency-Key` header; scope `campaigns:write`. The September 10 contract accepts 1–255 characters. September 9 live rename/readback succeeded on a paused US fixture. Discover and read back campaigns through Segment preview, not GET /campaigns. Retain campaign IDs and original names, inspect per-item envelopes and read back after writes. A paused state does not eliminate name-dependent automation checks.
+
 ### Entity update and archive (in the live OpenAPI spec 2026-09-04; not yet exercised)
 
 `https://merchjar.com/api/openapi.json` (fetch with a browser User-Agent; the default Python UA gets a 403) now lists, beyond the create endpoints above:

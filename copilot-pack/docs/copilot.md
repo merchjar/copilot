@@ -1,6 +1,6 @@
 # Merch Jar AI Copilot — Operating Brain
 
-**Pack Version:** 1.2.3
+**Pack Version:** 1.2.4
 **Config Version:** 3
 
 This is the runtime-agnostic operating doc. It describes what the Copilot does, not how API calls happen on a given platform. For API mechanics, your runtime entry point (CLAUDE.md or AGENTS.md) loads the appropriate runtime doc:
@@ -101,6 +101,8 @@ When `Require Approval: true` is set in `user/MJ_COPILOT_CONFIG.md`, the Copilot
 ---
 
 ## Profile Context
+
+When installed, Campaign Naming Cleanup saves approved naming preferences in `campaign-naming.json` beside the active configuration. The updated creation skill reads the same profile/global convention before its legacy structure naming. Preserve both private sidecars on upgrades. Explicit one-time naming overrides do not change the saved default. This governs naming only, not budgets or campaign grouping.
 
 Campaign creation also reads `campaign-structures.json` beside the active configuration when present. This private, schema-versioned file stores explicitly confirmed named structures, scoped defaults and allocation ratios. Route creation and saved-structure requests to `create-campaigns`; its preference helper validates storage and preserves newer edits. A saved structure never authorizes creation or reuse of a prior batch amount. Preserve this file with all of `user/` during upgrades.
 
@@ -663,6 +665,7 @@ Use the table below to route ambiguous requests.
 | User intent | Skill | Example phrases |
 |---|---|---|
 | Install a Library skill or inspect an individual installation | `manage-library` | "install this skill", "add this from the Library", a copied Library setup request |
+| Review campaign names or establish ongoing naming preferences | `campaign-naming-cleanup` when installed | "clean up my campaign names", "choose a naming convention", "remember this naming convention" |
 | Create product campaigns or manage saved structures | `create-campaigns` | "create launch campaigns for these ASINs", "help choose a campaign structure", "use my saved launch setup", "remember this campaign structure" |
 | Full account diagnostic, find all waste/gaps | `account-review` | "full audit," "review everything," "what should I automate?," "check my whole account" |
 | Build new automation | `build-segment` | "build a segment," "automate my bids," "set up negation," "I want to automate X," "clean up those search terms" |

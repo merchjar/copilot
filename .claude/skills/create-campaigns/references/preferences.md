@@ -1,5 +1,17 @@
 # Private campaign structures
 
+## Shared campaign naming takes precedence
+
+Before choosing campaign names, check `campaign-naming.json` beside the same active configuration, without reading credentials. If present, load `merchjar-connect/references/campaign-naming.md` and run Connect's `scripts/campaign_naming.py resolve --store PATH --profile PROFILE_ID`. Connect 1.4 or later supplies the shared reader and renderer; the optional naming skill is not required to consume a saved convention. Creation without a naming store continues to use its existing structure preferences. If a store exists but the shared helper is unavailable, report the incompatible Connect version before claiming the saved convention was applied; do not silently fall back to older names.
+
+Current explicit naming instructions take precedence, then the shared profile convention, shared global convention, legacy structure naming, and finally a new recommendation. Merely selecting a named campaign structure does not override the shared naming convention. State any difference from that structure's stored pattern without changing its budgets, grouping or roles. An explicit one-time override changes only this plan; saving a new naming default requires a remember/default instruction.
+
+Render against actual planned advertised ASINs and evidence-backed token values with the naming helper, then check the whole batch for collisions and compare existing names. The helper is offline and does not authorize creation. Never infer business purpose from a match type. Keep the resolved convention and its revision with the private plan, then re-resolve immediately before creation. If the effective convention changed, reconcile the plan before writes. A changed unrelated profile does not invalidate this profile's unchanged convention. Report the actual effective source in the creation plan.
+
+Saving a launch structure must not silently overwrite the shared naming convention. Its required legacy `naming` field can retain a compatible pattern for older consumers, but the shared convention remains authoritative in this version. When there is no shared store, an existing launch structure remains fully usable without creating a naming preference implicitly.
+
+## Structure settings
+
 Find the active configuration through Connect's existing resolution order. Place `campaign-structures.json` beside that configuration, normally `user/campaign-structures.json`. Do not read or copy credentials to this store. Its schema version is independent of Config Version 3. Preserve the entire private `user/` directory on upgrades. The release contains no saved structures. Local files persist only for clients sharing those files; there is no automatic synchronization.
 
 Use the bundled `scripts/campaign_structures.py`, relative to this skill:

@@ -65,7 +65,7 @@ def build_zip(version: str) -> Path:
     name = REPO_ROOT / f"merch-jar-copilot-pack-v{version}.zip"
     with zipfile.ZipFile(name, "w", zipfile.ZIP_DEFLATED) as z:
         for f in sorted((REPO_ROOT / "copilot-pack").rglob("*")):
-            if f.is_file() and "__pycache__" not in f.parts and f.suffix != ".pyc" and f.name != ".library-cache.json" and f.name not in ("campaign-structures.json", "campaign-structures.json.lock") and not f.name.startswith(".structures-"):
+            if f.is_file() and "__pycache__" not in f.parts and "campaign-naming-records" not in f.parts and f.suffix != ".pyc" and f.name != ".library-cache.json" and f.name not in ("campaign-structures.json", "campaign-structures.json.lock", "campaign-naming.json", "campaign-naming.json.lock") and not f.name.startswith((".structures-", ".naming-")):
                 z.write(f, "merch-jar-copilot-pack/" + f.relative_to(REPO_ROOT / "copilot-pack").as_posix())
     return name
 
@@ -87,6 +87,8 @@ def main() -> int:
     run(lint, "lint")
     run([PY, "tools/build_skills.py"], "skills sync")
     run([PY, "tools/test_library_install.py"], "bundled Library installer checks")
+    run([PY, "tools/test_naming_preferences.py"], "shared naming preferences")
+    run([PY, "tools/test_installed_skills.py"], "installed skill discovery")
     if args.test:
         if not args.profiles:
             print("--test needs --profiles", file=sys.stderr); return 2
@@ -101,6 +103,7 @@ def main() -> int:
         if args.config: cmd += ["--config", args.config]
         run(cmd, "drift")
     run([PY, "tools/build_manifest.py", "--pack-version", args.pack_version], "manifest")
+    run([PY, "copilot-pack/skills/manage-library/scripts/installed_skills.py", "--write"], "installed skill inventory")
     changed = stamp_versions(args.pack_version)
     print(f"\n== version stamps: {changed or 'already current'}")
     z = build_zip(args.pack_version)

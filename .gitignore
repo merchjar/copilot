@@ -17,6 +17,10 @@ id_rsa.*
 # only a stray repo-root user/ (e.g. a real filled-in install) is ignored.
 /user/
 **/user/campaign-structures.json
+**/campaign-naming.json
+**/campaign-naming-records/
+**/campaign-naming.json.lock
+**/.naming-*
 **/user/campaign-structures.json.lock
 **/user/.structures-*
 tmp/

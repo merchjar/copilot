@@ -1,9 +1,9 @@
 ---
 name: manage-library
-description: Install a selected Merch Jar Library skill into an existing Copilot download from a Library link or copied setup request. Use when adding Library skills, checking individual installation status, or routing a Library template to its setup workflow. Installation does not run the skill or change an ad account.
+description: Inventory installed Copilot skills and their versions, or install a selected Merch Jar Library skill from a link or copied setup request. Use when listing available skills, checking local dependencies, adding Library skills, or routing a template to setup. Installation does not run the skill or change an ad account.
 license: Proprietary. Use requires an active Merch Jar account; see LICENSE in the repo root.
 metadata:
-  version: "1.0"
+  version: "1.1"
   tags: "library, install, setup"
   goal: "set-up"
   risk: "read-only"
@@ -20,6 +20,8 @@ Pack installation requires Python 3.9+, a writable Copilot folder and HTTPS acce
 Handle Library setup before account initialization. Installing local files needs no API key, profile lookup or ad-account call. A user asking to install a specific skill has authorized that installation. Continue through verification without asking for the same permission again.
 
 ## Resolve the request
+
+For installed-skill discovery, run `scripts/installed_skills.py --root COPILOT_FOLDER --write`. It refreshes `installed-skills.json` from the actual canonical `skills/` folders, including IDs, versions, entry paths, dependencies and file hashes. Discovery mirrors are not separate installations. Load only the entry file needed for the user's task; never preload all skill bodies. Refresh after a successful installation and before reporting installed versions. Missing dependencies or skipped links require inspection. This inventory is local evidence, not proof of publisher origin or a check for newer releases; `update_status: not_checked` must never be reported as up to date. Do not require account setup for listing skills.
 
 Use the exact Library item link or setup-guide link the user supplied. For a name alone, locate the item on https://merchjar.com/library/ and read its setup information. If the catalog is unavailable or the name is ambiguous, ask for the item link. Do not invent an ID or substitute another skill.
 

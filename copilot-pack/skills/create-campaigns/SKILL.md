@@ -4,14 +4,14 @@ description: Help choose, review and create a campaign structure from pasted ASI
 license: Proprietary. Use requires an active Merch Jar account; see LICENSE in the repo root.
 compatibility: Merch Jar Connect and account access. Python 3.9+ for local input and preference helpers; conversation-only fallback when persistent files are unavailable.
 metadata:
-  version: "1.0"
+  version: "1.2"
   tags: "campaigns, creation, launch, asin, preferences"
   goal: "set-up"
   risk: "state"
   requires-skills: "merchjar-connect"
   requires-scopes: "profiles:read, segments:preview, campaigns:write, ad_groups:write, ads:write, targets:write"
   produces: "an approved campaign structure with reconciled creation receipts, explicit delivery states and missing launch inputs"
-  last-updated: "2026-09-08"
+  last-updated: "2026-09-10"
 ---
 
 # Create campaigns
@@ -25,6 +25,8 @@ Accept pasted ASINs or a single-column text/CSV file, with or without an ASIN he
 Resolve the account using Connect and the conversation. Read fresh marketplace/currency, protected items and profile context. Never infer marketplace from ASINs. Read saved structures alongside the active configuration using [preferences.md](references/preferences.md). Extract the purpose, grouping, structure, budgets, bids and seeds already supplied. Inspect only relevant existing campaign/product coverage through supported read paths, including pagination. Names alone do not establish preferences, and account history does not prove current product eligibility. Report incomplete coverage as unknown.
 
 ## Choose the entry path
+
+Before generating names, check `campaign-naming.json` beside the active configuration as described in [preferences.md](references/preferences.md). When present, use the shared profile/global naming convention even when a selected launch structure carries an older naming pattern. Explicit naming instructions for this operation override that default; disclose the deviation and preserve the stored preference unless asked to update it. Selecting a launch structure alone does not override the naming default. Campaign structure, budget and bid selection below remain separate from naming.
 
 - Explicit structure now: use it and resolve omissions or unsupported choices.
 - Selected named structure: apply it, with current explicit overrides.
@@ -52,7 +54,7 @@ Read current and durable budget policies before asking for an amount. Distinguis
 
 Ask for budget scope in ordinary language with the campaign count visible: “What daily budget would you like per campaign? We're creating 30 campaigns.” Accept an explicit total instead. An answer such as “5 euros daily” is ambiguous; show the per-campaign amount and batch total and resolve the meaning before allocation. Never silently multiply a total, raise it to minimums, or confuse budget with a bid. Validate currency precision and each proposed campaign budget/default bid/target bid against current marketplace-specific Amazon limits before plan approval and again before creation. See [launch-validation.md](references/launch-validation.md). If the total cannot support the selected campaign count, explain the minimum feasible total and offer fewer campaigns or a higher total for the user to choose. Platform minimums are different from recommended launch budgets.
 
-Show ad-group names as well as campaign names. Use readable role names, for example `{asin} | Auto`, `{asin} | Research`, `{asin} | Exact`, unless the user has supplied a naming convention. Do not invent unexplained abbreviations or translate stored names. If an interface appears to translate `Auto` into `Car`, compare the stored name before diagnosing or renaming it.
+Show ad-group names as well as campaign names. Apply the effective shared naming convention using actual planned ASINs and known targeting or confirmed purpose. Resolve missing product labels, multi-ASIN group names and collisions before approval. If no shared or explicitly supplied convention exists, use the selected structure's naming, otherwise recommend readable role names such as `{asin} | Auto`. The campaign convention does not govern ad-group names unless the user explicitly extends it. Do not invent unexplained abbreviations or translate stored names. If an interface appears to translate `Auto` into `Car`, compare the stored name before diagnosing or renaming it.
 
 ## One complete plan, then approval
 

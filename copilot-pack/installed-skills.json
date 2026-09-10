@@ -1,0 +1,227 @@
+{
+  "schema_version": 1,
+  "source": "local canonical skills",
+  "skills": [
+    {
+      "id": "account-review",
+      "declared_name": "account-review",
+      "version": "1.1",
+      "description": "Full account diagnostic \u2014 runs multiple queries to find waste, automation gaps, and opportunities across the entire account. Use when the user explicitly asks for a comprehensive review, full audit, or \"check my whole account.\" The quick scan (offered at session start) covers initial search term waste \u2014 this skill goes deeper across all categories.",
+      "entry": "skills/account-review/SKILL.md",
+      "requires": [
+        "merchjar-connect"
+      ],
+      "files_sha256": {
+        "SKILL.md": "dd50421b57ecb89f653e388e5998cdb9257abb7fb23a9650aacdc23ed64941aa"
+      },
+      "skipped_links": [],
+      "update_status": "not_checked",
+      "missing_dependencies": []
+    },
+    {
+      "id": "audit-log",
+      "declared_name": "audit-log",
+      "version": "1.0",
+      "description": "Show what automation segments have done recently \u2014 bid changes, negations, budget adjustments, pauses. Use when the user asks \"what did my segments do,\" \"show my audit log,\" \"what happened this week,\" \"any changes,\" \"what changed recently,\" or wants to know the impact of their automation. Also use proactively when the user asks \"is my automation working.",
+      "entry": "skills/audit-log/SKILL.md",
+      "requires": [
+        "merchjar-connect"
+      ],
+      "files_sha256": {
+        "SKILL.md": "aeac300e5e497a91dd297f46f6dc13a73f8539b2afabf8b9a0c1a7f22bcce933"
+      },
+      "skipped_links": [],
+      "update_status": "not_checked",
+      "missing_dependencies": []
+    },
+    {
+      "id": "build-segment",
+      "declared_name": "build-segment",
+      "version": "1.0",
+      "description": "Build and deploy a new Merch Jar automation segment. Use when the user wants to create automation, set up bid management, automate search term negation, configure budget automation, or says \"build a segment,\" \"automate my [bids/budget/search terms],\" \"I want to automate X,\" \"help me with [waste/impressions/budget],\" or accepts a recommendation from account review. Also use when the user describes a business goal that maps to a segment (e.g., \"I'm wasting money on bad search terms,\" \"my bids are all over the place,\" \"some campaigns keep hitting their budget cap\").",
+      "entry": "skills/build-segment/SKILL.md",
+      "requires": [
+        "merchjar-connect"
+      ],
+      "files_sha256": {
+        "SKILL.md": "6afa038e1ab32408bce663913b0de6a2ef06ae0413b54121672e2a001caf836f"
+      },
+      "skipped_links": [],
+      "update_status": "not_checked",
+      "missing_dependencies": []
+    },
+    {
+      "id": "campaign-naming-cleanup",
+      "declared_name": "campaign-naming-cleanup",
+      "version": "0.3.0",
+      "description": "Choose and save an account's campaign naming convention, audit existing Amazon campaign names against real products and targeting, and apply reviewed renames through Merch Jar. Use when cleaning up names, choosing naming standards or saving ongoing naming preferences. Campaign restructuring is separate.",
+      "entry": "skills/campaign-naming-cleanup/SKILL.md",
+      "requires": [
+        "merchjar-connect"
+      ],
+      "files_sha256": {
+        "SKILL.md": "d6efd4e2d6c574b44fa42216f7b09f30c39cf2b295818447bdacad3c61e619a5",
+        "references/api-and-evidence.md": "04611b7a62a4c725f725f4eb2b6d6d8c15113d504af96cb68215136a5a62248c",
+        "references/naming-conventions.md": "42803abb75f96d69ecd2b2396c93c0be69ba3697307fabcb0ee8848fc2a0307d",
+        "references/preferences.md": "2d65e3a035953d53bb1cf7fd1fb4441447a0824ce0ff6fd37f7fed90028d14a4",
+        "scripts/campaign_naming.py": "a8ffca5de8f6f05fd2d5c38b8ddcfd22e64efb9ddbf6333566dd4cb7c30c9aff"
+      },
+      "skipped_links": [],
+      "update_status": "not_checked",
+      "missing_dependencies": []
+    },
+    {
+      "id": "check-segments",
+      "declared_name": "check-segments",
+      "version": "1.0",
+      "description": "List and inventory what automation segments are currently running for a profile. Use when the user asks \"what segments do I have,\" \"what's running,\" \"show my automation,\" \"what's set up,\" \"am I covered,\" or wants to know if specific automation types are in place. Also use when comparing what's deployed against what should be deployed based on best practices.",
+      "entry": "skills/check-segments/SKILL.md",
+      "requires": [
+        "merchjar-connect"
+      ],
+      "files_sha256": {
+        "SKILL.md": "03c7b9d30d5271a375342c50420765c2de887ee9c0c175929cc232dc8adf9e06"
+      },
+      "skipped_links": [],
+      "update_status": "not_checked",
+      "missing_dependencies": []
+    },
+    {
+      "id": "create-campaigns",
+      "declared_name": "create-campaigns",
+      "version": "1.2",
+      "description": "Help choose, review and create a campaign structure from pasted ASINs or a one-column file, staged paused by default with explicitly approved launch states. Use when creating launch campaigns, adding product discovery, following a supplied campaign structure, or saving and reusing campaign setup preferences. Existing-account restructuring and Smart Campaign rules are separate workflows.",
+      "entry": "skills/create-campaigns/SKILL.md",
+      "requires": [
+        "merchjar-connect"
+      ],
+      "files_sha256": {
+        "SKILL.md": "821159d34fcb732ee3848d78a0751cd669138a5674f3a70349c0778f3cf43eb4",
+        "references/conversations.md": "eda71e0bc7594c47584b50f4d1f8a1e8b923f6bcd910db26c6c2fb1861c3c007",
+        "references/launch-validation.md": "853fc61a2ef087273ae1522be7c6c3918860b0b62c6b463d3eb690ba4f76e931",
+        "references/preferences.md": "b89bdba962dcea42e8b7fbbe88becb2b3ae047be7fdba4968e31b7ef7483ae51",
+        "scripts/campaign_structures.py": "d6295ea5d54ca0b8391031ea9de267577f4702a99259849b84a1f815004d140a",
+        "scripts/validate_launch.py": "8dd3654db08b0791e230f59ecdff1395c5bbc28f61ca16474da515be663ea9bb"
+      },
+      "skipped_links": [],
+      "update_status": "not_checked",
+      "missing_dependencies": []
+    },
+    {
+      "id": "enrich-account",
+      "declared_name": "enrich-account",
+      "version": "1.0",
+      "description": "Set up and populate custom fields on a Merch Jar account \u2014 profit margins, product lifecycle phase, inventory or seasonality flags, labels \u2014 so segments can automate against business data Amazon doesn't have. Use when the user says \"add my margins,\" \"set up custom fields,\" \"tag my campaigns by phase,\" \"label my products,\" \"track profitability per product,\" or when build-segment or account-review surfaces a goal that needs business data the account doesn't carry yet.",
+      "entry": "skills/enrich-account/SKILL.md",
+      "requires": [
+        "merchjar-connect"
+      ],
+      "files_sha256": {
+        "SKILL.md": "91fe1c2563d6823185b03fdee215058d323135e98fcf9d6642ca68f20d0629b9"
+      },
+      "skipped_links": [],
+      "update_status": "not_checked",
+      "missing_dependencies": []
+    },
+    {
+      "id": "explain-segment",
+      "declared_name": "explain-segment",
+      "version": "1.0",
+      "description": "Explain what a segment does in plain English. Use when the user asks \"explain this segment,\" \"what does this do,\" \"translate this to English,\" \"break this down for me,\" \"help me understand this,\" or pastes segment code and seems to want to understand it rather than edit or deploy it. Also use when a non-technical user wants to understand a segment that someone else built.",
+      "entry": "skills/explain-segment/SKILL.md",
+      "requires": [
+        "merchjar-connect"
+      ],
+      "files_sha256": {
+        "SKILL.md": "9edfb4f74d2a8d76be44ff4b072f20363eccb3e5b031a97a2ef0c33f5a72871d"
+      },
+      "skipped_links": [],
+      "update_status": "not_checked",
+      "missing_dependencies": []
+    },
+    {
+      "id": "manage-library",
+      "declared_name": "manage-library",
+      "version": "1.1",
+      "description": "Inventory installed Copilot skills and their versions, or install a selected Merch Jar Library skill from a link or copied setup request. Use when listing available skills, checking local dependencies, adding Library skills, or routing a template to setup. Installation does not run the skill or change an ad account.",
+      "entry": "skills/manage-library/SKILL.md",
+      "requires": [],
+      "files_sha256": {
+        "SKILL.md": "e7f5925462976deefb1d2f8aab95bd92e6090cb5174e10003bbaca3260231358",
+        "scripts/install_skill.py": "f4f6ece2e76993f95051d799115fce06838b08e6435f9493d18298e5de8783df",
+        "scripts/installed_skills.py": "2c49dbcde4912683d3d05f4fe11dbd714c466d7de0980badb4052069c519e840"
+      },
+      "skipped_links": [],
+      "update_status": "not_checked",
+      "missing_dependencies": []
+    },
+    {
+      "id": "merchjar-connect",
+      "declared_name": "merchjar-connect",
+      "version": "1.4",
+      "description": "Connect an AI agent to a Merch Jar account (Amazon Sponsored Products PPC) through the Merch Jar API. Use when starting any Merch Jar session, and whenever another Merch Jar skill needs the API client, the API key, the safety protocol, or the DSL and API references. Handles key setup (config file or MERCHJAR_API_KEY), profile discovery, the shell client, and the non-negotiable deploy safety rules.",
+      "entry": "skills/merchjar-connect/SKILL.md",
+      "requires": [],
+      "files_sha256": {
+        "SKILL.md": "01b81ff8cc79f1eeeb6c81ef28fa0d0c7774b746a5671f5770903c24c63ffb25",
+        "references/MJ_API_REFERENCE.md": "c751f20ce59ae87f6f4ec2e89b200ef8b585aa60004bbe696831c9eaddd5f279",
+        "references/SEGMENT_CREATION_GUIDELINES.md": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+        "references/V2_SYNTAX_REFERENCE.md": "0ddaabdc8825b17be3662d72961043b562c413a7fe7157861e41a52b30644359",
+        "references/campaign-naming.md": "c191fffb155d0fd06794e6c8dac013c8d2cb7afb97aabc3b5551d33786b863bd",
+        "scripts/campaign_naming.py": "c8c1ca07cfd216277733ced1c7f80d0fa956eb07470667625f76baa20f06f19f",
+        "scripts/merchjar_client.py": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911"
+      },
+      "skipped_links": [],
+      "update_status": "not_checked",
+      "missing_dependencies": []
+    },
+    {
+      "id": "performance-check",
+      "declared_name": "performance-check",
+      "version": "1.0",
+      "description": "Analyze account performance and diagnose what's driving changes. Use when the user asks \"how am I doing?\", \"is it working?\", \"what's changed?\", \"check my performance\", \"why is my ACOS up?\", \"performance is down\", or comes back after deploying segments and wants to see the impact. Also use when the user asks a general \"why\" question about their account metrics \u2014 not a specific segment behavior question.",
+      "entry": "skills/performance-check/SKILL.md",
+      "requires": [
+        "merchjar-connect"
+      ],
+      "files_sha256": {
+        "SKILL.md": "1c8e3f4d86e75be649043c64fdf106a44dfdcbc48cb0a939a750c2f3b8dc4e69"
+      },
+      "skipped_links": [],
+      "update_status": "not_checked",
+      "missing_dependencies": []
+    },
+    {
+      "id": "review-segment",
+      "declared_name": "review-segment",
+      "version": "1.0",
+      "description": "Review an existing segment against current quality standards and upgrade it if needed. Use when the user pastes a segment and asks if it's good, asks to review or audit a segment, says \"is this up to date,\" \"check this against standards,\" \"upgrade my segment,\" \"tune this segment,\" \"adjust the settings on this,\" or wants to know if their existing logic is correct. Also use when a segment fetched from the API looks outdated (missing diagnostics, simple single-condition triggers, hard-coded thresholds).",
+      "entry": "skills/review-segment/SKILL.md",
+      "requires": [
+        "merchjar-connect"
+      ],
+      "files_sha256": {
+        "SKILL.md": "f5265299dcc50f80fc56b11b1197ca43f1eb3ece3d12985d8b1aede41458b580"
+      },
+      "skipped_links": [],
+      "update_status": "not_checked",
+      "missing_dependencies": []
+    },
+    {
+      "id": "troubleshoot",
+      "declared_name": "troubleshoot",
+      "version": "1.0",
+      "description": "Debug why a segment took an action (or didn't). Use when the user asks \"why did this segment pause/change/negate my keyword/search term/campaign,\" \"why isn't this doing anything,\" \"this segment isn't working,\" \"debug this,\" \"explain why X happened,\" or wants to understand unexpected automation behavior before deciding what to do.",
+      "entry": "skills/troubleshoot/SKILL.md",
+      "requires": [
+        "merchjar-connect"
+      ],
+      "files_sha256": {
+        "SKILL.md": "4fbf23343049f602ee7d101eb466685f097a1533c6e1e031fe9299258c51d490"
+      },
+      "skipped_links": [],
+      "update_status": "not_checked",
+      "missing_dependencies": []
+    }
+  ]
+}

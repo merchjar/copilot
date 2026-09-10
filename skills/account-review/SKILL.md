@@ -4,7 +4,7 @@ description: Full account diagnostic — runs multiple queries to find waste, au
 license: Proprietary. Use requires an active Merch Jar account; see LICENSE in the repo root.
 compatibility: Any Agent Skills client with shell + network access (Claude Code, Codex, Cursor, Gemini CLI) or Claude Desktop/Cowork via the Chrome extension. Needs a Merch Jar API key.
 metadata:
-  version: "1.0"
+  version: "1.1"
   tags: "audit, review, waste, coverage"
   goal: "understand"
   risk: "read-only"
@@ -188,6 +188,10 @@ Present as a structural overview, grouped by issue type:
 This is a good agency demo finding — "75 campaigns enabled, 18 of them doing nothing" is a visual that communicates neglect immediately.
 
 ### Step 4 — Summary + Recommendations
+
+When campaign data already retrieved shows naming inconsistency that makes navigation or interpretation harder, briefly include it after the higher-impact findings. Read the selected profile's saved naming convention through `merchjar-connect/references/campaign-naming.md` when available. Use that shared helper even if Campaign Naming is not installed. Without a convention, describe observed inconsistency rather than declaring a violation; consistent names do not require a saved preference. Separate confirmed departures, intentional exceptions and missing evidence. Do not infer targeting, products or purpose from campaign names alone, or describe a sample as a complete naming audit.
+
+Recommend Campaign Naming once when useful to establish or apply the convention. Check actual installed skills before claiming availability. If absent, offer its Library setup through `manage-library`; do not install or run it merely because it was recommended. Continue the current account review. Do not rename campaigns, save new naming defaults or launch a full naming investigation as a side effect of this review.
 
 After running through queries conversationally, pull it together:
 
