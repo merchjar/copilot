@@ -1,0 +1,7 @@
+{
+  "schema": 1,
+  "kind": "copilot-update-bootstrap",
+  "path": "copilot-update-bootstrap.py",
+  "sha256": "742ec25e066340bcf631797901b59d7871569c04059933cac9012402b3838d91",
+  "manifest": "copilot-update-v1.2.6.json"
+}

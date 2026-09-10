@@ -1,0 +1,1409 @@
+{
+  "schema": 1,
+  "kind": "copilot-update",
+  "source": "https://merchjar.com/library-install/copilot/copilot-update-v1.2.6.json",
+  "packVersion": "1.2.6",
+  "released": "2026-09-10",
+  "archive": "copilot-update-v1.2.6.zip",
+  "archiveSha256": "75c866dbc24450ba0fe006bb45c0dd8b3f850c258400ef1c68974ed91b89078c",
+  "defaultSkills": [
+    "account-review",
+    "audit-log",
+    "build-segment",
+    "check-segments",
+    "create-campaigns",
+    "enrich-account",
+    "explain-segment",
+    "manage-library",
+    "merchjar-connect",
+    "performance-check",
+    "review-segment",
+    "troubleshoot"
+  ],
+  "skills": {
+    "account-review": {
+      "version": "1.1",
+      "requires": [
+        "merchjar-connect"
+      ],
+      "releaseNotes": "Can recommend Campaign Naming when inconsistent names block account work."
+    },
+    "audit-log": {
+      "version": "1.0",
+      "requires": [
+        "merchjar-connect"
+      ],
+      "releaseNotes": ""
+    },
+    "build-segment": {
+      "version": "1.0",
+      "requires": [
+        "merchjar-connect"
+      ],
+      "releaseNotes": ""
+    },
+    "campaign-naming-cleanup": {
+      "version": "0.4.0",
+      "requires": [
+        "merchjar-connect"
+      ],
+      "releaseNotes": "Responds faster, proposes a reusable taxonomy first, and preserves method separately from match type."
+    },
+    "check-segments": {
+      "version": "1.0",
+      "requires": [
+        "merchjar-connect"
+      ],
+      "releaseNotes": ""
+    },
+    "create-campaigns": {
+      "version": "1.3",
+      "requires": [
+        "merchjar-connect"
+      ],
+      "releaseNotes": "Reuses the saved account naming taxonomy, including the distinct Auto, KW, PT, or Mixed method."
+    },
+    "enrich-account": {
+      "version": "1.0",
+      "requires": [
+        "merchjar-connect"
+      ],
+      "releaseNotes": ""
+    },
+    "explain-segment": {
+      "version": "1.0",
+      "requires": [
+        "merchjar-connect"
+      ],
+      "releaseNotes": ""
+    },
+    "manage-library": {
+      "version": "2.0",
+      "requires": [],
+      "releaseNotes": "Adds all-skill update checks, version-aware replacement, backups, recovery, and manager self-update."
+    },
+    "merchjar-connect": {
+      "version": "1.5",
+      "requires": [],
+      "releaseNotes": "Adds the shared naming method field, saved vocabularies, and safer Windows API command guidance."
+    },
+    "performance-check": {
+      "version": "1.0",
+      "requires": [
+        "merchjar-connect"
+      ],
+      "releaseNotes": ""
+    },
+    "review-segment": {
+      "version": "1.0",
+      "requires": [
+        "merchjar-connect"
+      ],
+      "releaseNotes": ""
+    },
+    "troubleshoot": {
+      "version": "1.0",
+      "requires": [
+        "merchjar-connect"
+      ],
+      "releaseNotes": ""
+    }
+  },
+  "files": [
+    {
+      "path": ".agents/skills/account-review/SKILL.md",
+      "archivePath": ".agents/skills/account-review/SKILL.md",
+      "sha256": "dd50421b57ecb89f653e388e5998cdb9257abb7fb23a9650aacdc23ed64941aa",
+      "owner": "skill:account-review"
+    },
+    {
+      "path": ".agents/skills/audit-log/SKILL.md",
+      "archivePath": ".agents/skills/audit-log/SKILL.md",
+      "sha256": "aeac300e5e497a91dd297f46f6dc13a73f8539b2afabf8b9a0c1a7f22bcce933",
+      "owner": "skill:audit-log"
+    },
+    {
+      "path": ".agents/skills/build-segment/SKILL.md",
+      "archivePath": ".agents/skills/build-segment/SKILL.md",
+      "sha256": "6afa038e1ab32408bce663913b0de6a2ef06ae0413b54121672e2a001caf836f",
+      "owner": "skill:build-segment"
+    },
+    {
+      "path": ".agents/skills/campaign-naming-cleanup/references/api-and-evidence.md",
+      "archivePath": ".agents/skills/campaign-naming-cleanup/references/api-and-evidence.md",
+      "sha256": "6645669fea79b11856325f1e2c2541403737cac019b2de5ca8a226e9d1a90a48",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": ".agents/skills/campaign-naming-cleanup/references/naming-conventions.md",
+      "archivePath": ".agents/skills/campaign-naming-cleanup/references/naming-conventions.md",
+      "sha256": "0a836fb4a84aa1e3f6931b05f001db7e0c7d57248be729bfd9acbdff2448076e",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": ".agents/skills/campaign-naming-cleanup/references/preferences.md",
+      "archivePath": ".agents/skills/campaign-naming-cleanup/references/preferences.md",
+      "sha256": "56179b119f793cca77e32428745ebd161a17c6b08800ba2c90231752db5c02bb",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": ".agents/skills/campaign-naming-cleanup/scripts/campaign_naming.py",
+      "archivePath": ".agents/skills/campaign-naming-cleanup/scripts/campaign_naming.py",
+      "sha256": "a8ffca5de8f6f05fd2d5c38b8ddcfd22e64efb9ddbf6333566dd4cb7c30c9aff",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": ".agents/skills/campaign-naming-cleanup/SKILL.md",
+      "archivePath": ".agents/skills/campaign-naming-cleanup/SKILL.md",
+      "sha256": "43a00a7358c21a2940ee59ee24917dcd51f8a5cdcad6a49596328a6a9b3f372e",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": ".agents/skills/check-segments/SKILL.md",
+      "archivePath": ".agents/skills/check-segments/SKILL.md",
+      "sha256": "03c7b9d30d5271a375342c50420765c2de887ee9c0c175929cc232dc8adf9e06",
+      "owner": "skill:check-segments"
+    },
+    {
+      "path": ".agents/skills/create-campaigns/references/conversations.md",
+      "archivePath": ".agents/skills/create-campaigns/references/conversations.md",
+      "sha256": "eda71e0bc7594c47584b50f4d1f8a1e8b923f6bcd910db26c6c2fb1861c3c007",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".agents/skills/create-campaigns/references/launch-validation.md",
+      "archivePath": ".agents/skills/create-campaigns/references/launch-validation.md",
+      "sha256": "853fc61a2ef087273ae1522be7c6c3918860b0b62c6b463d3eb690ba4f76e931",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".agents/skills/create-campaigns/references/preferences.md",
+      "archivePath": ".agents/skills/create-campaigns/references/preferences.md",
+      "sha256": "796430ce2e65ca65fc89095e87f550b232c6df1626270e75ff8627d5d96e2c18",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".agents/skills/create-campaigns/scripts/campaign_structures.py",
+      "archivePath": ".agents/skills/create-campaigns/scripts/campaign_structures.py",
+      "sha256": "d6295ea5d54ca0b8391031ea9de267577f4702a99259849b84a1f815004d140a",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".agents/skills/create-campaigns/scripts/validate_launch.py",
+      "archivePath": ".agents/skills/create-campaigns/scripts/validate_launch.py",
+      "sha256": "8dd3654db08b0791e230f59ecdff1395c5bbc28f61ca16474da515be663ea9bb",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".agents/skills/create-campaigns/SKILL.md",
+      "archivePath": ".agents/skills/create-campaigns/SKILL.md",
+      "sha256": "06ade09edd94827e8dc7f7db1c85fbb8abedfa0d4bd3d388435e3c2fc7116960",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".agents/skills/enrich-account/SKILL.md",
+      "archivePath": ".agents/skills/enrich-account/SKILL.md",
+      "sha256": "91fe1c2563d6823185b03fdee215058d323135e98fcf9d6642ca68f20d0629b9",
+      "owner": "skill:enrich-account"
+    },
+    {
+      "path": ".agents/skills/explain-segment/SKILL.md",
+      "archivePath": ".agents/skills/explain-segment/SKILL.md",
+      "sha256": "9edfb4f74d2a8d76be44ff4b072f20363eccb3e5b031a97a2ef0c33f5a72871d",
+      "owner": "skill:explain-segment"
+    },
+    {
+      "path": ".agents/skills/manage-library/scripts/install_skill.py",
+      "archivePath": ".agents/skills/manage-library/scripts/install_skill.py",
+      "sha256": "f4f6ece2e76993f95051d799115fce06838b08e6435f9493d18298e5de8783df",
+      "owner": "skill:manage-library"
+    },
+    {
+      "path": ".agents/skills/manage-library/scripts/installed_skills.py",
+      "archivePath": ".agents/skills/manage-library/scripts/installed_skills.py",
+      "sha256": "2c49dbcde4912683d3d05f4fe11dbd714c466d7de0980badb4052069c519e840",
+      "owner": "skill:manage-library"
+    },
+    {
+      "path": ".agents/skills/manage-library/scripts/update_copilot.py",
+      "archivePath": ".agents/skills/manage-library/scripts/update_copilot.py",
+      "sha256": "742ec25e066340bcf631797901b59d7871569c04059933cac9012402b3838d91",
+      "owner": "skill:manage-library"
+    },
+    {
+      "path": ".agents/skills/manage-library/SKILL.md",
+      "archivePath": ".agents/skills/manage-library/SKILL.md",
+      "sha256": "49094f1ac150dda8a34063b1041ef318b218b93e07e702095d6f3e5375cb3ab4",
+      "owner": "skill:manage-library"
+    },
+    {
+      "path": ".agents/skills/merchjar-connect/references/campaign-naming.md",
+      "archivePath": ".agents/skills/merchjar-connect/references/campaign-naming.md",
+      "sha256": "a7b07c12fc9c06aac6aa0efd8698368efbd50c8050d1af58bb46c62e0eb32955",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".agents/skills/merchjar-connect/references/MJ_API_REFERENCE.md",
+      "archivePath": ".agents/skills/merchjar-connect/references/MJ_API_REFERENCE.md",
+      "sha256": "c751f20ce59ae87f6f4ec2e89b200ef8b585aa60004bbe696831c9eaddd5f279",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".agents/skills/merchjar-connect/references/SEGMENT_CREATION_GUIDELINES.md",
+      "archivePath": ".agents/skills/merchjar-connect/references/SEGMENT_CREATION_GUIDELINES.md",
+      "sha256": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".agents/skills/merchjar-connect/references/V2_SYNTAX_REFERENCE.md",
+      "archivePath": ".agents/skills/merchjar-connect/references/V2_SYNTAX_REFERENCE.md",
+      "sha256": "b0dbbe07cc5718c52d8de76715a752a521138013d7f77d348396810680c12558",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".agents/skills/merchjar-connect/scripts/campaign_naming.py",
+      "archivePath": ".agents/skills/merchjar-connect/scripts/campaign_naming.py",
+      "sha256": "89c45f85f4d34a359424620634778c37d4260792135ba508f0bea2de6a2ce1e7",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".agents/skills/merchjar-connect/scripts/merchjar_client.py",
+      "archivePath": ".agents/skills/merchjar-connect/scripts/merchjar_client.py",
+      "sha256": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".agents/skills/merchjar-connect/SKILL.md",
+      "archivePath": ".agents/skills/merchjar-connect/SKILL.md",
+      "sha256": "e41c1334eb0edefcdcdde7caa53139617af09d2ea750e65f1fe44a68d1e0b01c",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".agents/skills/performance-check/SKILL.md",
+      "archivePath": ".agents/skills/performance-check/SKILL.md",
+      "sha256": "1c8e3f4d86e75be649043c64fdf106a44dfdcbc48cb0a939a750c2f3b8dc4e69",
+      "owner": "skill:performance-check"
+    },
+    {
+      "path": ".agents/skills/review-segment/SKILL.md",
+      "archivePath": ".agents/skills/review-segment/SKILL.md",
+      "sha256": "f5265299dcc50f80fc56b11b1197ca43f1eb3ece3d12985d8b1aede41458b580",
+      "owner": "skill:review-segment"
+    },
+    {
+      "path": ".agents/skills/troubleshoot/SKILL.md",
+      "archivePath": ".agents/skills/troubleshoot/SKILL.md",
+      "sha256": "4fbf23343049f602ee7d101eb466685f097a1533c6e1e031fe9299258c51d490",
+      "owner": "skill:troubleshoot"
+    },
+    {
+      "path": ".claude/skills/account-review/SKILL.md",
+      "archivePath": ".claude/skills/account-review/SKILL.md",
+      "sha256": "dd50421b57ecb89f653e388e5998cdb9257abb7fb23a9650aacdc23ed64941aa",
+      "owner": "skill:account-review"
+    },
+    {
+      "path": ".claude/skills/audit-log/SKILL.md",
+      "archivePath": ".claude/skills/audit-log/SKILL.md",
+      "sha256": "aeac300e5e497a91dd297f46f6dc13a73f8539b2afabf8b9a0c1a7f22bcce933",
+      "owner": "skill:audit-log"
+    },
+    {
+      "path": ".claude/skills/build-segment/SKILL.md",
+      "archivePath": ".claude/skills/build-segment/SKILL.md",
+      "sha256": "6afa038e1ab32408bce663913b0de6a2ef06ae0413b54121672e2a001caf836f",
+      "owner": "skill:build-segment"
+    },
+    {
+      "path": ".claude/skills/campaign-naming-cleanup/references/api-and-evidence.md",
+      "archivePath": ".claude/skills/campaign-naming-cleanup/references/api-and-evidence.md",
+      "sha256": "6645669fea79b11856325f1e2c2541403737cac019b2de5ca8a226e9d1a90a48",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": ".claude/skills/campaign-naming-cleanup/references/naming-conventions.md",
+      "archivePath": ".claude/skills/campaign-naming-cleanup/references/naming-conventions.md",
+      "sha256": "0a836fb4a84aa1e3f6931b05f001db7e0c7d57248be729bfd9acbdff2448076e",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": ".claude/skills/campaign-naming-cleanup/references/preferences.md",
+      "archivePath": ".claude/skills/campaign-naming-cleanup/references/preferences.md",
+      "sha256": "56179b119f793cca77e32428745ebd161a17c6b08800ba2c90231752db5c02bb",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": ".claude/skills/campaign-naming-cleanup/scripts/campaign_naming.py",
+      "archivePath": ".claude/skills/campaign-naming-cleanup/scripts/campaign_naming.py",
+      "sha256": "a8ffca5de8f6f05fd2d5c38b8ddcfd22e64efb9ddbf6333566dd4cb7c30c9aff",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": ".claude/skills/campaign-naming-cleanup/SKILL.md",
+      "archivePath": ".claude/skills/campaign-naming-cleanup/SKILL.md",
+      "sha256": "43a00a7358c21a2940ee59ee24917dcd51f8a5cdcad6a49596328a6a9b3f372e",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": ".claude/skills/check-segments/SKILL.md",
+      "archivePath": ".claude/skills/check-segments/SKILL.md",
+      "sha256": "03c7b9d30d5271a375342c50420765c2de887ee9c0c175929cc232dc8adf9e06",
+      "owner": "skill:check-segments"
+    },
+    {
+      "path": ".claude/skills/create-campaigns/references/conversations.md",
+      "archivePath": ".claude/skills/create-campaigns/references/conversations.md",
+      "sha256": "eda71e0bc7594c47584b50f4d1f8a1e8b923f6bcd910db26c6c2fb1861c3c007",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".claude/skills/create-campaigns/references/launch-validation.md",
+      "archivePath": ".claude/skills/create-campaigns/references/launch-validation.md",
+      "sha256": "853fc61a2ef087273ae1522be7c6c3918860b0b62c6b463d3eb690ba4f76e931",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".claude/skills/create-campaigns/references/preferences.md",
+      "archivePath": ".claude/skills/create-campaigns/references/preferences.md",
+      "sha256": "796430ce2e65ca65fc89095e87f550b232c6df1626270e75ff8627d5d96e2c18",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".claude/skills/create-campaigns/scripts/campaign_structures.py",
+      "archivePath": ".claude/skills/create-campaigns/scripts/campaign_structures.py",
+      "sha256": "d6295ea5d54ca0b8391031ea9de267577f4702a99259849b84a1f815004d140a",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".claude/skills/create-campaigns/scripts/validate_launch.py",
+      "archivePath": ".claude/skills/create-campaigns/scripts/validate_launch.py",
+      "sha256": "8dd3654db08b0791e230f59ecdff1395c5bbc28f61ca16474da515be663ea9bb",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".claude/skills/create-campaigns/SKILL.md",
+      "archivePath": ".claude/skills/create-campaigns/SKILL.md",
+      "sha256": "06ade09edd94827e8dc7f7db1c85fbb8abedfa0d4bd3d388435e3c2fc7116960",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".claude/skills/enrich-account/SKILL.md",
+      "archivePath": ".claude/skills/enrich-account/SKILL.md",
+      "sha256": "91fe1c2563d6823185b03fdee215058d323135e98fcf9d6642ca68f20d0629b9",
+      "owner": "skill:enrich-account"
+    },
+    {
+      "path": ".claude/skills/explain-segment/SKILL.md",
+      "archivePath": ".claude/skills/explain-segment/SKILL.md",
+      "sha256": "9edfb4f74d2a8d76be44ff4b072f20363eccb3e5b031a97a2ef0c33f5a72871d",
+      "owner": "skill:explain-segment"
+    },
+    {
+      "path": ".claude/skills/manage-library/scripts/install_skill.py",
+      "archivePath": ".claude/skills/manage-library/scripts/install_skill.py",
+      "sha256": "f4f6ece2e76993f95051d799115fce06838b08e6435f9493d18298e5de8783df",
+      "owner": "skill:manage-library"
+    },
+    {
+      "path": ".claude/skills/manage-library/scripts/installed_skills.py",
+      "archivePath": ".claude/skills/manage-library/scripts/installed_skills.py",
+      "sha256": "2c49dbcde4912683d3d05f4fe11dbd714c466d7de0980badb4052069c519e840",
+      "owner": "skill:manage-library"
+    },
+    {
+      "path": ".claude/skills/manage-library/scripts/update_copilot.py",
+      "archivePath": ".claude/skills/manage-library/scripts/update_copilot.py",
+      "sha256": "742ec25e066340bcf631797901b59d7871569c04059933cac9012402b3838d91",
+      "owner": "skill:manage-library"
+    },
+    {
+      "path": ".claude/skills/manage-library/SKILL.md",
+      "archivePath": ".claude/skills/manage-library/SKILL.md",
+      "sha256": "49094f1ac150dda8a34063b1041ef318b218b93e07e702095d6f3e5375cb3ab4",
+      "owner": "skill:manage-library"
+    },
+    {
+      "path": ".claude/skills/merchjar-connect/references/campaign-naming.md",
+      "archivePath": ".claude/skills/merchjar-connect/references/campaign-naming.md",
+      "sha256": "a7b07c12fc9c06aac6aa0efd8698368efbd50c8050d1af58bb46c62e0eb32955",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".claude/skills/merchjar-connect/references/MJ_API_REFERENCE.md",
+      "archivePath": ".claude/skills/merchjar-connect/references/MJ_API_REFERENCE.md",
+      "sha256": "c751f20ce59ae87f6f4ec2e89b200ef8b585aa60004bbe696831c9eaddd5f279",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".claude/skills/merchjar-connect/references/SEGMENT_CREATION_GUIDELINES.md",
+      "archivePath": ".claude/skills/merchjar-connect/references/SEGMENT_CREATION_GUIDELINES.md",
+      "sha256": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".claude/skills/merchjar-connect/references/V2_SYNTAX_REFERENCE.md",
+      "archivePath": ".claude/skills/merchjar-connect/references/V2_SYNTAX_REFERENCE.md",
+      "sha256": "b0dbbe07cc5718c52d8de76715a752a521138013d7f77d348396810680c12558",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".claude/skills/merchjar-connect/scripts/campaign_naming.py",
+      "archivePath": ".claude/skills/merchjar-connect/scripts/campaign_naming.py",
+      "sha256": "89c45f85f4d34a359424620634778c37d4260792135ba508f0bea2de6a2ce1e7",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".claude/skills/merchjar-connect/scripts/merchjar_client.py",
+      "archivePath": ".claude/skills/merchjar-connect/scripts/merchjar_client.py",
+      "sha256": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".claude/skills/merchjar-connect/SKILL.md",
+      "archivePath": ".claude/skills/merchjar-connect/SKILL.md",
+      "sha256": "e41c1334eb0edefcdcdde7caa53139617af09d2ea750e65f1fe44a68d1e0b01c",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".claude/skills/performance-check/SKILL.md",
+      "archivePath": ".claude/skills/performance-check/SKILL.md",
+      "sha256": "1c8e3f4d86e75be649043c64fdf106a44dfdcbc48cb0a939a750c2f3b8dc4e69",
+      "owner": "skill:performance-check"
+    },
+    {
+      "path": ".claude/skills/review-segment/SKILL.md",
+      "archivePath": ".claude/skills/review-segment/SKILL.md",
+      "sha256": "f5265299dcc50f80fc56b11b1197ca43f1eb3ece3d12985d8b1aede41458b580",
+      "owner": "skill:review-segment"
+    },
+    {
+      "path": ".claude/skills/troubleshoot/SKILL.md",
+      "archivePath": ".claude/skills/troubleshoot/SKILL.md",
+      "sha256": "4fbf23343049f602ee7d101eb466685f097a1533c6e1e031fe9299258c51d490",
+      "owner": "skill:troubleshoot"
+    },
+    {
+      "path": ".gemini/skills/account-review/SKILL.md",
+      "archivePath": ".gemini/skills/account-review/SKILL.md",
+      "sha256": "dd50421b57ecb89f653e388e5998cdb9257abb7fb23a9650aacdc23ed64941aa",
+      "owner": "skill:account-review"
+    },
+    {
+      "path": ".gemini/skills/audit-log/SKILL.md",
+      "archivePath": ".gemini/skills/audit-log/SKILL.md",
+      "sha256": "aeac300e5e497a91dd297f46f6dc13a73f8539b2afabf8b9a0c1a7f22bcce933",
+      "owner": "skill:audit-log"
+    },
+    {
+      "path": ".gemini/skills/build-segment/SKILL.md",
+      "archivePath": ".gemini/skills/build-segment/SKILL.md",
+      "sha256": "6afa038e1ab32408bce663913b0de6a2ef06ae0413b54121672e2a001caf836f",
+      "owner": "skill:build-segment"
+    },
+    {
+      "path": ".gemini/skills/campaign-naming-cleanup/references/api-and-evidence.md",
+      "archivePath": ".gemini/skills/campaign-naming-cleanup/references/api-and-evidence.md",
+      "sha256": "6645669fea79b11856325f1e2c2541403737cac019b2de5ca8a226e9d1a90a48",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": ".gemini/skills/campaign-naming-cleanup/references/naming-conventions.md",
+      "archivePath": ".gemini/skills/campaign-naming-cleanup/references/naming-conventions.md",
+      "sha256": "0a836fb4a84aa1e3f6931b05f001db7e0c7d57248be729bfd9acbdff2448076e",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": ".gemini/skills/campaign-naming-cleanup/references/preferences.md",
+      "archivePath": ".gemini/skills/campaign-naming-cleanup/references/preferences.md",
+      "sha256": "56179b119f793cca77e32428745ebd161a17c6b08800ba2c90231752db5c02bb",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": ".gemini/skills/campaign-naming-cleanup/scripts/campaign_naming.py",
+      "archivePath": ".gemini/skills/campaign-naming-cleanup/scripts/campaign_naming.py",
+      "sha256": "a8ffca5de8f6f05fd2d5c38b8ddcfd22e64efb9ddbf6333566dd4cb7c30c9aff",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": ".gemini/skills/campaign-naming-cleanup/SKILL.md",
+      "archivePath": ".gemini/skills/campaign-naming-cleanup/SKILL.md",
+      "sha256": "43a00a7358c21a2940ee59ee24917dcd51f8a5cdcad6a49596328a6a9b3f372e",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": ".gemini/skills/check-segments/SKILL.md",
+      "archivePath": ".gemini/skills/check-segments/SKILL.md",
+      "sha256": "03c7b9d30d5271a375342c50420765c2de887ee9c0c175929cc232dc8adf9e06",
+      "owner": "skill:check-segments"
+    },
+    {
+      "path": ".gemini/skills/create-campaigns/references/conversations.md",
+      "archivePath": ".gemini/skills/create-campaigns/references/conversations.md",
+      "sha256": "eda71e0bc7594c47584b50f4d1f8a1e8b923f6bcd910db26c6c2fb1861c3c007",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".gemini/skills/create-campaigns/references/launch-validation.md",
+      "archivePath": ".gemini/skills/create-campaigns/references/launch-validation.md",
+      "sha256": "853fc61a2ef087273ae1522be7c6c3918860b0b62c6b463d3eb690ba4f76e931",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".gemini/skills/create-campaigns/references/preferences.md",
+      "archivePath": ".gemini/skills/create-campaigns/references/preferences.md",
+      "sha256": "796430ce2e65ca65fc89095e87f550b232c6df1626270e75ff8627d5d96e2c18",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".gemini/skills/create-campaigns/scripts/campaign_structures.py",
+      "archivePath": ".gemini/skills/create-campaigns/scripts/campaign_structures.py",
+      "sha256": "d6295ea5d54ca0b8391031ea9de267577f4702a99259849b84a1f815004d140a",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".gemini/skills/create-campaigns/scripts/validate_launch.py",
+      "archivePath": ".gemini/skills/create-campaigns/scripts/validate_launch.py",
+      "sha256": "8dd3654db08b0791e230f59ecdff1395c5bbc28f61ca16474da515be663ea9bb",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".gemini/skills/create-campaigns/SKILL.md",
+      "archivePath": ".gemini/skills/create-campaigns/SKILL.md",
+      "sha256": "06ade09edd94827e8dc7f7db1c85fbb8abedfa0d4bd3d388435e3c2fc7116960",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".gemini/skills/enrich-account/SKILL.md",
+      "archivePath": ".gemini/skills/enrich-account/SKILL.md",
+      "sha256": "91fe1c2563d6823185b03fdee215058d323135e98fcf9d6642ca68f20d0629b9",
+      "owner": "skill:enrich-account"
+    },
+    {
+      "path": ".gemini/skills/explain-segment/SKILL.md",
+      "archivePath": ".gemini/skills/explain-segment/SKILL.md",
+      "sha256": "9edfb4f74d2a8d76be44ff4b072f20363eccb3e5b031a97a2ef0c33f5a72871d",
+      "owner": "skill:explain-segment"
+    },
+    {
+      "path": ".gemini/skills/manage-library/scripts/install_skill.py",
+      "archivePath": ".gemini/skills/manage-library/scripts/install_skill.py",
+      "sha256": "f4f6ece2e76993f95051d799115fce06838b08e6435f9493d18298e5de8783df",
+      "owner": "skill:manage-library"
+    },
+    {
+      "path": ".gemini/skills/manage-library/scripts/installed_skills.py",
+      "archivePath": ".gemini/skills/manage-library/scripts/installed_skills.py",
+      "sha256": "2c49dbcde4912683d3d05f4fe11dbd714c466d7de0980badb4052069c519e840",
+      "owner": "skill:manage-library"
+    },
+    {
+      "path": ".gemini/skills/manage-library/scripts/update_copilot.py",
+      "archivePath": ".gemini/skills/manage-library/scripts/update_copilot.py",
+      "sha256": "742ec25e066340bcf631797901b59d7871569c04059933cac9012402b3838d91",
+      "owner": "skill:manage-library"
+    },
+    {
+      "path": ".gemini/skills/manage-library/SKILL.md",
+      "archivePath": ".gemini/skills/manage-library/SKILL.md",
+      "sha256": "49094f1ac150dda8a34063b1041ef318b218b93e07e702095d6f3e5375cb3ab4",
+      "owner": "skill:manage-library"
+    },
+    {
+      "path": ".gemini/skills/merchjar-connect/references/campaign-naming.md",
+      "archivePath": ".gemini/skills/merchjar-connect/references/campaign-naming.md",
+      "sha256": "a7b07c12fc9c06aac6aa0efd8698368efbd50c8050d1af58bb46c62e0eb32955",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".gemini/skills/merchjar-connect/references/MJ_API_REFERENCE.md",
+      "archivePath": ".gemini/skills/merchjar-connect/references/MJ_API_REFERENCE.md",
+      "sha256": "c751f20ce59ae87f6f4ec2e89b200ef8b585aa60004bbe696831c9eaddd5f279",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".gemini/skills/merchjar-connect/references/SEGMENT_CREATION_GUIDELINES.md",
+      "archivePath": ".gemini/skills/merchjar-connect/references/SEGMENT_CREATION_GUIDELINES.md",
+      "sha256": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".gemini/skills/merchjar-connect/references/V2_SYNTAX_REFERENCE.md",
+      "archivePath": ".gemini/skills/merchjar-connect/references/V2_SYNTAX_REFERENCE.md",
+      "sha256": "b0dbbe07cc5718c52d8de76715a752a521138013d7f77d348396810680c12558",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".gemini/skills/merchjar-connect/scripts/campaign_naming.py",
+      "archivePath": ".gemini/skills/merchjar-connect/scripts/campaign_naming.py",
+      "sha256": "89c45f85f4d34a359424620634778c37d4260792135ba508f0bea2de6a2ce1e7",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".gemini/skills/merchjar-connect/scripts/merchjar_client.py",
+      "archivePath": ".gemini/skills/merchjar-connect/scripts/merchjar_client.py",
+      "sha256": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".gemini/skills/merchjar-connect/SKILL.md",
+      "archivePath": ".gemini/skills/merchjar-connect/SKILL.md",
+      "sha256": "e41c1334eb0edefcdcdde7caa53139617af09d2ea750e65f1fe44a68d1e0b01c",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".gemini/skills/performance-check/SKILL.md",
+      "archivePath": ".gemini/skills/performance-check/SKILL.md",
+      "sha256": "1c8e3f4d86e75be649043c64fdf106a44dfdcbc48cb0a939a750c2f3b8dc4e69",
+      "owner": "skill:performance-check"
+    },
+    {
+      "path": ".gemini/skills/review-segment/SKILL.md",
+      "archivePath": ".gemini/skills/review-segment/SKILL.md",
+      "sha256": "f5265299dcc50f80fc56b11b1197ca43f1eb3ece3d12985d8b1aede41458b580",
+      "owner": "skill:review-segment"
+    },
+    {
+      "path": ".gemini/skills/troubleshoot/SKILL.md",
+      "archivePath": ".gemini/skills/troubleshoot/SKILL.md",
+      "sha256": "4fbf23343049f602ee7d101eb466685f097a1533c6e1e031fe9299258c51d490",
+      "owner": "skill:troubleshoot"
+    },
+    {
+      "path": ".github/skills/account-review/SKILL.md",
+      "archivePath": ".github/skills/account-review/SKILL.md",
+      "sha256": "dd50421b57ecb89f653e388e5998cdb9257abb7fb23a9650aacdc23ed64941aa",
+      "owner": "skill:account-review"
+    },
+    {
+      "path": ".github/skills/audit-log/SKILL.md",
+      "archivePath": ".github/skills/audit-log/SKILL.md",
+      "sha256": "aeac300e5e497a91dd297f46f6dc13a73f8539b2afabf8b9a0c1a7f22bcce933",
+      "owner": "skill:audit-log"
+    },
+    {
+      "path": ".github/skills/build-segment/SKILL.md",
+      "archivePath": ".github/skills/build-segment/SKILL.md",
+      "sha256": "6afa038e1ab32408bce663913b0de6a2ef06ae0413b54121672e2a001caf836f",
+      "owner": "skill:build-segment"
+    },
+    {
+      "path": ".github/skills/campaign-naming-cleanup/references/api-and-evidence.md",
+      "archivePath": ".github/skills/campaign-naming-cleanup/references/api-and-evidence.md",
+      "sha256": "6645669fea79b11856325f1e2c2541403737cac019b2de5ca8a226e9d1a90a48",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": ".github/skills/campaign-naming-cleanup/references/naming-conventions.md",
+      "archivePath": ".github/skills/campaign-naming-cleanup/references/naming-conventions.md",
+      "sha256": "0a836fb4a84aa1e3f6931b05f001db7e0c7d57248be729bfd9acbdff2448076e",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": ".github/skills/campaign-naming-cleanup/references/preferences.md",
+      "archivePath": ".github/skills/campaign-naming-cleanup/references/preferences.md",
+      "sha256": "56179b119f793cca77e32428745ebd161a17c6b08800ba2c90231752db5c02bb",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": ".github/skills/campaign-naming-cleanup/scripts/campaign_naming.py",
+      "archivePath": ".github/skills/campaign-naming-cleanup/scripts/campaign_naming.py",
+      "sha256": "a8ffca5de8f6f05fd2d5c38b8ddcfd22e64efb9ddbf6333566dd4cb7c30c9aff",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": ".github/skills/campaign-naming-cleanup/SKILL.md",
+      "archivePath": ".github/skills/campaign-naming-cleanup/SKILL.md",
+      "sha256": "43a00a7358c21a2940ee59ee24917dcd51f8a5cdcad6a49596328a6a9b3f372e",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": ".github/skills/check-segments/SKILL.md",
+      "archivePath": ".github/skills/check-segments/SKILL.md",
+      "sha256": "03c7b9d30d5271a375342c50420765c2de887ee9c0c175929cc232dc8adf9e06",
+      "owner": "skill:check-segments"
+    },
+    {
+      "path": ".github/skills/create-campaigns/references/conversations.md",
+      "archivePath": ".github/skills/create-campaigns/references/conversations.md",
+      "sha256": "eda71e0bc7594c47584b50f4d1f8a1e8b923f6bcd910db26c6c2fb1861c3c007",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".github/skills/create-campaigns/references/launch-validation.md",
+      "archivePath": ".github/skills/create-campaigns/references/launch-validation.md",
+      "sha256": "853fc61a2ef087273ae1522be7c6c3918860b0b62c6b463d3eb690ba4f76e931",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".github/skills/create-campaigns/references/preferences.md",
+      "archivePath": ".github/skills/create-campaigns/references/preferences.md",
+      "sha256": "796430ce2e65ca65fc89095e87f550b232c6df1626270e75ff8627d5d96e2c18",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".github/skills/create-campaigns/scripts/campaign_structures.py",
+      "archivePath": ".github/skills/create-campaigns/scripts/campaign_structures.py",
+      "sha256": "d6295ea5d54ca0b8391031ea9de267577f4702a99259849b84a1f815004d140a",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".github/skills/create-campaigns/scripts/validate_launch.py",
+      "archivePath": ".github/skills/create-campaigns/scripts/validate_launch.py",
+      "sha256": "8dd3654db08b0791e230f59ecdff1395c5bbc28f61ca16474da515be663ea9bb",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".github/skills/create-campaigns/SKILL.md",
+      "archivePath": ".github/skills/create-campaigns/SKILL.md",
+      "sha256": "06ade09edd94827e8dc7f7db1c85fbb8abedfa0d4bd3d388435e3c2fc7116960",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".github/skills/enrich-account/SKILL.md",
+      "archivePath": ".github/skills/enrich-account/SKILL.md",
+      "sha256": "91fe1c2563d6823185b03fdee215058d323135e98fcf9d6642ca68f20d0629b9",
+      "owner": "skill:enrich-account"
+    },
+    {
+      "path": ".github/skills/explain-segment/SKILL.md",
+      "archivePath": ".github/skills/explain-segment/SKILL.md",
+      "sha256": "9edfb4f74d2a8d76be44ff4b072f20363eccb3e5b031a97a2ef0c33f5a72871d",
+      "owner": "skill:explain-segment"
+    },
+    {
+      "path": ".github/skills/manage-library/scripts/install_skill.py",
+      "archivePath": ".github/skills/manage-library/scripts/install_skill.py",
+      "sha256": "f4f6ece2e76993f95051d799115fce06838b08e6435f9493d18298e5de8783df",
+      "owner": "skill:manage-library"
+    },
+    {
+      "path": ".github/skills/manage-library/scripts/installed_skills.py",
+      "archivePath": ".github/skills/manage-library/scripts/installed_skills.py",
+      "sha256": "2c49dbcde4912683d3d05f4fe11dbd714c466d7de0980badb4052069c519e840",
+      "owner": "skill:manage-library"
+    },
+    {
+      "path": ".github/skills/manage-library/scripts/update_copilot.py",
+      "archivePath": ".github/skills/manage-library/scripts/update_copilot.py",
+      "sha256": "742ec25e066340bcf631797901b59d7871569c04059933cac9012402b3838d91",
+      "owner": "skill:manage-library"
+    },
+    {
+      "path": ".github/skills/manage-library/SKILL.md",
+      "archivePath": ".github/skills/manage-library/SKILL.md",
+      "sha256": "49094f1ac150dda8a34063b1041ef318b218b93e07e702095d6f3e5375cb3ab4",
+      "owner": "skill:manage-library"
+    },
+    {
+      "path": ".github/skills/merchjar-connect/references/campaign-naming.md",
+      "archivePath": ".github/skills/merchjar-connect/references/campaign-naming.md",
+      "sha256": "a7b07c12fc9c06aac6aa0efd8698368efbd50c8050d1af58bb46c62e0eb32955",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".github/skills/merchjar-connect/references/MJ_API_REFERENCE.md",
+      "archivePath": ".github/skills/merchjar-connect/references/MJ_API_REFERENCE.md",
+      "sha256": "c751f20ce59ae87f6f4ec2e89b200ef8b585aa60004bbe696831c9eaddd5f279",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".github/skills/merchjar-connect/references/SEGMENT_CREATION_GUIDELINES.md",
+      "archivePath": ".github/skills/merchjar-connect/references/SEGMENT_CREATION_GUIDELINES.md",
+      "sha256": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".github/skills/merchjar-connect/references/V2_SYNTAX_REFERENCE.md",
+      "archivePath": ".github/skills/merchjar-connect/references/V2_SYNTAX_REFERENCE.md",
+      "sha256": "b0dbbe07cc5718c52d8de76715a752a521138013d7f77d348396810680c12558",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".github/skills/merchjar-connect/scripts/campaign_naming.py",
+      "archivePath": ".github/skills/merchjar-connect/scripts/campaign_naming.py",
+      "sha256": "89c45f85f4d34a359424620634778c37d4260792135ba508f0bea2de6a2ce1e7",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".github/skills/merchjar-connect/scripts/merchjar_client.py",
+      "archivePath": ".github/skills/merchjar-connect/scripts/merchjar_client.py",
+      "sha256": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".github/skills/merchjar-connect/SKILL.md",
+      "archivePath": ".github/skills/merchjar-connect/SKILL.md",
+      "sha256": "e41c1334eb0edefcdcdde7caa53139617af09d2ea750e65f1fe44a68d1e0b01c",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".github/skills/performance-check/SKILL.md",
+      "archivePath": ".github/skills/performance-check/SKILL.md",
+      "sha256": "1c8e3f4d86e75be649043c64fdf106a44dfdcbc48cb0a939a750c2f3b8dc4e69",
+      "owner": "skill:performance-check"
+    },
+    {
+      "path": ".github/skills/review-segment/SKILL.md",
+      "archivePath": ".github/skills/review-segment/SKILL.md",
+      "sha256": "f5265299dcc50f80fc56b11b1197ca43f1eb3ece3d12985d8b1aede41458b580",
+      "owner": "skill:review-segment"
+    },
+    {
+      "path": ".github/skills/troubleshoot/SKILL.md",
+      "archivePath": ".github/skills/troubleshoot/SKILL.md",
+      "sha256": "4fbf23343049f602ee7d101eb466685f097a1533c6e1e031fe9299258c51d490",
+      "owner": "skill:troubleshoot"
+    },
+    {
+      "path": "AGENTS.md",
+      "archivePath": "AGENTS.md",
+      "sha256": "5e156203d5e418946a270d77ebedeabc83f9afa0c2ed1020755be3082c0c7924",
+      "owner": "copilot"
+    },
+    {
+      "path": "build.sh",
+      "archivePath": "build.sh",
+      "sha256": "546ffc5f75c64c2d4a878cf145fa2bd587046eb04e3fcc380ea68bd0e728866e",
+      "owner": "copilot"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "archivePath": "CHANGELOG.md",
+      "sha256": "2e8dbb5d318270f7a9e39a35270effeefddf77bed65fe1980d4e168177ac0bd2",
+      "owner": "copilot"
+    },
+    {
+      "path": "CLAUDE.md",
+      "archivePath": "CLAUDE.md",
+      "sha256": "996e5736ea713e2cf260cd30ce710871848a7a3d29d5fd3fd49300fc4284a5e3",
+      "owner": "copilot"
+    },
+    {
+      "path": "docs/copilot.md",
+      "archivePath": "docs/copilot.md",
+      "sha256": "65ceee0d067b864a3ea59fad070b5e74f810fb48cad290d419784ea31239f292",
+      "owner": "copilot"
+    },
+    {
+      "path": "docs/library.md",
+      "archivePath": "docs/library.md",
+      "sha256": "8fed2062f95f494ce353daf91f8cde107990c1fc0540f4358d901c5eb259dd43",
+      "owner": "copilot"
+    },
+    {
+      "path": "docs/runtime-browser.md",
+      "archivePath": "docs/runtime-browser.md",
+      "sha256": "b802900aa34fada341ffc24d08f64473c850b5b2776a86ba73f9b49e9f79a4b5",
+      "owner": "copilot"
+    },
+    {
+      "path": "docs/runtime-shell.md",
+      "archivePath": "docs/runtime-shell.md",
+      "sha256": "ccccbe3dedb3025edd83c3f7238d8a8c3821b57bd242df315381381b56ac119a",
+      "owner": "copilot"
+    },
+    {
+      "path": "README.md",
+      "archivePath": "README.md",
+      "sha256": "b7cf46bc41a443979da54f78007513cfc637576e272af26c66abbae4cad6722f",
+      "owner": "copilot"
+    },
+    {
+      "path": "reference/MJ_API_REFERENCE.md",
+      "archivePath": "reference/MJ_API_REFERENCE.md",
+      "sha256": "c751f20ce59ae87f6f4ec2e89b200ef8b585aa60004bbe696831c9eaddd5f279",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": "reference/SEGMENT_CREATION_GUIDELINES.md",
+      "archivePath": "reference/SEGMENT_CREATION_GUIDELINES.md",
+      "sha256": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": "reference/V2_SYNTAX_REFERENCE.md",
+      "archivePath": "reference/V2_SYNTAX_REFERENCE.md",
+      "sha256": "b0dbbe07cc5718c52d8de76715a752a521138013d7f77d348396810680c12558",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": "skills/account-review/SKILL.md",
+      "archivePath": "skills/account-review/SKILL.md",
+      "sha256": "dd50421b57ecb89f653e388e5998cdb9257abb7fb23a9650aacdc23ed64941aa",
+      "owner": "skill:account-review"
+    },
+    {
+      "path": "skills/audit-log/SKILL.md",
+      "archivePath": "skills/audit-log/SKILL.md",
+      "sha256": "aeac300e5e497a91dd297f46f6dc13a73f8539b2afabf8b9a0c1a7f22bcce933",
+      "owner": "skill:audit-log"
+    },
+    {
+      "path": "skills/build-segment/SKILL.md",
+      "archivePath": "skills/build-segment/SKILL.md",
+      "sha256": "6afa038e1ab32408bce663913b0de6a2ef06ae0413b54121672e2a001caf836f",
+      "owner": "skill:build-segment"
+    },
+    {
+      "path": "skills/campaign-naming-cleanup/references/api-and-evidence.md",
+      "archivePath": "skills/campaign-naming-cleanup/references/api-and-evidence.md",
+      "sha256": "6645669fea79b11856325f1e2c2541403737cac019b2de5ca8a226e9d1a90a48",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": "skills/campaign-naming-cleanup/references/naming-conventions.md",
+      "archivePath": "skills/campaign-naming-cleanup/references/naming-conventions.md",
+      "sha256": "0a836fb4a84aa1e3f6931b05f001db7e0c7d57248be729bfd9acbdff2448076e",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": "skills/campaign-naming-cleanup/references/preferences.md",
+      "archivePath": "skills/campaign-naming-cleanup/references/preferences.md",
+      "sha256": "56179b119f793cca77e32428745ebd161a17c6b08800ba2c90231752db5c02bb",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": "skills/campaign-naming-cleanup/scripts/campaign_naming.py",
+      "archivePath": "skills/campaign-naming-cleanup/scripts/campaign_naming.py",
+      "sha256": "a8ffca5de8f6f05fd2d5c38b8ddcfd22e64efb9ddbf6333566dd4cb7c30c9aff",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": "skills/campaign-naming-cleanup/SKILL.md",
+      "archivePath": "skills/campaign-naming-cleanup/SKILL.md",
+      "sha256": "43a00a7358c21a2940ee59ee24917dcd51f8a5cdcad6a49596328a6a9b3f372e",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": "skills/check-segments/SKILL.md",
+      "archivePath": "skills/check-segments/SKILL.md",
+      "sha256": "03c7b9d30d5271a375342c50420765c2de887ee9c0c175929cc232dc8adf9e06",
+      "owner": "skill:check-segments"
+    },
+    {
+      "path": "skills/create-campaigns/references/conversations.md",
+      "archivePath": "skills/create-campaigns/references/conversations.md",
+      "sha256": "eda71e0bc7594c47584b50f4d1f8a1e8b923f6bcd910db26c6c2fb1861c3c007",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": "skills/create-campaigns/references/launch-validation.md",
+      "archivePath": "skills/create-campaigns/references/launch-validation.md",
+      "sha256": "853fc61a2ef087273ae1522be7c6c3918860b0b62c6b463d3eb690ba4f76e931",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": "skills/create-campaigns/references/preferences.md",
+      "archivePath": "skills/create-campaigns/references/preferences.md",
+      "sha256": "796430ce2e65ca65fc89095e87f550b232c6df1626270e75ff8627d5d96e2c18",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": "skills/create-campaigns/scripts/campaign_structures.py",
+      "archivePath": "skills/create-campaigns/scripts/campaign_structures.py",
+      "sha256": "d6295ea5d54ca0b8391031ea9de267577f4702a99259849b84a1f815004d140a",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": "skills/create-campaigns/scripts/validate_launch.py",
+      "archivePath": "skills/create-campaigns/scripts/validate_launch.py",
+      "sha256": "8dd3654db08b0791e230f59ecdff1395c5bbc28f61ca16474da515be663ea9bb",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": "skills/create-campaigns/SKILL.md",
+      "archivePath": "skills/create-campaigns/SKILL.md",
+      "sha256": "06ade09edd94827e8dc7f7db1c85fbb8abedfa0d4bd3d388435e3c2fc7116960",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": "skills/enrich-account/SKILL.md",
+      "archivePath": "skills/enrich-account/SKILL.md",
+      "sha256": "91fe1c2563d6823185b03fdee215058d323135e98fcf9d6642ca68f20d0629b9",
+      "owner": "skill:enrich-account"
+    },
+    {
+      "path": "skills/explain-segment/SKILL.md",
+      "archivePath": "skills/explain-segment/SKILL.md",
+      "sha256": "9edfb4f74d2a8d76be44ff4b072f20363eccb3e5b031a97a2ef0c33f5a72871d",
+      "owner": "skill:explain-segment"
+    },
+    {
+      "path": "skills/manage-library/scripts/install_skill.py",
+      "archivePath": "skills/manage-library/scripts/install_skill.py",
+      "sha256": "f4f6ece2e76993f95051d799115fce06838b08e6435f9493d18298e5de8783df",
+      "owner": "skill:manage-library"
+    },
+    {
+      "path": "skills/manage-library/scripts/installed_skills.py",
+      "archivePath": "skills/manage-library/scripts/installed_skills.py",
+      "sha256": "2c49dbcde4912683d3d05f4fe11dbd714c466d7de0980badb4052069c519e840",
+      "owner": "skill:manage-library"
+    },
+    {
+      "path": "skills/manage-library/scripts/update_copilot.py",
+      "archivePath": "skills/manage-library/scripts/update_copilot.py",
+      "sha256": "742ec25e066340bcf631797901b59d7871569c04059933cac9012402b3838d91",
+      "owner": "skill:manage-library"
+    },
+    {
+      "path": "skills/manage-library/SKILL.md",
+      "archivePath": "skills/manage-library/SKILL.md",
+      "sha256": "49094f1ac150dda8a34063b1041ef318b218b93e07e702095d6f3e5375cb3ab4",
+      "owner": "skill:manage-library"
+    },
+    {
+      "path": "skills/merchjar-connect/references/campaign-naming.md",
+      "archivePath": "skills/merchjar-connect/references/campaign-naming.md",
+      "sha256": "a7b07c12fc9c06aac6aa0efd8698368efbd50c8050d1af58bb46c62e0eb32955",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": "skills/merchjar-connect/references/MJ_API_REFERENCE.md",
+      "archivePath": "skills/merchjar-connect/references/MJ_API_REFERENCE.md",
+      "sha256": "c751f20ce59ae87f6f4ec2e89b200ef8b585aa60004bbe696831c9eaddd5f279",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": "skills/merchjar-connect/references/SEGMENT_CREATION_GUIDELINES.md",
+      "archivePath": "skills/merchjar-connect/references/SEGMENT_CREATION_GUIDELINES.md",
+      "sha256": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": "skills/merchjar-connect/references/V2_SYNTAX_REFERENCE.md",
+      "archivePath": "skills/merchjar-connect/references/V2_SYNTAX_REFERENCE.md",
+      "sha256": "b0dbbe07cc5718c52d8de76715a752a521138013d7f77d348396810680c12558",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": "skills/merchjar-connect/scripts/campaign_naming.py",
+      "archivePath": "skills/merchjar-connect/scripts/campaign_naming.py",
+      "sha256": "89c45f85f4d34a359424620634778c37d4260792135ba508f0bea2de6a2ce1e7",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": "skills/merchjar-connect/scripts/merchjar_client.py",
+      "archivePath": "skills/merchjar-connect/scripts/merchjar_client.py",
+      "sha256": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": "skills/merchjar-connect/SKILL.md",
+      "archivePath": "skills/merchjar-connect/SKILL.md",
+      "sha256": "e41c1334eb0edefcdcdde7caa53139617af09d2ea750e65f1fe44a68d1e0b01c",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": "skills/performance-check/SKILL.md",
+      "archivePath": "skills/performance-check/SKILL.md",
+      "sha256": "1c8e3f4d86e75be649043c64fdf106a44dfdcbc48cb0a939a750c2f3b8dc4e69",
+      "owner": "skill:performance-check"
+    },
+    {
+      "path": "skills/review-segment/SKILL.md",
+      "archivePath": "skills/review-segment/SKILL.md",
+      "sha256": "f5265299dcc50f80fc56b11b1197ca43f1eb3ece3d12985d8b1aede41458b580",
+      "owner": "skill:review-segment"
+    },
+    {
+      "path": "skills/troubleshoot/SKILL.md",
+      "archivePath": "skills/troubleshoot/SKILL.md",
+      "sha256": "4fbf23343049f602ee7d101eb466685f097a1533c6e1e031fe9299258c51d490",
+      "owner": "skill:troubleshoot"
+    },
+    {
+      "path": "tools/build_skills.py",
+      "archivePath": "tools/build_skills.py",
+      "sha256": "2531be1d3864d58da0e46ce7b824752cb528eed67dd1ec3f52b56dd9d09d277a",
+      "owner": "copilot"
+    },
+    {
+      "path": "tools/library.py",
+      "archivePath": "tools/library.py",
+      "sha256": "bc334700492eaf0e74c8023c11163afe6a169410c79c4ed89caab60254b8c730",
+      "owner": "copilot"
+    },
+    {
+      "path": "tools/merchjar_client.py",
+      "archivePath": "tools/merchjar_client.py",
+      "sha256": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": "tools/update_copilot.py",
+      "archivePath": "tools/update_copilot.py",
+      "sha256": "742ec25e066340bcf631797901b59d7871569c04059933cac9012402b3838d91",
+      "owner": "skill:manage-library"
+    }
+  ],
+  "baselines": {
+    "1.2.2": {
+      ".agents/skills/account-review/SKILL.md": "0dc4d031433575d78a910555d1776a7deabf8638a4134608304385be038195a5",
+      ".agents/skills/audit-log/SKILL.md": "b87c7790ea410291c3f522d16b44630d5bc63c0d78e530087a7a1e44562c55ff",
+      ".agents/skills/build-segment/SKILL.md": "df0ff2d353fab0300e5348ff6a24eeb5c02132e84d6940ad36e6c92b6cea8923",
+      ".agents/skills/check-segments/SKILL.md": "6474102085dd29c3b3363b1ddfdd9aa56740131a156f545e39439d96636ab710",
+      ".agents/skills/create-campaigns/SKILL.md": "832fd7f2bae29bb597997474a864dcfe7a38e8195f69d42e579954d6db2e1015",
+      ".agents/skills/create-campaigns/references/conversations.md": "eda71e0bc7594c47584b50f4d1f8a1e8b923f6bcd910db26c6c2fb1861c3c007",
+      ".agents/skills/create-campaigns/references/launch-validation.md": "853fc61a2ef087273ae1522be7c6c3918860b0b62c6b463d3eb690ba4f76e931",
+      ".agents/skills/create-campaigns/references/preferences.md": "f585ca281136898305b9e112f19a9e5e4179c34c55a0f1034c98be1cd164c32f",
+      ".agents/skills/create-campaigns/scripts/campaign_structures.py": "d6295ea5d54ca0b8391031ea9de267577f4702a99259849b84a1f815004d140a",
+      ".agents/skills/create-campaigns/scripts/validate_launch.py": "8dd3654db08b0791e230f59ecdff1395c5bbc28f61ca16474da515be663ea9bb",
+      ".agents/skills/enrich-account/SKILL.md": "6ed8bf14ed1f2c4742f8c8fdd7229221c123c6853997d5ec103681d77ca575b3",
+      ".agents/skills/explain-segment/SKILL.md": "5547d54da9fcca5ba06906df5a91faee1df146df2901c7c39d0338cbeec440ef",
+      ".agents/skills/merchjar-connect/SKILL.md": "b82627c8505b2dfe394b167d2e084fbfa3e6c38df7922209513286d7e3795d3f",
+      ".agents/skills/merchjar-connect/references/MJ_API_REFERENCE.md": "9c23bf8fa141e9b8e24db01a320214748c308ca46dc2cd4842cf8d4c9501bca1",
+      ".agents/skills/merchjar-connect/references/SEGMENT_CREATION_GUIDELINES.md": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+      ".agents/skills/merchjar-connect/references/V2_SYNTAX_REFERENCE.md": "0ddaabdc8825b17be3662d72961043b562c413a7fe7157861e41a52b30644359",
+      ".agents/skills/merchjar-connect/scripts/merchjar_client.py": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911",
+      ".agents/skills/performance-check/SKILL.md": "9e841e260c79874179e51dfc4b5d4da76bab61b2cfeaea27c33ae58c3ceec0cc",
+      ".agents/skills/review-segment/SKILL.md": "6c1de354eac5ba114d6bc360ff789e4faa38cd4e4c177a47b9881bce25ea5713",
+      ".agents/skills/troubleshoot/SKILL.md": "86a139ad63a34759d82a888997a62bba1aff3cf8387858610667fae7e38c3150",
+      ".claude/skills/account-review/SKILL.md": "0dc4d031433575d78a910555d1776a7deabf8638a4134608304385be038195a5",
+      ".claude/skills/audit-log/SKILL.md": "b87c7790ea410291c3f522d16b44630d5bc63c0d78e530087a7a1e44562c55ff",
+      ".claude/skills/build-segment/SKILL.md": "df0ff2d353fab0300e5348ff6a24eeb5c02132e84d6940ad36e6c92b6cea8923",
+      ".claude/skills/check-segments/SKILL.md": "6474102085dd29c3b3363b1ddfdd9aa56740131a156f545e39439d96636ab710",
+      ".claude/skills/create-campaigns/SKILL.md": "832fd7f2bae29bb597997474a864dcfe7a38e8195f69d42e579954d6db2e1015",
+      ".claude/skills/create-campaigns/references/conversations.md": "eda71e0bc7594c47584b50f4d1f8a1e8b923f6bcd910db26c6c2fb1861c3c007",
+      ".claude/skills/create-campaigns/references/launch-validation.md": "853fc61a2ef087273ae1522be7c6c3918860b0b62c6b463d3eb690ba4f76e931",
+      ".claude/skills/create-campaigns/references/preferences.md": "f585ca281136898305b9e112f19a9e5e4179c34c55a0f1034c98be1cd164c32f",
+      ".claude/skills/create-campaigns/scripts/campaign_structures.py": "d6295ea5d54ca0b8391031ea9de267577f4702a99259849b84a1f815004d140a",
+      ".claude/skills/create-campaigns/scripts/validate_launch.py": "8dd3654db08b0791e230f59ecdff1395c5bbc28f61ca16474da515be663ea9bb",
+      ".claude/skills/enrich-account/SKILL.md": "6ed8bf14ed1f2c4742f8c8fdd7229221c123c6853997d5ec103681d77ca575b3",
+      ".claude/skills/explain-segment/SKILL.md": "5547d54da9fcca5ba06906df5a91faee1df146df2901c7c39d0338cbeec440ef",
+      ".claude/skills/merchjar-connect/SKILL.md": "b82627c8505b2dfe394b167d2e084fbfa3e6c38df7922209513286d7e3795d3f",
+      ".claude/skills/merchjar-connect/references/MJ_API_REFERENCE.md": "9c23bf8fa141e9b8e24db01a320214748c308ca46dc2cd4842cf8d4c9501bca1",
+      ".claude/skills/merchjar-connect/references/SEGMENT_CREATION_GUIDELINES.md": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+      ".claude/skills/merchjar-connect/references/V2_SYNTAX_REFERENCE.md": "0ddaabdc8825b17be3662d72961043b562c413a7fe7157861e41a52b30644359",
+      ".claude/skills/merchjar-connect/scripts/merchjar_client.py": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911",
+      ".claude/skills/performance-check/SKILL.md": "9e841e260c79874179e51dfc4b5d4da76bab61b2cfeaea27c33ae58c3ceec0cc",
+      ".claude/skills/review-segment/SKILL.md": "6c1de354eac5ba114d6bc360ff789e4faa38cd4e4c177a47b9881bce25ea5713",
+      ".claude/skills/troubleshoot/SKILL.md": "86a139ad63a34759d82a888997a62bba1aff3cf8387858610667fae7e38c3150",
+      "AGENTS.md": "80feeb26d0e7724ac14842faae552c0a844cdb7e4076f7927bdc3be65a3f62f4",
+      "CHANGELOG.md": "5a8869968abf42f1bb1cac46f16df8201d9e2a6d73dccd966aef1af4a478ff4f",
+      "CLAUDE.md": "8c5ee2dcd530ad1f91369285f28ef40fcb7729c6e589bab142f8b1e81a1d5473",
+      "README.md": "064e59339ff5263fef6537db5a4e7438b94cb3674e4840669ddaa0dffb079040",
+      "build.sh": "546ffc5f75c64c2d4a878cf145fa2bd587046eb04e3fcc380ea68bd0e728866e",
+      "docs/copilot.md": "d596b9f6bb4eb93ced0505b7c8832e2707e50aea997c43c13482a3b32f6353b7",
+      "docs/library.md": "8fed2062f95f494ce353daf91f8cde107990c1fc0540f4358d901c5eb259dd43",
+      "docs/runtime-browser.md": "b802900aa34fada341ffc24d08f64473c850b5b2776a86ba73f9b49e9f79a4b5",
+      "docs/runtime-shell.md": "ccccbe3dedb3025edd83c3f7238d8a8c3821b57bd242df315381381b56ac119a",
+      "reference/MJ_API_REFERENCE.md": "9c23bf8fa141e9b8e24db01a320214748c308ca46dc2cd4842cf8d4c9501bca1",
+      "reference/SEGMENT_CREATION_GUIDELINES.md": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+      "reference/V2_SYNTAX_REFERENCE.md": "0ddaabdc8825b17be3662d72961043b562c413a7fe7157861e41a52b30644359",
+      "skills/account-review/SKILL.md": "0dc4d031433575d78a910555d1776a7deabf8638a4134608304385be038195a5",
+      "skills/audit-log/SKILL.md": "b87c7790ea410291c3f522d16b44630d5bc63c0d78e530087a7a1e44562c55ff",
+      "skills/build-segment/SKILL.md": "df0ff2d353fab0300e5348ff6a24eeb5c02132e84d6940ad36e6c92b6cea8923",
+      "skills/check-segments/SKILL.md": "6474102085dd29c3b3363b1ddfdd9aa56740131a156f545e39439d96636ab710",
+      "skills/create-campaigns/SKILL.md": "832fd7f2bae29bb597997474a864dcfe7a38e8195f69d42e579954d6db2e1015",
+      "skills/create-campaigns/references/conversations.md": "eda71e0bc7594c47584b50f4d1f8a1e8b923f6bcd910db26c6c2fb1861c3c007",
+      "skills/create-campaigns/references/launch-validation.md": "853fc61a2ef087273ae1522be7c6c3918860b0b62c6b463d3eb690ba4f76e931",
+      "skills/create-campaigns/references/preferences.md": "f585ca281136898305b9e112f19a9e5e4179c34c55a0f1034c98be1cd164c32f",
+      "skills/create-campaigns/scripts/campaign_structures.py": "d6295ea5d54ca0b8391031ea9de267577f4702a99259849b84a1f815004d140a",
+      "skills/create-campaigns/scripts/validate_launch.py": "8dd3654db08b0791e230f59ecdff1395c5bbc28f61ca16474da515be663ea9bb",
+      "skills/enrich-account/SKILL.md": "6ed8bf14ed1f2c4742f8c8fdd7229221c123c6853997d5ec103681d77ca575b3",
+      "skills/explain-segment/SKILL.md": "5547d54da9fcca5ba06906df5a91faee1df146df2901c7c39d0338cbeec440ef",
+      "skills/merchjar-connect/SKILL.md": "b82627c8505b2dfe394b167d2e084fbfa3e6c38df7922209513286d7e3795d3f",
+      "skills/merchjar-connect/references/MJ_API_REFERENCE.md": "9c23bf8fa141e9b8e24db01a320214748c308ca46dc2cd4842cf8d4c9501bca1",
+      "skills/merchjar-connect/references/SEGMENT_CREATION_GUIDELINES.md": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+      "skills/merchjar-connect/references/V2_SYNTAX_REFERENCE.md": "0ddaabdc8825b17be3662d72961043b562c413a7fe7157861e41a52b30644359",
+      "skills/merchjar-connect/scripts/merchjar_client.py": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911",
+      "skills/performance-check/SKILL.md": "9e841e260c79874179e51dfc4b5d4da76bab61b2cfeaea27c33ae58c3ceec0cc",
+      "skills/review-segment/SKILL.md": "6c1de354eac5ba114d6bc360ff789e4faa38cd4e4c177a47b9881bce25ea5713",
+      "skills/troubleshoot/SKILL.md": "86a139ad63a34759d82a888997a62bba1aff3cf8387858610667fae7e38c3150",
+      "tools/build_skills.py": "2531be1d3864d58da0e46ce7b824752cb528eed67dd1ec3f52b56dd9d09d277a",
+      "tools/library.py": "bc334700492eaf0e74c8023c11163afe6a169410c79c4ed89caab60254b8c730",
+      "tools/merchjar_client.py": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911"
+    },
+    "1.2.3": {
+      ".agents/skills/account-review/SKILL.md": "0dc4d031433575d78a910555d1776a7deabf8638a4134608304385be038195a5",
+      ".agents/skills/audit-log/SKILL.md": "b87c7790ea410291c3f522d16b44630d5bc63c0d78e530087a7a1e44562c55ff",
+      ".agents/skills/build-segment/SKILL.md": "df0ff2d353fab0300e5348ff6a24eeb5c02132e84d6940ad36e6c92b6cea8923",
+      ".agents/skills/check-segments/SKILL.md": "6474102085dd29c3b3363b1ddfdd9aa56740131a156f545e39439d96636ab710",
+      ".agents/skills/create-campaigns/SKILL.md": "832fd7f2bae29bb597997474a864dcfe7a38e8195f69d42e579954d6db2e1015",
+      ".agents/skills/create-campaigns/references/conversations.md": "eda71e0bc7594c47584b50f4d1f8a1e8b923f6bcd910db26c6c2fb1861c3c007",
+      ".agents/skills/create-campaigns/references/launch-validation.md": "853fc61a2ef087273ae1522be7c6c3918860b0b62c6b463d3eb690ba4f76e931",
+      ".agents/skills/create-campaigns/references/preferences.md": "f585ca281136898305b9e112f19a9e5e4179c34c55a0f1034c98be1cd164c32f",
+      ".agents/skills/create-campaigns/scripts/campaign_structures.py": "d6295ea5d54ca0b8391031ea9de267577f4702a99259849b84a1f815004d140a",
+      ".agents/skills/create-campaigns/scripts/validate_launch.py": "8dd3654db08b0791e230f59ecdff1395c5bbc28f61ca16474da515be663ea9bb",
+      ".agents/skills/enrich-account/SKILL.md": "6ed8bf14ed1f2c4742f8c8fdd7229221c123c6853997d5ec103681d77ca575b3",
+      ".agents/skills/explain-segment/SKILL.md": "5547d54da9fcca5ba06906df5a91faee1df146df2901c7c39d0338cbeec440ef",
+      ".agents/skills/manage-library/SKILL.md": "c97e792f675b4ea69a8842eecb1599b24f8abead1c49679c78ca7a2942590ee4",
+      ".agents/skills/manage-library/scripts/install_skill.py": "f4f6ece2e76993f95051d799115fce06838b08e6435f9493d18298e5de8783df",
+      ".agents/skills/merchjar-connect/SKILL.md": "b82627c8505b2dfe394b167d2e084fbfa3e6c38df7922209513286d7e3795d3f",
+      ".agents/skills/merchjar-connect/references/MJ_API_REFERENCE.md": "9c23bf8fa141e9b8e24db01a320214748c308ca46dc2cd4842cf8d4c9501bca1",
+      ".agents/skills/merchjar-connect/references/SEGMENT_CREATION_GUIDELINES.md": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+      ".agents/skills/merchjar-connect/references/V2_SYNTAX_REFERENCE.md": "0ddaabdc8825b17be3662d72961043b562c413a7fe7157861e41a52b30644359",
+      ".agents/skills/merchjar-connect/scripts/merchjar_client.py": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911",
+      ".agents/skills/performance-check/SKILL.md": "9e841e260c79874179e51dfc4b5d4da76bab61b2cfeaea27c33ae58c3ceec0cc",
+      ".agents/skills/review-segment/SKILL.md": "6c1de354eac5ba114d6bc360ff789e4faa38cd4e4c177a47b9881bce25ea5713",
+      ".agents/skills/troubleshoot/SKILL.md": "86a139ad63a34759d82a888997a62bba1aff3cf8387858610667fae7e38c3150",
+      ".claude/skills/account-review/SKILL.md": "0dc4d031433575d78a910555d1776a7deabf8638a4134608304385be038195a5",
+      ".claude/skills/audit-log/SKILL.md": "b87c7790ea410291c3f522d16b44630d5bc63c0d78e530087a7a1e44562c55ff",
+      ".claude/skills/build-segment/SKILL.md": "df0ff2d353fab0300e5348ff6a24eeb5c02132e84d6940ad36e6c92b6cea8923",
+      ".claude/skills/check-segments/SKILL.md": "6474102085dd29c3b3363b1ddfdd9aa56740131a156f545e39439d96636ab710",
+      ".claude/skills/create-campaigns/SKILL.md": "832fd7f2bae29bb597997474a864dcfe7a38e8195f69d42e579954d6db2e1015",
+      ".claude/skills/create-campaigns/references/conversations.md": "eda71e0bc7594c47584b50f4d1f8a1e8b923f6bcd910db26c6c2fb1861c3c007",
+      ".claude/skills/create-campaigns/references/launch-validation.md": "853fc61a2ef087273ae1522be7c6c3918860b0b62c6b463d3eb690ba4f76e931",
+      ".claude/skills/create-campaigns/references/preferences.md": "f585ca281136898305b9e112f19a9e5e4179c34c55a0f1034c98be1cd164c32f",
+      ".claude/skills/create-campaigns/scripts/campaign_structures.py": "d6295ea5d54ca0b8391031ea9de267577f4702a99259849b84a1f815004d140a",
+      ".claude/skills/create-campaigns/scripts/validate_launch.py": "8dd3654db08b0791e230f59ecdff1395c5bbc28f61ca16474da515be663ea9bb",
+      ".claude/skills/enrich-account/SKILL.md": "6ed8bf14ed1f2c4742f8c8fdd7229221c123c6853997d5ec103681d77ca575b3",
+      ".claude/skills/explain-segment/SKILL.md": "5547d54da9fcca5ba06906df5a91faee1df146df2901c7c39d0338cbeec440ef",
+      ".claude/skills/manage-library/SKILL.md": "c97e792f675b4ea69a8842eecb1599b24f8abead1c49679c78ca7a2942590ee4",
+      ".claude/skills/manage-library/scripts/install_skill.py": "f4f6ece2e76993f95051d799115fce06838b08e6435f9493d18298e5de8783df",
+      ".claude/skills/merchjar-connect/SKILL.md": "b82627c8505b2dfe394b167d2e084fbfa3e6c38df7922209513286d7e3795d3f",
+      ".claude/skills/merchjar-connect/references/MJ_API_REFERENCE.md": "9c23bf8fa141e9b8e24db01a320214748c308ca46dc2cd4842cf8d4c9501bca1",
+      ".claude/skills/merchjar-connect/references/SEGMENT_CREATION_GUIDELINES.md": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+      ".claude/skills/merchjar-connect/references/V2_SYNTAX_REFERENCE.md": "0ddaabdc8825b17be3662d72961043b562c413a7fe7157861e41a52b30644359",
+      ".claude/skills/merchjar-connect/scripts/merchjar_client.py": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911",
+      ".claude/skills/performance-check/SKILL.md": "9e841e260c79874179e51dfc4b5d4da76bab61b2cfeaea27c33ae58c3ceec0cc",
+      ".claude/skills/review-segment/SKILL.md": "6c1de354eac5ba114d6bc360ff789e4faa38cd4e4c177a47b9881bce25ea5713",
+      ".claude/skills/troubleshoot/SKILL.md": "86a139ad63a34759d82a888997a62bba1aff3cf8387858610667fae7e38c3150",
+      "AGENTS.md": "5f3d464e76d8fc912321fa52c9bd295bc2e1eb8cd3111d183e1cc0c4a873715b",
+      "CHANGELOG.md": "5a8869968abf42f1bb1cac46f16df8201d9e2a6d73dccd966aef1af4a478ff4f",
+      "CLAUDE.md": "661dc37b895561a01b7fc5b2f2f0c6c0328adc073060962f87a1f4e5040e2dbf",
+      "README.md": "0e9df8782cf9b96de1760c0c1ff630513d8666b85eed7ac770594d38aae5580e",
+      "build.sh": "546ffc5f75c64c2d4a878cf145fa2bd587046eb04e3fcc380ea68bd0e728866e",
+      "docs/copilot.md": "b8070e70b77ba043ce429f1ce941ac39a150a9ef8c2b410050598ff11a7e405a",
+      "docs/library.md": "8fed2062f95f494ce353daf91f8cde107990c1fc0540f4358d901c5eb259dd43",
+      "docs/runtime-browser.md": "b802900aa34fada341ffc24d08f64473c850b5b2776a86ba73f9b49e9f79a4b5",
+      "docs/runtime-shell.md": "ccccbe3dedb3025edd83c3f7238d8a8c3821b57bd242df315381381b56ac119a",
+      "reference/MJ_API_REFERENCE.md": "9c23bf8fa141e9b8e24db01a320214748c308ca46dc2cd4842cf8d4c9501bca1",
+      "reference/SEGMENT_CREATION_GUIDELINES.md": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+      "reference/V2_SYNTAX_REFERENCE.md": "0ddaabdc8825b17be3662d72961043b562c413a7fe7157861e41a52b30644359",
+      "skills/account-review/SKILL.md": "0dc4d031433575d78a910555d1776a7deabf8638a4134608304385be038195a5",
+      "skills/audit-log/SKILL.md": "b87c7790ea410291c3f522d16b44630d5bc63c0d78e530087a7a1e44562c55ff",
+      "skills/build-segment/SKILL.md": "df0ff2d353fab0300e5348ff6a24eeb5c02132e84d6940ad36e6c92b6cea8923",
+      "skills/check-segments/SKILL.md": "6474102085dd29c3b3363b1ddfdd9aa56740131a156f545e39439d96636ab710",
+      "skills/create-campaigns/SKILL.md": "832fd7f2bae29bb597997474a864dcfe7a38e8195f69d42e579954d6db2e1015",
+      "skills/create-campaigns/references/conversations.md": "eda71e0bc7594c47584b50f4d1f8a1e8b923f6bcd910db26c6c2fb1861c3c007",
+      "skills/create-campaigns/references/launch-validation.md": "853fc61a2ef087273ae1522be7c6c3918860b0b62c6b463d3eb690ba4f76e931",
+      "skills/create-campaigns/references/preferences.md": "f585ca281136898305b9e112f19a9e5e4179c34c55a0f1034c98be1cd164c32f",
+      "skills/create-campaigns/scripts/campaign_structures.py": "d6295ea5d54ca0b8391031ea9de267577f4702a99259849b84a1f815004d140a",
+      "skills/create-campaigns/scripts/validate_launch.py": "8dd3654db08b0791e230f59ecdff1395c5bbc28f61ca16474da515be663ea9bb",
+      "skills/enrich-account/SKILL.md": "6ed8bf14ed1f2c4742f8c8fdd7229221c123c6853997d5ec103681d77ca575b3",
+      "skills/explain-segment/SKILL.md": "5547d54da9fcca5ba06906df5a91faee1df146df2901c7c39d0338cbeec440ef",
+      "skills/manage-library/SKILL.md": "c97e792f675b4ea69a8842eecb1599b24f8abead1c49679c78ca7a2942590ee4",
+      "skills/manage-library/scripts/install_skill.py": "f4f6ece2e76993f95051d799115fce06838b08e6435f9493d18298e5de8783df",
+      "skills/merchjar-connect/SKILL.md": "b82627c8505b2dfe394b167d2e084fbfa3e6c38df7922209513286d7e3795d3f",
+      "skills/merchjar-connect/references/MJ_API_REFERENCE.md": "9c23bf8fa141e9b8e24db01a320214748c308ca46dc2cd4842cf8d4c9501bca1",
+      "skills/merchjar-connect/references/SEGMENT_CREATION_GUIDELINES.md": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+      "skills/merchjar-connect/references/V2_SYNTAX_REFERENCE.md": "0ddaabdc8825b17be3662d72961043b562c413a7fe7157861e41a52b30644359",
+      "skills/merchjar-connect/scripts/merchjar_client.py": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911",
+      "skills/performance-check/SKILL.md": "9e841e260c79874179e51dfc4b5d4da76bab61b2cfeaea27c33ae58c3ceec0cc",
+      "skills/review-segment/SKILL.md": "6c1de354eac5ba114d6bc360ff789e4faa38cd4e4c177a47b9881bce25ea5713",
+      "skills/troubleshoot/SKILL.md": "86a139ad63a34759d82a888997a62bba1aff3cf8387858610667fae7e38c3150",
+      "tools/build_skills.py": "2531be1d3864d58da0e46ce7b824752cb528eed67dd1ec3f52b56dd9d09d277a",
+      "tools/library.py": "bc334700492eaf0e74c8023c11163afe6a169410c79c4ed89caab60254b8c730",
+      "tools/merchjar_client.py": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911"
+    },
+    "1.2.4": {
+      ".agents/skills/account-review/SKILL.md": "7c2f7d6468c6ee5c0a7de8fc56f6b5670925c510a99e92bba63c9aadbb6692d6",
+      ".agents/skills/audit-log/SKILL.md": "b87c7790ea410291c3f522d16b44630d5bc63c0d78e530087a7a1e44562c55ff",
+      ".agents/skills/build-segment/SKILL.md": "df0ff2d353fab0300e5348ff6a24eeb5c02132e84d6940ad36e6c92b6cea8923",
+      ".agents/skills/campaign-naming-cleanup/SKILL.md": "d6efd4e2d6c574b44fa42216f7b09f30c39cf2b295818447bdacad3c61e619a5",
+      ".agents/skills/campaign-naming-cleanup/references/api-and-evidence.md": "04611b7a62a4c725f725f4eb2b6d6d8c15113d504af96cb68215136a5a62248c",
+      ".agents/skills/campaign-naming-cleanup/references/naming-conventions.md": "42803abb75f96d69ecd2b2396c93c0be69ba3697307fabcb0ee8848fc2a0307d",
+      ".agents/skills/campaign-naming-cleanup/references/preferences.md": "8171797d2e946e050cf3c08b165f2f79e720e08b8b20f803528e46018d3f762b",
+      ".agents/skills/campaign-naming-cleanup/scripts/campaign_naming.py": "f8848fa2f919550efd72d8c6e3057cc6fb5af52fafd088d59e4135b85adfbbc8",
+      ".agents/skills/check-segments/SKILL.md": "6474102085dd29c3b3363b1ddfdd9aa56740131a156f545e39439d96636ab710",
+      ".agents/skills/create-campaigns/SKILL.md": "821159d34fcb732ee3848d78a0751cd669138a5674f3a70349c0778f3cf43eb4",
+      ".agents/skills/create-campaigns/references/conversations.md": "eda71e0bc7594c47584b50f4d1f8a1e8b923f6bcd910db26c6c2fb1861c3c007",
+      ".agents/skills/create-campaigns/references/launch-validation.md": "853fc61a2ef087273ae1522be7c6c3918860b0b62c6b463d3eb690ba4f76e931",
+      ".agents/skills/create-campaigns/references/preferences.md": "b89bdba962dcea42e8b7fbbe88becb2b3ae047be7fdba4968e31b7ef7483ae51",
+      ".agents/skills/create-campaigns/scripts/campaign_structures.py": "d6295ea5d54ca0b8391031ea9de267577f4702a99259849b84a1f815004d140a",
+      ".agents/skills/create-campaigns/scripts/validate_launch.py": "8dd3654db08b0791e230f59ecdff1395c5bbc28f61ca16474da515be663ea9bb",
+      ".agents/skills/enrich-account/SKILL.md": "6ed8bf14ed1f2c4742f8c8fdd7229221c123c6853997d5ec103681d77ca575b3",
+      ".agents/skills/explain-segment/SKILL.md": "5547d54da9fcca5ba06906df5a91faee1df146df2901c7c39d0338cbeec440ef",
+      ".agents/skills/manage-library/SKILL.md": "e7f5925462976deefb1d2f8aab95bd92e6090cb5174e10003bbaca3260231358",
+      ".agents/skills/manage-library/scripts/install_skill.py": "f4f6ece2e76993f95051d799115fce06838b08e6435f9493d18298e5de8783df",
+      ".agents/skills/manage-library/scripts/installed_skills.py": "2c49dbcde4912683d3d05f4fe11dbd714c466d7de0980badb4052069c519e840",
+      ".agents/skills/merchjar-connect/SKILL.md": "e267647ee8008edc3eab6945a68b2267f7606564768105fc9aed188b81c0f882",
+      ".agents/skills/merchjar-connect/references/MJ_API_REFERENCE.md": "c751f20ce59ae87f6f4ec2e89b200ef8b585aa60004bbe696831c9eaddd5f279",
+      ".agents/skills/merchjar-connect/references/SEGMENT_CREATION_GUIDELINES.md": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+      ".agents/skills/merchjar-connect/references/V2_SYNTAX_REFERENCE.md": "0ddaabdc8825b17be3662d72961043b562c413a7fe7157861e41a52b30644359",
+      ".agents/skills/merchjar-connect/references/campaign-naming.md": "c191fffb155d0fd06794e6c8dac013c8d2cb7afb97aabc3b5551d33786b863bd",
+      ".agents/skills/merchjar-connect/scripts/campaign_naming.py": "c8c1ca07cfd216277733ced1c7f80d0fa956eb07470667625f76baa20f06f19f",
+      ".agents/skills/merchjar-connect/scripts/merchjar_client.py": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911",
+      ".agents/skills/performance-check/SKILL.md": "9e841e260c79874179e51dfc4b5d4da76bab61b2cfeaea27c33ae58c3ceec0cc",
+      ".agents/skills/review-segment/SKILL.md": "6c1de354eac5ba114d6bc360ff789e4faa38cd4e4c177a47b9881bce25ea5713",
+      ".agents/skills/troubleshoot/SKILL.md": "86a139ad63a34759d82a888997a62bba1aff3cf8387858610667fae7e38c3150",
+      ".claude/skills/account-review/SKILL.md": "7c2f7d6468c6ee5c0a7de8fc56f6b5670925c510a99e92bba63c9aadbb6692d6",
+      ".claude/skills/audit-log/SKILL.md": "b87c7790ea410291c3f522d16b44630d5bc63c0d78e530087a7a1e44562c55ff",
+      ".claude/skills/build-segment/SKILL.md": "df0ff2d353fab0300e5348ff6a24eeb5c02132e84d6940ad36e6c92b6cea8923",
+      ".claude/skills/campaign-naming-cleanup/SKILL.md": "d6efd4e2d6c574b44fa42216f7b09f30c39cf2b295818447bdacad3c61e619a5",
+      ".claude/skills/campaign-naming-cleanup/references/api-and-evidence.md": "04611b7a62a4c725f725f4eb2b6d6d8c15113d504af96cb68215136a5a62248c",
+      ".claude/skills/campaign-naming-cleanup/references/naming-conventions.md": "42803abb75f96d69ecd2b2396c93c0be69ba3697307fabcb0ee8848fc2a0307d",
+      ".claude/skills/campaign-naming-cleanup/references/preferences.md": "8171797d2e946e050cf3c08b165f2f79e720e08b8b20f803528e46018d3f762b",
+      ".claude/skills/campaign-naming-cleanup/scripts/campaign_naming.py": "f8848fa2f919550efd72d8c6e3057cc6fb5af52fafd088d59e4135b85adfbbc8",
+      ".claude/skills/check-segments/SKILL.md": "6474102085dd29c3b3363b1ddfdd9aa56740131a156f545e39439d96636ab710",
+      ".claude/skills/create-campaigns/SKILL.md": "821159d34fcb732ee3848d78a0751cd669138a5674f3a70349c0778f3cf43eb4",
+      ".claude/skills/create-campaigns/references/conversations.md": "eda71e0bc7594c47584b50f4d1f8a1e8b923f6bcd910db26c6c2fb1861c3c007",
+      ".claude/skills/create-campaigns/references/launch-validation.md": "853fc61a2ef087273ae1522be7c6c3918860b0b62c6b463d3eb690ba4f76e931",
+      ".claude/skills/create-campaigns/references/preferences.md": "b89bdba962dcea42e8b7fbbe88becb2b3ae047be7fdba4968e31b7ef7483ae51",
+      ".claude/skills/create-campaigns/scripts/campaign_structures.py": "d6295ea5d54ca0b8391031ea9de267577f4702a99259849b84a1f815004d140a",
+      ".claude/skills/create-campaigns/scripts/validate_launch.py": "8dd3654db08b0791e230f59ecdff1395c5bbc28f61ca16474da515be663ea9bb",
+      ".claude/skills/enrich-account/SKILL.md": "6ed8bf14ed1f2c4742f8c8fdd7229221c123c6853997d5ec103681d77ca575b3",
+      ".claude/skills/explain-segment/SKILL.md": "5547d54da9fcca5ba06906df5a91faee1df146df2901c7c39d0338cbeec440ef",
+      ".claude/skills/manage-library/SKILL.md": "e7f5925462976deefb1d2f8aab95bd92e6090cb5174e10003bbaca3260231358",
+      ".claude/skills/manage-library/scripts/install_skill.py": "f4f6ece2e76993f95051d799115fce06838b08e6435f9493d18298e5de8783df",
+      ".claude/skills/manage-library/scripts/installed_skills.py": "2c49dbcde4912683d3d05f4fe11dbd714c466d7de0980badb4052069c519e840",
+      ".claude/skills/merchjar-connect/SKILL.md": "e267647ee8008edc3eab6945a68b2267f7606564768105fc9aed188b81c0f882",
+      ".claude/skills/merchjar-connect/references/MJ_API_REFERENCE.md": "c751f20ce59ae87f6f4ec2e89b200ef8b585aa60004bbe696831c9eaddd5f279",
+      ".claude/skills/merchjar-connect/references/SEGMENT_CREATION_GUIDELINES.md": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+      ".claude/skills/merchjar-connect/references/V2_SYNTAX_REFERENCE.md": "0ddaabdc8825b17be3662d72961043b562c413a7fe7157861e41a52b30644359",
+      ".claude/skills/merchjar-connect/references/campaign-naming.md": "c191fffb155d0fd06794e6c8dac013c8d2cb7afb97aabc3b5551d33786b863bd",
+      ".claude/skills/merchjar-connect/scripts/campaign_naming.py": "c8c1ca07cfd216277733ced1c7f80d0fa956eb07470667625f76baa20f06f19f",
+      ".claude/skills/merchjar-connect/scripts/merchjar_client.py": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911",
+      ".claude/skills/performance-check/SKILL.md": "9e841e260c79874179e51dfc4b5d4da76bab61b2cfeaea27c33ae58c3ceec0cc",
+      ".claude/skills/review-segment/SKILL.md": "6c1de354eac5ba114d6bc360ff789e4faa38cd4e4c177a47b9881bce25ea5713",
+      ".claude/skills/troubleshoot/SKILL.md": "86a139ad63a34759d82a888997a62bba1aff3cf8387858610667fae7e38c3150",
+      "AGENTS.md": "6aeb60513d0002cc7001862b42e9a78d88c9193e9369782abff48e7fe43639ec",
+      "CHANGELOG.md": "5a8869968abf42f1bb1cac46f16df8201d9e2a6d73dccd966aef1af4a478ff4f",
+      "CLAUDE.md": "c2b66212759495ef11e352cd1d010b97ee9d4de14ebcae59b9260cda10aa0f3a",
+      "README.md": "e79a7ad576d219bdd926294a46fd0a429e59d83b2fba7d2186e7d8a9b830dcfa",
+      "build.sh": "546ffc5f75c64c2d4a878cf145fa2bd587046eb04e3fcc380ea68bd0e728866e",
+      "docs/copilot.md": "6451a5e004fc8de5dcd71ae26900bb5e0bffd56a7659575f83ecaeed16747887",
+      "docs/library.md": "8fed2062f95f494ce353daf91f8cde107990c1fc0540f4358d901c5eb259dd43",
+      "docs/runtime-browser.md": "b802900aa34fada341ffc24d08f64473c850b5b2776a86ba73f9b49e9f79a4b5",
+      "docs/runtime-shell.md": "ccccbe3dedb3025edd83c3f7238d8a8c3821b57bd242df315381381b56ac119a",
+      "reference/MJ_API_REFERENCE.md": "c751f20ce59ae87f6f4ec2e89b200ef8b585aa60004bbe696831c9eaddd5f279",
+      "reference/SEGMENT_CREATION_GUIDELINES.md": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+      "reference/V2_SYNTAX_REFERENCE.md": "0ddaabdc8825b17be3662d72961043b562c413a7fe7157861e41a52b30644359",
+      "skills/account-review/SKILL.md": "7c2f7d6468c6ee5c0a7de8fc56f6b5670925c510a99e92bba63c9aadbb6692d6",
+      "skills/audit-log/SKILL.md": "b87c7790ea410291c3f522d16b44630d5bc63c0d78e530087a7a1e44562c55ff",
+      "skills/build-segment/SKILL.md": "df0ff2d353fab0300e5348ff6a24eeb5c02132e84d6940ad36e6c92b6cea8923",
+      "skills/campaign-naming-cleanup/SKILL.md": "d6efd4e2d6c574b44fa42216f7b09f30c39cf2b295818447bdacad3c61e619a5",
+      "skills/campaign-naming-cleanup/references/api-and-evidence.md": "04611b7a62a4c725f725f4eb2b6d6d8c15113d504af96cb68215136a5a62248c",
+      "skills/campaign-naming-cleanup/references/naming-conventions.md": "42803abb75f96d69ecd2b2396c93c0be69ba3697307fabcb0ee8848fc2a0307d",
+      "skills/campaign-naming-cleanup/references/preferences.md": "8171797d2e946e050cf3c08b165f2f79e720e08b8b20f803528e46018d3f762b",
+      "skills/campaign-naming-cleanup/scripts/campaign_naming.py": "f8848fa2f919550efd72d8c6e3057cc6fb5af52fafd088d59e4135b85adfbbc8",
+      "skills/check-segments/SKILL.md": "6474102085dd29c3b3363b1ddfdd9aa56740131a156f545e39439d96636ab710",
+      "skills/create-campaigns/SKILL.md": "821159d34fcb732ee3848d78a0751cd669138a5674f3a70349c0778f3cf43eb4",
+      "skills/create-campaigns/references/conversations.md": "eda71e0bc7594c47584b50f4d1f8a1e8b923f6bcd910db26c6c2fb1861c3c007",
+      "skills/create-campaigns/references/launch-validation.md": "853fc61a2ef087273ae1522be7c6c3918860b0b62c6b463d3eb690ba4f76e931",
+      "skills/create-campaigns/references/preferences.md": "b89bdba962dcea42e8b7fbbe88becb2b3ae047be7fdba4968e31b7ef7483ae51",
+      "skills/create-campaigns/scripts/campaign_structures.py": "d6295ea5d54ca0b8391031ea9de267577f4702a99259849b84a1f815004d140a",
+      "skills/create-campaigns/scripts/validate_launch.py": "8dd3654db08b0791e230f59ecdff1395c5bbc28f61ca16474da515be663ea9bb",
+      "skills/enrich-account/SKILL.md": "6ed8bf14ed1f2c4742f8c8fdd7229221c123c6853997d5ec103681d77ca575b3",
+      "skills/explain-segment/SKILL.md": "5547d54da9fcca5ba06906df5a91faee1df146df2901c7c39d0338cbeec440ef",
+      "skills/manage-library/SKILL.md": "e7f5925462976deefb1d2f8aab95bd92e6090cb5174e10003bbaca3260231358",
+      "skills/manage-library/scripts/install_skill.py": "f4f6ece2e76993f95051d799115fce06838b08e6435f9493d18298e5de8783df",
+      "skills/manage-library/scripts/installed_skills.py": "2c49dbcde4912683d3d05f4fe11dbd714c466d7de0980badb4052069c519e840",
+      "skills/merchjar-connect/SKILL.md": "e267647ee8008edc3eab6945a68b2267f7606564768105fc9aed188b81c0f882",
+      "skills/merchjar-connect/references/MJ_API_REFERENCE.md": "c751f20ce59ae87f6f4ec2e89b200ef8b585aa60004bbe696831c9eaddd5f279",
+      "skills/merchjar-connect/references/SEGMENT_CREATION_GUIDELINES.md": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+      "skills/merchjar-connect/references/V2_SYNTAX_REFERENCE.md": "0ddaabdc8825b17be3662d72961043b562c413a7fe7157861e41a52b30644359",
+      "skills/merchjar-connect/references/campaign-naming.md": "c191fffb155d0fd06794e6c8dac013c8d2cb7afb97aabc3b5551d33786b863bd",
+      "skills/merchjar-connect/scripts/campaign_naming.py": "c8c1ca07cfd216277733ced1c7f80d0fa956eb07470667625f76baa20f06f19f",
+      "skills/merchjar-connect/scripts/merchjar_client.py": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911",
+      "skills/performance-check/SKILL.md": "9e841e260c79874179e51dfc4b5d4da76bab61b2cfeaea27c33ae58c3ceec0cc",
+      "skills/review-segment/SKILL.md": "6c1de354eac5ba114d6bc360ff789e4faa38cd4e4c177a47b9881bce25ea5713",
+      "skills/troubleshoot/SKILL.md": "86a139ad63a34759d82a888997a62bba1aff3cf8387858610667fae7e38c3150",
+      "tools/build_skills.py": "2531be1d3864d58da0e46ce7b824752cb528eed67dd1ec3f52b56dd9d09d277a",
+      "tools/library.py": "bc334700492eaf0e74c8023c11163afe6a169410c79c4ed89caab60254b8c730",
+      "tools/merchjar_client.py": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911"
+    }
+  }
+}

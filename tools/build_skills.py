@@ -12,6 +12,8 @@ references/, assets/). Targets, all generated, never edit them directly:
   copilot-pack/skills/            the pack's own skills folder (the brain routes here)
   copilot-pack/.claude/skills/    Claude Code auto-discovery inside the pack
   copilot-pack/.agents/skills/    Codex auto-discovery inside the pack
+  copilot-pack/.github/skills/    GitHub Copilot / VS Code discovery
+  copilot-pack/.gemini/skills/    Gemini CLI discovery
   .claude/skills/                 Claude Code, when the repo itself is the project
   .agents/skills/                 Codex, when the repo itself is the project
   .github/skills/                 GitHub Copilot / VS Code
@@ -39,6 +41,8 @@ TARGETS = [
     PACK / "skills",
     PACK / ".claude" / "skills",
     PACK / ".agents" / "skills",
+    PACK / ".github" / "skills",
+    PACK / ".gemini" / "skills",
     REPO_ROOT / ".claude" / "skills",
     REPO_ROOT / ".agents" / "skills",
     REPO_ROOT / ".github" / "skills",
@@ -50,6 +54,7 @@ FLAT = [
     (CONNECT / "references" / "MJ_API_REFERENCE.md", PACK / "reference" / "MJ_API_REFERENCE.md"),
     (CONNECT / "references" / "V2_SYNTAX_REFERENCE.md", PACK / "reference" / "V2_SYNTAX_REFERENCE.md"),
     (CONNECT / "references" / "SEGMENT_CREATION_GUIDELINES.md", PACK / "reference" / "SEGMENT_CREATION_GUIDELINES.md"),
+    (SOURCE / "manage-library" / "scripts" / "update_copilot.py", PACK / "tools" / "update_copilot.py"),
 ]
 IGNORE = shutil.ignore_patterns("__pycache__", "*.pyc", ".DS_Store")
 

@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
-  "pack_version": "1.2.5",
-  "tag": "v1.2.5",
+  "pack_version": "1.2.6",
+  "tag": "v1.2.6",
   "generated": "2026-09-10",
   "template_count": 7,
   "counts": {
@@ -44,7 +44,7 @@
       "min_pack_version": "1.0.0",
       "body_sha": "5144026a98ba0a49",
       "docs": "merchjar.com/templates?t=insight-anomaly-detection-spend",
-      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.5/templates/insight/insight-anomaly-detection-spend.txt"
+      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.6/templates/insight/insight-anomaly-detection-spend.txt"
     },
     {
       "id": "core-adaptive-budget-management",
@@ -74,7 +74,7 @@
       "min_pack_version": "1.0.0",
       "body_sha": "de5635a7f37bf36c",
       "docs": "merchjar.com/templates?t=core-adaptive-budget-management",
-      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.5/templates/optimize/core-adaptive-budget-management.txt"
+      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.6/templates/optimize/core-adaptive-budget-management.txt"
     },
     {
       "id": "core-dynamic-bid-management",
@@ -105,7 +105,7 @@
       "min_pack_version": "1.0.0",
       "body_sha": "6c3ed39d54f1dfc9",
       "docs": "merchjar.com/templates?t=core-dynamic-bid-management",
-      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.5/templates/optimize/core-dynamic-bid-management.txt"
+      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.6/templates/optimize/core-dynamic-bid-management.txt"
     },
     {
       "id": "core-impression-recovery-boost",
@@ -135,7 +135,7 @@
       "min_pack_version": "1.0.0",
       "body_sha": "fdb8f0a86ad913ed",
       "docs": "merchjar.com/templates?t=core-impression-recovery-boost",
-      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.5/templates/optimize/core-impression-recovery-boost.txt"
+      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.6/templates/optimize/core-impression-recovery-boost.txt"
     },
     {
       "id": "core-pause-underperforming-keywords-targets",
@@ -169,7 +169,7 @@
       "min_pack_version": "1.0.0",
       "body_sha": "06732ebf7d89d47b",
       "docs": "merchjar.com/templates?t=core-pause-underperforming-keywords-targets",
-      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.5/templates/optimize/core-pause-underperforming-keywords-targets.txt"
+      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.6/templates/optimize/core-pause-underperforming-keywords-targets.txt"
     },
     {
       "id": "core-product-ad-waste-elimination",
@@ -199,7 +199,7 @@
       "min_pack_version": "1.0.0",
       "body_sha": "08bc63567c130a76",
       "docs": "merchjar.com/templates?t=core-product-ad-waste-elimination",
-      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.5/templates/optimize/core-product-ad-waste-elimination.txt"
+      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.6/templates/optimize/core-product-ad-waste-elimination.txt"
     },
     {
       "id": "core-search-term-waste-elimination",
@@ -232,7 +232,7 @@
       "min_pack_version": "1.0.0",
       "body_sha": "8624e23ab36b27a1",
       "docs": "merchjar.com/templates?t=core-search-term-waste-elimination",
-      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.5/templates/optimize/core-search-term-waste-elimination.txt"
+      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.6/templates/optimize/core-search-term-waste-elimination.txt"
     }
   ],
   "skills": [
@@ -268,7 +268,7 @@
       "has_scripts": false,
       "has_references": false,
       "body_sha": "3c3d2deb4afcbc24",
-      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.5/skills/account-review/SKILL.md"
+      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.6/skills/account-review/SKILL.md"
     },
     {
       "id": "audit-log",
@@ -300,7 +300,7 @@
       "has_scripts": false,
       "has_references": false,
       "body_sha": "4172dfd11e57d495",
-      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.5/skills/audit-log/SKILL.md"
+      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.6/skills/audit-log/SKILL.md"
     },
     {
       "id": "build-segment",
@@ -335,7 +335,7 @@
       "has_scripts": false,
       "has_references": false,
       "body_sha": "e5df0885d09b307b",
-      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.5/skills/build-segment/SKILL.md"
+      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.6/skills/build-segment/SKILL.md"
     },
     {
       "id": "campaign-naming-cleanup",
@@ -370,7 +370,7 @@
       "has_scripts": true,
       "has_references": true,
       "body_sha": "b7cca926b1523939",
-      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.5/skills/campaign-naming-cleanup/SKILL.md"
+      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.6/skills/campaign-naming-cleanup/SKILL.md"
     },
     {
       "id": "check-segments",
@@ -401,7 +401,7 @@
       "has_scripts": false,
       "has_references": false,
       "body_sha": "d44aabedc4d2166d",
-      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.5/skills/check-segments/SKILL.md"
+      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.6/skills/check-segments/SKILL.md"
     },
     {
       "id": "create-campaigns",
@@ -439,7 +439,7 @@
       "has_scripts": true,
       "has_references": true,
       "body_sha": "e12617752e71b21c",
-      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.5/skills/create-campaigns/SKILL.md"
+      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.6/skills/create-campaigns/SKILL.md"
     },
     {
       "id": "enrich-account",
@@ -474,7 +474,7 @@
       "has_scripts": false,
       "has_references": false,
       "body_sha": "4b33fadc6a38fdf8",
-      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.5/skills/enrich-account/SKILL.md"
+      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.6/skills/enrich-account/SKILL.md"
     },
     {
       "id": "explain-segment",
@@ -505,15 +505,15 @@
       "has_scripts": false,
       "has_references": false,
       "body_sha": "de9bbb13612087f1",
-      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.5/skills/explain-segment/SKILL.md"
+      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.6/skills/explain-segment/SKILL.md"
     },
     {
       "id": "manage-library",
       "name": "manage-library",
       "path": "skills/manage-library/SKILL.md",
       "dir": "skills/manage-library",
-      "description": "Inventory installed Copilot skills and their versions, or install a selected Merch Jar Library skill from a link or copied setup request. Use when listing available skills, checking local dependencies, adding Library skills, or routing a template to setup. Installation does not run the skill or change an ad account.",
-      "version": "1.1",
+      "description": "Check, install, and update the Copilot or individual Merch Jar Library skills, including the Library manager itself. Use when listing installed skills, checking versions, adding a Library skill, updating the Copilot, or routing a template to setup. These operations do not change an ad account.",
+      "version": "2.0",
       "tags": [
         "library",
         "install",
@@ -523,7 +523,7 @@
       "requires_scopes": [],
       "requires_skills": [],
       "requires_properties": [],
-      "produces": "a verified individual Library installation, or a conflict report with existing files preserved",
+      "produces": "a verified installation or update, or a concrete conflict report with existing files preserved",
       "risk": "read-only",
       "compatibility": "",
       "license": "Proprietary. Use requires an active Merch Jar account; see LICENSE in the repo root.",
@@ -531,8 +531,8 @@
       "ships_in_pack": true,
       "has_scripts": true,
       "has_references": false,
-      "body_sha": "56dd1103ad479d90",
-      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.5/skills/manage-library/SKILL.md"
+      "body_sha": "80cb12ef9963c33a",
+      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.6/skills/manage-library/SKILL.md"
     },
     {
       "id": "merchjar-connect",
@@ -563,7 +563,7 @@
       "has_scripts": true,
       "has_references": true,
       "body_sha": "b03b89a21bb6622e",
-      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.5/skills/merchjar-connect/SKILL.md"
+      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.6/skills/merchjar-connect/SKILL.md"
     },
     {
       "id": "performance-check",
@@ -596,7 +596,7 @@
       "has_scripts": false,
       "has_references": false,
       "body_sha": "c72a822887f4aab5",
-      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.5/skills/performance-check/SKILL.md"
+      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.6/skills/performance-check/SKILL.md"
     },
     {
       "id": "review-segment",
@@ -631,7 +631,7 @@
       "has_scripts": false,
       "has_references": false,
       "body_sha": "47d074e975d69955",
-      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.5/skills/review-segment/SKILL.md"
+      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.6/skills/review-segment/SKILL.md"
     },
     {
       "id": "troubleshoot",
@@ -664,7 +664,7 @@
       "has_scripts": false,
       "has_references": false,
       "body_sha": "4b0997ab390eb8df",
-      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.5/skills/troubleshoot/SKILL.md"
+      "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.6/skills/troubleshoot/SKILL.md"
     }
   ],
   "properties": [],

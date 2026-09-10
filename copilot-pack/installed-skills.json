@@ -142,14 +142,15 @@
     {
       "id": "manage-library",
       "declared_name": "manage-library",
-      "version": "1.1",
-      "description": "Inventory installed Copilot skills and their versions, or install a selected Merch Jar Library skill from a link or copied setup request. Use when listing available skills, checking local dependencies, adding Library skills, or routing a template to setup. Installation does not run the skill or change an ad account.",
+      "version": "2.0",
+      "description": "Check, install, and update the Copilot or individual Merch Jar Library skills, including the Library manager itself. Use when listing installed skills, checking versions, adding a Library skill, updating the Copilot, or routing a template to setup. These operations do not change an ad account.",
       "entry": "skills/manage-library/SKILL.md",
       "requires": [],
       "files_sha256": {
-        "SKILL.md": "e7f5925462976deefb1d2f8aab95bd92e6090cb5174e10003bbaca3260231358",
+        "SKILL.md": "49094f1ac150dda8a34063b1041ef318b218b93e07e702095d6f3e5375cb3ab4",
         "scripts/install_skill.py": "f4f6ece2e76993f95051d799115fce06838b08e6435f9493d18298e5de8783df",
-        "scripts/installed_skills.py": "2c49dbcde4912683d3d05f4fe11dbd714c466d7de0980badb4052069c519e840"
+        "scripts/installed_skills.py": "2c49dbcde4912683d3d05f4fe11dbd714c466d7de0980badb4052069c519e840",
+        "scripts/update_copilot.py": "742ec25e066340bcf631797901b59d7871569c04059933cac9012402b3838d91"
       },
       "skipped_links": [],
       "update_status": "not_checked",
@@ -166,7 +167,7 @@
         "SKILL.md": "e41c1334eb0edefcdcdde7caa53139617af09d2ea750e65f1fe44a68d1e0b01c",
         "references/MJ_API_REFERENCE.md": "c751f20ce59ae87f6f4ec2e89b200ef8b585aa60004bbe696831c9eaddd5f279",
         "references/SEGMENT_CREATION_GUIDELINES.md": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
-        "references/V2_SYNTAX_REFERENCE.md": "0ddaabdc8825b17be3662d72961043b562c413a7fe7157861e41a52b30644359",
+        "references/V2_SYNTAX_REFERENCE.md": "b0dbbe07cc5718c52d8de76715a752a521138013d7f77d348396810680c12558",
         "references/campaign-naming.md": "a7b07c12fc9c06aac6aa0efd8698368efbd50c8050d1af58bb46c62e0eb32955",
         "scripts/campaign_naming.py": "89c45f85f4d34a359424620634778c37d4260792135ba508f0bea2de6a2ce1e7",
         "scripts/merchjar_client.py": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911"

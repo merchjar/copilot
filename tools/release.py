@@ -89,6 +89,8 @@ def main() -> int:
     run([PY, "tools/test_library_install.py"], "bundled Library installer checks")
     run([PY, "tools/test_naming_preferences.py"], "shared naming preferences")
     run([PY, "tools/test_installed_skills.py"], "installed skill discovery")
+    run([PY, "tools/test_campaign_structures.py"], "campaign structure checks")
+    run([PY, "tools/test_launch_validation.py"], "campaign launch validation")
     if args.test:
         if not args.profiles:
             print("--test needs --profiles", file=sys.stderr); return 2
@@ -107,6 +109,8 @@ def main() -> int:
     changed = stamp_versions(args.pack_version)
     print(f"\n== version stamps: {changed or 'already current'}")
     z = build_zip(args.pack_version)
+    run([PY, "tools/build_update_release.py", "--version", args.pack_version], "update release")
+    run([PY, "tools/test_copilot_update.py"], "Copilot update checks")
     print(f"== zip: {z.name} ({z.stat().st_size // 1024} KB)")
     print(f"\nrelease gate PASSED for v{args.pack_version}. Next: push the tree, then create release v{args.pack_version} with manifest.json + {z.name}.")
     return 0

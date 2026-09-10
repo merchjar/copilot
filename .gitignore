@@ -43,3 +43,4 @@ Thumbs.db
 
 # release assets are attached to GitHub Releases, never committed
 *.zip
+release/copilot-update-bootstrap.py

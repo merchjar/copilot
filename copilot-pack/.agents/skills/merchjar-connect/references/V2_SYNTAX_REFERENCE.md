@@ -1,6 +1,6 @@
 # V2 Logic Syntax Reference
 
-**Version:** 1.0  
+**Version:** 1.0
 **Last Updated:** April 2026
 
 ---
@@ -30,7 +30,7 @@ Note: To negate a variable value, use multiplication rather than direct negation
 Correct: -1 * $bid_adjustment    // Multiply by -1
 Incorrect: -$bid_adjustment      // Direct negation not supported
 
-String  
+String
 Text values in double quotes "". String concatenation and manipulation operations are not supported.
 Examples: campaign name contains "Brand"
 
@@ -70,7 +70,7 @@ YYYY-MM-DD..YYYY-MM-DD - Literal Range: Exact calendar dates, inclusive
 Example: spend(2024-01-01..2024-01-31)
 
 Xd..Yd - Offset Relative: From X days ago to Y days ago, inclusive (Y ≥ X)
-Examples: 
+Examples:
 sales(7d..14d) [from 7 days ago through 14 days ago]
 sales(3d..3d) [3 days ago only]
 
@@ -116,7 +116,7 @@ campaigns - Campaign-level analysis and actions
 Available properties: All performance metrics, budget, campaign identifiers, last budget change
 Actions: Change Daily Budget, Set State
 
-ad-groups - Ad group-level analysis and actions  
+ad-groups - Ad group-level analysis and actions
 Available properties: All performance metrics, default bid, campaign/ad group identifiers
 Actions: Change Default Bid, Set State
 
@@ -125,7 +125,7 @@ Available properties: All performance metrics, bid, match type, last bid change,
 Actions: Change Bid, Set State
 
 keywords - Manual keywords only (broad, phrase, exact match types)
-Available properties: All performance metrics, bid, match type, last bid change, campaign/ad group identifiers  
+Available properties: All performance metrics, bid, match type, last bid change, campaign/ad group identifiers
 Actions: Change Bid, Set State
 
 targets - Auto targeting and product targeting only (close match, loose match, product exact, similar, etc.)
@@ -235,9 +235,9 @@ Values: true, false
 Example: negated = false
 
 search term (String) [search-terms dataset only] - The actual search query text that triggered the ad
-Examples: 
+Examples:
 search term contains "running shoes"
-search term contains any ["brand name", "product category"]  
+search term contains any ["brand name", "product category"]
 search term does not contain all ["competitor", "irrelevant term"]
 // NOTE: Use `does not contain all` for exclusions. `does not contain any` uses OR logic and will not filter correctly. See Array operators section.
 
@@ -429,7 +429,7 @@ Array Creation: User-defined arrays use square brackets with comma-separated str
 Currency Symbol: $ symbols ignored in numeric values
 Percent Symbol: % after number divides by 100 (25% = 0.25), not modulo operator
 Variable Negation: Direct negation of variables (-$variable) is not supported. Use multiplication instead (-1 * $variable).
-Range formats (Xd..Yd) can only be used in metric function parentheses, 
+Range formats (Xd..Yd) can only be used in metric function parentheses,
 not with interval() or timestamp arithmetic operations.
 
 ERROR HANDLING
@@ -451,14 +451,14 @@ Change Bid (Dataset: targeting)
 - Increase ($): Increases current bid by fixed dollar amount
 - Increase (%): Increases by percentage (input as decimal: 0.07 for 7%)
 - Set ($): Sets bid to specific dollar amount
-- Decrease ($): Decreases by fixed dollar amount  
+- Decrease ($): Decreases by fixed dollar amount
 - Decrease (%): Decreases by percentage (input as decimal: 0.07 for 7%)
 - Set from variable: Uses Custom Property value for any above operations
 
 Change Default Bid (Dataset: ad-groups)
 Same operations as Change Bid, applies to Ad Group default bid setting
 
-Change Daily Budget (Dataset: campaigns)  
+Change Daily Budget (Dataset: campaigns)
 Same operations as Change Bid, applies to Campaign daily budget
 
 Set State (Dataset: campaigns, ad-groups, targeting, product-ads)
