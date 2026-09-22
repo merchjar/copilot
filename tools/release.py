@@ -105,6 +105,7 @@ def main() -> int:
         if args.config: cmd += ["--config", args.config]
         run(cmd, "drift")
     run([PY, "tools/build_manifest.py", "--pack-version", args.pack_version], "manifest")
+    run([PY, "tools/test_brand_review.py"], "optional brand review checks")
     run([PY, "copilot-pack/skills/manage-library/scripts/installed_skills.py", "--write"], "installed skill inventory")
     changed = stamp_versions(args.pack_version)
     print(f"\n== version stamps: {changed or 'already current'}")

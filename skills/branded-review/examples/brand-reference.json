@@ -1,0 +1,11 @@
+{
+  "schema": "brand-reference/1",
+  "account_id": "sample-account",
+  "brand": "Northstar Gear",
+  "currency": "USD",
+  "marketplace": "AMAZON.COM",
+  "rules": [
+    {"term": "northstar gear", "match": "phrase", "status": "approved", "source": "Fictional example", "confirmed_at": "2026-09-20"}
+  ],
+  "exceptions": []
+}

@@ -133,7 +133,12 @@ def lint_skill(path: Path) -> tuple[list[str], list[str]]:
         for req in ("version", "tags", "goal", "risk"):
             if not meta.get(req):
                 errors.append(f"S3 metadata.{req} missing")
-        if name not in {"merchjar-connect", "manage-library"} and "merchjar-connect" not in str(meta.get("requires-skills", "")):
+        mode = meta.get("connection-mode", "required")
+        if mode not in {"required", "optional", "none"}:
+            errors.append("S5 connection-mode must be required, optional or none")
+        if mode == "optional" and "merchjar-connect" not in [s.strip() for s in str(meta.get("connected-skills", "")).split(",")]:
+            errors.append("S5 optional connection must identify merchjar-connect in connected-skills")
+        if mode == "required" and name not in {"merchjar-connect", "manage-library"} and "merchjar-connect" not in str(meta.get("requires-skills", "")):
             errors.append("S5 metadata.requires-skills must include merchjar-connect")
     if body.count("\n") > 500:
         warnings.append(f"S4 SKILL.md body is {body.count(chr(10))} lines (>500); move detail to references/")

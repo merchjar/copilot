@@ -5,6 +5,12 @@ record of what changed in each version. This file is a thin pointer.
 
 See the full history at: https://github.com/merchjar/copilot/releases
 
+## v1.2.7 (2026-09-22)
+
+- Add optional Brand Traffic Review 2.0.0: uploaded-report performance, owned-ASIN review, editable campaign proposals and an optional connected planning handoff.
+- Declare optional connection capabilities without requiring a Merch Jar connection for installation or upload-based reporting. The default pack remains unchanged at 12 skills.
+- Preserve saved reports and preferences when adding the skill to an existing Copilot.
+
 ## v1.2.1 (2026-09-08)
 
 - Correct automatic campaign creation: use `autoCreateTargets: true` and inspect Amazon-generated groups instead of explicitly creating them.

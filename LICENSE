@@ -7,6 +7,11 @@ Segment templates, skills, and documentation, are proprietary to Merch Jar.
 You may use the Materials only in connection with an active Merch Jar account,
 and only to operate your own Amazon advertising through the Merch Jar service.
 
+Exception: the Brand Traffic Review skill in skills/branded-review is governed
+by its own LICENSE. Its uploaded-report analysis and structural suggestions may
+be used without an active Merch Jar account. This exception does not extend to
+other Copilot components or connected account operations.
+
 You may not:
   1. Redistribute, resell, sublicense, or publish the Materials, in whole or in
      part, whether modified or unmodified.

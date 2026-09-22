@@ -1,0 +1,3392 @@
+{
+  "schema": 1,
+  "kind": "copilot-update",
+  "source": "https://merchjar.com/library-install/copilot/copilot-update-v1.2.7.json",
+  "packVersion": "1.2.7",
+  "released": "2026-09-22",
+  "archive": "copilot-update-v1.2.7.zip",
+  "archiveSha256": "a7af1da945bc7f5f25f672a408188bf42e6769f240bf4d7999b4408d5928f51f",
+  "defaultSkills": [
+    "account-review",
+    "audit-log",
+    "build-segment",
+    "check-segments",
+    "create-campaigns",
+    "enrich-account",
+    "explain-segment",
+    "manage-library",
+    "merchjar-connect",
+    "performance-check",
+    "review-segment",
+    "troubleshoot"
+  ],
+  "skills": {
+    "account-review": {
+      "version": "1.1",
+      "requires": [
+        "merchjar-connect"
+      ],
+      "releaseNotes": "Can recommend Campaign Naming when inconsistent names block account work."
+    },
+    "audit-log": {
+      "version": "1.0",
+      "requires": [
+        "merchjar-connect"
+      ],
+      "releaseNotes": ""
+    },
+    "branded-review": {
+      "version": "2.0.0",
+      "requires": [],
+      "releaseNotes": "Adds uploaded-report branded versus non-branded analysis, product ownership, visual campaign proposals and optional connected planning."
+    },
+    "build-segment": {
+      "version": "1.0",
+      "requires": [
+        "merchjar-connect"
+      ],
+      "releaseNotes": ""
+    },
+    "campaign-naming-cleanup": {
+      "version": "0.4.0",
+      "requires": [
+        "merchjar-connect"
+      ],
+      "releaseNotes": "Responds faster, proposes a reusable taxonomy first, and preserves method separately from match type."
+    },
+    "check-segments": {
+      "version": "1.0",
+      "requires": [
+        "merchjar-connect"
+      ],
+      "releaseNotes": ""
+    },
+    "create-campaigns": {
+      "version": "1.3",
+      "requires": [
+        "merchjar-connect"
+      ],
+      "releaseNotes": "Reuses the saved account naming taxonomy, including the distinct Auto, KW, PT, or Mixed method."
+    },
+    "enrich-account": {
+      "version": "1.0",
+      "requires": [
+        "merchjar-connect"
+      ],
+      "releaseNotes": ""
+    },
+    "explain-segment": {
+      "version": "1.0",
+      "requires": [
+        "merchjar-connect"
+      ],
+      "releaseNotes": ""
+    },
+    "manage-library": {
+      "version": "2.0",
+      "requires": [],
+      "releaseNotes": "Adds all-skill update checks, version-aware replacement, backups, recovery, and manager self-update."
+    },
+    "merchjar-connect": {
+      "version": "1.5",
+      "requires": [],
+      "releaseNotes": "Adds the shared naming method field, saved vocabularies, and safer Windows API command guidance."
+    },
+    "performance-check": {
+      "version": "1.0",
+      "requires": [
+        "merchjar-connect"
+      ],
+      "releaseNotes": ""
+    },
+    "review-segment": {
+      "version": "1.0",
+      "requires": [
+        "merchjar-connect"
+      ],
+      "releaseNotes": ""
+    },
+    "troubleshoot": {
+      "version": "1.0",
+      "requires": [
+        "merchjar-connect"
+      ],
+      "releaseNotes": ""
+    }
+  },
+  "files": [
+    {
+      "path": ".agents/skills/account-review/SKILL.md",
+      "archivePath": ".agents/skills/account-review/SKILL.md",
+      "sha256": "dd50421b57ecb89f653e388e5998cdb9257abb7fb23a9650aacdc23ed64941aa",
+      "owner": "skill:account-review"
+    },
+    {
+      "path": ".agents/skills/audit-log/SKILL.md",
+      "archivePath": ".agents/skills/audit-log/SKILL.md",
+      "sha256": "aeac300e5e497a91dd297f46f6dc13a73f8539b2afabf8b9a0c1a7f22bcce933",
+      "owner": "skill:audit-log"
+    },
+    {
+      "path": ".agents/skills/branded-review/LICENSE",
+      "archivePath": ".agents/skills/branded-review/LICENSE",
+      "sha256": "0359065451177d7adad64d5dfd3823b7ad00c665f2a4619c09543e6a283d8dcd",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/SKILL.md",
+      "archivePath": ".agents/skills/branded-review/SKILL.md",
+      "sha256": "89f5f224899f505dad471fbc67e498d23e92e05187713f35567c61054df58473",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/START-HERE.md",
+      "archivePath": ".agents/skills/branded-review/START-HERE.md",
+      "sha256": "d30f61654f635b165dc5bb85d88124c89d5242c231032ccfd269cc851fd29186",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/assets/Inter-LICENSE.txt",
+      "archivePath": ".agents/skills/branded-review/assets/Inter-LICENSE.txt",
+      "sha256": "262481e844521b326f5ecd053e59b98c8b2da78c8ee1bdbb6e8174305e54935a",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/assets/README.md",
+      "archivePath": ".agents/skills/branded-review/assets/README.md",
+      "sha256": "83f5d247ed8a7efa5e87c75398d29b55b9e5be003a315fc771224881b5245bed",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/assets/campaign-map.html",
+      "archivePath": ".agents/skills/branded-review/assets/campaign-map.html",
+      "sha256": "a61c0587aa801aa8867ccbe5588e8dbf30c3327a5f67f0cd6b443d04214f2bea",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/assets/inter.woff2",
+      "archivePath": ".agents/skills/branded-review/assets/inter.woff2",
+      "sha256": "3100e775e8616cd2611beecfa23a4263d7037586789b43f035236a2e6fbd4c62",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/assets/inventory.js",
+      "archivePath": ".agents/skills/branded-review/assets/inventory.js",
+      "sha256": "6c2a0b71fcc64603d6bb67d54d119c8aa75779469a113f3929d2e975b1a530a4",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/assets/list-editor.js",
+      "archivePath": ".agents/skills/branded-review/assets/list-editor.js",
+      "sha256": "b591003855fb26fa7589ebb86ff673d279330bcddb61b4d2194f75c617493d13",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/assets/merchjar-logo.webp",
+      "archivePath": ".agents/skills/branded-review/assets/merchjar-logo.webp",
+      "sha256": "6a51abaa2450c14ca5ce89420266e6df75564082e4981bedd63f2797148382b3",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/assets/planning-builder.js",
+      "archivePath": ".agents/skills/branded-review/assets/planning-builder.js",
+      "sha256": "e35d44cedbd943d79078c74013505ad5425cc7027eeed4bcb43c71a8b0dc13f1",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/assets/planning.css",
+      "archivePath": ".agents/skills/branded-review/assets/planning.css",
+      "sha256": "f79daea52ec6651962e47e62f7bce2f0cdfda51a0c6941522076dda75fdad2cd",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/assets/report-refinements.css",
+      "archivePath": ".agents/skills/branded-review/assets/report-refinements.css",
+      "sha256": "8f68fec38bdcad1c43ce6d14ce84a313cd33f0bb24191742ab748e508a83d811",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/assets/report-theme.css",
+      "archivePath": ".agents/skills/branded-review/assets/report-theme.css",
+      "sha256": "fc18be93a299a239fda2c03cdab238ddfc4c5411257cf0b3d59b0f055cc68afb",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/assets/report.css",
+      "archivePath": ".agents/skills/branded-review/assets/report.css",
+      "sha256": "65d7d464e88edb0a6e6032ac8f7e9874f722a0844f79fad1016c11bb8c6b56d0",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/assets/simulation.js",
+      "archivePath": ".agents/skills/branded-review/assets/simulation.js",
+      "sha256": "1d7660250eb0641a02d2779dc7f1f1653f186e018de0f71eccd88e8153cd33b4",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/assets/structure-options.js",
+      "archivePath": ".agents/skills/branded-review/assets/structure-options.js",
+      "sha256": "8737551fafff4a60d1516a6dd48010044a8bbcde91f285c4bca525132353084b",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/assets/workspace.css",
+      "archivePath": ".agents/skills/branded-review/assets/workspace.css",
+      "sha256": "0e559a40e5793765347e6f1e1700dd39c4173b758fc62547ab162eb4154b70c7",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/examples/advertised-products.csv",
+      "archivePath": ".agents/skills/branded-review/examples/advertised-products.csv",
+      "sha256": "0022f4ee21dfa7d045feb3ffdf5532f055d064f0a989d29a7e0a24356556dee1",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/examples/brand-reference.json",
+      "archivePath": ".agents/skills/branded-review/examples/brand-reference.json",
+      "sha256": "d0c7d95d508cdea58aaabd613dcea2524a6247c983ff49a2290e8d9f229674e4",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/examples/search-terms.csv",
+      "archivePath": ".agents/skills/branded-review/examples/search-terms.csv",
+      "sha256": "4d2aeeecd0deb66aa4aed76121f3a7ef22637a4e1348df80537fee62d20ff3a8",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/examples/targeting.csv",
+      "archivePath": ".agents/skills/branded-review/examples/targeting.csv",
+      "sha256": "45f46c049ecaba25c07f1011394c93c7205f5e14369003341508dc33da9032c9",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/references/analysis-and-output.md",
+      "archivePath": ".agents/skills/branded-review/references/analysis-and-output.md",
+      "sha256": "b393383894546e9c89f05c22d1ddcbb328ebc0ed5950622845da5ce7739f7310",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/references/brand-exclusions.md",
+      "archivePath": ".agents/skills/branded-review/references/brand-exclusions.md",
+      "sha256": "8f49ad87d75d1ae7990cc09abe61ce786a7c1d2b1afd69ea735383509cc1af5a",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/references/campaign-map.md",
+      "archivePath": ".agents/skills/branded-review/references/campaign-map.md",
+      "sha256": "38c9a85b421dc59d3ef2c3c4a055d9592aa55b6351e35d97b633de4b08c15cd0",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/references/connected.md",
+      "archivePath": ".agents/skills/branded-review/references/connected.md",
+      "sha256": "d320ef27ec6c737a4ceb636a3ea30ee1306ebc01e52ec61507fdcffcd9a3a3ed",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/references/conversation.md",
+      "archivePath": ".agents/skills/branded-review/references/conversation.md",
+      "sha256": "beeb4adc06aa9c0243c5077838df4480d25ecf95903b695870f379c1e01a7fae",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/references/handoff.md",
+      "archivePath": ".agents/skills/branded-review/references/handoff.md",
+      "sha256": "750f9c04afdd5d91faf1a6ecf7853e595b343991ed3723880207a51f5d08ad9d",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/references/migration.md",
+      "archivePath": ".agents/skills/branded-review/references/migration.md",
+      "sha256": "d190eee5ff08d253437a9dd9bc859801d0656291ce17b94546c174a5b793f076",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/references/negative-inventory.md",
+      "archivePath": ".agents/skills/branded-review/references/negative-inventory.md",
+      "sha256": "9b71aa490ae4e159cefc9c3e21814012d5451a875b3814fa9d12afd80f201589",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/references/privacy-and-demo.md",
+      "archivePath": ".agents/skills/branded-review/references/privacy-and-demo.md",
+      "sha256": "4ba768162a8c03a78a7ccdad525fc67f14ebfab5e996ffa1d89e8582b837afb0",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/references/product-structure.md",
+      "archivePath": ".agents/skills/branded-review/references/product-structure.md",
+      "sha256": "c9fd30c9fd7c32bc5fa2af32387de4613cfcc964f522f628041a4859b1025b60",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/references/queries.json",
+      "archivePath": ".agents/skills/branded-review/references/queries.json",
+      "sha256": "ce8fbb2c2f08ff1f04098cfab8d07ebd34fdf7645c37acc38687e1351e85092d",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/references/recommendations.md",
+      "archivePath": ".agents/skills/branded-review/references/recommendations.md",
+      "sha256": "a1434483341a0fcc5789a6cde0d19a3126d8767e81789c34a11643c36f7e7e0c",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/references/report-delivery.md",
+      "archivePath": ".agents/skills/branded-review/references/report-delivery.md",
+      "sha256": "f45f648e6037e47abd53c994b9b72ee36c3e663ce9fde1f3a1fc8b7d43cfbae6",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/references/report-inputs.md",
+      "archivePath": ".agents/skills/branded-review/references/report-inputs.md",
+      "sha256": "cec8612d029eae426fcb405fa5c3bbdd264abaaf63897251472bb6a3b66a6628",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/references/report-preferences.md",
+      "archivePath": ".agents/skills/branded-review/references/report-preferences.md",
+      "sha256": "2986fa9ac655dd6181a80669e6c28a4f5337a4159bf68510253ac045c5a31697",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/references/report-workspace.md",
+      "archivePath": ".agents/skills/branded-review/references/report-workspace.md",
+      "sha256": "c8780f12ccf439b2ceb8be4e717e482c98d0bf3ea1d510c99053ea51be206d03",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/scripts/analyze_search_terms.py",
+      "archivePath": ".agents/skills/branded-review/scripts/analyze_search_terms.py",
+      "sha256": "3ad52baf795d88ba1f7eb4e8656b185a40f730342b251e8e34cf7422af9680b5",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/scripts/anonymized_demo.py",
+      "archivePath": ".agents/skills/branded-review/scripts/anonymized_demo.py",
+      "sha256": "c5fcfafc144a05aebda1ff78844c8d0be93fd1087954ca3b50613db302744465",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/scripts/brand_exclusions.py",
+      "archivePath": ".agents/skills/branded-review/scripts/brand_exclusions.py",
+      "sha256": "0d875ed262c129462c0784e77df204fb7b4fa81ce242ea121b2dfd84b7d05a96",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/scripts/campaign_map.py",
+      "archivePath": ".agents/skills/branded-review/scripts/campaign_map.py",
+      "sha256": "6a004799934f747b5091a101f70d5ab979c8bcb5144704a9a9d1bec42c29ee9a",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/scripts/connected_report.py",
+      "archivePath": ".agents/skills/branded-review/scripts/connected_report.py",
+      "sha256": "03b4c827a7e09824b157eafe56c24b6f28e4cb9d44020cb3565ab57515fa804e",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/scripts/connection_context.py",
+      "archivePath": ".agents/skills/branded-review/scripts/connection_context.py",
+      "sha256": "428bd2f497e82998dcab96b27357de66f5b47f5a23b04914bfaa9fd6201358d6",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/scripts/demo_walkthrough.py",
+      "archivePath": ".agents/skills/branded-review/scripts/demo_walkthrough.py",
+      "sha256": "a5caa943ab53d985c3ee16c7ae060acdf791cfb95b2d9fbf370c70c71fcfa6c4",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/scripts/migration_plan.py",
+      "archivePath": ".agents/skills/branded-review/scripts/migration_plan.py",
+      "sha256": "85c4434af7cd6ce88bbcc0b6e692f8d9f2af0bb35623c24269bea2c52ebaa751",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/scripts/plan_campaigns.py",
+      "archivePath": ".agents/skills/branded-review/scripts/plan_campaigns.py",
+      "sha256": "1774badd9eac601b73eca1d7d36432c26afa725ac3ab05419d98876c5b9deeed",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/scripts/planning_options.py",
+      "archivePath": ".agents/skills/branded-review/scripts/planning_options.py",
+      "sha256": "1090d57aefdd4b3c6e54545b32087f1f48f1670b2a0aef056d0ec7b4ea2c0afc",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/scripts/planning_view.py",
+      "archivePath": ".agents/skills/branded-review/scripts/planning_view.py",
+      "sha256": "a85c7e9671b860df6efc201399b43389a8f93523a42b960659898b562d98cee6",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/scripts/privacy_report.py",
+      "archivePath": ".agents/skills/branded-review/scripts/privacy_report.py",
+      "sha256": "9aee3958953820d67d63e3c6cffc4c0ec602ff1e3990b59259acb76d117ff93d",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/scripts/report_charts.py",
+      "archivePath": ".agents/skills/branded-review/scripts/report_charts.py",
+      "sha256": "16cfa8eaff7a9c38b14f7f5a3804f3a26e2a20fed5f5ed2aedd33220b30addd7",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/scripts/report_context.py",
+      "archivePath": ".agents/skills/branded-review/scripts/report_context.py",
+      "sha256": "9d2ee3262d9cf2bc587b70ec589cbb10fe7e424c001ffa16f14d7b41701cdf0e",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/scripts/report_delivery.py",
+      "archivePath": ".agents/skills/branded-review/scripts/report_delivery.py",
+      "sha256": "81ab72e584f71df88d75e32893723ad7bfb9ec9e373f81ba32e980aad5f17947",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/scripts/report_interactions.py",
+      "archivePath": ".agents/skills/branded-review/scripts/report_interactions.py",
+      "sha256": "85078d8ad37cb2f86e2dbb894d1aad9ebc951b92341723fab368d0032cb98928",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/scripts/report_preferences.py",
+      "archivePath": ".agents/skills/branded-review/scripts/report_preferences.py",
+      "sha256": "c48118cfed20b6add5235b33a3421163e9760f22b0d44982924f22d3818d14b4",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/scripts/report_render.py",
+      "archivePath": ".agents/skills/branded-review/scripts/report_render.py",
+      "sha256": "7b85965db0fa6e3bb691e445c2a41fcd1e71244c1e7bf801b581f219a92037b3",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/scripts/report_workspace.py",
+      "archivePath": ".agents/skills/branded-review/scripts/report_workspace.py",
+      "sha256": "0bee4c8edc8626b6566aa7b22937745a7257edb6846dceb39576eb5c81107de6",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/scripts/review_flow.py",
+      "archivePath": ".agents/skills/branded-review/scripts/review_flow.py",
+      "sha256": "11672b1272b7ccdeb5b7dc822a94007f6284faa22af00493207b5cfab6afe311",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/scripts/structure_plan.py",
+      "archivePath": ".agents/skills/branded-review/scripts/structure_plan.py",
+      "sha256": "8c78f4962d57f1a24ec36f7abc3df21d974e6d40f4ad2776b70a224cf2253d3c",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/scripts/target_proposal.py",
+      "archivePath": ".agents/skills/branded-review/scripts/target_proposal.py",
+      "sha256": "84b89e56e2d6bb7e6eeca634fc4df08df54709f7a7f01e1598c0a1b9f26c32d9",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/scripts/transition_progress.py",
+      "archivePath": ".agents/skills/branded-review/scripts/transition_progress.py",
+      "sha256": "3afa2e75f5500ab3d8d8471217b27b66f06841a991ea169b03933a6274c728c2",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/build-segment/SKILL.md",
+      "archivePath": ".agents/skills/build-segment/SKILL.md",
+      "sha256": "6afa038e1ab32408bce663913b0de6a2ef06ae0413b54121672e2a001caf836f",
+      "owner": "skill:build-segment"
+    },
+    {
+      "path": ".agents/skills/campaign-naming-cleanup/SKILL.md",
+      "archivePath": ".agents/skills/campaign-naming-cleanup/SKILL.md",
+      "sha256": "43a00a7358c21a2940ee59ee24917dcd51f8a5cdcad6a49596328a6a9b3f372e",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": ".agents/skills/campaign-naming-cleanup/references/api-and-evidence.md",
+      "archivePath": ".agents/skills/campaign-naming-cleanup/references/api-and-evidence.md",
+      "sha256": "6645669fea79b11856325f1e2c2541403737cac019b2de5ca8a226e9d1a90a48",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": ".agents/skills/campaign-naming-cleanup/references/naming-conventions.md",
+      "archivePath": ".agents/skills/campaign-naming-cleanup/references/naming-conventions.md",
+      "sha256": "0a836fb4a84aa1e3f6931b05f001db7e0c7d57248be729bfd9acbdff2448076e",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": ".agents/skills/campaign-naming-cleanup/references/preferences.md",
+      "archivePath": ".agents/skills/campaign-naming-cleanup/references/preferences.md",
+      "sha256": "56179b119f793cca77e32428745ebd161a17c6b08800ba2c90231752db5c02bb",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": ".agents/skills/campaign-naming-cleanup/scripts/campaign_naming.py",
+      "archivePath": ".agents/skills/campaign-naming-cleanup/scripts/campaign_naming.py",
+      "sha256": "a8ffca5de8f6f05fd2d5c38b8ddcfd22e64efb9ddbf6333566dd4cb7c30c9aff",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": ".agents/skills/check-segments/SKILL.md",
+      "archivePath": ".agents/skills/check-segments/SKILL.md",
+      "sha256": "03c7b9d30d5271a375342c50420765c2de887ee9c0c175929cc232dc8adf9e06",
+      "owner": "skill:check-segments"
+    },
+    {
+      "path": ".agents/skills/create-campaigns/SKILL.md",
+      "archivePath": ".agents/skills/create-campaigns/SKILL.md",
+      "sha256": "06ade09edd94827e8dc7f7db1c85fbb8abedfa0d4bd3d388435e3c2fc7116960",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".agents/skills/create-campaigns/references/conversations.md",
+      "archivePath": ".agents/skills/create-campaigns/references/conversations.md",
+      "sha256": "eda71e0bc7594c47584b50f4d1f8a1e8b923f6bcd910db26c6c2fb1861c3c007",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".agents/skills/create-campaigns/references/launch-validation.md",
+      "archivePath": ".agents/skills/create-campaigns/references/launch-validation.md",
+      "sha256": "853fc61a2ef087273ae1522be7c6c3918860b0b62c6b463d3eb690ba4f76e931",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".agents/skills/create-campaigns/references/preferences.md",
+      "archivePath": ".agents/skills/create-campaigns/references/preferences.md",
+      "sha256": "796430ce2e65ca65fc89095e87f550b232c6df1626270e75ff8627d5d96e2c18",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".agents/skills/create-campaigns/scripts/campaign_structures.py",
+      "archivePath": ".agents/skills/create-campaigns/scripts/campaign_structures.py",
+      "sha256": "d6295ea5d54ca0b8391031ea9de267577f4702a99259849b84a1f815004d140a",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".agents/skills/create-campaigns/scripts/validate_launch.py",
+      "archivePath": ".agents/skills/create-campaigns/scripts/validate_launch.py",
+      "sha256": "8dd3654db08b0791e230f59ecdff1395c5bbc28f61ca16474da515be663ea9bb",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".agents/skills/enrich-account/SKILL.md",
+      "archivePath": ".agents/skills/enrich-account/SKILL.md",
+      "sha256": "91fe1c2563d6823185b03fdee215058d323135e98fcf9d6642ca68f20d0629b9",
+      "owner": "skill:enrich-account"
+    },
+    {
+      "path": ".agents/skills/explain-segment/SKILL.md",
+      "archivePath": ".agents/skills/explain-segment/SKILL.md",
+      "sha256": "9edfb4f74d2a8d76be44ff4b072f20363eccb3e5b031a97a2ef0c33f5a72871d",
+      "owner": "skill:explain-segment"
+    },
+    {
+      "path": ".agents/skills/manage-library/SKILL.md",
+      "archivePath": ".agents/skills/manage-library/SKILL.md",
+      "sha256": "49094f1ac150dda8a34063b1041ef318b218b93e07e702095d6f3e5375cb3ab4",
+      "owner": "skill:manage-library"
+    },
+    {
+      "path": ".agents/skills/manage-library/scripts/install_skill.py",
+      "archivePath": ".agents/skills/manage-library/scripts/install_skill.py",
+      "sha256": "f4f6ece2e76993f95051d799115fce06838b08e6435f9493d18298e5de8783df",
+      "owner": "skill:manage-library"
+    },
+    {
+      "path": ".agents/skills/manage-library/scripts/installed_skills.py",
+      "archivePath": ".agents/skills/manage-library/scripts/installed_skills.py",
+      "sha256": "2c49dbcde4912683d3d05f4fe11dbd714c466d7de0980badb4052069c519e840",
+      "owner": "skill:manage-library"
+    },
+    {
+      "path": ".agents/skills/manage-library/scripts/update_copilot.py",
+      "archivePath": ".agents/skills/manage-library/scripts/update_copilot.py",
+      "sha256": "742ec25e066340bcf631797901b59d7871569c04059933cac9012402b3838d91",
+      "owner": "skill:manage-library"
+    },
+    {
+      "path": ".agents/skills/merchjar-connect/SKILL.md",
+      "archivePath": ".agents/skills/merchjar-connect/SKILL.md",
+      "sha256": "e41c1334eb0edefcdcdde7caa53139617af09d2ea750e65f1fe44a68d1e0b01c",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".agents/skills/merchjar-connect/references/MJ_API_REFERENCE.md",
+      "archivePath": ".agents/skills/merchjar-connect/references/MJ_API_REFERENCE.md",
+      "sha256": "c751f20ce59ae87f6f4ec2e89b200ef8b585aa60004bbe696831c9eaddd5f279",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".agents/skills/merchjar-connect/references/SEGMENT_CREATION_GUIDELINES.md",
+      "archivePath": ".agents/skills/merchjar-connect/references/SEGMENT_CREATION_GUIDELINES.md",
+      "sha256": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".agents/skills/merchjar-connect/references/V2_SYNTAX_REFERENCE.md",
+      "archivePath": ".agents/skills/merchjar-connect/references/V2_SYNTAX_REFERENCE.md",
+      "sha256": "b0dbbe07cc5718c52d8de76715a752a521138013d7f77d348396810680c12558",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".agents/skills/merchjar-connect/references/campaign-naming.md",
+      "archivePath": ".agents/skills/merchjar-connect/references/campaign-naming.md",
+      "sha256": "a7b07c12fc9c06aac6aa0efd8698368efbd50c8050d1af58bb46c62e0eb32955",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".agents/skills/merchjar-connect/scripts/campaign_naming.py",
+      "archivePath": ".agents/skills/merchjar-connect/scripts/campaign_naming.py",
+      "sha256": "89c45f85f4d34a359424620634778c37d4260792135ba508f0bea2de6a2ce1e7",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".agents/skills/merchjar-connect/scripts/merchjar_client.py",
+      "archivePath": ".agents/skills/merchjar-connect/scripts/merchjar_client.py",
+      "sha256": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".agents/skills/performance-check/SKILL.md",
+      "archivePath": ".agents/skills/performance-check/SKILL.md",
+      "sha256": "1c8e3f4d86e75be649043c64fdf106a44dfdcbc48cb0a939a750c2f3b8dc4e69",
+      "owner": "skill:performance-check"
+    },
+    {
+      "path": ".agents/skills/review-segment/SKILL.md",
+      "archivePath": ".agents/skills/review-segment/SKILL.md",
+      "sha256": "f5265299dcc50f80fc56b11b1197ca43f1eb3ece3d12985d8b1aede41458b580",
+      "owner": "skill:review-segment"
+    },
+    {
+      "path": ".agents/skills/troubleshoot/SKILL.md",
+      "archivePath": ".agents/skills/troubleshoot/SKILL.md",
+      "sha256": "4fbf23343049f602ee7d101eb466685f097a1533c6e1e031fe9299258c51d490",
+      "owner": "skill:troubleshoot"
+    },
+    {
+      "path": ".claude/skills/account-review/SKILL.md",
+      "archivePath": ".claude/skills/account-review/SKILL.md",
+      "sha256": "dd50421b57ecb89f653e388e5998cdb9257abb7fb23a9650aacdc23ed64941aa",
+      "owner": "skill:account-review"
+    },
+    {
+      "path": ".claude/skills/audit-log/SKILL.md",
+      "archivePath": ".claude/skills/audit-log/SKILL.md",
+      "sha256": "aeac300e5e497a91dd297f46f6dc13a73f8539b2afabf8b9a0c1a7f22bcce933",
+      "owner": "skill:audit-log"
+    },
+    {
+      "path": ".claude/skills/branded-review/LICENSE",
+      "archivePath": ".claude/skills/branded-review/LICENSE",
+      "sha256": "0359065451177d7adad64d5dfd3823b7ad00c665f2a4619c09543e6a283d8dcd",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/SKILL.md",
+      "archivePath": ".claude/skills/branded-review/SKILL.md",
+      "sha256": "89f5f224899f505dad471fbc67e498d23e92e05187713f35567c61054df58473",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/START-HERE.md",
+      "archivePath": ".claude/skills/branded-review/START-HERE.md",
+      "sha256": "d30f61654f635b165dc5bb85d88124c89d5242c231032ccfd269cc851fd29186",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/assets/Inter-LICENSE.txt",
+      "archivePath": ".claude/skills/branded-review/assets/Inter-LICENSE.txt",
+      "sha256": "262481e844521b326f5ecd053e59b98c8b2da78c8ee1bdbb6e8174305e54935a",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/assets/README.md",
+      "archivePath": ".claude/skills/branded-review/assets/README.md",
+      "sha256": "83f5d247ed8a7efa5e87c75398d29b55b9e5be003a315fc771224881b5245bed",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/assets/campaign-map.html",
+      "archivePath": ".claude/skills/branded-review/assets/campaign-map.html",
+      "sha256": "a61c0587aa801aa8867ccbe5588e8dbf30c3327a5f67f0cd6b443d04214f2bea",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/assets/inter.woff2",
+      "archivePath": ".claude/skills/branded-review/assets/inter.woff2",
+      "sha256": "3100e775e8616cd2611beecfa23a4263d7037586789b43f035236a2e6fbd4c62",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/assets/inventory.js",
+      "archivePath": ".claude/skills/branded-review/assets/inventory.js",
+      "sha256": "6c2a0b71fcc64603d6bb67d54d119c8aa75779469a113f3929d2e975b1a530a4",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/assets/list-editor.js",
+      "archivePath": ".claude/skills/branded-review/assets/list-editor.js",
+      "sha256": "b591003855fb26fa7589ebb86ff673d279330bcddb61b4d2194f75c617493d13",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/assets/merchjar-logo.webp",
+      "archivePath": ".claude/skills/branded-review/assets/merchjar-logo.webp",
+      "sha256": "6a51abaa2450c14ca5ce89420266e6df75564082e4981bedd63f2797148382b3",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/assets/planning-builder.js",
+      "archivePath": ".claude/skills/branded-review/assets/planning-builder.js",
+      "sha256": "e35d44cedbd943d79078c74013505ad5425cc7027eeed4bcb43c71a8b0dc13f1",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/assets/planning.css",
+      "archivePath": ".claude/skills/branded-review/assets/planning.css",
+      "sha256": "f79daea52ec6651962e47e62f7bce2f0cdfda51a0c6941522076dda75fdad2cd",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/assets/report-refinements.css",
+      "archivePath": ".claude/skills/branded-review/assets/report-refinements.css",
+      "sha256": "8f68fec38bdcad1c43ce6d14ce84a313cd33f0bb24191742ab748e508a83d811",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/assets/report-theme.css",
+      "archivePath": ".claude/skills/branded-review/assets/report-theme.css",
+      "sha256": "fc18be93a299a239fda2c03cdab238ddfc4c5411257cf0b3d59b0f055cc68afb",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/assets/report.css",
+      "archivePath": ".claude/skills/branded-review/assets/report.css",
+      "sha256": "65d7d464e88edb0a6e6032ac8f7e9874f722a0844f79fad1016c11bb8c6b56d0",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/assets/simulation.js",
+      "archivePath": ".claude/skills/branded-review/assets/simulation.js",
+      "sha256": "1d7660250eb0641a02d2779dc7f1f1653f186e018de0f71eccd88e8153cd33b4",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/assets/structure-options.js",
+      "archivePath": ".claude/skills/branded-review/assets/structure-options.js",
+      "sha256": "8737551fafff4a60d1516a6dd48010044a8bbcde91f285c4bca525132353084b",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/assets/workspace.css",
+      "archivePath": ".claude/skills/branded-review/assets/workspace.css",
+      "sha256": "0e559a40e5793765347e6f1e1700dd39c4173b758fc62547ab162eb4154b70c7",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/examples/advertised-products.csv",
+      "archivePath": ".claude/skills/branded-review/examples/advertised-products.csv",
+      "sha256": "0022f4ee21dfa7d045feb3ffdf5532f055d064f0a989d29a7e0a24356556dee1",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/examples/brand-reference.json",
+      "archivePath": ".claude/skills/branded-review/examples/brand-reference.json",
+      "sha256": "d0c7d95d508cdea58aaabd613dcea2524a6247c983ff49a2290e8d9f229674e4",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/examples/search-terms.csv",
+      "archivePath": ".claude/skills/branded-review/examples/search-terms.csv",
+      "sha256": "4d2aeeecd0deb66aa4aed76121f3a7ef22637a4e1348df80537fee62d20ff3a8",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/examples/targeting.csv",
+      "archivePath": ".claude/skills/branded-review/examples/targeting.csv",
+      "sha256": "45f46c049ecaba25c07f1011394c93c7205f5e14369003341508dc33da9032c9",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/references/analysis-and-output.md",
+      "archivePath": ".claude/skills/branded-review/references/analysis-and-output.md",
+      "sha256": "b393383894546e9c89f05c22d1ddcbb328ebc0ed5950622845da5ce7739f7310",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/references/brand-exclusions.md",
+      "archivePath": ".claude/skills/branded-review/references/brand-exclusions.md",
+      "sha256": "8f49ad87d75d1ae7990cc09abe61ce786a7c1d2b1afd69ea735383509cc1af5a",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/references/campaign-map.md",
+      "archivePath": ".claude/skills/branded-review/references/campaign-map.md",
+      "sha256": "38c9a85b421dc59d3ef2c3c4a055d9592aa55b6351e35d97b633de4b08c15cd0",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/references/connected.md",
+      "archivePath": ".claude/skills/branded-review/references/connected.md",
+      "sha256": "d320ef27ec6c737a4ceb636a3ea30ee1306ebc01e52ec61507fdcffcd9a3a3ed",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/references/conversation.md",
+      "archivePath": ".claude/skills/branded-review/references/conversation.md",
+      "sha256": "beeb4adc06aa9c0243c5077838df4480d25ecf95903b695870f379c1e01a7fae",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/references/handoff.md",
+      "archivePath": ".claude/skills/branded-review/references/handoff.md",
+      "sha256": "750f9c04afdd5d91faf1a6ecf7853e595b343991ed3723880207a51f5d08ad9d",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/references/migration.md",
+      "archivePath": ".claude/skills/branded-review/references/migration.md",
+      "sha256": "d190eee5ff08d253437a9dd9bc859801d0656291ce17b94546c174a5b793f076",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/references/negative-inventory.md",
+      "archivePath": ".claude/skills/branded-review/references/negative-inventory.md",
+      "sha256": "9b71aa490ae4e159cefc9c3e21814012d5451a875b3814fa9d12afd80f201589",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/references/privacy-and-demo.md",
+      "archivePath": ".claude/skills/branded-review/references/privacy-and-demo.md",
+      "sha256": "4ba768162a8c03a78a7ccdad525fc67f14ebfab5e996ffa1d89e8582b837afb0",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/references/product-structure.md",
+      "archivePath": ".claude/skills/branded-review/references/product-structure.md",
+      "sha256": "c9fd30c9fd7c32bc5fa2af32387de4613cfcc964f522f628041a4859b1025b60",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/references/queries.json",
+      "archivePath": ".claude/skills/branded-review/references/queries.json",
+      "sha256": "ce8fbb2c2f08ff1f04098cfab8d07ebd34fdf7645c37acc38687e1351e85092d",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/references/recommendations.md",
+      "archivePath": ".claude/skills/branded-review/references/recommendations.md",
+      "sha256": "a1434483341a0fcc5789a6cde0d19a3126d8767e81789c34a11643c36f7e7e0c",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/references/report-delivery.md",
+      "archivePath": ".claude/skills/branded-review/references/report-delivery.md",
+      "sha256": "f45f648e6037e47abd53c994b9b72ee36c3e663ce9fde1f3a1fc8b7d43cfbae6",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/references/report-inputs.md",
+      "archivePath": ".claude/skills/branded-review/references/report-inputs.md",
+      "sha256": "cec8612d029eae426fcb405fa5c3bbdd264abaaf63897251472bb6a3b66a6628",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/references/report-preferences.md",
+      "archivePath": ".claude/skills/branded-review/references/report-preferences.md",
+      "sha256": "2986fa9ac655dd6181a80669e6c28a4f5337a4159bf68510253ac045c5a31697",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/references/report-workspace.md",
+      "archivePath": ".claude/skills/branded-review/references/report-workspace.md",
+      "sha256": "c8780f12ccf439b2ceb8be4e717e482c98d0bf3ea1d510c99053ea51be206d03",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/scripts/analyze_search_terms.py",
+      "archivePath": ".claude/skills/branded-review/scripts/analyze_search_terms.py",
+      "sha256": "3ad52baf795d88ba1f7eb4e8656b185a40f730342b251e8e34cf7422af9680b5",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/scripts/anonymized_demo.py",
+      "archivePath": ".claude/skills/branded-review/scripts/anonymized_demo.py",
+      "sha256": "c5fcfafc144a05aebda1ff78844c8d0be93fd1087954ca3b50613db302744465",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/scripts/brand_exclusions.py",
+      "archivePath": ".claude/skills/branded-review/scripts/brand_exclusions.py",
+      "sha256": "0d875ed262c129462c0784e77df204fb7b4fa81ce242ea121b2dfd84b7d05a96",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/scripts/campaign_map.py",
+      "archivePath": ".claude/skills/branded-review/scripts/campaign_map.py",
+      "sha256": "6a004799934f747b5091a101f70d5ab979c8bcb5144704a9a9d1bec42c29ee9a",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/scripts/connected_report.py",
+      "archivePath": ".claude/skills/branded-review/scripts/connected_report.py",
+      "sha256": "03b4c827a7e09824b157eafe56c24b6f28e4cb9d44020cb3565ab57515fa804e",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/scripts/connection_context.py",
+      "archivePath": ".claude/skills/branded-review/scripts/connection_context.py",
+      "sha256": "428bd2f497e82998dcab96b27357de66f5b47f5a23b04914bfaa9fd6201358d6",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/scripts/demo_walkthrough.py",
+      "archivePath": ".claude/skills/branded-review/scripts/demo_walkthrough.py",
+      "sha256": "a5caa943ab53d985c3ee16c7ae060acdf791cfb95b2d9fbf370c70c71fcfa6c4",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/scripts/migration_plan.py",
+      "archivePath": ".claude/skills/branded-review/scripts/migration_plan.py",
+      "sha256": "85c4434af7cd6ce88bbcc0b6e692f8d9f2af0bb35623c24269bea2c52ebaa751",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/scripts/plan_campaigns.py",
+      "archivePath": ".claude/skills/branded-review/scripts/plan_campaigns.py",
+      "sha256": "1774badd9eac601b73eca1d7d36432c26afa725ac3ab05419d98876c5b9deeed",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/scripts/planning_options.py",
+      "archivePath": ".claude/skills/branded-review/scripts/planning_options.py",
+      "sha256": "1090d57aefdd4b3c6e54545b32087f1f48f1670b2a0aef056d0ec7b4ea2c0afc",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/scripts/planning_view.py",
+      "archivePath": ".claude/skills/branded-review/scripts/planning_view.py",
+      "sha256": "a85c7e9671b860df6efc201399b43389a8f93523a42b960659898b562d98cee6",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/scripts/privacy_report.py",
+      "archivePath": ".claude/skills/branded-review/scripts/privacy_report.py",
+      "sha256": "9aee3958953820d67d63e3c6cffc4c0ec602ff1e3990b59259acb76d117ff93d",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/scripts/report_charts.py",
+      "archivePath": ".claude/skills/branded-review/scripts/report_charts.py",
+      "sha256": "16cfa8eaff7a9c38b14f7f5a3804f3a26e2a20fed5f5ed2aedd33220b30addd7",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/scripts/report_context.py",
+      "archivePath": ".claude/skills/branded-review/scripts/report_context.py",
+      "sha256": "9d2ee3262d9cf2bc587b70ec589cbb10fe7e424c001ffa16f14d7b41701cdf0e",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/scripts/report_delivery.py",
+      "archivePath": ".claude/skills/branded-review/scripts/report_delivery.py",
+      "sha256": "81ab72e584f71df88d75e32893723ad7bfb9ec9e373f81ba32e980aad5f17947",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/scripts/report_interactions.py",
+      "archivePath": ".claude/skills/branded-review/scripts/report_interactions.py",
+      "sha256": "85078d8ad37cb2f86e2dbb894d1aad9ebc951b92341723fab368d0032cb98928",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/scripts/report_preferences.py",
+      "archivePath": ".claude/skills/branded-review/scripts/report_preferences.py",
+      "sha256": "c48118cfed20b6add5235b33a3421163e9760f22b0d44982924f22d3818d14b4",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/scripts/report_render.py",
+      "archivePath": ".claude/skills/branded-review/scripts/report_render.py",
+      "sha256": "7b85965db0fa6e3bb691e445c2a41fcd1e71244c1e7bf801b581f219a92037b3",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/scripts/report_workspace.py",
+      "archivePath": ".claude/skills/branded-review/scripts/report_workspace.py",
+      "sha256": "0bee4c8edc8626b6566aa7b22937745a7257edb6846dceb39576eb5c81107de6",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/scripts/review_flow.py",
+      "archivePath": ".claude/skills/branded-review/scripts/review_flow.py",
+      "sha256": "11672b1272b7ccdeb5b7dc822a94007f6284faa22af00493207b5cfab6afe311",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/scripts/structure_plan.py",
+      "archivePath": ".claude/skills/branded-review/scripts/structure_plan.py",
+      "sha256": "8c78f4962d57f1a24ec36f7abc3df21d974e6d40f4ad2776b70a224cf2253d3c",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/scripts/target_proposal.py",
+      "archivePath": ".claude/skills/branded-review/scripts/target_proposal.py",
+      "sha256": "84b89e56e2d6bb7e6eeca634fc4df08df54709f7a7f01e1598c0a1b9f26c32d9",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/scripts/transition_progress.py",
+      "archivePath": ".claude/skills/branded-review/scripts/transition_progress.py",
+      "sha256": "3afa2e75f5500ab3d8d8471217b27b66f06841a991ea169b03933a6274c728c2",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/build-segment/SKILL.md",
+      "archivePath": ".claude/skills/build-segment/SKILL.md",
+      "sha256": "6afa038e1ab32408bce663913b0de6a2ef06ae0413b54121672e2a001caf836f",
+      "owner": "skill:build-segment"
+    },
+    {
+      "path": ".claude/skills/campaign-naming-cleanup/SKILL.md",
+      "archivePath": ".claude/skills/campaign-naming-cleanup/SKILL.md",
+      "sha256": "43a00a7358c21a2940ee59ee24917dcd51f8a5cdcad6a49596328a6a9b3f372e",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": ".claude/skills/campaign-naming-cleanup/references/api-and-evidence.md",
+      "archivePath": ".claude/skills/campaign-naming-cleanup/references/api-and-evidence.md",
+      "sha256": "6645669fea79b11856325f1e2c2541403737cac019b2de5ca8a226e9d1a90a48",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": ".claude/skills/campaign-naming-cleanup/references/naming-conventions.md",
+      "archivePath": ".claude/skills/campaign-naming-cleanup/references/naming-conventions.md",
+      "sha256": "0a836fb4a84aa1e3f6931b05f001db7e0c7d57248be729bfd9acbdff2448076e",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": ".claude/skills/campaign-naming-cleanup/references/preferences.md",
+      "archivePath": ".claude/skills/campaign-naming-cleanup/references/preferences.md",
+      "sha256": "56179b119f793cca77e32428745ebd161a17c6b08800ba2c90231752db5c02bb",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": ".claude/skills/campaign-naming-cleanup/scripts/campaign_naming.py",
+      "archivePath": ".claude/skills/campaign-naming-cleanup/scripts/campaign_naming.py",
+      "sha256": "a8ffca5de8f6f05fd2d5c38b8ddcfd22e64efb9ddbf6333566dd4cb7c30c9aff",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": ".claude/skills/check-segments/SKILL.md",
+      "archivePath": ".claude/skills/check-segments/SKILL.md",
+      "sha256": "03c7b9d30d5271a375342c50420765c2de887ee9c0c175929cc232dc8adf9e06",
+      "owner": "skill:check-segments"
+    },
+    {
+      "path": ".claude/skills/create-campaigns/SKILL.md",
+      "archivePath": ".claude/skills/create-campaigns/SKILL.md",
+      "sha256": "06ade09edd94827e8dc7f7db1c85fbb8abedfa0d4bd3d388435e3c2fc7116960",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".claude/skills/create-campaigns/references/conversations.md",
+      "archivePath": ".claude/skills/create-campaigns/references/conversations.md",
+      "sha256": "eda71e0bc7594c47584b50f4d1f8a1e8b923f6bcd910db26c6c2fb1861c3c007",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".claude/skills/create-campaigns/references/launch-validation.md",
+      "archivePath": ".claude/skills/create-campaigns/references/launch-validation.md",
+      "sha256": "853fc61a2ef087273ae1522be7c6c3918860b0b62c6b463d3eb690ba4f76e931",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".claude/skills/create-campaigns/references/preferences.md",
+      "archivePath": ".claude/skills/create-campaigns/references/preferences.md",
+      "sha256": "796430ce2e65ca65fc89095e87f550b232c6df1626270e75ff8627d5d96e2c18",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".claude/skills/create-campaigns/scripts/campaign_structures.py",
+      "archivePath": ".claude/skills/create-campaigns/scripts/campaign_structures.py",
+      "sha256": "d6295ea5d54ca0b8391031ea9de267577f4702a99259849b84a1f815004d140a",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".claude/skills/create-campaigns/scripts/validate_launch.py",
+      "archivePath": ".claude/skills/create-campaigns/scripts/validate_launch.py",
+      "sha256": "8dd3654db08b0791e230f59ecdff1395c5bbc28f61ca16474da515be663ea9bb",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".claude/skills/enrich-account/SKILL.md",
+      "archivePath": ".claude/skills/enrich-account/SKILL.md",
+      "sha256": "91fe1c2563d6823185b03fdee215058d323135e98fcf9d6642ca68f20d0629b9",
+      "owner": "skill:enrich-account"
+    },
+    {
+      "path": ".claude/skills/explain-segment/SKILL.md",
+      "archivePath": ".claude/skills/explain-segment/SKILL.md",
+      "sha256": "9edfb4f74d2a8d76be44ff4b072f20363eccb3e5b031a97a2ef0c33f5a72871d",
+      "owner": "skill:explain-segment"
+    },
+    {
+      "path": ".claude/skills/manage-library/SKILL.md",
+      "archivePath": ".claude/skills/manage-library/SKILL.md",
+      "sha256": "49094f1ac150dda8a34063b1041ef318b218b93e07e702095d6f3e5375cb3ab4",
+      "owner": "skill:manage-library"
+    },
+    {
+      "path": ".claude/skills/manage-library/scripts/install_skill.py",
+      "archivePath": ".claude/skills/manage-library/scripts/install_skill.py",
+      "sha256": "f4f6ece2e76993f95051d799115fce06838b08e6435f9493d18298e5de8783df",
+      "owner": "skill:manage-library"
+    },
+    {
+      "path": ".claude/skills/manage-library/scripts/installed_skills.py",
+      "archivePath": ".claude/skills/manage-library/scripts/installed_skills.py",
+      "sha256": "2c49dbcde4912683d3d05f4fe11dbd714c466d7de0980badb4052069c519e840",
+      "owner": "skill:manage-library"
+    },
+    {
+      "path": ".claude/skills/manage-library/scripts/update_copilot.py",
+      "archivePath": ".claude/skills/manage-library/scripts/update_copilot.py",
+      "sha256": "742ec25e066340bcf631797901b59d7871569c04059933cac9012402b3838d91",
+      "owner": "skill:manage-library"
+    },
+    {
+      "path": ".claude/skills/merchjar-connect/SKILL.md",
+      "archivePath": ".claude/skills/merchjar-connect/SKILL.md",
+      "sha256": "e41c1334eb0edefcdcdde7caa53139617af09d2ea750e65f1fe44a68d1e0b01c",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".claude/skills/merchjar-connect/references/MJ_API_REFERENCE.md",
+      "archivePath": ".claude/skills/merchjar-connect/references/MJ_API_REFERENCE.md",
+      "sha256": "c751f20ce59ae87f6f4ec2e89b200ef8b585aa60004bbe696831c9eaddd5f279",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".claude/skills/merchjar-connect/references/SEGMENT_CREATION_GUIDELINES.md",
+      "archivePath": ".claude/skills/merchjar-connect/references/SEGMENT_CREATION_GUIDELINES.md",
+      "sha256": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".claude/skills/merchjar-connect/references/V2_SYNTAX_REFERENCE.md",
+      "archivePath": ".claude/skills/merchjar-connect/references/V2_SYNTAX_REFERENCE.md",
+      "sha256": "b0dbbe07cc5718c52d8de76715a752a521138013d7f77d348396810680c12558",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".claude/skills/merchjar-connect/references/campaign-naming.md",
+      "archivePath": ".claude/skills/merchjar-connect/references/campaign-naming.md",
+      "sha256": "a7b07c12fc9c06aac6aa0efd8698368efbd50c8050d1af58bb46c62e0eb32955",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".claude/skills/merchjar-connect/scripts/campaign_naming.py",
+      "archivePath": ".claude/skills/merchjar-connect/scripts/campaign_naming.py",
+      "sha256": "89c45f85f4d34a359424620634778c37d4260792135ba508f0bea2de6a2ce1e7",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".claude/skills/merchjar-connect/scripts/merchjar_client.py",
+      "archivePath": ".claude/skills/merchjar-connect/scripts/merchjar_client.py",
+      "sha256": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".claude/skills/performance-check/SKILL.md",
+      "archivePath": ".claude/skills/performance-check/SKILL.md",
+      "sha256": "1c8e3f4d86e75be649043c64fdf106a44dfdcbc48cb0a939a750c2f3b8dc4e69",
+      "owner": "skill:performance-check"
+    },
+    {
+      "path": ".claude/skills/review-segment/SKILL.md",
+      "archivePath": ".claude/skills/review-segment/SKILL.md",
+      "sha256": "f5265299dcc50f80fc56b11b1197ca43f1eb3ece3d12985d8b1aede41458b580",
+      "owner": "skill:review-segment"
+    },
+    {
+      "path": ".claude/skills/troubleshoot/SKILL.md",
+      "archivePath": ".claude/skills/troubleshoot/SKILL.md",
+      "sha256": "4fbf23343049f602ee7d101eb466685f097a1533c6e1e031fe9299258c51d490",
+      "owner": "skill:troubleshoot"
+    },
+    {
+      "path": ".gemini/skills/account-review/SKILL.md",
+      "archivePath": ".gemini/skills/account-review/SKILL.md",
+      "sha256": "dd50421b57ecb89f653e388e5998cdb9257abb7fb23a9650aacdc23ed64941aa",
+      "owner": "skill:account-review"
+    },
+    {
+      "path": ".gemini/skills/audit-log/SKILL.md",
+      "archivePath": ".gemini/skills/audit-log/SKILL.md",
+      "sha256": "aeac300e5e497a91dd297f46f6dc13a73f8539b2afabf8b9a0c1a7f22bcce933",
+      "owner": "skill:audit-log"
+    },
+    {
+      "path": ".gemini/skills/branded-review/LICENSE",
+      "archivePath": ".gemini/skills/branded-review/LICENSE",
+      "sha256": "0359065451177d7adad64d5dfd3823b7ad00c665f2a4619c09543e6a283d8dcd",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/SKILL.md",
+      "archivePath": ".gemini/skills/branded-review/SKILL.md",
+      "sha256": "89f5f224899f505dad471fbc67e498d23e92e05187713f35567c61054df58473",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/START-HERE.md",
+      "archivePath": ".gemini/skills/branded-review/START-HERE.md",
+      "sha256": "d30f61654f635b165dc5bb85d88124c89d5242c231032ccfd269cc851fd29186",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/assets/Inter-LICENSE.txt",
+      "archivePath": ".gemini/skills/branded-review/assets/Inter-LICENSE.txt",
+      "sha256": "262481e844521b326f5ecd053e59b98c8b2da78c8ee1bdbb6e8174305e54935a",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/assets/README.md",
+      "archivePath": ".gemini/skills/branded-review/assets/README.md",
+      "sha256": "83f5d247ed8a7efa5e87c75398d29b55b9e5be003a315fc771224881b5245bed",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/assets/campaign-map.html",
+      "archivePath": ".gemini/skills/branded-review/assets/campaign-map.html",
+      "sha256": "a61c0587aa801aa8867ccbe5588e8dbf30c3327a5f67f0cd6b443d04214f2bea",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/assets/inter.woff2",
+      "archivePath": ".gemini/skills/branded-review/assets/inter.woff2",
+      "sha256": "3100e775e8616cd2611beecfa23a4263d7037586789b43f035236a2e6fbd4c62",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/assets/inventory.js",
+      "archivePath": ".gemini/skills/branded-review/assets/inventory.js",
+      "sha256": "6c2a0b71fcc64603d6bb67d54d119c8aa75779469a113f3929d2e975b1a530a4",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/assets/list-editor.js",
+      "archivePath": ".gemini/skills/branded-review/assets/list-editor.js",
+      "sha256": "b591003855fb26fa7589ebb86ff673d279330bcddb61b4d2194f75c617493d13",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/assets/merchjar-logo.webp",
+      "archivePath": ".gemini/skills/branded-review/assets/merchjar-logo.webp",
+      "sha256": "6a51abaa2450c14ca5ce89420266e6df75564082e4981bedd63f2797148382b3",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/assets/planning-builder.js",
+      "archivePath": ".gemini/skills/branded-review/assets/planning-builder.js",
+      "sha256": "e35d44cedbd943d79078c74013505ad5425cc7027eeed4bcb43c71a8b0dc13f1",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/assets/planning.css",
+      "archivePath": ".gemini/skills/branded-review/assets/planning.css",
+      "sha256": "f79daea52ec6651962e47e62f7bce2f0cdfda51a0c6941522076dda75fdad2cd",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/assets/report-refinements.css",
+      "archivePath": ".gemini/skills/branded-review/assets/report-refinements.css",
+      "sha256": "8f68fec38bdcad1c43ce6d14ce84a313cd33f0bb24191742ab748e508a83d811",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/assets/report-theme.css",
+      "archivePath": ".gemini/skills/branded-review/assets/report-theme.css",
+      "sha256": "fc18be93a299a239fda2c03cdab238ddfc4c5411257cf0b3d59b0f055cc68afb",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/assets/report.css",
+      "archivePath": ".gemini/skills/branded-review/assets/report.css",
+      "sha256": "65d7d464e88edb0a6e6032ac8f7e9874f722a0844f79fad1016c11bb8c6b56d0",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/assets/simulation.js",
+      "archivePath": ".gemini/skills/branded-review/assets/simulation.js",
+      "sha256": "1d7660250eb0641a02d2779dc7f1f1653f186e018de0f71eccd88e8153cd33b4",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/assets/structure-options.js",
+      "archivePath": ".gemini/skills/branded-review/assets/structure-options.js",
+      "sha256": "8737551fafff4a60d1516a6dd48010044a8bbcde91f285c4bca525132353084b",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/assets/workspace.css",
+      "archivePath": ".gemini/skills/branded-review/assets/workspace.css",
+      "sha256": "0e559a40e5793765347e6f1e1700dd39c4173b758fc62547ab162eb4154b70c7",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/examples/advertised-products.csv",
+      "archivePath": ".gemini/skills/branded-review/examples/advertised-products.csv",
+      "sha256": "0022f4ee21dfa7d045feb3ffdf5532f055d064f0a989d29a7e0a24356556dee1",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/examples/brand-reference.json",
+      "archivePath": ".gemini/skills/branded-review/examples/brand-reference.json",
+      "sha256": "d0c7d95d508cdea58aaabd613dcea2524a6247c983ff49a2290e8d9f229674e4",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/examples/search-terms.csv",
+      "archivePath": ".gemini/skills/branded-review/examples/search-terms.csv",
+      "sha256": "4d2aeeecd0deb66aa4aed76121f3a7ef22637a4e1348df80537fee62d20ff3a8",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/examples/targeting.csv",
+      "archivePath": ".gemini/skills/branded-review/examples/targeting.csv",
+      "sha256": "45f46c049ecaba25c07f1011394c93c7205f5e14369003341508dc33da9032c9",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/references/analysis-and-output.md",
+      "archivePath": ".gemini/skills/branded-review/references/analysis-and-output.md",
+      "sha256": "b393383894546e9c89f05c22d1ddcbb328ebc0ed5950622845da5ce7739f7310",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/references/brand-exclusions.md",
+      "archivePath": ".gemini/skills/branded-review/references/brand-exclusions.md",
+      "sha256": "8f49ad87d75d1ae7990cc09abe61ce786a7c1d2b1afd69ea735383509cc1af5a",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/references/campaign-map.md",
+      "archivePath": ".gemini/skills/branded-review/references/campaign-map.md",
+      "sha256": "38c9a85b421dc59d3ef2c3c4a055d9592aa55b6351e35d97b633de4b08c15cd0",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/references/connected.md",
+      "archivePath": ".gemini/skills/branded-review/references/connected.md",
+      "sha256": "d320ef27ec6c737a4ceb636a3ea30ee1306ebc01e52ec61507fdcffcd9a3a3ed",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/references/conversation.md",
+      "archivePath": ".gemini/skills/branded-review/references/conversation.md",
+      "sha256": "beeb4adc06aa9c0243c5077838df4480d25ecf95903b695870f379c1e01a7fae",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/references/handoff.md",
+      "archivePath": ".gemini/skills/branded-review/references/handoff.md",
+      "sha256": "750f9c04afdd5d91faf1a6ecf7853e595b343991ed3723880207a51f5d08ad9d",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/references/migration.md",
+      "archivePath": ".gemini/skills/branded-review/references/migration.md",
+      "sha256": "d190eee5ff08d253437a9dd9bc859801d0656291ce17b94546c174a5b793f076",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/references/negative-inventory.md",
+      "archivePath": ".gemini/skills/branded-review/references/negative-inventory.md",
+      "sha256": "9b71aa490ae4e159cefc9c3e21814012d5451a875b3814fa9d12afd80f201589",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/references/privacy-and-demo.md",
+      "archivePath": ".gemini/skills/branded-review/references/privacy-and-demo.md",
+      "sha256": "4ba768162a8c03a78a7ccdad525fc67f14ebfab5e996ffa1d89e8582b837afb0",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/references/product-structure.md",
+      "archivePath": ".gemini/skills/branded-review/references/product-structure.md",
+      "sha256": "c9fd30c9fd7c32bc5fa2af32387de4613cfcc964f522f628041a4859b1025b60",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/references/queries.json",
+      "archivePath": ".gemini/skills/branded-review/references/queries.json",
+      "sha256": "ce8fbb2c2f08ff1f04098cfab8d07ebd34fdf7645c37acc38687e1351e85092d",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/references/recommendations.md",
+      "archivePath": ".gemini/skills/branded-review/references/recommendations.md",
+      "sha256": "a1434483341a0fcc5789a6cde0d19a3126d8767e81789c34a11643c36f7e7e0c",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/references/report-delivery.md",
+      "archivePath": ".gemini/skills/branded-review/references/report-delivery.md",
+      "sha256": "f45f648e6037e47abd53c994b9b72ee36c3e663ce9fde1f3a1fc8b7d43cfbae6",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/references/report-inputs.md",
+      "archivePath": ".gemini/skills/branded-review/references/report-inputs.md",
+      "sha256": "cec8612d029eae426fcb405fa5c3bbdd264abaaf63897251472bb6a3b66a6628",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/references/report-preferences.md",
+      "archivePath": ".gemini/skills/branded-review/references/report-preferences.md",
+      "sha256": "2986fa9ac655dd6181a80669e6c28a4f5337a4159bf68510253ac045c5a31697",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/references/report-workspace.md",
+      "archivePath": ".gemini/skills/branded-review/references/report-workspace.md",
+      "sha256": "c8780f12ccf439b2ceb8be4e717e482c98d0bf3ea1d510c99053ea51be206d03",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/scripts/analyze_search_terms.py",
+      "archivePath": ".gemini/skills/branded-review/scripts/analyze_search_terms.py",
+      "sha256": "3ad52baf795d88ba1f7eb4e8656b185a40f730342b251e8e34cf7422af9680b5",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/scripts/anonymized_demo.py",
+      "archivePath": ".gemini/skills/branded-review/scripts/anonymized_demo.py",
+      "sha256": "c5fcfafc144a05aebda1ff78844c8d0be93fd1087954ca3b50613db302744465",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/scripts/brand_exclusions.py",
+      "archivePath": ".gemini/skills/branded-review/scripts/brand_exclusions.py",
+      "sha256": "0d875ed262c129462c0784e77df204fb7b4fa81ce242ea121b2dfd84b7d05a96",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/scripts/campaign_map.py",
+      "archivePath": ".gemini/skills/branded-review/scripts/campaign_map.py",
+      "sha256": "6a004799934f747b5091a101f70d5ab979c8bcb5144704a9a9d1bec42c29ee9a",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/scripts/connected_report.py",
+      "archivePath": ".gemini/skills/branded-review/scripts/connected_report.py",
+      "sha256": "03b4c827a7e09824b157eafe56c24b6f28e4cb9d44020cb3565ab57515fa804e",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/scripts/connection_context.py",
+      "archivePath": ".gemini/skills/branded-review/scripts/connection_context.py",
+      "sha256": "428bd2f497e82998dcab96b27357de66f5b47f5a23b04914bfaa9fd6201358d6",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/scripts/demo_walkthrough.py",
+      "archivePath": ".gemini/skills/branded-review/scripts/demo_walkthrough.py",
+      "sha256": "a5caa943ab53d985c3ee16c7ae060acdf791cfb95b2d9fbf370c70c71fcfa6c4",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/scripts/migration_plan.py",
+      "archivePath": ".gemini/skills/branded-review/scripts/migration_plan.py",
+      "sha256": "85c4434af7cd6ce88bbcc0b6e692f8d9f2af0bb35623c24269bea2c52ebaa751",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/scripts/plan_campaigns.py",
+      "archivePath": ".gemini/skills/branded-review/scripts/plan_campaigns.py",
+      "sha256": "1774badd9eac601b73eca1d7d36432c26afa725ac3ab05419d98876c5b9deeed",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/scripts/planning_options.py",
+      "archivePath": ".gemini/skills/branded-review/scripts/planning_options.py",
+      "sha256": "1090d57aefdd4b3c6e54545b32087f1f48f1670b2a0aef056d0ec7b4ea2c0afc",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/scripts/planning_view.py",
+      "archivePath": ".gemini/skills/branded-review/scripts/planning_view.py",
+      "sha256": "a85c7e9671b860df6efc201399b43389a8f93523a42b960659898b562d98cee6",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/scripts/privacy_report.py",
+      "archivePath": ".gemini/skills/branded-review/scripts/privacy_report.py",
+      "sha256": "9aee3958953820d67d63e3c6cffc4c0ec602ff1e3990b59259acb76d117ff93d",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/scripts/report_charts.py",
+      "archivePath": ".gemini/skills/branded-review/scripts/report_charts.py",
+      "sha256": "16cfa8eaff7a9c38b14f7f5a3804f3a26e2a20fed5f5ed2aedd33220b30addd7",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/scripts/report_context.py",
+      "archivePath": ".gemini/skills/branded-review/scripts/report_context.py",
+      "sha256": "9d2ee3262d9cf2bc587b70ec589cbb10fe7e424c001ffa16f14d7b41701cdf0e",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/scripts/report_delivery.py",
+      "archivePath": ".gemini/skills/branded-review/scripts/report_delivery.py",
+      "sha256": "81ab72e584f71df88d75e32893723ad7bfb9ec9e373f81ba32e980aad5f17947",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/scripts/report_interactions.py",
+      "archivePath": ".gemini/skills/branded-review/scripts/report_interactions.py",
+      "sha256": "85078d8ad37cb2f86e2dbb894d1aad9ebc951b92341723fab368d0032cb98928",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/scripts/report_preferences.py",
+      "archivePath": ".gemini/skills/branded-review/scripts/report_preferences.py",
+      "sha256": "c48118cfed20b6add5235b33a3421163e9760f22b0d44982924f22d3818d14b4",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/scripts/report_render.py",
+      "archivePath": ".gemini/skills/branded-review/scripts/report_render.py",
+      "sha256": "7b85965db0fa6e3bb691e445c2a41fcd1e71244c1e7bf801b581f219a92037b3",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/scripts/report_workspace.py",
+      "archivePath": ".gemini/skills/branded-review/scripts/report_workspace.py",
+      "sha256": "0bee4c8edc8626b6566aa7b22937745a7257edb6846dceb39576eb5c81107de6",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/scripts/review_flow.py",
+      "archivePath": ".gemini/skills/branded-review/scripts/review_flow.py",
+      "sha256": "11672b1272b7ccdeb5b7dc822a94007f6284faa22af00493207b5cfab6afe311",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/scripts/structure_plan.py",
+      "archivePath": ".gemini/skills/branded-review/scripts/structure_plan.py",
+      "sha256": "8c78f4962d57f1a24ec36f7abc3df21d974e6d40f4ad2776b70a224cf2253d3c",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/scripts/target_proposal.py",
+      "archivePath": ".gemini/skills/branded-review/scripts/target_proposal.py",
+      "sha256": "84b89e56e2d6bb7e6eeca634fc4df08df54709f7a7f01e1598c0a1b9f26c32d9",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/scripts/transition_progress.py",
+      "archivePath": ".gemini/skills/branded-review/scripts/transition_progress.py",
+      "sha256": "3afa2e75f5500ab3d8d8471217b27b66f06841a991ea169b03933a6274c728c2",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/build-segment/SKILL.md",
+      "archivePath": ".gemini/skills/build-segment/SKILL.md",
+      "sha256": "6afa038e1ab32408bce663913b0de6a2ef06ae0413b54121672e2a001caf836f",
+      "owner": "skill:build-segment"
+    },
+    {
+      "path": ".gemini/skills/campaign-naming-cleanup/SKILL.md",
+      "archivePath": ".gemini/skills/campaign-naming-cleanup/SKILL.md",
+      "sha256": "43a00a7358c21a2940ee59ee24917dcd51f8a5cdcad6a49596328a6a9b3f372e",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": ".gemini/skills/campaign-naming-cleanup/references/api-and-evidence.md",
+      "archivePath": ".gemini/skills/campaign-naming-cleanup/references/api-and-evidence.md",
+      "sha256": "6645669fea79b11856325f1e2c2541403737cac019b2de5ca8a226e9d1a90a48",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": ".gemini/skills/campaign-naming-cleanup/references/naming-conventions.md",
+      "archivePath": ".gemini/skills/campaign-naming-cleanup/references/naming-conventions.md",
+      "sha256": "0a836fb4a84aa1e3f6931b05f001db7e0c7d57248be729bfd9acbdff2448076e",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": ".gemini/skills/campaign-naming-cleanup/references/preferences.md",
+      "archivePath": ".gemini/skills/campaign-naming-cleanup/references/preferences.md",
+      "sha256": "56179b119f793cca77e32428745ebd161a17c6b08800ba2c90231752db5c02bb",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": ".gemini/skills/campaign-naming-cleanup/scripts/campaign_naming.py",
+      "archivePath": ".gemini/skills/campaign-naming-cleanup/scripts/campaign_naming.py",
+      "sha256": "a8ffca5de8f6f05fd2d5c38b8ddcfd22e64efb9ddbf6333566dd4cb7c30c9aff",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": ".gemini/skills/check-segments/SKILL.md",
+      "archivePath": ".gemini/skills/check-segments/SKILL.md",
+      "sha256": "03c7b9d30d5271a375342c50420765c2de887ee9c0c175929cc232dc8adf9e06",
+      "owner": "skill:check-segments"
+    },
+    {
+      "path": ".gemini/skills/create-campaigns/SKILL.md",
+      "archivePath": ".gemini/skills/create-campaigns/SKILL.md",
+      "sha256": "06ade09edd94827e8dc7f7db1c85fbb8abedfa0d4bd3d388435e3c2fc7116960",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".gemini/skills/create-campaigns/references/conversations.md",
+      "archivePath": ".gemini/skills/create-campaigns/references/conversations.md",
+      "sha256": "eda71e0bc7594c47584b50f4d1f8a1e8b923f6bcd910db26c6c2fb1861c3c007",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".gemini/skills/create-campaigns/references/launch-validation.md",
+      "archivePath": ".gemini/skills/create-campaigns/references/launch-validation.md",
+      "sha256": "853fc61a2ef087273ae1522be7c6c3918860b0b62c6b463d3eb690ba4f76e931",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".gemini/skills/create-campaigns/references/preferences.md",
+      "archivePath": ".gemini/skills/create-campaigns/references/preferences.md",
+      "sha256": "796430ce2e65ca65fc89095e87f550b232c6df1626270e75ff8627d5d96e2c18",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".gemini/skills/create-campaigns/scripts/campaign_structures.py",
+      "archivePath": ".gemini/skills/create-campaigns/scripts/campaign_structures.py",
+      "sha256": "d6295ea5d54ca0b8391031ea9de267577f4702a99259849b84a1f815004d140a",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".gemini/skills/create-campaigns/scripts/validate_launch.py",
+      "archivePath": ".gemini/skills/create-campaigns/scripts/validate_launch.py",
+      "sha256": "8dd3654db08b0791e230f59ecdff1395c5bbc28f61ca16474da515be663ea9bb",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".gemini/skills/enrich-account/SKILL.md",
+      "archivePath": ".gemini/skills/enrich-account/SKILL.md",
+      "sha256": "91fe1c2563d6823185b03fdee215058d323135e98fcf9d6642ca68f20d0629b9",
+      "owner": "skill:enrich-account"
+    },
+    {
+      "path": ".gemini/skills/explain-segment/SKILL.md",
+      "archivePath": ".gemini/skills/explain-segment/SKILL.md",
+      "sha256": "9edfb4f74d2a8d76be44ff4b072f20363eccb3e5b031a97a2ef0c33f5a72871d",
+      "owner": "skill:explain-segment"
+    },
+    {
+      "path": ".gemini/skills/manage-library/SKILL.md",
+      "archivePath": ".gemini/skills/manage-library/SKILL.md",
+      "sha256": "49094f1ac150dda8a34063b1041ef318b218b93e07e702095d6f3e5375cb3ab4",
+      "owner": "skill:manage-library"
+    },
+    {
+      "path": ".gemini/skills/manage-library/scripts/install_skill.py",
+      "archivePath": ".gemini/skills/manage-library/scripts/install_skill.py",
+      "sha256": "f4f6ece2e76993f95051d799115fce06838b08e6435f9493d18298e5de8783df",
+      "owner": "skill:manage-library"
+    },
+    {
+      "path": ".gemini/skills/manage-library/scripts/installed_skills.py",
+      "archivePath": ".gemini/skills/manage-library/scripts/installed_skills.py",
+      "sha256": "2c49dbcde4912683d3d05f4fe11dbd714c466d7de0980badb4052069c519e840",
+      "owner": "skill:manage-library"
+    },
+    {
+      "path": ".gemini/skills/manage-library/scripts/update_copilot.py",
+      "archivePath": ".gemini/skills/manage-library/scripts/update_copilot.py",
+      "sha256": "742ec25e066340bcf631797901b59d7871569c04059933cac9012402b3838d91",
+      "owner": "skill:manage-library"
+    },
+    {
+      "path": ".gemini/skills/merchjar-connect/SKILL.md",
+      "archivePath": ".gemini/skills/merchjar-connect/SKILL.md",
+      "sha256": "e41c1334eb0edefcdcdde7caa53139617af09d2ea750e65f1fe44a68d1e0b01c",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".gemini/skills/merchjar-connect/references/MJ_API_REFERENCE.md",
+      "archivePath": ".gemini/skills/merchjar-connect/references/MJ_API_REFERENCE.md",
+      "sha256": "c751f20ce59ae87f6f4ec2e89b200ef8b585aa60004bbe696831c9eaddd5f279",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".gemini/skills/merchjar-connect/references/SEGMENT_CREATION_GUIDELINES.md",
+      "archivePath": ".gemini/skills/merchjar-connect/references/SEGMENT_CREATION_GUIDELINES.md",
+      "sha256": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".gemini/skills/merchjar-connect/references/V2_SYNTAX_REFERENCE.md",
+      "archivePath": ".gemini/skills/merchjar-connect/references/V2_SYNTAX_REFERENCE.md",
+      "sha256": "b0dbbe07cc5718c52d8de76715a752a521138013d7f77d348396810680c12558",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".gemini/skills/merchjar-connect/references/campaign-naming.md",
+      "archivePath": ".gemini/skills/merchjar-connect/references/campaign-naming.md",
+      "sha256": "a7b07c12fc9c06aac6aa0efd8698368efbd50c8050d1af58bb46c62e0eb32955",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".gemini/skills/merchjar-connect/scripts/campaign_naming.py",
+      "archivePath": ".gemini/skills/merchjar-connect/scripts/campaign_naming.py",
+      "sha256": "89c45f85f4d34a359424620634778c37d4260792135ba508f0bea2de6a2ce1e7",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".gemini/skills/merchjar-connect/scripts/merchjar_client.py",
+      "archivePath": ".gemini/skills/merchjar-connect/scripts/merchjar_client.py",
+      "sha256": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".gemini/skills/performance-check/SKILL.md",
+      "archivePath": ".gemini/skills/performance-check/SKILL.md",
+      "sha256": "1c8e3f4d86e75be649043c64fdf106a44dfdcbc48cb0a939a750c2f3b8dc4e69",
+      "owner": "skill:performance-check"
+    },
+    {
+      "path": ".gemini/skills/review-segment/SKILL.md",
+      "archivePath": ".gemini/skills/review-segment/SKILL.md",
+      "sha256": "f5265299dcc50f80fc56b11b1197ca43f1eb3ece3d12985d8b1aede41458b580",
+      "owner": "skill:review-segment"
+    },
+    {
+      "path": ".gemini/skills/troubleshoot/SKILL.md",
+      "archivePath": ".gemini/skills/troubleshoot/SKILL.md",
+      "sha256": "4fbf23343049f602ee7d101eb466685f097a1533c6e1e031fe9299258c51d490",
+      "owner": "skill:troubleshoot"
+    },
+    {
+      "path": ".github/skills/account-review/SKILL.md",
+      "archivePath": ".github/skills/account-review/SKILL.md",
+      "sha256": "dd50421b57ecb89f653e388e5998cdb9257abb7fb23a9650aacdc23ed64941aa",
+      "owner": "skill:account-review"
+    },
+    {
+      "path": ".github/skills/audit-log/SKILL.md",
+      "archivePath": ".github/skills/audit-log/SKILL.md",
+      "sha256": "aeac300e5e497a91dd297f46f6dc13a73f8539b2afabf8b9a0c1a7f22bcce933",
+      "owner": "skill:audit-log"
+    },
+    {
+      "path": ".github/skills/branded-review/LICENSE",
+      "archivePath": ".github/skills/branded-review/LICENSE",
+      "sha256": "0359065451177d7adad64d5dfd3823b7ad00c665f2a4619c09543e6a283d8dcd",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/SKILL.md",
+      "archivePath": ".github/skills/branded-review/SKILL.md",
+      "sha256": "89f5f224899f505dad471fbc67e498d23e92e05187713f35567c61054df58473",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/START-HERE.md",
+      "archivePath": ".github/skills/branded-review/START-HERE.md",
+      "sha256": "d30f61654f635b165dc5bb85d88124c89d5242c231032ccfd269cc851fd29186",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/assets/Inter-LICENSE.txt",
+      "archivePath": ".github/skills/branded-review/assets/Inter-LICENSE.txt",
+      "sha256": "262481e844521b326f5ecd053e59b98c8b2da78c8ee1bdbb6e8174305e54935a",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/assets/README.md",
+      "archivePath": ".github/skills/branded-review/assets/README.md",
+      "sha256": "83f5d247ed8a7efa5e87c75398d29b55b9e5be003a315fc771224881b5245bed",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/assets/campaign-map.html",
+      "archivePath": ".github/skills/branded-review/assets/campaign-map.html",
+      "sha256": "a61c0587aa801aa8867ccbe5588e8dbf30c3327a5f67f0cd6b443d04214f2bea",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/assets/inter.woff2",
+      "archivePath": ".github/skills/branded-review/assets/inter.woff2",
+      "sha256": "3100e775e8616cd2611beecfa23a4263d7037586789b43f035236a2e6fbd4c62",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/assets/inventory.js",
+      "archivePath": ".github/skills/branded-review/assets/inventory.js",
+      "sha256": "6c2a0b71fcc64603d6bb67d54d119c8aa75779469a113f3929d2e975b1a530a4",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/assets/list-editor.js",
+      "archivePath": ".github/skills/branded-review/assets/list-editor.js",
+      "sha256": "b591003855fb26fa7589ebb86ff673d279330bcddb61b4d2194f75c617493d13",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/assets/merchjar-logo.webp",
+      "archivePath": ".github/skills/branded-review/assets/merchjar-logo.webp",
+      "sha256": "6a51abaa2450c14ca5ce89420266e6df75564082e4981bedd63f2797148382b3",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/assets/planning-builder.js",
+      "archivePath": ".github/skills/branded-review/assets/planning-builder.js",
+      "sha256": "e35d44cedbd943d79078c74013505ad5425cc7027eeed4bcb43c71a8b0dc13f1",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/assets/planning.css",
+      "archivePath": ".github/skills/branded-review/assets/planning.css",
+      "sha256": "f79daea52ec6651962e47e62f7bce2f0cdfda51a0c6941522076dda75fdad2cd",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/assets/report-refinements.css",
+      "archivePath": ".github/skills/branded-review/assets/report-refinements.css",
+      "sha256": "8f68fec38bdcad1c43ce6d14ce84a313cd33f0bb24191742ab748e508a83d811",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/assets/report-theme.css",
+      "archivePath": ".github/skills/branded-review/assets/report-theme.css",
+      "sha256": "fc18be93a299a239fda2c03cdab238ddfc4c5411257cf0b3d59b0f055cc68afb",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/assets/report.css",
+      "archivePath": ".github/skills/branded-review/assets/report.css",
+      "sha256": "65d7d464e88edb0a6e6032ac8f7e9874f722a0844f79fad1016c11bb8c6b56d0",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/assets/simulation.js",
+      "archivePath": ".github/skills/branded-review/assets/simulation.js",
+      "sha256": "1d7660250eb0641a02d2779dc7f1f1653f186e018de0f71eccd88e8153cd33b4",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/assets/structure-options.js",
+      "archivePath": ".github/skills/branded-review/assets/structure-options.js",
+      "sha256": "8737551fafff4a60d1516a6dd48010044a8bbcde91f285c4bca525132353084b",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/assets/workspace.css",
+      "archivePath": ".github/skills/branded-review/assets/workspace.css",
+      "sha256": "0e559a40e5793765347e6f1e1700dd39c4173b758fc62547ab162eb4154b70c7",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/examples/advertised-products.csv",
+      "archivePath": ".github/skills/branded-review/examples/advertised-products.csv",
+      "sha256": "0022f4ee21dfa7d045feb3ffdf5532f055d064f0a989d29a7e0a24356556dee1",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/examples/brand-reference.json",
+      "archivePath": ".github/skills/branded-review/examples/brand-reference.json",
+      "sha256": "d0c7d95d508cdea58aaabd613dcea2524a6247c983ff49a2290e8d9f229674e4",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/examples/search-terms.csv",
+      "archivePath": ".github/skills/branded-review/examples/search-terms.csv",
+      "sha256": "4d2aeeecd0deb66aa4aed76121f3a7ef22637a4e1348df80537fee62d20ff3a8",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/examples/targeting.csv",
+      "archivePath": ".github/skills/branded-review/examples/targeting.csv",
+      "sha256": "45f46c049ecaba25c07f1011394c93c7205f5e14369003341508dc33da9032c9",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/references/analysis-and-output.md",
+      "archivePath": ".github/skills/branded-review/references/analysis-and-output.md",
+      "sha256": "b393383894546e9c89f05c22d1ddcbb328ebc0ed5950622845da5ce7739f7310",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/references/brand-exclusions.md",
+      "archivePath": ".github/skills/branded-review/references/brand-exclusions.md",
+      "sha256": "8f49ad87d75d1ae7990cc09abe61ce786a7c1d2b1afd69ea735383509cc1af5a",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/references/campaign-map.md",
+      "archivePath": ".github/skills/branded-review/references/campaign-map.md",
+      "sha256": "38c9a85b421dc59d3ef2c3c4a055d9592aa55b6351e35d97b633de4b08c15cd0",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/references/connected.md",
+      "archivePath": ".github/skills/branded-review/references/connected.md",
+      "sha256": "d320ef27ec6c737a4ceb636a3ea30ee1306ebc01e52ec61507fdcffcd9a3a3ed",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/references/conversation.md",
+      "archivePath": ".github/skills/branded-review/references/conversation.md",
+      "sha256": "beeb4adc06aa9c0243c5077838df4480d25ecf95903b695870f379c1e01a7fae",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/references/handoff.md",
+      "archivePath": ".github/skills/branded-review/references/handoff.md",
+      "sha256": "750f9c04afdd5d91faf1a6ecf7853e595b343991ed3723880207a51f5d08ad9d",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/references/migration.md",
+      "archivePath": ".github/skills/branded-review/references/migration.md",
+      "sha256": "d190eee5ff08d253437a9dd9bc859801d0656291ce17b94546c174a5b793f076",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/references/negative-inventory.md",
+      "archivePath": ".github/skills/branded-review/references/negative-inventory.md",
+      "sha256": "9b71aa490ae4e159cefc9c3e21814012d5451a875b3814fa9d12afd80f201589",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/references/privacy-and-demo.md",
+      "archivePath": ".github/skills/branded-review/references/privacy-and-demo.md",
+      "sha256": "4ba768162a8c03a78a7ccdad525fc67f14ebfab5e996ffa1d89e8582b837afb0",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/references/product-structure.md",
+      "archivePath": ".github/skills/branded-review/references/product-structure.md",
+      "sha256": "c9fd30c9fd7c32bc5fa2af32387de4613cfcc964f522f628041a4859b1025b60",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/references/queries.json",
+      "archivePath": ".github/skills/branded-review/references/queries.json",
+      "sha256": "ce8fbb2c2f08ff1f04098cfab8d07ebd34fdf7645c37acc38687e1351e85092d",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/references/recommendations.md",
+      "archivePath": ".github/skills/branded-review/references/recommendations.md",
+      "sha256": "a1434483341a0fcc5789a6cde0d19a3126d8767e81789c34a11643c36f7e7e0c",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/references/report-delivery.md",
+      "archivePath": ".github/skills/branded-review/references/report-delivery.md",
+      "sha256": "f45f648e6037e47abd53c994b9b72ee36c3e663ce9fde1f3a1fc8b7d43cfbae6",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/references/report-inputs.md",
+      "archivePath": ".github/skills/branded-review/references/report-inputs.md",
+      "sha256": "cec8612d029eae426fcb405fa5c3bbdd264abaaf63897251472bb6a3b66a6628",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/references/report-preferences.md",
+      "archivePath": ".github/skills/branded-review/references/report-preferences.md",
+      "sha256": "2986fa9ac655dd6181a80669e6c28a4f5337a4159bf68510253ac045c5a31697",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/references/report-workspace.md",
+      "archivePath": ".github/skills/branded-review/references/report-workspace.md",
+      "sha256": "c8780f12ccf439b2ceb8be4e717e482c98d0bf3ea1d510c99053ea51be206d03",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/scripts/analyze_search_terms.py",
+      "archivePath": ".github/skills/branded-review/scripts/analyze_search_terms.py",
+      "sha256": "3ad52baf795d88ba1f7eb4e8656b185a40f730342b251e8e34cf7422af9680b5",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/scripts/anonymized_demo.py",
+      "archivePath": ".github/skills/branded-review/scripts/anonymized_demo.py",
+      "sha256": "c5fcfafc144a05aebda1ff78844c8d0be93fd1087954ca3b50613db302744465",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/scripts/brand_exclusions.py",
+      "archivePath": ".github/skills/branded-review/scripts/brand_exclusions.py",
+      "sha256": "0d875ed262c129462c0784e77df204fb7b4fa81ce242ea121b2dfd84b7d05a96",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/scripts/campaign_map.py",
+      "archivePath": ".github/skills/branded-review/scripts/campaign_map.py",
+      "sha256": "6a004799934f747b5091a101f70d5ab979c8bcb5144704a9a9d1bec42c29ee9a",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/scripts/connected_report.py",
+      "archivePath": ".github/skills/branded-review/scripts/connected_report.py",
+      "sha256": "03b4c827a7e09824b157eafe56c24b6f28e4cb9d44020cb3565ab57515fa804e",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/scripts/connection_context.py",
+      "archivePath": ".github/skills/branded-review/scripts/connection_context.py",
+      "sha256": "428bd2f497e82998dcab96b27357de66f5b47f5a23b04914bfaa9fd6201358d6",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/scripts/demo_walkthrough.py",
+      "archivePath": ".github/skills/branded-review/scripts/demo_walkthrough.py",
+      "sha256": "a5caa943ab53d985c3ee16c7ae060acdf791cfb95b2d9fbf370c70c71fcfa6c4",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/scripts/migration_plan.py",
+      "archivePath": ".github/skills/branded-review/scripts/migration_plan.py",
+      "sha256": "85c4434af7cd6ce88bbcc0b6e692f8d9f2af0bb35623c24269bea2c52ebaa751",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/scripts/plan_campaigns.py",
+      "archivePath": ".github/skills/branded-review/scripts/plan_campaigns.py",
+      "sha256": "1774badd9eac601b73eca1d7d36432c26afa725ac3ab05419d98876c5b9deeed",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/scripts/planning_options.py",
+      "archivePath": ".github/skills/branded-review/scripts/planning_options.py",
+      "sha256": "1090d57aefdd4b3c6e54545b32087f1f48f1670b2a0aef056d0ec7b4ea2c0afc",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/scripts/planning_view.py",
+      "archivePath": ".github/skills/branded-review/scripts/planning_view.py",
+      "sha256": "a85c7e9671b860df6efc201399b43389a8f93523a42b960659898b562d98cee6",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/scripts/privacy_report.py",
+      "archivePath": ".github/skills/branded-review/scripts/privacy_report.py",
+      "sha256": "9aee3958953820d67d63e3c6cffc4c0ec602ff1e3990b59259acb76d117ff93d",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/scripts/report_charts.py",
+      "archivePath": ".github/skills/branded-review/scripts/report_charts.py",
+      "sha256": "16cfa8eaff7a9c38b14f7f5a3804f3a26e2a20fed5f5ed2aedd33220b30addd7",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/scripts/report_context.py",
+      "archivePath": ".github/skills/branded-review/scripts/report_context.py",
+      "sha256": "9d2ee3262d9cf2bc587b70ec589cbb10fe7e424c001ffa16f14d7b41701cdf0e",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/scripts/report_delivery.py",
+      "archivePath": ".github/skills/branded-review/scripts/report_delivery.py",
+      "sha256": "81ab72e584f71df88d75e32893723ad7bfb9ec9e373f81ba32e980aad5f17947",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/scripts/report_interactions.py",
+      "archivePath": ".github/skills/branded-review/scripts/report_interactions.py",
+      "sha256": "85078d8ad37cb2f86e2dbb894d1aad9ebc951b92341723fab368d0032cb98928",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/scripts/report_preferences.py",
+      "archivePath": ".github/skills/branded-review/scripts/report_preferences.py",
+      "sha256": "c48118cfed20b6add5235b33a3421163e9760f22b0d44982924f22d3818d14b4",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/scripts/report_render.py",
+      "archivePath": ".github/skills/branded-review/scripts/report_render.py",
+      "sha256": "7b85965db0fa6e3bb691e445c2a41fcd1e71244c1e7bf801b581f219a92037b3",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/scripts/report_workspace.py",
+      "archivePath": ".github/skills/branded-review/scripts/report_workspace.py",
+      "sha256": "0bee4c8edc8626b6566aa7b22937745a7257edb6846dceb39576eb5c81107de6",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/scripts/review_flow.py",
+      "archivePath": ".github/skills/branded-review/scripts/review_flow.py",
+      "sha256": "11672b1272b7ccdeb5b7dc822a94007f6284faa22af00493207b5cfab6afe311",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/scripts/structure_plan.py",
+      "archivePath": ".github/skills/branded-review/scripts/structure_plan.py",
+      "sha256": "8c78f4962d57f1a24ec36f7abc3df21d974e6d40f4ad2776b70a224cf2253d3c",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/scripts/target_proposal.py",
+      "archivePath": ".github/skills/branded-review/scripts/target_proposal.py",
+      "sha256": "84b89e56e2d6bb7e6eeca634fc4df08df54709f7a7f01e1598c0a1b9f26c32d9",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/scripts/transition_progress.py",
+      "archivePath": ".github/skills/branded-review/scripts/transition_progress.py",
+      "sha256": "3afa2e75f5500ab3d8d8471217b27b66f06841a991ea169b03933a6274c728c2",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/build-segment/SKILL.md",
+      "archivePath": ".github/skills/build-segment/SKILL.md",
+      "sha256": "6afa038e1ab32408bce663913b0de6a2ef06ae0413b54121672e2a001caf836f",
+      "owner": "skill:build-segment"
+    },
+    {
+      "path": ".github/skills/campaign-naming-cleanup/SKILL.md",
+      "archivePath": ".github/skills/campaign-naming-cleanup/SKILL.md",
+      "sha256": "43a00a7358c21a2940ee59ee24917dcd51f8a5cdcad6a49596328a6a9b3f372e",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": ".github/skills/campaign-naming-cleanup/references/api-and-evidence.md",
+      "archivePath": ".github/skills/campaign-naming-cleanup/references/api-and-evidence.md",
+      "sha256": "6645669fea79b11856325f1e2c2541403737cac019b2de5ca8a226e9d1a90a48",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": ".github/skills/campaign-naming-cleanup/references/naming-conventions.md",
+      "archivePath": ".github/skills/campaign-naming-cleanup/references/naming-conventions.md",
+      "sha256": "0a836fb4a84aa1e3f6931b05f001db7e0c7d57248be729bfd9acbdff2448076e",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": ".github/skills/campaign-naming-cleanup/references/preferences.md",
+      "archivePath": ".github/skills/campaign-naming-cleanup/references/preferences.md",
+      "sha256": "56179b119f793cca77e32428745ebd161a17c6b08800ba2c90231752db5c02bb",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": ".github/skills/campaign-naming-cleanup/scripts/campaign_naming.py",
+      "archivePath": ".github/skills/campaign-naming-cleanup/scripts/campaign_naming.py",
+      "sha256": "a8ffca5de8f6f05fd2d5c38b8ddcfd22e64efb9ddbf6333566dd4cb7c30c9aff",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": ".github/skills/check-segments/SKILL.md",
+      "archivePath": ".github/skills/check-segments/SKILL.md",
+      "sha256": "03c7b9d30d5271a375342c50420765c2de887ee9c0c175929cc232dc8adf9e06",
+      "owner": "skill:check-segments"
+    },
+    {
+      "path": ".github/skills/create-campaigns/SKILL.md",
+      "archivePath": ".github/skills/create-campaigns/SKILL.md",
+      "sha256": "06ade09edd94827e8dc7f7db1c85fbb8abedfa0d4bd3d388435e3c2fc7116960",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".github/skills/create-campaigns/references/conversations.md",
+      "archivePath": ".github/skills/create-campaigns/references/conversations.md",
+      "sha256": "eda71e0bc7594c47584b50f4d1f8a1e8b923f6bcd910db26c6c2fb1861c3c007",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".github/skills/create-campaigns/references/launch-validation.md",
+      "archivePath": ".github/skills/create-campaigns/references/launch-validation.md",
+      "sha256": "853fc61a2ef087273ae1522be7c6c3918860b0b62c6b463d3eb690ba4f76e931",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".github/skills/create-campaigns/references/preferences.md",
+      "archivePath": ".github/skills/create-campaigns/references/preferences.md",
+      "sha256": "796430ce2e65ca65fc89095e87f550b232c6df1626270e75ff8627d5d96e2c18",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".github/skills/create-campaigns/scripts/campaign_structures.py",
+      "archivePath": ".github/skills/create-campaigns/scripts/campaign_structures.py",
+      "sha256": "d6295ea5d54ca0b8391031ea9de267577f4702a99259849b84a1f815004d140a",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".github/skills/create-campaigns/scripts/validate_launch.py",
+      "archivePath": ".github/skills/create-campaigns/scripts/validate_launch.py",
+      "sha256": "8dd3654db08b0791e230f59ecdff1395c5bbc28f61ca16474da515be663ea9bb",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": ".github/skills/enrich-account/SKILL.md",
+      "archivePath": ".github/skills/enrich-account/SKILL.md",
+      "sha256": "91fe1c2563d6823185b03fdee215058d323135e98fcf9d6642ca68f20d0629b9",
+      "owner": "skill:enrich-account"
+    },
+    {
+      "path": ".github/skills/explain-segment/SKILL.md",
+      "archivePath": ".github/skills/explain-segment/SKILL.md",
+      "sha256": "9edfb4f74d2a8d76be44ff4b072f20363eccb3e5b031a97a2ef0c33f5a72871d",
+      "owner": "skill:explain-segment"
+    },
+    {
+      "path": ".github/skills/manage-library/SKILL.md",
+      "archivePath": ".github/skills/manage-library/SKILL.md",
+      "sha256": "49094f1ac150dda8a34063b1041ef318b218b93e07e702095d6f3e5375cb3ab4",
+      "owner": "skill:manage-library"
+    },
+    {
+      "path": ".github/skills/manage-library/scripts/install_skill.py",
+      "archivePath": ".github/skills/manage-library/scripts/install_skill.py",
+      "sha256": "f4f6ece2e76993f95051d799115fce06838b08e6435f9493d18298e5de8783df",
+      "owner": "skill:manage-library"
+    },
+    {
+      "path": ".github/skills/manage-library/scripts/installed_skills.py",
+      "archivePath": ".github/skills/manage-library/scripts/installed_skills.py",
+      "sha256": "2c49dbcde4912683d3d05f4fe11dbd714c466d7de0980badb4052069c519e840",
+      "owner": "skill:manage-library"
+    },
+    {
+      "path": ".github/skills/manage-library/scripts/update_copilot.py",
+      "archivePath": ".github/skills/manage-library/scripts/update_copilot.py",
+      "sha256": "742ec25e066340bcf631797901b59d7871569c04059933cac9012402b3838d91",
+      "owner": "skill:manage-library"
+    },
+    {
+      "path": ".github/skills/merchjar-connect/SKILL.md",
+      "archivePath": ".github/skills/merchjar-connect/SKILL.md",
+      "sha256": "e41c1334eb0edefcdcdde7caa53139617af09d2ea750e65f1fe44a68d1e0b01c",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".github/skills/merchjar-connect/references/MJ_API_REFERENCE.md",
+      "archivePath": ".github/skills/merchjar-connect/references/MJ_API_REFERENCE.md",
+      "sha256": "c751f20ce59ae87f6f4ec2e89b200ef8b585aa60004bbe696831c9eaddd5f279",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".github/skills/merchjar-connect/references/SEGMENT_CREATION_GUIDELINES.md",
+      "archivePath": ".github/skills/merchjar-connect/references/SEGMENT_CREATION_GUIDELINES.md",
+      "sha256": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".github/skills/merchjar-connect/references/V2_SYNTAX_REFERENCE.md",
+      "archivePath": ".github/skills/merchjar-connect/references/V2_SYNTAX_REFERENCE.md",
+      "sha256": "b0dbbe07cc5718c52d8de76715a752a521138013d7f77d348396810680c12558",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".github/skills/merchjar-connect/references/campaign-naming.md",
+      "archivePath": ".github/skills/merchjar-connect/references/campaign-naming.md",
+      "sha256": "a7b07c12fc9c06aac6aa0efd8698368efbd50c8050d1af58bb46c62e0eb32955",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".github/skills/merchjar-connect/scripts/campaign_naming.py",
+      "archivePath": ".github/skills/merchjar-connect/scripts/campaign_naming.py",
+      "sha256": "89c45f85f4d34a359424620634778c37d4260792135ba508f0bea2de6a2ce1e7",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".github/skills/merchjar-connect/scripts/merchjar_client.py",
+      "archivePath": ".github/skills/merchjar-connect/scripts/merchjar_client.py",
+      "sha256": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": ".github/skills/performance-check/SKILL.md",
+      "archivePath": ".github/skills/performance-check/SKILL.md",
+      "sha256": "1c8e3f4d86e75be649043c64fdf106a44dfdcbc48cb0a939a750c2f3b8dc4e69",
+      "owner": "skill:performance-check"
+    },
+    {
+      "path": ".github/skills/review-segment/SKILL.md",
+      "archivePath": ".github/skills/review-segment/SKILL.md",
+      "sha256": "f5265299dcc50f80fc56b11b1197ca43f1eb3ece3d12985d8b1aede41458b580",
+      "owner": "skill:review-segment"
+    },
+    {
+      "path": ".github/skills/troubleshoot/SKILL.md",
+      "archivePath": ".github/skills/troubleshoot/SKILL.md",
+      "sha256": "4fbf23343049f602ee7d101eb466685f097a1533c6e1e031fe9299258c51d490",
+      "owner": "skill:troubleshoot"
+    },
+    {
+      "path": "AGENTS.md",
+      "archivePath": "AGENTS.md",
+      "sha256": "7cd8cd9b68edf2cc4c94d8ef69ac513d08c5ca8404e30c23ae7a87d7ef6f53ed",
+      "owner": "copilot"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "archivePath": "CHANGELOG.md",
+      "sha256": "2e8dbb5d318270f7a9e39a35270effeefddf77bed65fe1980d4e168177ac0bd2",
+      "owner": "copilot"
+    },
+    {
+      "path": "CLAUDE.md",
+      "archivePath": "CLAUDE.md",
+      "sha256": "f4260450d9566b36e7b5a4c13415ec17b213a0fc3b77e40682a4ffffb201c181",
+      "owner": "copilot"
+    },
+    {
+      "path": "README.md",
+      "archivePath": "README.md",
+      "sha256": "ee58c918271c9b232e82d723f861d6d83da735dc8e00bb9483e5716f52d1afb3",
+      "owner": "copilot"
+    },
+    {
+      "path": "build.sh",
+      "archivePath": "build.sh",
+      "sha256": "546ffc5f75c64c2d4a878cf145fa2bd587046eb04e3fcc380ea68bd0e728866e",
+      "owner": "copilot"
+    },
+    {
+      "path": "docs/copilot.md",
+      "archivePath": "docs/copilot.md",
+      "sha256": "ab08a1b06a604793847448cbc061eeb436062a7b6df2134efc1131d341456983",
+      "owner": "copilot"
+    },
+    {
+      "path": "docs/library.md",
+      "archivePath": "docs/library.md",
+      "sha256": "8fed2062f95f494ce353daf91f8cde107990c1fc0540f4358d901c5eb259dd43",
+      "owner": "copilot"
+    },
+    {
+      "path": "docs/runtime-browser.md",
+      "archivePath": "docs/runtime-browser.md",
+      "sha256": "b802900aa34fada341ffc24d08f64473c850b5b2776a86ba73f9b49e9f79a4b5",
+      "owner": "copilot"
+    },
+    {
+      "path": "docs/runtime-shell.md",
+      "archivePath": "docs/runtime-shell.md",
+      "sha256": "ccccbe3dedb3025edd83c3f7238d8a8c3821b57bd242df315381381b56ac119a",
+      "owner": "copilot"
+    },
+    {
+      "path": "reference/MJ_API_REFERENCE.md",
+      "archivePath": "reference/MJ_API_REFERENCE.md",
+      "sha256": "c751f20ce59ae87f6f4ec2e89b200ef8b585aa60004bbe696831c9eaddd5f279",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": "reference/SEGMENT_CREATION_GUIDELINES.md",
+      "archivePath": "reference/SEGMENT_CREATION_GUIDELINES.md",
+      "sha256": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": "reference/V2_SYNTAX_REFERENCE.md",
+      "archivePath": "reference/V2_SYNTAX_REFERENCE.md",
+      "sha256": "b0dbbe07cc5718c52d8de76715a752a521138013d7f77d348396810680c12558",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": "skills/account-review/SKILL.md",
+      "archivePath": "skills/account-review/SKILL.md",
+      "sha256": "dd50421b57ecb89f653e388e5998cdb9257abb7fb23a9650aacdc23ed64941aa",
+      "owner": "skill:account-review"
+    },
+    {
+      "path": "skills/audit-log/SKILL.md",
+      "archivePath": "skills/audit-log/SKILL.md",
+      "sha256": "aeac300e5e497a91dd297f46f6dc13a73f8539b2afabf8b9a0c1a7f22bcce933",
+      "owner": "skill:audit-log"
+    },
+    {
+      "path": "skills/branded-review/LICENSE",
+      "archivePath": "skills/branded-review/LICENSE",
+      "sha256": "0359065451177d7adad64d5dfd3823b7ad00c665f2a4619c09543e6a283d8dcd",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/SKILL.md",
+      "archivePath": "skills/branded-review/SKILL.md",
+      "sha256": "89f5f224899f505dad471fbc67e498d23e92e05187713f35567c61054df58473",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/START-HERE.md",
+      "archivePath": "skills/branded-review/START-HERE.md",
+      "sha256": "d30f61654f635b165dc5bb85d88124c89d5242c231032ccfd269cc851fd29186",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/assets/Inter-LICENSE.txt",
+      "archivePath": "skills/branded-review/assets/Inter-LICENSE.txt",
+      "sha256": "262481e844521b326f5ecd053e59b98c8b2da78c8ee1bdbb6e8174305e54935a",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/assets/README.md",
+      "archivePath": "skills/branded-review/assets/README.md",
+      "sha256": "83f5d247ed8a7efa5e87c75398d29b55b9e5be003a315fc771224881b5245bed",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/assets/campaign-map.html",
+      "archivePath": "skills/branded-review/assets/campaign-map.html",
+      "sha256": "a61c0587aa801aa8867ccbe5588e8dbf30c3327a5f67f0cd6b443d04214f2bea",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/assets/inter.woff2",
+      "archivePath": "skills/branded-review/assets/inter.woff2",
+      "sha256": "3100e775e8616cd2611beecfa23a4263d7037586789b43f035236a2e6fbd4c62",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/assets/inventory.js",
+      "archivePath": "skills/branded-review/assets/inventory.js",
+      "sha256": "6c2a0b71fcc64603d6bb67d54d119c8aa75779469a113f3929d2e975b1a530a4",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/assets/list-editor.js",
+      "archivePath": "skills/branded-review/assets/list-editor.js",
+      "sha256": "b591003855fb26fa7589ebb86ff673d279330bcddb61b4d2194f75c617493d13",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/assets/merchjar-logo.webp",
+      "archivePath": "skills/branded-review/assets/merchjar-logo.webp",
+      "sha256": "6a51abaa2450c14ca5ce89420266e6df75564082e4981bedd63f2797148382b3",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/assets/planning-builder.js",
+      "archivePath": "skills/branded-review/assets/planning-builder.js",
+      "sha256": "e35d44cedbd943d79078c74013505ad5425cc7027eeed4bcb43c71a8b0dc13f1",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/assets/planning.css",
+      "archivePath": "skills/branded-review/assets/planning.css",
+      "sha256": "f79daea52ec6651962e47e62f7bce2f0cdfda51a0c6941522076dda75fdad2cd",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/assets/report-refinements.css",
+      "archivePath": "skills/branded-review/assets/report-refinements.css",
+      "sha256": "8f68fec38bdcad1c43ce6d14ce84a313cd33f0bb24191742ab748e508a83d811",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/assets/report-theme.css",
+      "archivePath": "skills/branded-review/assets/report-theme.css",
+      "sha256": "fc18be93a299a239fda2c03cdab238ddfc4c5411257cf0b3d59b0f055cc68afb",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/assets/report.css",
+      "archivePath": "skills/branded-review/assets/report.css",
+      "sha256": "65d7d464e88edb0a6e6032ac8f7e9874f722a0844f79fad1016c11bb8c6b56d0",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/assets/simulation.js",
+      "archivePath": "skills/branded-review/assets/simulation.js",
+      "sha256": "1d7660250eb0641a02d2779dc7f1f1653f186e018de0f71eccd88e8153cd33b4",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/assets/structure-options.js",
+      "archivePath": "skills/branded-review/assets/structure-options.js",
+      "sha256": "8737551fafff4a60d1516a6dd48010044a8bbcde91f285c4bca525132353084b",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/assets/workspace.css",
+      "archivePath": "skills/branded-review/assets/workspace.css",
+      "sha256": "0e559a40e5793765347e6f1e1700dd39c4173b758fc62547ab162eb4154b70c7",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/examples/advertised-products.csv",
+      "archivePath": "skills/branded-review/examples/advertised-products.csv",
+      "sha256": "0022f4ee21dfa7d045feb3ffdf5532f055d064f0a989d29a7e0a24356556dee1",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/examples/brand-reference.json",
+      "archivePath": "skills/branded-review/examples/brand-reference.json",
+      "sha256": "d0c7d95d508cdea58aaabd613dcea2524a6247c983ff49a2290e8d9f229674e4",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/examples/search-terms.csv",
+      "archivePath": "skills/branded-review/examples/search-terms.csv",
+      "sha256": "4d2aeeecd0deb66aa4aed76121f3a7ef22637a4e1348df80537fee62d20ff3a8",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/examples/targeting.csv",
+      "archivePath": "skills/branded-review/examples/targeting.csv",
+      "sha256": "45f46c049ecaba25c07f1011394c93c7205f5e14369003341508dc33da9032c9",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/references/analysis-and-output.md",
+      "archivePath": "skills/branded-review/references/analysis-and-output.md",
+      "sha256": "b393383894546e9c89f05c22d1ddcbb328ebc0ed5950622845da5ce7739f7310",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/references/brand-exclusions.md",
+      "archivePath": "skills/branded-review/references/brand-exclusions.md",
+      "sha256": "8f49ad87d75d1ae7990cc09abe61ce786a7c1d2b1afd69ea735383509cc1af5a",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/references/campaign-map.md",
+      "archivePath": "skills/branded-review/references/campaign-map.md",
+      "sha256": "38c9a85b421dc59d3ef2c3c4a055d9592aa55b6351e35d97b633de4b08c15cd0",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/references/connected.md",
+      "archivePath": "skills/branded-review/references/connected.md",
+      "sha256": "d320ef27ec6c737a4ceb636a3ea30ee1306ebc01e52ec61507fdcffcd9a3a3ed",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/references/conversation.md",
+      "archivePath": "skills/branded-review/references/conversation.md",
+      "sha256": "beeb4adc06aa9c0243c5077838df4480d25ecf95903b695870f379c1e01a7fae",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/references/handoff.md",
+      "archivePath": "skills/branded-review/references/handoff.md",
+      "sha256": "750f9c04afdd5d91faf1a6ecf7853e595b343991ed3723880207a51f5d08ad9d",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/references/migration.md",
+      "archivePath": "skills/branded-review/references/migration.md",
+      "sha256": "d190eee5ff08d253437a9dd9bc859801d0656291ce17b94546c174a5b793f076",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/references/negative-inventory.md",
+      "archivePath": "skills/branded-review/references/negative-inventory.md",
+      "sha256": "9b71aa490ae4e159cefc9c3e21814012d5451a875b3814fa9d12afd80f201589",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/references/privacy-and-demo.md",
+      "archivePath": "skills/branded-review/references/privacy-and-demo.md",
+      "sha256": "4ba768162a8c03a78a7ccdad525fc67f14ebfab5e996ffa1d89e8582b837afb0",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/references/product-structure.md",
+      "archivePath": "skills/branded-review/references/product-structure.md",
+      "sha256": "c9fd30c9fd7c32bc5fa2af32387de4613cfcc964f522f628041a4859b1025b60",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/references/queries.json",
+      "archivePath": "skills/branded-review/references/queries.json",
+      "sha256": "ce8fbb2c2f08ff1f04098cfab8d07ebd34fdf7645c37acc38687e1351e85092d",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/references/recommendations.md",
+      "archivePath": "skills/branded-review/references/recommendations.md",
+      "sha256": "a1434483341a0fcc5789a6cde0d19a3126d8767e81789c34a11643c36f7e7e0c",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/references/report-delivery.md",
+      "archivePath": "skills/branded-review/references/report-delivery.md",
+      "sha256": "f45f648e6037e47abd53c994b9b72ee36c3e663ce9fde1f3a1fc8b7d43cfbae6",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/references/report-inputs.md",
+      "archivePath": "skills/branded-review/references/report-inputs.md",
+      "sha256": "cec8612d029eae426fcb405fa5c3bbdd264abaaf63897251472bb6a3b66a6628",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/references/report-preferences.md",
+      "archivePath": "skills/branded-review/references/report-preferences.md",
+      "sha256": "2986fa9ac655dd6181a80669e6c28a4f5337a4159bf68510253ac045c5a31697",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/references/report-workspace.md",
+      "archivePath": "skills/branded-review/references/report-workspace.md",
+      "sha256": "c8780f12ccf439b2ceb8be4e717e482c98d0bf3ea1d510c99053ea51be206d03",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/scripts/analyze_search_terms.py",
+      "archivePath": "skills/branded-review/scripts/analyze_search_terms.py",
+      "sha256": "3ad52baf795d88ba1f7eb4e8656b185a40f730342b251e8e34cf7422af9680b5",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/scripts/anonymized_demo.py",
+      "archivePath": "skills/branded-review/scripts/anonymized_demo.py",
+      "sha256": "c5fcfafc144a05aebda1ff78844c8d0be93fd1087954ca3b50613db302744465",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/scripts/brand_exclusions.py",
+      "archivePath": "skills/branded-review/scripts/brand_exclusions.py",
+      "sha256": "0d875ed262c129462c0784e77df204fb7b4fa81ce242ea121b2dfd84b7d05a96",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/scripts/campaign_map.py",
+      "archivePath": "skills/branded-review/scripts/campaign_map.py",
+      "sha256": "6a004799934f747b5091a101f70d5ab979c8bcb5144704a9a9d1bec42c29ee9a",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/scripts/connected_report.py",
+      "archivePath": "skills/branded-review/scripts/connected_report.py",
+      "sha256": "03b4c827a7e09824b157eafe56c24b6f28e4cb9d44020cb3565ab57515fa804e",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/scripts/connection_context.py",
+      "archivePath": "skills/branded-review/scripts/connection_context.py",
+      "sha256": "428bd2f497e82998dcab96b27357de66f5b47f5a23b04914bfaa9fd6201358d6",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/scripts/demo_walkthrough.py",
+      "archivePath": "skills/branded-review/scripts/demo_walkthrough.py",
+      "sha256": "a5caa943ab53d985c3ee16c7ae060acdf791cfb95b2d9fbf370c70c71fcfa6c4",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/scripts/migration_plan.py",
+      "archivePath": "skills/branded-review/scripts/migration_plan.py",
+      "sha256": "85c4434af7cd6ce88bbcc0b6e692f8d9f2af0bb35623c24269bea2c52ebaa751",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/scripts/plan_campaigns.py",
+      "archivePath": "skills/branded-review/scripts/plan_campaigns.py",
+      "sha256": "1774badd9eac601b73eca1d7d36432c26afa725ac3ab05419d98876c5b9deeed",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/scripts/planning_options.py",
+      "archivePath": "skills/branded-review/scripts/planning_options.py",
+      "sha256": "1090d57aefdd4b3c6e54545b32087f1f48f1670b2a0aef056d0ec7b4ea2c0afc",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/scripts/planning_view.py",
+      "archivePath": "skills/branded-review/scripts/planning_view.py",
+      "sha256": "a85c7e9671b860df6efc201399b43389a8f93523a42b960659898b562d98cee6",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/scripts/privacy_report.py",
+      "archivePath": "skills/branded-review/scripts/privacy_report.py",
+      "sha256": "9aee3958953820d67d63e3c6cffc4c0ec602ff1e3990b59259acb76d117ff93d",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/scripts/report_charts.py",
+      "archivePath": "skills/branded-review/scripts/report_charts.py",
+      "sha256": "16cfa8eaff7a9c38b14f7f5a3804f3a26e2a20fed5f5ed2aedd33220b30addd7",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/scripts/report_context.py",
+      "archivePath": "skills/branded-review/scripts/report_context.py",
+      "sha256": "9d2ee3262d9cf2bc587b70ec589cbb10fe7e424c001ffa16f14d7b41701cdf0e",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/scripts/report_delivery.py",
+      "archivePath": "skills/branded-review/scripts/report_delivery.py",
+      "sha256": "81ab72e584f71df88d75e32893723ad7bfb9ec9e373f81ba32e980aad5f17947",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/scripts/report_interactions.py",
+      "archivePath": "skills/branded-review/scripts/report_interactions.py",
+      "sha256": "85078d8ad37cb2f86e2dbb894d1aad9ebc951b92341723fab368d0032cb98928",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/scripts/report_preferences.py",
+      "archivePath": "skills/branded-review/scripts/report_preferences.py",
+      "sha256": "c48118cfed20b6add5235b33a3421163e9760f22b0d44982924f22d3818d14b4",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/scripts/report_render.py",
+      "archivePath": "skills/branded-review/scripts/report_render.py",
+      "sha256": "7b85965db0fa6e3bb691e445c2a41fcd1e71244c1e7bf801b581f219a92037b3",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/scripts/report_workspace.py",
+      "archivePath": "skills/branded-review/scripts/report_workspace.py",
+      "sha256": "0bee4c8edc8626b6566aa7b22937745a7257edb6846dceb39576eb5c81107de6",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/scripts/review_flow.py",
+      "archivePath": "skills/branded-review/scripts/review_flow.py",
+      "sha256": "11672b1272b7ccdeb5b7dc822a94007f6284faa22af00493207b5cfab6afe311",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/scripts/structure_plan.py",
+      "archivePath": "skills/branded-review/scripts/structure_plan.py",
+      "sha256": "8c78f4962d57f1a24ec36f7abc3df21d974e6d40f4ad2776b70a224cf2253d3c",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/scripts/target_proposal.py",
+      "archivePath": "skills/branded-review/scripts/target_proposal.py",
+      "sha256": "84b89e56e2d6bb7e6eeca634fc4df08df54709f7a7f01e1598c0a1b9f26c32d9",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/scripts/transition_progress.py",
+      "archivePath": "skills/branded-review/scripts/transition_progress.py",
+      "sha256": "3afa2e75f5500ab3d8d8471217b27b66f06841a991ea169b03933a6274c728c2",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/build-segment/SKILL.md",
+      "archivePath": "skills/build-segment/SKILL.md",
+      "sha256": "6afa038e1ab32408bce663913b0de6a2ef06ae0413b54121672e2a001caf836f",
+      "owner": "skill:build-segment"
+    },
+    {
+      "path": "skills/campaign-naming-cleanup/SKILL.md",
+      "archivePath": "skills/campaign-naming-cleanup/SKILL.md",
+      "sha256": "43a00a7358c21a2940ee59ee24917dcd51f8a5cdcad6a49596328a6a9b3f372e",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": "skills/campaign-naming-cleanup/references/api-and-evidence.md",
+      "archivePath": "skills/campaign-naming-cleanup/references/api-and-evidence.md",
+      "sha256": "6645669fea79b11856325f1e2c2541403737cac019b2de5ca8a226e9d1a90a48",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": "skills/campaign-naming-cleanup/references/naming-conventions.md",
+      "archivePath": "skills/campaign-naming-cleanup/references/naming-conventions.md",
+      "sha256": "0a836fb4a84aa1e3f6931b05f001db7e0c7d57248be729bfd9acbdff2448076e",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": "skills/campaign-naming-cleanup/references/preferences.md",
+      "archivePath": "skills/campaign-naming-cleanup/references/preferences.md",
+      "sha256": "56179b119f793cca77e32428745ebd161a17c6b08800ba2c90231752db5c02bb",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": "skills/campaign-naming-cleanup/scripts/campaign_naming.py",
+      "archivePath": "skills/campaign-naming-cleanup/scripts/campaign_naming.py",
+      "sha256": "a8ffca5de8f6f05fd2d5c38b8ddcfd22e64efb9ddbf6333566dd4cb7c30c9aff",
+      "owner": "skill:campaign-naming-cleanup"
+    },
+    {
+      "path": "skills/check-segments/SKILL.md",
+      "archivePath": "skills/check-segments/SKILL.md",
+      "sha256": "03c7b9d30d5271a375342c50420765c2de887ee9c0c175929cc232dc8adf9e06",
+      "owner": "skill:check-segments"
+    },
+    {
+      "path": "skills/create-campaigns/SKILL.md",
+      "archivePath": "skills/create-campaigns/SKILL.md",
+      "sha256": "06ade09edd94827e8dc7f7db1c85fbb8abedfa0d4bd3d388435e3c2fc7116960",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": "skills/create-campaigns/references/conversations.md",
+      "archivePath": "skills/create-campaigns/references/conversations.md",
+      "sha256": "eda71e0bc7594c47584b50f4d1f8a1e8b923f6bcd910db26c6c2fb1861c3c007",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": "skills/create-campaigns/references/launch-validation.md",
+      "archivePath": "skills/create-campaigns/references/launch-validation.md",
+      "sha256": "853fc61a2ef087273ae1522be7c6c3918860b0b62c6b463d3eb690ba4f76e931",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": "skills/create-campaigns/references/preferences.md",
+      "archivePath": "skills/create-campaigns/references/preferences.md",
+      "sha256": "796430ce2e65ca65fc89095e87f550b232c6df1626270e75ff8627d5d96e2c18",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": "skills/create-campaigns/scripts/campaign_structures.py",
+      "archivePath": "skills/create-campaigns/scripts/campaign_structures.py",
+      "sha256": "d6295ea5d54ca0b8391031ea9de267577f4702a99259849b84a1f815004d140a",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": "skills/create-campaigns/scripts/validate_launch.py",
+      "archivePath": "skills/create-campaigns/scripts/validate_launch.py",
+      "sha256": "8dd3654db08b0791e230f59ecdff1395c5bbc28f61ca16474da515be663ea9bb",
+      "owner": "skill:create-campaigns"
+    },
+    {
+      "path": "skills/enrich-account/SKILL.md",
+      "archivePath": "skills/enrich-account/SKILL.md",
+      "sha256": "91fe1c2563d6823185b03fdee215058d323135e98fcf9d6642ca68f20d0629b9",
+      "owner": "skill:enrich-account"
+    },
+    {
+      "path": "skills/explain-segment/SKILL.md",
+      "archivePath": "skills/explain-segment/SKILL.md",
+      "sha256": "9edfb4f74d2a8d76be44ff4b072f20363eccb3e5b031a97a2ef0c33f5a72871d",
+      "owner": "skill:explain-segment"
+    },
+    {
+      "path": "skills/manage-library/SKILL.md",
+      "archivePath": "skills/manage-library/SKILL.md",
+      "sha256": "49094f1ac150dda8a34063b1041ef318b218b93e07e702095d6f3e5375cb3ab4",
+      "owner": "skill:manage-library"
+    },
+    {
+      "path": "skills/manage-library/scripts/install_skill.py",
+      "archivePath": "skills/manage-library/scripts/install_skill.py",
+      "sha256": "f4f6ece2e76993f95051d799115fce06838b08e6435f9493d18298e5de8783df",
+      "owner": "skill:manage-library"
+    },
+    {
+      "path": "skills/manage-library/scripts/installed_skills.py",
+      "archivePath": "skills/manage-library/scripts/installed_skills.py",
+      "sha256": "2c49dbcde4912683d3d05f4fe11dbd714c466d7de0980badb4052069c519e840",
+      "owner": "skill:manage-library"
+    },
+    {
+      "path": "skills/manage-library/scripts/update_copilot.py",
+      "archivePath": "skills/manage-library/scripts/update_copilot.py",
+      "sha256": "742ec25e066340bcf631797901b59d7871569c04059933cac9012402b3838d91",
+      "owner": "skill:manage-library"
+    },
+    {
+      "path": "skills/merchjar-connect/SKILL.md",
+      "archivePath": "skills/merchjar-connect/SKILL.md",
+      "sha256": "e41c1334eb0edefcdcdde7caa53139617af09d2ea750e65f1fe44a68d1e0b01c",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": "skills/merchjar-connect/references/MJ_API_REFERENCE.md",
+      "archivePath": "skills/merchjar-connect/references/MJ_API_REFERENCE.md",
+      "sha256": "c751f20ce59ae87f6f4ec2e89b200ef8b585aa60004bbe696831c9eaddd5f279",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": "skills/merchjar-connect/references/SEGMENT_CREATION_GUIDELINES.md",
+      "archivePath": "skills/merchjar-connect/references/SEGMENT_CREATION_GUIDELINES.md",
+      "sha256": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": "skills/merchjar-connect/references/V2_SYNTAX_REFERENCE.md",
+      "archivePath": "skills/merchjar-connect/references/V2_SYNTAX_REFERENCE.md",
+      "sha256": "b0dbbe07cc5718c52d8de76715a752a521138013d7f77d348396810680c12558",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": "skills/merchjar-connect/references/campaign-naming.md",
+      "archivePath": "skills/merchjar-connect/references/campaign-naming.md",
+      "sha256": "a7b07c12fc9c06aac6aa0efd8698368efbd50c8050d1af58bb46c62e0eb32955",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": "skills/merchjar-connect/scripts/campaign_naming.py",
+      "archivePath": "skills/merchjar-connect/scripts/campaign_naming.py",
+      "sha256": "89c45f85f4d34a359424620634778c37d4260792135ba508f0bea2de6a2ce1e7",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": "skills/merchjar-connect/scripts/merchjar_client.py",
+      "archivePath": "skills/merchjar-connect/scripts/merchjar_client.py",
+      "sha256": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": "skills/performance-check/SKILL.md",
+      "archivePath": "skills/performance-check/SKILL.md",
+      "sha256": "1c8e3f4d86e75be649043c64fdf106a44dfdcbc48cb0a939a750c2f3b8dc4e69",
+      "owner": "skill:performance-check"
+    },
+    {
+      "path": "skills/review-segment/SKILL.md",
+      "archivePath": "skills/review-segment/SKILL.md",
+      "sha256": "f5265299dcc50f80fc56b11b1197ca43f1eb3ece3d12985d8b1aede41458b580",
+      "owner": "skill:review-segment"
+    },
+    {
+      "path": "skills/troubleshoot/SKILL.md",
+      "archivePath": "skills/troubleshoot/SKILL.md",
+      "sha256": "4fbf23343049f602ee7d101eb466685f097a1533c6e1e031fe9299258c51d490",
+      "owner": "skill:troubleshoot"
+    },
+    {
+      "path": "tools/build_skills.py",
+      "archivePath": "tools/build_skills.py",
+      "sha256": "2531be1d3864d58da0e46ce7b824752cb528eed67dd1ec3f52b56dd9d09d277a",
+      "owner": "copilot"
+    },
+    {
+      "path": "tools/library.py",
+      "archivePath": "tools/library.py",
+      "sha256": "bc334700492eaf0e74c8023c11163afe6a169410c79c4ed89caab60254b8c730",
+      "owner": "copilot"
+    },
+    {
+      "path": "tools/merchjar_client.py",
+      "archivePath": "tools/merchjar_client.py",
+      "sha256": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911",
+      "owner": "skill:merchjar-connect"
+    },
+    {
+      "path": "tools/update_copilot.py",
+      "archivePath": "tools/update_copilot.py",
+      "sha256": "742ec25e066340bcf631797901b59d7871569c04059933cac9012402b3838d91",
+      "owner": "skill:manage-library"
+    }
+  ],
+  "baselines": {
+    "1.2.2": {
+      ".agents/skills/account-review/SKILL.md": "0dc4d031433575d78a910555d1776a7deabf8638a4134608304385be038195a5",
+      ".agents/skills/audit-log/SKILL.md": "b87c7790ea410291c3f522d16b44630d5bc63c0d78e530087a7a1e44562c55ff",
+      ".agents/skills/build-segment/SKILL.md": "df0ff2d353fab0300e5348ff6a24eeb5c02132e84d6940ad36e6c92b6cea8923",
+      ".agents/skills/check-segments/SKILL.md": "6474102085dd29c3b3363b1ddfdd9aa56740131a156f545e39439d96636ab710",
+      ".agents/skills/create-campaigns/SKILL.md": "832fd7f2bae29bb597997474a864dcfe7a38e8195f69d42e579954d6db2e1015",
+      ".agents/skills/create-campaigns/references/conversations.md": "eda71e0bc7594c47584b50f4d1f8a1e8b923f6bcd910db26c6c2fb1861c3c007",
+      ".agents/skills/create-campaigns/references/launch-validation.md": "853fc61a2ef087273ae1522be7c6c3918860b0b62c6b463d3eb690ba4f76e931",
+      ".agents/skills/create-campaigns/references/preferences.md": "f585ca281136898305b9e112f19a9e5e4179c34c55a0f1034c98be1cd164c32f",
+      ".agents/skills/create-campaigns/scripts/campaign_structures.py": "d6295ea5d54ca0b8391031ea9de267577f4702a99259849b84a1f815004d140a",
+      ".agents/skills/create-campaigns/scripts/validate_launch.py": "8dd3654db08b0791e230f59ecdff1395c5bbc28f61ca16474da515be663ea9bb",
+      ".agents/skills/enrich-account/SKILL.md": "6ed8bf14ed1f2c4742f8c8fdd7229221c123c6853997d5ec103681d77ca575b3",
+      ".agents/skills/explain-segment/SKILL.md": "5547d54da9fcca5ba06906df5a91faee1df146df2901c7c39d0338cbeec440ef",
+      ".agents/skills/merchjar-connect/SKILL.md": "b82627c8505b2dfe394b167d2e084fbfa3e6c38df7922209513286d7e3795d3f",
+      ".agents/skills/merchjar-connect/references/MJ_API_REFERENCE.md": "9c23bf8fa141e9b8e24db01a320214748c308ca46dc2cd4842cf8d4c9501bca1",
+      ".agents/skills/merchjar-connect/references/SEGMENT_CREATION_GUIDELINES.md": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+      ".agents/skills/merchjar-connect/references/V2_SYNTAX_REFERENCE.md": "0ddaabdc8825b17be3662d72961043b562c413a7fe7157861e41a52b30644359",
+      ".agents/skills/merchjar-connect/scripts/merchjar_client.py": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911",
+      ".agents/skills/performance-check/SKILL.md": "9e841e260c79874179e51dfc4b5d4da76bab61b2cfeaea27c33ae58c3ceec0cc",
+      ".agents/skills/review-segment/SKILL.md": "6c1de354eac5ba114d6bc360ff789e4faa38cd4e4c177a47b9881bce25ea5713",
+      ".agents/skills/troubleshoot/SKILL.md": "86a139ad63a34759d82a888997a62bba1aff3cf8387858610667fae7e38c3150",
+      ".claude/skills/account-review/SKILL.md": "0dc4d031433575d78a910555d1776a7deabf8638a4134608304385be038195a5",
+      ".claude/skills/audit-log/SKILL.md": "b87c7790ea410291c3f522d16b44630d5bc63c0d78e530087a7a1e44562c55ff",
+      ".claude/skills/build-segment/SKILL.md": "df0ff2d353fab0300e5348ff6a24eeb5c02132e84d6940ad36e6c92b6cea8923",
+      ".claude/skills/check-segments/SKILL.md": "6474102085dd29c3b3363b1ddfdd9aa56740131a156f545e39439d96636ab710",
+      ".claude/skills/create-campaigns/SKILL.md": "832fd7f2bae29bb597997474a864dcfe7a38e8195f69d42e579954d6db2e1015",
+      ".claude/skills/create-campaigns/references/conversations.md": "eda71e0bc7594c47584b50f4d1f8a1e8b923f6bcd910db26c6c2fb1861c3c007",
+      ".claude/skills/create-campaigns/references/launch-validation.md": "853fc61a2ef087273ae1522be7c6c3918860b0b62c6b463d3eb690ba4f76e931",
+      ".claude/skills/create-campaigns/references/preferences.md": "f585ca281136898305b9e112f19a9e5e4179c34c55a0f1034c98be1cd164c32f",
+      ".claude/skills/create-campaigns/scripts/campaign_structures.py": "d6295ea5d54ca0b8391031ea9de267577f4702a99259849b84a1f815004d140a",
+      ".claude/skills/create-campaigns/scripts/validate_launch.py": "8dd3654db08b0791e230f59ecdff1395c5bbc28f61ca16474da515be663ea9bb",
+      ".claude/skills/enrich-account/SKILL.md": "6ed8bf14ed1f2c4742f8c8fdd7229221c123c6853997d5ec103681d77ca575b3",
+      ".claude/skills/explain-segment/SKILL.md": "5547d54da9fcca5ba06906df5a91faee1df146df2901c7c39d0338cbeec440ef",
+      ".claude/skills/merchjar-connect/SKILL.md": "b82627c8505b2dfe394b167d2e084fbfa3e6c38df7922209513286d7e3795d3f",
+      ".claude/skills/merchjar-connect/references/MJ_API_REFERENCE.md": "9c23bf8fa141e9b8e24db01a320214748c308ca46dc2cd4842cf8d4c9501bca1",
+      ".claude/skills/merchjar-connect/references/SEGMENT_CREATION_GUIDELINES.md": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+      ".claude/skills/merchjar-connect/references/V2_SYNTAX_REFERENCE.md": "0ddaabdc8825b17be3662d72961043b562c413a7fe7157861e41a52b30644359",
+      ".claude/skills/merchjar-connect/scripts/merchjar_client.py": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911",
+      ".claude/skills/performance-check/SKILL.md": "9e841e260c79874179e51dfc4b5d4da76bab61b2cfeaea27c33ae58c3ceec0cc",
+      ".claude/skills/review-segment/SKILL.md": "6c1de354eac5ba114d6bc360ff789e4faa38cd4e4c177a47b9881bce25ea5713",
+      ".claude/skills/troubleshoot/SKILL.md": "86a139ad63a34759d82a888997a62bba1aff3cf8387858610667fae7e38c3150",
+      "AGENTS.md": "80feeb26d0e7724ac14842faae552c0a844cdb7e4076f7927bdc3be65a3f62f4",
+      "CHANGELOG.md": "5a8869968abf42f1bb1cac46f16df8201d9e2a6d73dccd966aef1af4a478ff4f",
+      "CLAUDE.md": "8c5ee2dcd530ad1f91369285f28ef40fcb7729c6e589bab142f8b1e81a1d5473",
+      "README.md": "064e59339ff5263fef6537db5a4e7438b94cb3674e4840669ddaa0dffb079040",
+      "build.sh": "546ffc5f75c64c2d4a878cf145fa2bd587046eb04e3fcc380ea68bd0e728866e",
+      "docs/copilot.md": "d596b9f6bb4eb93ced0505b7c8832e2707e50aea997c43c13482a3b32f6353b7",
+      "docs/library.md": "8fed2062f95f494ce353daf91f8cde107990c1fc0540f4358d901c5eb259dd43",
+      "docs/runtime-browser.md": "b802900aa34fada341ffc24d08f64473c850b5b2776a86ba73f9b49e9f79a4b5",
+      "docs/runtime-shell.md": "ccccbe3dedb3025edd83c3f7238d8a8c3821b57bd242df315381381b56ac119a",
+      "reference/MJ_API_REFERENCE.md": "9c23bf8fa141e9b8e24db01a320214748c308ca46dc2cd4842cf8d4c9501bca1",
+      "reference/SEGMENT_CREATION_GUIDELINES.md": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+      "reference/V2_SYNTAX_REFERENCE.md": "0ddaabdc8825b17be3662d72961043b562c413a7fe7157861e41a52b30644359",
+      "skills/account-review/SKILL.md": "0dc4d031433575d78a910555d1776a7deabf8638a4134608304385be038195a5",
+      "skills/audit-log/SKILL.md": "b87c7790ea410291c3f522d16b44630d5bc63c0d78e530087a7a1e44562c55ff",
+      "skills/build-segment/SKILL.md": "df0ff2d353fab0300e5348ff6a24eeb5c02132e84d6940ad36e6c92b6cea8923",
+      "skills/check-segments/SKILL.md": "6474102085dd29c3b3363b1ddfdd9aa56740131a156f545e39439d96636ab710",
+      "skills/create-campaigns/SKILL.md": "832fd7f2bae29bb597997474a864dcfe7a38e8195f69d42e579954d6db2e1015",
+      "skills/create-campaigns/references/conversations.md": "eda71e0bc7594c47584b50f4d1f8a1e8b923f6bcd910db26c6c2fb1861c3c007",
+      "skills/create-campaigns/references/launch-validation.md": "853fc61a2ef087273ae1522be7c6c3918860b0b62c6b463d3eb690ba4f76e931",
+      "skills/create-campaigns/references/preferences.md": "f585ca281136898305b9e112f19a9e5e4179c34c55a0f1034c98be1cd164c32f",
+      "skills/create-campaigns/scripts/campaign_structures.py": "d6295ea5d54ca0b8391031ea9de267577f4702a99259849b84a1f815004d140a",
+      "skills/create-campaigns/scripts/validate_launch.py": "8dd3654db08b0791e230f59ecdff1395c5bbc28f61ca16474da515be663ea9bb",
+      "skills/enrich-account/SKILL.md": "6ed8bf14ed1f2c4742f8c8fdd7229221c123c6853997d5ec103681d77ca575b3",
+      "skills/explain-segment/SKILL.md": "5547d54da9fcca5ba06906df5a91faee1df146df2901c7c39d0338cbeec440ef",
+      "skills/merchjar-connect/SKILL.md": "b82627c8505b2dfe394b167d2e084fbfa3e6c38df7922209513286d7e3795d3f",
+      "skills/merchjar-connect/references/MJ_API_REFERENCE.md": "9c23bf8fa141e9b8e24db01a320214748c308ca46dc2cd4842cf8d4c9501bca1",
+      "skills/merchjar-connect/references/SEGMENT_CREATION_GUIDELINES.md": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+      "skills/merchjar-connect/references/V2_SYNTAX_REFERENCE.md": "0ddaabdc8825b17be3662d72961043b562c413a7fe7157861e41a52b30644359",
+      "skills/merchjar-connect/scripts/merchjar_client.py": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911",
+      "skills/performance-check/SKILL.md": "9e841e260c79874179e51dfc4b5d4da76bab61b2cfeaea27c33ae58c3ceec0cc",
+      "skills/review-segment/SKILL.md": "6c1de354eac5ba114d6bc360ff789e4faa38cd4e4c177a47b9881bce25ea5713",
+      "skills/troubleshoot/SKILL.md": "86a139ad63a34759d82a888997a62bba1aff3cf8387858610667fae7e38c3150",
+      "tools/build_skills.py": "2531be1d3864d58da0e46ce7b824752cb528eed67dd1ec3f52b56dd9d09d277a",
+      "tools/library.py": "bc334700492eaf0e74c8023c11163afe6a169410c79c4ed89caab60254b8c730",
+      "tools/merchjar_client.py": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911"
+    },
+    "1.2.3": {
+      ".agents/skills/account-review/SKILL.md": "0dc4d031433575d78a910555d1776a7deabf8638a4134608304385be038195a5",
+      ".agents/skills/audit-log/SKILL.md": "b87c7790ea410291c3f522d16b44630d5bc63c0d78e530087a7a1e44562c55ff",
+      ".agents/skills/build-segment/SKILL.md": "df0ff2d353fab0300e5348ff6a24eeb5c02132e84d6940ad36e6c92b6cea8923",
+      ".agents/skills/check-segments/SKILL.md": "6474102085dd29c3b3363b1ddfdd9aa56740131a156f545e39439d96636ab710",
+      ".agents/skills/create-campaigns/SKILL.md": "832fd7f2bae29bb597997474a864dcfe7a38e8195f69d42e579954d6db2e1015",
+      ".agents/skills/create-campaigns/references/conversations.md": "eda71e0bc7594c47584b50f4d1f8a1e8b923f6bcd910db26c6c2fb1861c3c007",
+      ".agents/skills/create-campaigns/references/launch-validation.md": "853fc61a2ef087273ae1522be7c6c3918860b0b62c6b463d3eb690ba4f76e931",
+      ".agents/skills/create-campaigns/references/preferences.md": "f585ca281136898305b9e112f19a9e5e4179c34c55a0f1034c98be1cd164c32f",
+      ".agents/skills/create-campaigns/scripts/campaign_structures.py": "d6295ea5d54ca0b8391031ea9de267577f4702a99259849b84a1f815004d140a",
+      ".agents/skills/create-campaigns/scripts/validate_launch.py": "8dd3654db08b0791e230f59ecdff1395c5bbc28f61ca16474da515be663ea9bb",
+      ".agents/skills/enrich-account/SKILL.md": "6ed8bf14ed1f2c4742f8c8fdd7229221c123c6853997d5ec103681d77ca575b3",
+      ".agents/skills/explain-segment/SKILL.md": "5547d54da9fcca5ba06906df5a91faee1df146df2901c7c39d0338cbeec440ef",
+      ".agents/skills/manage-library/SKILL.md": "c97e792f675b4ea69a8842eecb1599b24f8abead1c49679c78ca7a2942590ee4",
+      ".agents/skills/manage-library/scripts/install_skill.py": "f4f6ece2e76993f95051d799115fce06838b08e6435f9493d18298e5de8783df",
+      ".agents/skills/merchjar-connect/SKILL.md": "b82627c8505b2dfe394b167d2e084fbfa3e6c38df7922209513286d7e3795d3f",
+      ".agents/skills/merchjar-connect/references/MJ_API_REFERENCE.md": "9c23bf8fa141e9b8e24db01a320214748c308ca46dc2cd4842cf8d4c9501bca1",
+      ".agents/skills/merchjar-connect/references/SEGMENT_CREATION_GUIDELINES.md": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+      ".agents/skills/merchjar-connect/references/V2_SYNTAX_REFERENCE.md": "0ddaabdc8825b17be3662d72961043b562c413a7fe7157861e41a52b30644359",
+      ".agents/skills/merchjar-connect/scripts/merchjar_client.py": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911",
+      ".agents/skills/performance-check/SKILL.md": "9e841e260c79874179e51dfc4b5d4da76bab61b2cfeaea27c33ae58c3ceec0cc",
+      ".agents/skills/review-segment/SKILL.md": "6c1de354eac5ba114d6bc360ff789e4faa38cd4e4c177a47b9881bce25ea5713",
+      ".agents/skills/troubleshoot/SKILL.md": "86a139ad63a34759d82a888997a62bba1aff3cf8387858610667fae7e38c3150",
+      ".claude/skills/account-review/SKILL.md": "0dc4d031433575d78a910555d1776a7deabf8638a4134608304385be038195a5",
+      ".claude/skills/audit-log/SKILL.md": "b87c7790ea410291c3f522d16b44630d5bc63c0d78e530087a7a1e44562c55ff",
+      ".claude/skills/build-segment/SKILL.md": "df0ff2d353fab0300e5348ff6a24eeb5c02132e84d6940ad36e6c92b6cea8923",
+      ".claude/skills/check-segments/SKILL.md": "6474102085dd29c3b3363b1ddfdd9aa56740131a156f545e39439d96636ab710",
+      ".claude/skills/create-campaigns/SKILL.md": "832fd7f2bae29bb597997474a864dcfe7a38e8195f69d42e579954d6db2e1015",
+      ".claude/skills/create-campaigns/references/conversations.md": "eda71e0bc7594c47584b50f4d1f8a1e8b923f6bcd910db26c6c2fb1861c3c007",
+      ".claude/skills/create-campaigns/references/launch-validation.md": "853fc61a2ef087273ae1522be7c6c3918860b0b62c6b463d3eb690ba4f76e931",
+      ".claude/skills/create-campaigns/references/preferences.md": "f585ca281136898305b9e112f19a9e5e4179c34c55a0f1034c98be1cd164c32f",
+      ".claude/skills/create-campaigns/scripts/campaign_structures.py": "d6295ea5d54ca0b8391031ea9de267577f4702a99259849b84a1f815004d140a",
+      ".claude/skills/create-campaigns/scripts/validate_launch.py": "8dd3654db08b0791e230f59ecdff1395c5bbc28f61ca16474da515be663ea9bb",
+      ".claude/skills/enrich-account/SKILL.md": "6ed8bf14ed1f2c4742f8c8fdd7229221c123c6853997d5ec103681d77ca575b3",
+      ".claude/skills/explain-segment/SKILL.md": "5547d54da9fcca5ba06906df5a91faee1df146df2901c7c39d0338cbeec440ef",
+      ".claude/skills/manage-library/SKILL.md": "c97e792f675b4ea69a8842eecb1599b24f8abead1c49679c78ca7a2942590ee4",
+      ".claude/skills/manage-library/scripts/install_skill.py": "f4f6ece2e76993f95051d799115fce06838b08e6435f9493d18298e5de8783df",
+      ".claude/skills/merchjar-connect/SKILL.md": "b82627c8505b2dfe394b167d2e084fbfa3e6c38df7922209513286d7e3795d3f",
+      ".claude/skills/merchjar-connect/references/MJ_API_REFERENCE.md": "9c23bf8fa141e9b8e24db01a320214748c308ca46dc2cd4842cf8d4c9501bca1",
+      ".claude/skills/merchjar-connect/references/SEGMENT_CREATION_GUIDELINES.md": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+      ".claude/skills/merchjar-connect/references/V2_SYNTAX_REFERENCE.md": "0ddaabdc8825b17be3662d72961043b562c413a7fe7157861e41a52b30644359",
+      ".claude/skills/merchjar-connect/scripts/merchjar_client.py": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911",
+      ".claude/skills/performance-check/SKILL.md": "9e841e260c79874179e51dfc4b5d4da76bab61b2cfeaea27c33ae58c3ceec0cc",
+      ".claude/skills/review-segment/SKILL.md": "6c1de354eac5ba114d6bc360ff789e4faa38cd4e4c177a47b9881bce25ea5713",
+      ".claude/skills/troubleshoot/SKILL.md": "86a139ad63a34759d82a888997a62bba1aff3cf8387858610667fae7e38c3150",
+      "AGENTS.md": "5f3d464e76d8fc912321fa52c9bd295bc2e1eb8cd3111d183e1cc0c4a873715b",
+      "CHANGELOG.md": "5a8869968abf42f1bb1cac46f16df8201d9e2a6d73dccd966aef1af4a478ff4f",
+      "CLAUDE.md": "661dc37b895561a01b7fc5b2f2f0c6c0328adc073060962f87a1f4e5040e2dbf",
+      "README.md": "0e9df8782cf9b96de1760c0c1ff630513d8666b85eed7ac770594d38aae5580e",
+      "build.sh": "546ffc5f75c64c2d4a878cf145fa2bd587046eb04e3fcc380ea68bd0e728866e",
+      "docs/copilot.md": "b8070e70b77ba043ce429f1ce941ac39a150a9ef8c2b410050598ff11a7e405a",
+      "docs/library.md": "8fed2062f95f494ce353daf91f8cde107990c1fc0540f4358d901c5eb259dd43",
+      "docs/runtime-browser.md": "b802900aa34fada341ffc24d08f64473c850b5b2776a86ba73f9b49e9f79a4b5",
+      "docs/runtime-shell.md": "ccccbe3dedb3025edd83c3f7238d8a8c3821b57bd242df315381381b56ac119a",
+      "reference/MJ_API_REFERENCE.md": "9c23bf8fa141e9b8e24db01a320214748c308ca46dc2cd4842cf8d4c9501bca1",
+      "reference/SEGMENT_CREATION_GUIDELINES.md": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+      "reference/V2_SYNTAX_REFERENCE.md": "0ddaabdc8825b17be3662d72961043b562c413a7fe7157861e41a52b30644359",
+      "skills/account-review/SKILL.md": "0dc4d031433575d78a910555d1776a7deabf8638a4134608304385be038195a5",
+      "skills/audit-log/SKILL.md": "b87c7790ea410291c3f522d16b44630d5bc63c0d78e530087a7a1e44562c55ff",
+      "skills/build-segment/SKILL.md": "df0ff2d353fab0300e5348ff6a24eeb5c02132e84d6940ad36e6c92b6cea8923",
+      "skills/check-segments/SKILL.md": "6474102085dd29c3b3363b1ddfdd9aa56740131a156f545e39439d96636ab710",
+      "skills/create-campaigns/SKILL.md": "832fd7f2bae29bb597997474a864dcfe7a38e8195f69d42e579954d6db2e1015",
+      "skills/create-campaigns/references/conversations.md": "eda71e0bc7594c47584b50f4d1f8a1e8b923f6bcd910db26c6c2fb1861c3c007",
+      "skills/create-campaigns/references/launch-validation.md": "853fc61a2ef087273ae1522be7c6c3918860b0b62c6b463d3eb690ba4f76e931",
+      "skills/create-campaigns/references/preferences.md": "f585ca281136898305b9e112f19a9e5e4179c34c55a0f1034c98be1cd164c32f",
+      "skills/create-campaigns/scripts/campaign_structures.py": "d6295ea5d54ca0b8391031ea9de267577f4702a99259849b84a1f815004d140a",
+      "skills/create-campaigns/scripts/validate_launch.py": "8dd3654db08b0791e230f59ecdff1395c5bbc28f61ca16474da515be663ea9bb",
+      "skills/enrich-account/SKILL.md": "6ed8bf14ed1f2c4742f8c8fdd7229221c123c6853997d5ec103681d77ca575b3",
+      "skills/explain-segment/SKILL.md": "5547d54da9fcca5ba06906df5a91faee1df146df2901c7c39d0338cbeec440ef",
+      "skills/manage-library/SKILL.md": "c97e792f675b4ea69a8842eecb1599b24f8abead1c49679c78ca7a2942590ee4",
+      "skills/manage-library/scripts/install_skill.py": "f4f6ece2e76993f95051d799115fce06838b08e6435f9493d18298e5de8783df",
+      "skills/merchjar-connect/SKILL.md": "b82627c8505b2dfe394b167d2e084fbfa3e6c38df7922209513286d7e3795d3f",
+      "skills/merchjar-connect/references/MJ_API_REFERENCE.md": "9c23bf8fa141e9b8e24db01a320214748c308ca46dc2cd4842cf8d4c9501bca1",
+      "skills/merchjar-connect/references/SEGMENT_CREATION_GUIDELINES.md": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+      "skills/merchjar-connect/references/V2_SYNTAX_REFERENCE.md": "0ddaabdc8825b17be3662d72961043b562c413a7fe7157861e41a52b30644359",
+      "skills/merchjar-connect/scripts/merchjar_client.py": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911",
+      "skills/performance-check/SKILL.md": "9e841e260c79874179e51dfc4b5d4da76bab61b2cfeaea27c33ae58c3ceec0cc",
+      "skills/review-segment/SKILL.md": "6c1de354eac5ba114d6bc360ff789e4faa38cd4e4c177a47b9881bce25ea5713",
+      "skills/troubleshoot/SKILL.md": "86a139ad63a34759d82a888997a62bba1aff3cf8387858610667fae7e38c3150",
+      "tools/build_skills.py": "2531be1d3864d58da0e46ce7b824752cb528eed67dd1ec3f52b56dd9d09d277a",
+      "tools/library.py": "bc334700492eaf0e74c8023c11163afe6a169410c79c4ed89caab60254b8c730",
+      "tools/merchjar_client.py": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911"
+    },
+    "1.2.4": {
+      ".agents/skills/account-review/SKILL.md": "7c2f7d6468c6ee5c0a7de8fc56f6b5670925c510a99e92bba63c9aadbb6692d6",
+      ".agents/skills/audit-log/SKILL.md": "b87c7790ea410291c3f522d16b44630d5bc63c0d78e530087a7a1e44562c55ff",
+      ".agents/skills/build-segment/SKILL.md": "df0ff2d353fab0300e5348ff6a24eeb5c02132e84d6940ad36e6c92b6cea8923",
+      ".agents/skills/campaign-naming-cleanup/SKILL.md": "d6efd4e2d6c574b44fa42216f7b09f30c39cf2b295818447bdacad3c61e619a5",
+      ".agents/skills/campaign-naming-cleanup/references/api-and-evidence.md": "04611b7a62a4c725f725f4eb2b6d6d8c15113d504af96cb68215136a5a62248c",
+      ".agents/skills/campaign-naming-cleanup/references/naming-conventions.md": "42803abb75f96d69ecd2b2396c93c0be69ba3697307fabcb0ee8848fc2a0307d",
+      ".agents/skills/campaign-naming-cleanup/references/preferences.md": "8171797d2e946e050cf3c08b165f2f79e720e08b8b20f803528e46018d3f762b",
+      ".agents/skills/campaign-naming-cleanup/scripts/campaign_naming.py": "f8848fa2f919550efd72d8c6e3057cc6fb5af52fafd088d59e4135b85adfbbc8",
+      ".agents/skills/check-segments/SKILL.md": "6474102085dd29c3b3363b1ddfdd9aa56740131a156f545e39439d96636ab710",
+      ".agents/skills/create-campaigns/SKILL.md": "821159d34fcb732ee3848d78a0751cd669138a5674f3a70349c0778f3cf43eb4",
+      ".agents/skills/create-campaigns/references/conversations.md": "eda71e0bc7594c47584b50f4d1f8a1e8b923f6bcd910db26c6c2fb1861c3c007",
+      ".agents/skills/create-campaigns/references/launch-validation.md": "853fc61a2ef087273ae1522be7c6c3918860b0b62c6b463d3eb690ba4f76e931",
+      ".agents/skills/create-campaigns/references/preferences.md": "b89bdba962dcea42e8b7fbbe88becb2b3ae047be7fdba4968e31b7ef7483ae51",
+      ".agents/skills/create-campaigns/scripts/campaign_structures.py": "d6295ea5d54ca0b8391031ea9de267577f4702a99259849b84a1f815004d140a",
+      ".agents/skills/create-campaigns/scripts/validate_launch.py": "8dd3654db08b0791e230f59ecdff1395c5bbc28f61ca16474da515be663ea9bb",
+      ".agents/skills/enrich-account/SKILL.md": "6ed8bf14ed1f2c4742f8c8fdd7229221c123c6853997d5ec103681d77ca575b3",
+      ".agents/skills/explain-segment/SKILL.md": "5547d54da9fcca5ba06906df5a91faee1df146df2901c7c39d0338cbeec440ef",
+      ".agents/skills/manage-library/SKILL.md": "e7f5925462976deefb1d2f8aab95bd92e6090cb5174e10003bbaca3260231358",
+      ".agents/skills/manage-library/scripts/install_skill.py": "f4f6ece2e76993f95051d799115fce06838b08e6435f9493d18298e5de8783df",
+      ".agents/skills/manage-library/scripts/installed_skills.py": "2c49dbcde4912683d3d05f4fe11dbd714c466d7de0980badb4052069c519e840",
+      ".agents/skills/merchjar-connect/SKILL.md": "e267647ee8008edc3eab6945a68b2267f7606564768105fc9aed188b81c0f882",
+      ".agents/skills/merchjar-connect/references/MJ_API_REFERENCE.md": "c751f20ce59ae87f6f4ec2e89b200ef8b585aa60004bbe696831c9eaddd5f279",
+      ".agents/skills/merchjar-connect/references/SEGMENT_CREATION_GUIDELINES.md": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+      ".agents/skills/merchjar-connect/references/V2_SYNTAX_REFERENCE.md": "0ddaabdc8825b17be3662d72961043b562c413a7fe7157861e41a52b30644359",
+      ".agents/skills/merchjar-connect/references/campaign-naming.md": "c191fffb155d0fd06794e6c8dac013c8d2cb7afb97aabc3b5551d33786b863bd",
+      ".agents/skills/merchjar-connect/scripts/campaign_naming.py": "c8c1ca07cfd216277733ced1c7f80d0fa956eb07470667625f76baa20f06f19f",
+      ".agents/skills/merchjar-connect/scripts/merchjar_client.py": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911",
+      ".agents/skills/performance-check/SKILL.md": "9e841e260c79874179e51dfc4b5d4da76bab61b2cfeaea27c33ae58c3ceec0cc",
+      ".agents/skills/review-segment/SKILL.md": "6c1de354eac5ba114d6bc360ff789e4faa38cd4e4c177a47b9881bce25ea5713",
+      ".agents/skills/troubleshoot/SKILL.md": "86a139ad63a34759d82a888997a62bba1aff3cf8387858610667fae7e38c3150",
+      ".claude/skills/account-review/SKILL.md": "7c2f7d6468c6ee5c0a7de8fc56f6b5670925c510a99e92bba63c9aadbb6692d6",
+      ".claude/skills/audit-log/SKILL.md": "b87c7790ea410291c3f522d16b44630d5bc63c0d78e530087a7a1e44562c55ff",
+      ".claude/skills/build-segment/SKILL.md": "df0ff2d353fab0300e5348ff6a24eeb5c02132e84d6940ad36e6c92b6cea8923",
+      ".claude/skills/campaign-naming-cleanup/SKILL.md": "d6efd4e2d6c574b44fa42216f7b09f30c39cf2b295818447bdacad3c61e619a5",
+      ".claude/skills/campaign-naming-cleanup/references/api-and-evidence.md": "04611b7a62a4c725f725f4eb2b6d6d8c15113d504af96cb68215136a5a62248c",
+      ".claude/skills/campaign-naming-cleanup/references/naming-conventions.md": "42803abb75f96d69ecd2b2396c93c0be69ba3697307fabcb0ee8848fc2a0307d",
+      ".claude/skills/campaign-naming-cleanup/references/preferences.md": "8171797d2e946e050cf3c08b165f2f79e720e08b8b20f803528e46018d3f762b",
+      ".claude/skills/campaign-naming-cleanup/scripts/campaign_naming.py": "f8848fa2f919550efd72d8c6e3057cc6fb5af52fafd088d59e4135b85adfbbc8",
+      ".claude/skills/check-segments/SKILL.md": "6474102085dd29c3b3363b1ddfdd9aa56740131a156f545e39439d96636ab710",
+      ".claude/skills/create-campaigns/SKILL.md": "821159d34fcb732ee3848d78a0751cd669138a5674f3a70349c0778f3cf43eb4",
+      ".claude/skills/create-campaigns/references/conversations.md": "eda71e0bc7594c47584b50f4d1f8a1e8b923f6bcd910db26c6c2fb1861c3c007",
+      ".claude/skills/create-campaigns/references/launch-validation.md": "853fc61a2ef087273ae1522be7c6c3918860b0b62c6b463d3eb690ba4f76e931",
+      ".claude/skills/create-campaigns/references/preferences.md": "b89bdba962dcea42e8b7fbbe88becb2b3ae047be7fdba4968e31b7ef7483ae51",
+      ".claude/skills/create-campaigns/scripts/campaign_structures.py": "d6295ea5d54ca0b8391031ea9de267577f4702a99259849b84a1f815004d140a",
+      ".claude/skills/create-campaigns/scripts/validate_launch.py": "8dd3654db08b0791e230f59ecdff1395c5bbc28f61ca16474da515be663ea9bb",
+      ".claude/skills/enrich-account/SKILL.md": "6ed8bf14ed1f2c4742f8c8fdd7229221c123c6853997d5ec103681d77ca575b3",
+      ".claude/skills/explain-segment/SKILL.md": "5547d54da9fcca5ba06906df5a91faee1df146df2901c7c39d0338cbeec440ef",
+      ".claude/skills/manage-library/SKILL.md": "e7f5925462976deefb1d2f8aab95bd92e6090cb5174e10003bbaca3260231358",
+      ".claude/skills/manage-library/scripts/install_skill.py": "f4f6ece2e76993f95051d799115fce06838b08e6435f9493d18298e5de8783df",
+      ".claude/skills/manage-library/scripts/installed_skills.py": "2c49dbcde4912683d3d05f4fe11dbd714c466d7de0980badb4052069c519e840",
+      ".claude/skills/merchjar-connect/SKILL.md": "e267647ee8008edc3eab6945a68b2267f7606564768105fc9aed188b81c0f882",
+      ".claude/skills/merchjar-connect/references/MJ_API_REFERENCE.md": "c751f20ce59ae87f6f4ec2e89b200ef8b585aa60004bbe696831c9eaddd5f279",
+      ".claude/skills/merchjar-connect/references/SEGMENT_CREATION_GUIDELINES.md": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+      ".claude/skills/merchjar-connect/references/V2_SYNTAX_REFERENCE.md": "0ddaabdc8825b17be3662d72961043b562c413a7fe7157861e41a52b30644359",
+      ".claude/skills/merchjar-connect/references/campaign-naming.md": "c191fffb155d0fd06794e6c8dac013c8d2cb7afb97aabc3b5551d33786b863bd",
+      ".claude/skills/merchjar-connect/scripts/campaign_naming.py": "c8c1ca07cfd216277733ced1c7f80d0fa956eb07470667625f76baa20f06f19f",
+      ".claude/skills/merchjar-connect/scripts/merchjar_client.py": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911",
+      ".claude/skills/performance-check/SKILL.md": "9e841e260c79874179e51dfc4b5d4da76bab61b2cfeaea27c33ae58c3ceec0cc",
+      ".claude/skills/review-segment/SKILL.md": "6c1de354eac5ba114d6bc360ff789e4faa38cd4e4c177a47b9881bce25ea5713",
+      ".claude/skills/troubleshoot/SKILL.md": "86a139ad63a34759d82a888997a62bba1aff3cf8387858610667fae7e38c3150",
+      "AGENTS.md": "6aeb60513d0002cc7001862b42e9a78d88c9193e9369782abff48e7fe43639ec",
+      "CHANGELOG.md": "5a8869968abf42f1bb1cac46f16df8201d9e2a6d73dccd966aef1af4a478ff4f",
+      "CLAUDE.md": "c2b66212759495ef11e352cd1d010b97ee9d4de14ebcae59b9260cda10aa0f3a",
+      "README.md": "e79a7ad576d219bdd926294a46fd0a429e59d83b2fba7d2186e7d8a9b830dcfa",
+      "build.sh": "546ffc5f75c64c2d4a878cf145fa2bd587046eb04e3fcc380ea68bd0e728866e",
+      "docs/copilot.md": "6451a5e004fc8de5dcd71ae26900bb5e0bffd56a7659575f83ecaeed16747887",
+      "docs/library.md": "8fed2062f95f494ce353daf91f8cde107990c1fc0540f4358d901c5eb259dd43",
+      "docs/runtime-browser.md": "b802900aa34fada341ffc24d08f64473c850b5b2776a86ba73f9b49e9f79a4b5",
+      "docs/runtime-shell.md": "ccccbe3dedb3025edd83c3f7238d8a8c3821b57bd242df315381381b56ac119a",
+      "reference/MJ_API_REFERENCE.md": "c751f20ce59ae87f6f4ec2e89b200ef8b585aa60004bbe696831c9eaddd5f279",
+      "reference/SEGMENT_CREATION_GUIDELINES.md": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+      "reference/V2_SYNTAX_REFERENCE.md": "0ddaabdc8825b17be3662d72961043b562c413a7fe7157861e41a52b30644359",
+      "skills/account-review/SKILL.md": "7c2f7d6468c6ee5c0a7de8fc56f6b5670925c510a99e92bba63c9aadbb6692d6",
+      "skills/audit-log/SKILL.md": "b87c7790ea410291c3f522d16b44630d5bc63c0d78e530087a7a1e44562c55ff",
+      "skills/build-segment/SKILL.md": "df0ff2d353fab0300e5348ff6a24eeb5c02132e84d6940ad36e6c92b6cea8923",
+      "skills/campaign-naming-cleanup/SKILL.md": "d6efd4e2d6c574b44fa42216f7b09f30c39cf2b295818447bdacad3c61e619a5",
+      "skills/campaign-naming-cleanup/references/api-and-evidence.md": "04611b7a62a4c725f725f4eb2b6d6d8c15113d504af96cb68215136a5a62248c",
+      "skills/campaign-naming-cleanup/references/naming-conventions.md": "42803abb75f96d69ecd2b2396c93c0be69ba3697307fabcb0ee8848fc2a0307d",
+      "skills/campaign-naming-cleanup/references/preferences.md": "8171797d2e946e050cf3c08b165f2f79e720e08b8b20f803528e46018d3f762b",
+      "skills/campaign-naming-cleanup/scripts/campaign_naming.py": "f8848fa2f919550efd72d8c6e3057cc6fb5af52fafd088d59e4135b85adfbbc8",
+      "skills/check-segments/SKILL.md": "6474102085dd29c3b3363b1ddfdd9aa56740131a156f545e39439d96636ab710",
+      "skills/create-campaigns/SKILL.md": "821159d34fcb732ee3848d78a0751cd669138a5674f3a70349c0778f3cf43eb4",
+      "skills/create-campaigns/references/conversations.md": "eda71e0bc7594c47584b50f4d1f8a1e8b923f6bcd910db26c6c2fb1861c3c007",
+      "skills/create-campaigns/references/launch-validation.md": "853fc61a2ef087273ae1522be7c6c3918860b0b62c6b463d3eb690ba4f76e931",
+      "skills/create-campaigns/references/preferences.md": "b89bdba962dcea42e8b7fbbe88becb2b3ae047be7fdba4968e31b7ef7483ae51",
+      "skills/create-campaigns/scripts/campaign_structures.py": "d6295ea5d54ca0b8391031ea9de267577f4702a99259849b84a1f815004d140a",
+      "skills/create-campaigns/scripts/validate_launch.py": "8dd3654db08b0791e230f59ecdff1395c5bbc28f61ca16474da515be663ea9bb",
+      "skills/enrich-account/SKILL.md": "6ed8bf14ed1f2c4742f8c8fdd7229221c123c6853997d5ec103681d77ca575b3",
+      "skills/explain-segment/SKILL.md": "5547d54da9fcca5ba06906df5a91faee1df146df2901c7c39d0338cbeec440ef",
+      "skills/manage-library/SKILL.md": "e7f5925462976deefb1d2f8aab95bd92e6090cb5174e10003bbaca3260231358",
+      "skills/manage-library/scripts/install_skill.py": "f4f6ece2e76993f95051d799115fce06838b08e6435f9493d18298e5de8783df",
+      "skills/manage-library/scripts/installed_skills.py": "2c49dbcde4912683d3d05f4fe11dbd714c466d7de0980badb4052069c519e840",
+      "skills/merchjar-connect/SKILL.md": "e267647ee8008edc3eab6945a68b2267f7606564768105fc9aed188b81c0f882",
+      "skills/merchjar-connect/references/MJ_API_REFERENCE.md": "c751f20ce59ae87f6f4ec2e89b200ef8b585aa60004bbe696831c9eaddd5f279",
+      "skills/merchjar-connect/references/SEGMENT_CREATION_GUIDELINES.md": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+      "skills/merchjar-connect/references/V2_SYNTAX_REFERENCE.md": "0ddaabdc8825b17be3662d72961043b562c413a7fe7157861e41a52b30644359",
+      "skills/merchjar-connect/references/campaign-naming.md": "c191fffb155d0fd06794e6c8dac013c8d2cb7afb97aabc3b5551d33786b863bd",
+      "skills/merchjar-connect/scripts/campaign_naming.py": "c8c1ca07cfd216277733ced1c7f80d0fa956eb07470667625f76baa20f06f19f",
+      "skills/merchjar-connect/scripts/merchjar_client.py": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911",
+      "skills/performance-check/SKILL.md": "9e841e260c79874179e51dfc4b5d4da76bab61b2cfeaea27c33ae58c3ceec0cc",
+      "skills/review-segment/SKILL.md": "6c1de354eac5ba114d6bc360ff789e4faa38cd4e4c177a47b9881bce25ea5713",
+      "skills/troubleshoot/SKILL.md": "86a139ad63a34759d82a888997a62bba1aff3cf8387858610667fae7e38c3150",
+      "tools/build_skills.py": "2531be1d3864d58da0e46ce7b824752cb528eed67dd1ec3f52b56dd9d09d277a",
+      "tools/library.py": "bc334700492eaf0e74c8023c11163afe6a169410c79c4ed89caab60254b8c730",
+      "tools/merchjar_client.py": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911"
+    },
+    "1.2.6": {
+      ".agents/skills/account-review/SKILL.md": "7c2f7d6468c6ee5c0a7de8fc56f6b5670925c510a99e92bba63c9aadbb6692d6",
+      ".agents/skills/audit-log/SKILL.md": "b87c7790ea410291c3f522d16b44630d5bc63c0d78e530087a7a1e44562c55ff",
+      ".agents/skills/build-segment/SKILL.md": "df0ff2d353fab0300e5348ff6a24eeb5c02132e84d6940ad36e6c92b6cea8923",
+      ".agents/skills/check-segments/SKILL.md": "6474102085dd29c3b3363b1ddfdd9aa56740131a156f545e39439d96636ab710",
+      ".agents/skills/create-campaigns/SKILL.md": "06ade09edd94827e8dc7f7db1c85fbb8abedfa0d4bd3d388435e3c2fc7116960",
+      ".agents/skills/create-campaigns/references/conversations.md": "eda71e0bc7594c47584b50f4d1f8a1e8b923f6bcd910db26c6c2fb1861c3c007",
+      ".agents/skills/create-campaigns/references/launch-validation.md": "853fc61a2ef087273ae1522be7c6c3918860b0b62c6b463d3eb690ba4f76e931",
+      ".agents/skills/create-campaigns/references/preferences.md": "796430ce2e65ca65fc89095e87f550b232c6df1626270e75ff8627d5d96e2c18",
+      ".agents/skills/create-campaigns/scripts/campaign_structures.py": "d6295ea5d54ca0b8391031ea9de267577f4702a99259849b84a1f815004d140a",
+      ".agents/skills/create-campaigns/scripts/validate_launch.py": "8dd3654db08b0791e230f59ecdff1395c5bbc28f61ca16474da515be663ea9bb",
+      ".agents/skills/enrich-account/SKILL.md": "6ed8bf14ed1f2c4742f8c8fdd7229221c123c6853997d5ec103681d77ca575b3",
+      ".agents/skills/explain-segment/SKILL.md": "5547d54da9fcca5ba06906df5a91faee1df146df2901c7c39d0338cbeec440ef",
+      ".agents/skills/manage-library/SKILL.md": "49094f1ac150dda8a34063b1041ef318b218b93e07e702095d6f3e5375cb3ab4",
+      ".agents/skills/manage-library/scripts/install_skill.py": "f4f6ece2e76993f95051d799115fce06838b08e6435f9493d18298e5de8783df",
+      ".agents/skills/manage-library/scripts/installed_skills.py": "2c49dbcde4912683d3d05f4fe11dbd714c466d7de0980badb4052069c519e840",
+      ".agents/skills/manage-library/scripts/update_copilot.py": "742ec25e066340bcf631797901b59d7871569c04059933cac9012402b3838d91",
+      ".agents/skills/merchjar-connect/SKILL.md": "5c3113cd0a2d7b92f71ccc7a15e47463e3c1a7cc749ed0bee089342ffd767bb5",
+      ".agents/skills/merchjar-connect/references/MJ_API_REFERENCE.md": "c751f20ce59ae87f6f4ec2e89b200ef8b585aa60004bbe696831c9eaddd5f279",
+      ".agents/skills/merchjar-connect/references/SEGMENT_CREATION_GUIDELINES.md": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+      ".agents/skills/merchjar-connect/references/V2_SYNTAX_REFERENCE.md": "b0dbbe07cc5718c52d8de76715a752a521138013d7f77d348396810680c12558",
+      ".agents/skills/merchjar-connect/references/campaign-naming.md": "a7b07c12fc9c06aac6aa0efd8698368efbd50c8050d1af58bb46c62e0eb32955",
+      ".agents/skills/merchjar-connect/scripts/campaign_naming.py": "89c45f85f4d34a359424620634778c37d4260792135ba508f0bea2de6a2ce1e7",
+      ".agents/skills/merchjar-connect/scripts/merchjar_client.py": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911",
+      ".agents/skills/performance-check/SKILL.md": "9e841e260c79874179e51dfc4b5d4da76bab61b2cfeaea27c33ae58c3ceec0cc",
+      ".agents/skills/review-segment/SKILL.md": "6c1de354eac5ba114d6bc360ff789e4faa38cd4e4c177a47b9881bce25ea5713",
+      ".agents/skills/troubleshoot/SKILL.md": "86a139ad63a34759d82a888997a62bba1aff3cf8387858610667fae7e38c3150",
+      ".claude/skills/account-review/SKILL.md": "7c2f7d6468c6ee5c0a7de8fc56f6b5670925c510a99e92bba63c9aadbb6692d6",
+      ".claude/skills/audit-log/SKILL.md": "b87c7790ea410291c3f522d16b44630d5bc63c0d78e530087a7a1e44562c55ff",
+      ".claude/skills/build-segment/SKILL.md": "df0ff2d353fab0300e5348ff6a24eeb5c02132e84d6940ad36e6c92b6cea8923",
+      ".claude/skills/check-segments/SKILL.md": "6474102085dd29c3b3363b1ddfdd9aa56740131a156f545e39439d96636ab710",
+      ".claude/skills/create-campaigns/SKILL.md": "06ade09edd94827e8dc7f7db1c85fbb8abedfa0d4bd3d388435e3c2fc7116960",
+      ".claude/skills/create-campaigns/references/conversations.md": "eda71e0bc7594c47584b50f4d1f8a1e8b923f6bcd910db26c6c2fb1861c3c007",
+      ".claude/skills/create-campaigns/references/launch-validation.md": "853fc61a2ef087273ae1522be7c6c3918860b0b62c6b463d3eb690ba4f76e931",
+      ".claude/skills/create-campaigns/references/preferences.md": "796430ce2e65ca65fc89095e87f550b232c6df1626270e75ff8627d5d96e2c18",
+      ".claude/skills/create-campaigns/scripts/campaign_structures.py": "d6295ea5d54ca0b8391031ea9de267577f4702a99259849b84a1f815004d140a",
+      ".claude/skills/create-campaigns/scripts/validate_launch.py": "8dd3654db08b0791e230f59ecdff1395c5bbc28f61ca16474da515be663ea9bb",
+      ".claude/skills/enrich-account/SKILL.md": "6ed8bf14ed1f2c4742f8c8fdd7229221c123c6853997d5ec103681d77ca575b3",
+      ".claude/skills/explain-segment/SKILL.md": "5547d54da9fcca5ba06906df5a91faee1df146df2901c7c39d0338cbeec440ef",
+      ".claude/skills/manage-library/SKILL.md": "49094f1ac150dda8a34063b1041ef318b218b93e07e702095d6f3e5375cb3ab4",
+      ".claude/skills/manage-library/scripts/install_skill.py": "f4f6ece2e76993f95051d799115fce06838b08e6435f9493d18298e5de8783df",
+      ".claude/skills/manage-library/scripts/installed_skills.py": "2c49dbcde4912683d3d05f4fe11dbd714c466d7de0980badb4052069c519e840",
+      ".claude/skills/manage-library/scripts/update_copilot.py": "742ec25e066340bcf631797901b59d7871569c04059933cac9012402b3838d91",
+      ".claude/skills/merchjar-connect/SKILL.md": "5c3113cd0a2d7b92f71ccc7a15e47463e3c1a7cc749ed0bee089342ffd767bb5",
+      ".claude/skills/merchjar-connect/references/MJ_API_REFERENCE.md": "c751f20ce59ae87f6f4ec2e89b200ef8b585aa60004bbe696831c9eaddd5f279",
+      ".claude/skills/merchjar-connect/references/SEGMENT_CREATION_GUIDELINES.md": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+      ".claude/skills/merchjar-connect/references/V2_SYNTAX_REFERENCE.md": "b0dbbe07cc5718c52d8de76715a752a521138013d7f77d348396810680c12558",
+      ".claude/skills/merchjar-connect/references/campaign-naming.md": "a7b07c12fc9c06aac6aa0efd8698368efbd50c8050d1af58bb46c62e0eb32955",
+      ".claude/skills/merchjar-connect/scripts/campaign_naming.py": "89c45f85f4d34a359424620634778c37d4260792135ba508f0bea2de6a2ce1e7",
+      ".claude/skills/merchjar-connect/scripts/merchjar_client.py": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911",
+      ".claude/skills/performance-check/SKILL.md": "9e841e260c79874179e51dfc4b5d4da76bab61b2cfeaea27c33ae58c3ceec0cc",
+      ".claude/skills/review-segment/SKILL.md": "6c1de354eac5ba114d6bc360ff789e4faa38cd4e4c177a47b9881bce25ea5713",
+      ".claude/skills/troubleshoot/SKILL.md": "86a139ad63a34759d82a888997a62bba1aff3cf8387858610667fae7e38c3150",
+      ".gemini/skills/account-review/SKILL.md": "7c2f7d6468c6ee5c0a7de8fc56f6b5670925c510a99e92bba63c9aadbb6692d6",
+      ".gemini/skills/audit-log/SKILL.md": "b87c7790ea410291c3f522d16b44630d5bc63c0d78e530087a7a1e44562c55ff",
+      ".gemini/skills/build-segment/SKILL.md": "df0ff2d353fab0300e5348ff6a24eeb5c02132e84d6940ad36e6c92b6cea8923",
+      ".gemini/skills/check-segments/SKILL.md": "6474102085dd29c3b3363b1ddfdd9aa56740131a156f545e39439d96636ab710",
+      ".gemini/skills/create-campaigns/SKILL.md": "06ade09edd94827e8dc7f7db1c85fbb8abedfa0d4bd3d388435e3c2fc7116960",
+      ".gemini/skills/create-campaigns/references/conversations.md": "eda71e0bc7594c47584b50f4d1f8a1e8b923f6bcd910db26c6c2fb1861c3c007",
+      ".gemini/skills/create-campaigns/references/launch-validation.md": "853fc61a2ef087273ae1522be7c6c3918860b0b62c6b463d3eb690ba4f76e931",
+      ".gemini/skills/create-campaigns/references/preferences.md": "796430ce2e65ca65fc89095e87f550b232c6df1626270e75ff8627d5d96e2c18",
+      ".gemini/skills/create-campaigns/scripts/campaign_structures.py": "d6295ea5d54ca0b8391031ea9de267577f4702a99259849b84a1f815004d140a",
+      ".gemini/skills/create-campaigns/scripts/validate_launch.py": "8dd3654db08b0791e230f59ecdff1395c5bbc28f61ca16474da515be663ea9bb",
+      ".gemini/skills/enrich-account/SKILL.md": "6ed8bf14ed1f2c4742f8c8fdd7229221c123c6853997d5ec103681d77ca575b3",
+      ".gemini/skills/explain-segment/SKILL.md": "5547d54da9fcca5ba06906df5a91faee1df146df2901c7c39d0338cbeec440ef",
+      ".gemini/skills/manage-library/SKILL.md": "49094f1ac150dda8a34063b1041ef318b218b93e07e702095d6f3e5375cb3ab4",
+      ".gemini/skills/manage-library/scripts/install_skill.py": "f4f6ece2e76993f95051d799115fce06838b08e6435f9493d18298e5de8783df",
+      ".gemini/skills/manage-library/scripts/installed_skills.py": "2c49dbcde4912683d3d05f4fe11dbd714c466d7de0980badb4052069c519e840",
+      ".gemini/skills/manage-library/scripts/update_copilot.py": "742ec25e066340bcf631797901b59d7871569c04059933cac9012402b3838d91",
+      ".gemini/skills/merchjar-connect/SKILL.md": "5c3113cd0a2d7b92f71ccc7a15e47463e3c1a7cc749ed0bee089342ffd767bb5",
+      ".gemini/skills/merchjar-connect/references/MJ_API_REFERENCE.md": "c751f20ce59ae87f6f4ec2e89b200ef8b585aa60004bbe696831c9eaddd5f279",
+      ".gemini/skills/merchjar-connect/references/SEGMENT_CREATION_GUIDELINES.md": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+      ".gemini/skills/merchjar-connect/references/V2_SYNTAX_REFERENCE.md": "b0dbbe07cc5718c52d8de76715a752a521138013d7f77d348396810680c12558",
+      ".gemini/skills/merchjar-connect/references/campaign-naming.md": "a7b07c12fc9c06aac6aa0efd8698368efbd50c8050d1af58bb46c62e0eb32955",
+      ".gemini/skills/merchjar-connect/scripts/campaign_naming.py": "89c45f85f4d34a359424620634778c37d4260792135ba508f0bea2de6a2ce1e7",
+      ".gemini/skills/merchjar-connect/scripts/merchjar_client.py": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911",
+      ".gemini/skills/performance-check/SKILL.md": "9e841e260c79874179e51dfc4b5d4da76bab61b2cfeaea27c33ae58c3ceec0cc",
+      ".gemini/skills/review-segment/SKILL.md": "6c1de354eac5ba114d6bc360ff789e4faa38cd4e4c177a47b9881bce25ea5713",
+      ".gemini/skills/troubleshoot/SKILL.md": "86a139ad63a34759d82a888997a62bba1aff3cf8387858610667fae7e38c3150",
+      ".github/skills/account-review/SKILL.md": "7c2f7d6468c6ee5c0a7de8fc56f6b5670925c510a99e92bba63c9aadbb6692d6",
+      ".github/skills/audit-log/SKILL.md": "b87c7790ea410291c3f522d16b44630d5bc63c0d78e530087a7a1e44562c55ff",
+      ".github/skills/build-segment/SKILL.md": "df0ff2d353fab0300e5348ff6a24eeb5c02132e84d6940ad36e6c92b6cea8923",
+      ".github/skills/check-segments/SKILL.md": "6474102085dd29c3b3363b1ddfdd9aa56740131a156f545e39439d96636ab710",
+      ".github/skills/create-campaigns/SKILL.md": "06ade09edd94827e8dc7f7db1c85fbb8abedfa0d4bd3d388435e3c2fc7116960",
+      ".github/skills/create-campaigns/references/conversations.md": "eda71e0bc7594c47584b50f4d1f8a1e8b923f6bcd910db26c6c2fb1861c3c007",
+      ".github/skills/create-campaigns/references/launch-validation.md": "853fc61a2ef087273ae1522be7c6c3918860b0b62c6b463d3eb690ba4f76e931",
+      ".github/skills/create-campaigns/references/preferences.md": "796430ce2e65ca65fc89095e87f550b232c6df1626270e75ff8627d5d96e2c18",
+      ".github/skills/create-campaigns/scripts/campaign_structures.py": "d6295ea5d54ca0b8391031ea9de267577f4702a99259849b84a1f815004d140a",
+      ".github/skills/create-campaigns/scripts/validate_launch.py": "8dd3654db08b0791e230f59ecdff1395c5bbc28f61ca16474da515be663ea9bb",
+      ".github/skills/enrich-account/SKILL.md": "6ed8bf14ed1f2c4742f8c8fdd7229221c123c6853997d5ec103681d77ca575b3",
+      ".github/skills/explain-segment/SKILL.md": "5547d54da9fcca5ba06906df5a91faee1df146df2901c7c39d0338cbeec440ef",
+      ".github/skills/manage-library/SKILL.md": "49094f1ac150dda8a34063b1041ef318b218b93e07e702095d6f3e5375cb3ab4",
+      ".github/skills/manage-library/scripts/install_skill.py": "f4f6ece2e76993f95051d799115fce06838b08e6435f9493d18298e5de8783df",
+      ".github/skills/manage-library/scripts/installed_skills.py": "2c49dbcde4912683d3d05f4fe11dbd714c466d7de0980badb4052069c519e840",
+      ".github/skills/manage-library/scripts/update_copilot.py": "742ec25e066340bcf631797901b59d7871569c04059933cac9012402b3838d91",
+      ".github/skills/merchjar-connect/SKILL.md": "5c3113cd0a2d7b92f71ccc7a15e47463e3c1a7cc749ed0bee089342ffd767bb5",
+      ".github/skills/merchjar-connect/references/MJ_API_REFERENCE.md": "c751f20ce59ae87f6f4ec2e89b200ef8b585aa60004bbe696831c9eaddd5f279",
+      ".github/skills/merchjar-connect/references/SEGMENT_CREATION_GUIDELINES.md": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+      ".github/skills/merchjar-connect/references/V2_SYNTAX_REFERENCE.md": "b0dbbe07cc5718c52d8de76715a752a521138013d7f77d348396810680c12558",
+      ".github/skills/merchjar-connect/references/campaign-naming.md": "a7b07c12fc9c06aac6aa0efd8698368efbd50c8050d1af58bb46c62e0eb32955",
+      ".github/skills/merchjar-connect/scripts/campaign_naming.py": "89c45f85f4d34a359424620634778c37d4260792135ba508f0bea2de6a2ce1e7",
+      ".github/skills/merchjar-connect/scripts/merchjar_client.py": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911",
+      ".github/skills/performance-check/SKILL.md": "9e841e260c79874179e51dfc4b5d4da76bab61b2cfeaea27c33ae58c3ceec0cc",
+      ".github/skills/review-segment/SKILL.md": "6c1de354eac5ba114d6bc360ff789e4faa38cd4e4c177a47b9881bce25ea5713",
+      ".github/skills/troubleshoot/SKILL.md": "86a139ad63a34759d82a888997a62bba1aff3cf8387858610667fae7e38c3150",
+      "AGENTS.md": "9c877ca9fd5c6165d4a0e5b63a6bcc6d004cfcb3a0fcb39663496a15c593720a",
+      "CHANGELOG.md": "5a8869968abf42f1bb1cac46f16df8201d9e2a6d73dccd966aef1af4a478ff4f",
+      "CLAUDE.md": "4250cb8d7e5ecaab0af445e08445488e0e112c37e04bc7c482a9fdd60f86ec49",
+      "README.md": "6c18fa99ee273b48bd58de3364f1241f02902bf3a77c03db105e710dd0528c1e",
+      "build.sh": "546ffc5f75c64c2d4a878cf145fa2bd587046eb04e3fcc380ea68bd0e728866e",
+      "docs/copilot.md": "004090c86a8bbc02e1fc4c9bbf421c8b592c324a8f8b47e59f74dc43b3eee316",
+      "docs/library.md": "8fed2062f95f494ce353daf91f8cde107990c1fc0540f4358d901c5eb259dd43",
+      "docs/runtime-browser.md": "b802900aa34fada341ffc24d08f64473c850b5b2776a86ba73f9b49e9f79a4b5",
+      "docs/runtime-shell.md": "ccccbe3dedb3025edd83c3f7238d8a8c3821b57bd242df315381381b56ac119a",
+      "reference/MJ_API_REFERENCE.md": "c751f20ce59ae87f6f4ec2e89b200ef8b585aa60004bbe696831c9eaddd5f279",
+      "reference/SEGMENT_CREATION_GUIDELINES.md": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+      "reference/V2_SYNTAX_REFERENCE.md": "b0dbbe07cc5718c52d8de76715a752a521138013d7f77d348396810680c12558",
+      "skills/account-review/SKILL.md": "7c2f7d6468c6ee5c0a7de8fc56f6b5670925c510a99e92bba63c9aadbb6692d6",
+      "skills/audit-log/SKILL.md": "b87c7790ea410291c3f522d16b44630d5bc63c0d78e530087a7a1e44562c55ff",
+      "skills/build-segment/SKILL.md": "df0ff2d353fab0300e5348ff6a24eeb5c02132e84d6940ad36e6c92b6cea8923",
+      "skills/check-segments/SKILL.md": "6474102085dd29c3b3363b1ddfdd9aa56740131a156f545e39439d96636ab710",
+      "skills/create-campaigns/SKILL.md": "06ade09edd94827e8dc7f7db1c85fbb8abedfa0d4bd3d388435e3c2fc7116960",
+      "skills/create-campaigns/references/conversations.md": "eda71e0bc7594c47584b50f4d1f8a1e8b923f6bcd910db26c6c2fb1861c3c007",
+      "skills/create-campaigns/references/launch-validation.md": "853fc61a2ef087273ae1522be7c6c3918860b0b62c6b463d3eb690ba4f76e931",
+      "skills/create-campaigns/references/preferences.md": "796430ce2e65ca65fc89095e87f550b232c6df1626270e75ff8627d5d96e2c18",
+      "skills/create-campaigns/scripts/campaign_structures.py": "d6295ea5d54ca0b8391031ea9de267577f4702a99259849b84a1f815004d140a",
+      "skills/create-campaigns/scripts/validate_launch.py": "8dd3654db08b0791e230f59ecdff1395c5bbc28f61ca16474da515be663ea9bb",
+      "skills/enrich-account/SKILL.md": "6ed8bf14ed1f2c4742f8c8fdd7229221c123c6853997d5ec103681d77ca575b3",
+      "skills/explain-segment/SKILL.md": "5547d54da9fcca5ba06906df5a91faee1df146df2901c7c39d0338cbeec440ef",
+      "skills/manage-library/SKILL.md": "49094f1ac150dda8a34063b1041ef318b218b93e07e702095d6f3e5375cb3ab4",
+      "skills/manage-library/scripts/install_skill.py": "f4f6ece2e76993f95051d799115fce06838b08e6435f9493d18298e5de8783df",
+      "skills/manage-library/scripts/installed_skills.py": "2c49dbcde4912683d3d05f4fe11dbd714c466d7de0980badb4052069c519e840",
+      "skills/manage-library/scripts/update_copilot.py": "742ec25e066340bcf631797901b59d7871569c04059933cac9012402b3838d91",
+      "skills/merchjar-connect/SKILL.md": "5c3113cd0a2d7b92f71ccc7a15e47463e3c1a7cc749ed0bee089342ffd767bb5",
+      "skills/merchjar-connect/references/MJ_API_REFERENCE.md": "c751f20ce59ae87f6f4ec2e89b200ef8b585aa60004bbe696831c9eaddd5f279",
+      "skills/merchjar-connect/references/SEGMENT_CREATION_GUIDELINES.md": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+      "skills/merchjar-connect/references/V2_SYNTAX_REFERENCE.md": "b0dbbe07cc5718c52d8de76715a752a521138013d7f77d348396810680c12558",
+      "skills/merchjar-connect/references/campaign-naming.md": "a7b07c12fc9c06aac6aa0efd8698368efbd50c8050d1af58bb46c62e0eb32955",
+      "skills/merchjar-connect/scripts/campaign_naming.py": "89c45f85f4d34a359424620634778c37d4260792135ba508f0bea2de6a2ce1e7",
+      "skills/merchjar-connect/scripts/merchjar_client.py": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911",
+      "skills/performance-check/SKILL.md": "9e841e260c79874179e51dfc4b5d4da76bab61b2cfeaea27c33ae58c3ceec0cc",
+      "skills/review-segment/SKILL.md": "6c1de354eac5ba114d6bc360ff789e4faa38cd4e4c177a47b9881bce25ea5713",
+      "skills/troubleshoot/SKILL.md": "86a139ad63a34759d82a888997a62bba1aff3cf8387858610667fae7e38c3150",
+      "tools/build_skills.py": "2531be1d3864d58da0e46ce7b824752cb528eed67dd1ec3f52b56dd9d09d277a",
+      "tools/library.py": "bc334700492eaf0e74c8023c11163afe6a169410c79c4ed89caab60254b8c730",
+      "tools/merchjar_client.py": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911",
+      "tools/update_copilot.py": "742ec25e066340bcf631797901b59d7871569c04059933cac9012402b3838d91"
+    }
+  }
+}

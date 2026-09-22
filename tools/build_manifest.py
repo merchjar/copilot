@@ -261,7 +261,7 @@ def build_skills(tag: str) -> tuple[list[dict], list[str]]:
             "requires_properties": _split_list(meta.get("requires-properties", "")),
             "produces": meta.get("produces", ""),
             "risk": meta.get("risk", "") or None,
-            "compatibility": fm.get("compatibility", ""),
+            "compatibility": fm.get("compatibility", meta.get("compatibility", "")),
             "license": fm.get("license", ""),
             "last_updated": meta.get("last-updated", ""),
             "ships_in_pack": (REPO_ROOT / "copilot-pack" / "skills" / name / "SKILL.md").exists(),
@@ -269,6 +269,9 @@ def build_skills(tag: str) -> tuple[list[dict], list[str]]:
             "has_references": (path.parent / "references").exists(),
             "body_sha": _sha(body),
             "raw_url": f"{RAW_BASE}/{tag}/{rel}",
+            **({"connection_mode": meta["connection-mode"],
+                "connected_skills": _split_list(meta.get("connected-skills", ""))}
+               if meta.get("connection-mode") else {}),
         })
     return items, errors
 

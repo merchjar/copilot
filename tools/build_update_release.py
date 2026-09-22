@@ -21,6 +21,7 @@ DEFAULT_SKILLS = [
     'merchjar-connect', 'performance-check', 'review-segment', 'troubleshoot',
 ]
 RELEASE_NOTES = {
+    'branded-review': 'Adds uploaded-report branded versus non-branded analysis, product ownership, visual campaign proposals and optional connected planning.',
     'account-review': 'Can recommend Campaign Naming when inconsistent names block account work.',
     'campaign-naming-cleanup': 'Responds faster, proposes a reusable taxonomy first, and preserves method separately from match type.',
     'create-campaigns': 'Reuses the saved account naming taxonomy, including the distinct Auto, KW, PT, or Mixed method.',
@@ -125,6 +126,7 @@ def main():
         '1.2.2=v1.2.2',
         '1.2.3=64466b0',
         '1.2.4=13d4457fbe62f72deed01a612e793cccc4b743d3',
+        '1.2.6=3ed57e51d6f87b790bc1b4a52984c54c8c051dec',
     ], help='Known release baseline as VERSION=GIT_REF')
     parser.add_argument('--base-url', default='https://merchjar.com/library-install/copilot')
     args = parser.parse_args()

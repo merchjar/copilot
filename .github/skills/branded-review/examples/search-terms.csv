@@ -1,0 +1,5 @@
+Budget currency,Date range,Advertiser account ID,Advertiser account name,Campaign ID,Campaign name,Ad group ID,Ad group name,Search term,Total cost,Sales,Clicks,Purchases,Impressions
+USD,"Sep 01, 2026 - Sep 14, 2026",sample-account,Northstar Gear sample,101,Mixed backpacks,201,Daypack,northstar gear backpack,40,400,40,8,2000
+USD,"Sep 01, 2026 - Sep 14, 2026",sample-account,Northstar Gear sample,101,Mixed backpacks,201,Daypack,hiking backpack,80,200,80,4,7000
+USD,"Sep 01, 2026 - Sep 14, 2026",sample-account,Northstar Gear sample,101,Mixed backpacks,201,Daypack,B000000001,10,50,10,1,1000
+USD,"Sep 01, 2026 - Sep 14, 2026",sample-account,Northstar Gear sample,101,Mixed backpacks,201,Daypack,,10,10,10,1,500

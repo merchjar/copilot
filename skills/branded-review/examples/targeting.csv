@@ -1,0 +1,5 @@
+Budget currency,Date range,Advertiser account ID,Advertiser account name,Campaign ID,Campaign name,Ad group ID,Ad group name,Targeting,Targeting match type,Target ID,Target bid,Target status
+USD,"Sep 01, 2026 - Sep 14, 2026",sample-account,Northstar Gear sample,101,Mixed backpacks,201,Daypack,northstar gear,EXACT,301,0.40,ENABLED
+USD,"Sep 01, 2026 - Sep 14, 2026",sample-account,Northstar Gear sample,101,Mixed backpacks,201,Daypack,hiking backpack,BROAD,302,0.75,ENABLED
+USD,"Sep 01, 2026 - Sep 14, 2026",sample-account,Northstar Gear sample,101,Mixed backpacks,201,Daypack,daypack,PHRASE,303,0.60,ENABLED
+USD,"Sep 01, 2026 - Sep 14, 2026",sample-account,Northstar Gear sample,101,Mixed backpacks,201,Daypack,school backpack,EXACT,304,0.30,PAUSED
