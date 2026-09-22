@@ -34,8 +34,9 @@ def export_pack(ref, destination):
 class UpdateTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.manifest_path = ROOT / 'release/copilot-update-v1.2.6.json'
-        cls.archive_path = ROOT / 'release/copilot-update-v1.2.6.zip'
+        cls.version = json.loads((ROOT / 'manifest.json').read_text())['pack_version']
+        cls.manifest_path = ROOT / f'release/copilot-update-v{cls.version}.json'
+        cls.archive_path = ROOT / f'release/copilot-update-v{cls.version}.zip'
         cls.manifest, cls.payloads = updater.load_release_files(cls.manifest_path, cls.archive_path)
         cls.fixtures = ROOT / 'tmp' / ('update-fixtures-' + uuid.uuid4().hex)
         cls.fixtures.mkdir(parents=True)
@@ -117,6 +118,29 @@ class UpdateTests(unittest.TestCase):
         self.assertIn('version: "0.4.0"',
                       (self.folder / 'skills/campaign-naming-cleanup/SKILL.md').read_text(encoding='utf-8'))
         self.assertEqual(private.read_bytes(), private_bytes)
+
+    def test_brand_review_installs_without_connection_and_preserves_saved_work(self):
+        self.current()
+        before = self.snapshot()
+        result = updater.apply_update(self.folder, self.manifest, self.payloads, ['branded-review'])
+        self.assertTrue(result['applied'])
+        self.assertEqual(result['scope'], ['branded-review'])
+        for path, contents in before.items():
+            if path.startswith('user/') or path.endswith('merchjar-connect/SKILL.md'):
+                self.assertEqual((self.folder / path).read_bytes(), contents)
+        for mirror in ['skills', '.agents/skills', '.claude/skills', '.github/skills', '.gemini/skills']:
+            self.assertIn('version: "2.0.0"', (self.folder / mirror / 'branded-review/SKILL.md').read_text(encoding='utf-8'))
+        saved = self.folder / 'skills/branded-review/workspace/brand-reference.json'
+        saved.parent.mkdir()
+        saved.write_text('{"brand":"Example","approved":true}')
+        repeated = updater.apply_update(self.folder, self.manifest, self.payloads, ['branded-review'])
+        self.assertFalse(repeated['conflicts'])
+        self.assertEqual(saved.read_text(), '{"brand":"Example","approved":true}')
+        _, report, _, _ = updater.plan_update(self.folder, self.manifest, self.payloads, ['branded-review'])
+        self.assertFalse(report['add'])
+        self.assertFalse(report['replace'])
+        with zipfile.ZipFile(ROOT / f'merch-jar-copilot-pack-v{self.version}.zip') as archive:
+            self.assertFalse(any('/skills/branded-review/' in p for p in archive.namelist()))
 
     def test_custom_skill_and_newer_official_skill_are_preserved(self):
         self.current()
@@ -204,7 +228,7 @@ class UpdateTests(unittest.TestCase):
             ('skills/', '.agents/', '.claude/', '.gemini/', '.github/')) for path in paths))
 
     def test_default_zip_excludes_optional_naming_but_update_archive_includes_it(self):
-        full_zip = ROOT / 'merch-jar-copilot-pack-v1.2.6.zip'
+        full_zip = ROOT / f'merch-jar-copilot-pack-v{self.version}.zip'
         with zipfile.ZipFile(full_zip) as archive:
             names = set(archive.namelist())
         self.assertFalse(any('/skills/campaign-naming-cleanup/' in name for name in names))

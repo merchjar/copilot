@@ -1,7 +1,7 @@
 {
   "name": "merchjar-copilot",
   "description": "Merch Jar Copilot skills for Amazon Sponsored Products PPC automation. Requires a Merch Jar account and API key.",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "author": {
     "name": "Merch Jar"
   },

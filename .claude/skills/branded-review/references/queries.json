@@ -1,0 +1,39 @@
+{
+  "skill": "branded-review",
+  "note": "Read-only segment preview examples. Replace 30d with the selected consistent period and supply profile_id/page at runtime. Inspect returned units and attribution; read every page and reconcile. Never use create_negatives preview for historical performance.",
+  "queries": [
+    {
+      "id": "discover-keywords",
+      "purpose": "Context for targets with observed activity in the selected period; not a complete configuration listing or proof of query intent.",
+      "ad_type": "keywords_and_targets",
+      "trigger": "impressions(30d) > 0 or spend(30d) > 0 or sales(30d) > 0",
+      "action": "set_state",
+      "action_params": {
+        "value": 2
+      },
+      "per_page": 100
+    },
+    {
+      "id": "discover-search-terms",
+      "purpose": "Historical search-term performance, retaining already-negated terms. Classify returned rows using the approved external brand reference.",
+      "ad_type": "search_terms",
+      "trigger": "impressions(30d) > 0 or spend(30d) > 0 or sales(30d) > 0",
+      "action": "set_state",
+      "action_params": {
+        "value": 2
+      },
+      "per_page": 100
+    },
+    {
+      "id": "reconcile-campaigns",
+      "purpose": "Campaign population for matching-scope coverage reconciliation; do not add these totals to search-term spend.",
+      "ad_type": "campaigns",
+      "trigger": "impressions(30d) > 0 or spend(30d) > 0 or sales(30d) > 0",
+      "action": "set_state",
+      "action_params": {
+        "value": 2
+      },
+      "per_page": 100
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+# Saved negative list for non-branded campaigns
+
+Create this proposal during requested connected planning. It is a reusable account preference, not an Amazon bulk sheet or a claim that a centrally linked Amazon list exists. Keep brand keywords and owned-product ASINs as separate types. The AI maintains the file and prepares supported per-campaign changes through Merch Jar.
+
+## Propose the list
+
+Run `scripts/brand_exclusions.py --analysis PRIVATE/analysis.json --output PRIVATE/brand-exclusions.json --markdown OUTPUT/negative-list.md`. The helper uses the saved aliases, reviewed phrase/exact brand rules and confirmed owned ASINs. It marks all new entries proposed. Classification approval is not negative approval; broad substring/model classification rules stay held for match review. Review distinctive product-line names and common spelling variants; do not add a generic model word or competitor brand based only on good performance. Add clearly equivalent spacing variants to the proposal when observed, without inferring that Amazon negative matching equals the classifier.
+
+The ASIN part should cover the brand's full owned catalog for the selected marketplace. Current advertised products and a short Advertised product report are useful starting subsets, not a complete catalog. Explain the gap briefly and request an existing complete brand ASIN list or a Seller Central listing export only when needed to finish this list. This is catalog identity, not a substitute for live campaign/negative reads, and it is not the Amazon Ads Bulk operations workflow.
+
+Amazon's staff guide points to Seller Central **Reports > Inventory Reports**, then the relevant listing report and Request Report/Download. Use an export covering the desired active/inactive listings and inspect its actual ASIN/brand fields. Confirm any products omitted from that seller's listings, sold through another account, or belonging to another brand. A seller advertising or selling an ASIN is not by itself brand-ownership proof. Keep provenance, marketplace, conflicts and the user's completeness confirmation. [Amazon inventory-report guide](https://sellercentral.amazon.com/seller-forums/discussions/t/04f90559-6630-459c-8265-14b5991ffa1a), checked September 21, 2026.
+
+The AI can normalize a verified catalog into a private JSON with `scope` exactly matching the output's `account_id`, `brand` and `marketplace`, plus `owned_asins`, `source`, `ownership_verified: true` and `complete: true` only when established. Pass this with `--catalog`. Do not make the user author JSON. Parent variations that are not actual targetable detail-page products need review before implementation. Unknown ownership is excluded from the brand list and stays visible as a gap.
+
+## Save and reuse
+
+After review, save the list beside the active Connect configuration at `user/brand-exclusions/PROFILE_ID.json`, with the verified source-account-to-profile mapping and approval evidence. Add a short profile-specific pointer under the configuration's campaign-separation preferences. Preserve credentials and unrelated preferences. Rejected entries remain saved; refreshed terms are new proposals. The helper's `--existing` retains prior decisions and ASINs absent from a shorter subsequent report. Recheck conflicts and stale entries; never quietly downgrade a full catalog to a supposed fresh complete subset.
+
+For **every new non-branded campaign**, load the latest approved revision, check account/marketplace, compare existing negatives, apply the supported keyword/product exclusions for that campaign, and verify readback before it is enabled. Put this list revision and any exception in the explicit Create Campaigns manifest. A paused campaign with unresolved exclusions is not ready to enable. Brand and own-product defense campaigns do not receive this list. In accounts with multiple brands, confirm whether “non-branded” excludes one brand or the whole owned portfolio.
+
+Keyword and product negatives have different applicability and scope. [Amazon's negative-targeting guidance](https://advertising.amazon.com/help/GTEHPEG5BXY9UX5W) distinguishes them. Check the current ad-product/API support; do not send ASINs as negative keywords, assume campaign-level product-negative support, or claim an unsupported entry was applied. Record not-applicable separately from unresolved.
+
+For **existing campaigns**, brand negatives follow actual branded delivery and approved source changes. Owned-ASIN negatives follow actual defense delivery, unless the user explicitly chooses to stop that traffic regardless. Keep unrelated existing exclusions. Review total product-group performance after the change and retain the original campaign/history. Adding exclusions does not reset the campaign or automatically move its old results into a new reporting category; compare periods explicitly.
+
+When products or brand names change, update the saved catalog/list, propose the difference and check campaigns using older revisions. This file does not live-sync or mutate existing campaigns by itself. Ongoing automatic enforcement requires a separately verified and approved capability.
