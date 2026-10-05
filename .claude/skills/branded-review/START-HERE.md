@@ -14,6 +14,8 @@ Start with:
 
 Share your brand name, an optional website URL, and an Amazon Search term report if you have one. The skill will guide the export if you need it. You don't need Merch Jar for the report or structural suggestions.
 
+Advertising books? The skill recognizes KDP accounts. When your Search term report or Merch Jar data includes KENP royalties, the report shows ACoS incl. KENP beside standard ACoS, so Kindle Unlimited reads count. Tell the AI your author and pen names, series names and titles, and include every format's ASIN.
+
 It will ask you to review what counts as branded and present a report you can open or download, with suggestions for separating goals and targeting. To move into a detailed campaign plan, connect Merch Jar and say:
 
 > Help me separate branded and non-branded campaigns.

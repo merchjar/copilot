@@ -20,13 +20,15 @@ The conversational mechanism is a compact include/review/exclude proposal before
 | other_asin | Reported ASIN confirmed outside the selected ownership scope |
 | unknown | Ambiguous query or unresolved/missing ASIN ownership |
 
-Keep cross-brand queries separate by default; do not count the same row in two summary groups. Generic plus competitor can form a clearly labeled non-brand-query total. ASIN context remains separate from query intent; if showing a broader “brand-related” view, explicitly define its composition. An ASIN not found in a partial list remains unknown.
+The bundled analyzer applies confirmed competitor entries (the reference's `competitors` list) inside `other_query`: each row carries a `Confirmed competitor` reason and the result adds a `competitor_queries` subtotal, so the non-branded headline still covers generic plus competitor searches. Own-brand identifiers take precedence. Keep cross-brand queries separate by default; do not count the same row in two summary groups. Generic plus competitor can form a clearly labeled non-brand-query total. ASIN context remains separate from query intent; if showing a broader “brand-related” view, explicitly define its composition. An ASIN not found in a partial list remains unknown.
 
 “Mixed” is an aggregate observation about a target/ad group/campaign containing different row classes. Unknown rows do not become non-brand. Target identity and actual placement are different facts; product targeting may serve on search pages as well as product pages. Do not infer placement solely from targeting configuration.
 
 ## Calculations and coverage
 
 Compute ACoS = sum(spend) / sum(attributed sales), displayed as a percent. A $10/$100 row and a $90/$100 row combine to 50%, not a spend-weighted average of row ACoS. If sales is zero, show “No attributed sales” with spend retained; if sales is missing, show unavailable. Preserve negative corrections and explain why a conventional ratio may be misleading.
+
+For book accounts with KENP data, keep standard ACoS unchanged and add ACoS incl. KENP = sum(spend) / (sum(attributed sales) + sum(estimated KENP royalties)) for branded, non-branded and overall. Royalties reconcile across classes like spend and sales. See [kdp-accounts.md](kdp-accounts.md).
 
 Each report partition has explicit population totals. Class totals including unknowns must reconcile to imported population totals. Compare a matching campaign report separately and display any difference as unresolved coverage. Never allocate the difference to non-brand, product pages, invalid traffic or waste without evidence.
 

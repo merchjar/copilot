@@ -67,7 +67,7 @@ def names(value):
 
 
 def asins(value):
-    if not isinstance(value,list) or any(not isinstance(x,str) or not re.fullmatch(r'(?:B[A-Z0-9]{9}|[0-9]{10})',x) for x in value):
+    if not isinstance(value,list) or any(not isinstance(x,str) or not re.fullmatch(r'(?:B[A-Z0-9]{9}|[0-9]{9}[0-9X])',x) for x in value):
         raise ValueError('Owned ASINs must be valid uppercase ASINs')
     if len(set(value)) != len(value): raise ValueError('Remove duplicate ASINs')
     return sorted(value)

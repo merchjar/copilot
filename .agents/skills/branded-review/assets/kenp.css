@@ -1,0 +1,4 @@
+/* Book accounts only: KENP-inclusive ACoS beneath the standard figure. */
+.kenp-acos{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin:12px 0 0;padding-top:10px;border-top:1px dashed #deded6;font-size:13px;color:var(--ink2)}
+.kenp-acos strong{font-size:17px;font-weight:600;color:var(--ink);letter-spacing:-.01em;white-space:nowrap}
+@media(max-width:540px){.score .kenp-acos{grid-column:1/-1}}

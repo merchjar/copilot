@@ -128,8 +128,10 @@ class UpdateTests(unittest.TestCase):
         for path, contents in before.items():
             if path.startswith('user/') or path.endswith('merchjar-connect/SKILL.md'):
                 self.assertEqual((self.folder / path).read_bytes(), contents)
+        expected = self.manifest['skills']['branded-review']['version']
+        self.assertIn(f'version: "{expected}"', (ROOT / 'skills/branded-review/SKILL.md').read_text(encoding='utf-8'))
         for mirror in ['skills', '.agents/skills', '.claude/skills', '.github/skills', '.gemini/skills']:
-            self.assertIn('version: "2.0.0"', (self.folder / mirror / 'branded-review/SKILL.md').read_text(encoding='utf-8'))
+            self.assertIn(f'version: "{expected}"', (self.folder / mirror / 'branded-review/SKILL.md').read_text(encoding='utf-8'))
         saved = self.folder / 'skills/branded-review/workspace/brand-reference.json'
         saved.parent.mkdir()
         saved.write_text('{"brand":"Example","approved":true}')

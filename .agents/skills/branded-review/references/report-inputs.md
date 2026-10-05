@@ -25,6 +25,8 @@ For current configuration and negatives, guide Merch Jar connection and follow [
 
 When supporting exports cover a different period, use them for product identity and reported structure only. Never add their spend to the search-term total or use them to validate a different-period total. If search terms lack Target ID, a query cannot be assigned to one keyword merely by joining on ad-group ID or text. Repeated keywords can be legitimate across products; strengthen an overlap candidate with shared advertised-product evidence, and check current negatives/eligibility through Merch Jar before proposing application.
 
+Book (KDP) accounts: Amazon's search-term data for book advertisers can include KENP pages read and estimated KENP royalties columns (labels vary, often with a window suffix such as “(14 days)”). Keep them in the original export; the analyzer finds them. If several windows are present, use the one matching the sales column. A book account's owned list includes every format's ASIN; ISBN-10 IDs can end in X. See [kdp-accounts.md](kdp-accounts.md).
+
 If a bulk workbook contains customer search-term rows with spend and sales, those can supply the analysis. If it only has keyword/target totals, use it for structure and request the missing search-term report. Never substitute target text for the shopper's query.
 
 ## Normalize before calculation

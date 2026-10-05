@@ -1,20 +1,20 @@
 ---
 name: branded-review
-description: Compare branded and non-branded Amazon advertising performance from uploaded reports or optional Merch Jar data. Establish brand terms and owned ASINs, produce a reconciled report and recommend campaign separation. Use when reviewing brand traffic or planning branded versus non-branded restructuring; general keyword research is separate.
+description: Compare branded and non-branded Amazon advertising performance from uploaded reports or optional Merch Jar data, including KDP book accounts with KENP royalties. Establish brand terms and owned ASINs, produce a reconciled report and recommend campaign separation. Use when reviewing brand traffic or planning branded versus non-branded restructuring; general keyword research is separate.
 license: Proprietary. Free report and structural suggestions are available without a subscription. Detailed planning and connected operations require an active Merch Jar account. See LICENSE.
 metadata:
-  version: "2.0.0"
+  version: "2.1.0"
   connection-mode: "optional"
   connected-skills: "merchjar-connect, create-campaigns, campaign-naming-cleanup"
   compatibility: "File-capable AI client with Python 3.9+ for bundled helpers. Optional connected work needs shell/network and Merch Jar Connect 1.5+."
-  tags: "brand, reports, classification, campaigns, negatives"
+  tags: "brand, reports, classification, campaigns, negatives, kdp"
   goal: "protect"
   risk: "state"
   requires-skills: ""
   requires-scopes: ""
   requires-properties: ""
   produces: "reviewed brand reference, classified performance report, optional campaign-change plan and connected execution receipts"
-  last-updated: "2026-09-22"
+  last-updated: "2026-10-05"
 ---
 
 # Brand Traffic Review
@@ -70,6 +70,10 @@ The report's **Your brand lists** panel exports only changed items, or saves a r
 
 Use the adapter's actual reference keys: `account_id`, `currency`, `brand`, `marketplace` when known, plus `rules` and `exceptions`. Do not substitute `brand_scope` for `brand`. Before saying the saved reference is reusable, verify a read of it through the same calculation path into separate outputs; preserve the approved rules and original report.
 
+## Book (KDP) accounts
+
+Read [kdp-accounts.md](references/kdp-accounts.md) when the analyzer returns `kdp`, a report has KENP columns, or the user says they advertise books. For books, the brand is the author and pen names, series names and distinctive titles. Everyday-phrase titles stay in review. Collect every format's ASIN. Other authors are competitor traffic only when the user confirms them. Keep standard ACoS as the headline and report the analyzer's ACoS incl. KENP beside it; never compute it yourself. Connected data uses adjusted values and the report states any Ad Impact Multiplier other than 1. Book-style product IDs alone are a reason to ask, not a classification.
+
 Classify observed customer queries and reported ASIN rows first. Brand plus category is still branded. “Mixed” describes an aggregate containing multiple traffic classes. Do not classify automatic targets or uninspected products as non-brand by default. Campaign names and target labels are supporting context, not proof of actual traffic.
 
 ## Produce the review
@@ -86,7 +90,7 @@ For Amazon's English default templates, the standard-library Python adapter is [
 python scripts/analyze_search_terms.py INPUT.csv --advertiser "Selected advertiser" --currency USD --brand "Brand name" --alias "Confirmed alternate name" --json-output PRIVATE/analysis.json --html-output OUTPUT/review.html
 ```
 
-Omit `--alias` when none is supplied. Optional flags: `--brand-reference PRIVATE/brand-reference.json`, `--advertised-products PRODUCTS.csv --marketplace AMAZON.COM`, and `--targeting TARGETING.csv`. The reference is account/currency/brand/marketplace scoped and carries `rules` and `exceptions`, each with `term`, `match` (`phrase`, `exact`, or explicitly approved `contains_compact`) and `status` (`approved`, `proposed`, `rejected`); exceptions specify the resulting query class. Preserve evidence and approval date per entry. The reader never overwrites the reference.
+Omit `--alias` when none is supplied. Optional flags: `--brand-reference PRIVATE/brand-reference.json`, `--advertised-products PRODUCTS.csv --marketplace AMAZON.COM`, `--targeting TARGETING.csv`, and for book accounts `--account-type kdp` and `--kenp-royalties-column NAME`. The reference is account/currency/brand/marketplace scoped and carries `rules` and `exceptions`, each with `term`, `match` (`phrase`, `exact`, or explicitly approved `contains_compact`) and `status` (`approved`, `proposed`, `rejected`); exceptions specify the resulting query class. Preserve evidence and approval date per entry. The reader never overwrites the reference.
 
 Keep source-derived JSON in that private report workspace. The adapter holds proposed names/spellings in review, matches ASINs to same-brand/same-marketplace advertised products, and retains unmatched ASINs and blank queries separately. Supporting metrics never get added to search-term totals. It does not distinguish competitor queries, split missing ad products or import arbitrary Seller Central schemas. Use another verified calculation path for unsupported schemas. The executive renderer and local brand assets are bundled; preserve its three-number hierarchy. The report automatically includes Campaign plan and Setup & progress tabs. Read [report-workspace.md](references/report-workspace.md) to keep one artifact updated as product evidence, connected details and delivery checks arrive.
 

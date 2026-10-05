@@ -18,6 +18,7 @@ from pathlib import Path
 import re
 import unicodedata
 from report_context import product_context, targeting_context
+import kdp
 
 METRICS = {"spend": "Total cost", "sales": "Sales", "clicks": "Clicks",
            "purchases": "Purchases", "impressions": "Impressions"}
@@ -71,7 +72,8 @@ def classify(query, aliases, reference=None):
     value = normalize(query)
     if not value:
         return "missing_query", "Source query is blank; no traffic identity inferred"
-    if re.fullmatch(r"(?:b[a-z0-9]{9}|[0-9]{10})", value) and any(c.isdigit() for c in value):
+    # ISBN-10 product IDs (book ASINs) can end in an X check digit.
+    if re.fullmatch(r"(?:b[a-z0-9]{9}|[0-9]{9}[0-9x])", value) and any(c.isdigit() for c in value):
         return "asin_unknown", "Reported ASIN; owned-product list not supplied"
     if reference:
         for rule in reference.get('exceptions', []):
@@ -82,7 +84,7 @@ def classify(query, aliases, reference=None):
                 return 'other_query', f"Reviewed and excluded brand candidate: {rule['term']}"
         for rule in reference.get('rules', []):
             if rule.get('status') == 'approved' and rule_matches(value, rule):
-                return 'brand_query', f"Approved brand rule: {rule['term']}"
+                return 'brand_query', f"Approved {kdp.rule_label(rule)}: {rule['term']}"
     for alias in aliases:
         pattern = r"(?<!\w)" + r"[\s-]+".join(re.escape(x) for x in normalize(alias).split()) + r"(?!\w)"
         if re.search(pattern, value):
@@ -94,9 +96,14 @@ def classify(query, aliases, reference=None):
         if compact and re.search(pattern, value):
             return 'brand_query', f'Formatting equivalent of confirmed brand: {alias}'
     if reference:
+        # User-confirmed competitor names (for books, other authors) stay in non-branded traffic.
+        for rule in reference.get('competitors', []):
+            if rule.get('status') == 'approved' and rule_matches(value, rule):
+                kind = ' author' if rule.get('kind') in ('author', 'pen_name') else ''
+                return 'other_query', f"Confirmed competitor{kind}: {rule['term']}"
         for rule in reference.get('rules', []):
             if rule.get('status') == 'proposed' and rule_matches(value, rule):
-                return 'brand_review', f"Proposed brand rule requires confirmation: {rule['term']}"
+                return 'brand_review', f"Proposed {kdp.rule_label(rule)} requires confirmation: {rule['term']}"
     # Suggest, never approve, near spellings and brand names joined to model names.
     tokens = re.findall(r"[a-z0-9]+", value)
     for alias in aliases:
@@ -151,7 +158,8 @@ def brand_decisions(rows):
             for reason, b in buckets.items()]
 
 
-def analyze(source, advertiser, currency, brand, aliases, reference=None, advertised_products=None, targeting=None, marketplace=None, catalog=None):
+def analyze(source, advertiser, currency, brand, aliases, reference=None, advertised_products=None, targeting=None, marketplace=None, catalog=None,
+            account_type=None, kenp_columns=None):
     source = Path(source)
     with source.open(encoding="utf-8-sig", newline="") as stream:
         reader = csv.DictReader(stream)
@@ -159,6 +167,11 @@ def analyze(source, advertiser, currency, brand, aliases, reference=None, advert
         if missing:
             raise ValueError(f"Unsupported export; missing columns: {', '.join(sorted(missing))}")
         original = [(line, r) for line, r in enumerate(reader, 2)]
+        kenp_spec = dict(kenp_columns or {})
+        royalty_column, pages_column = kdp.kenp_columns(reader.fieldnames, kenp_spec.get('royalties'), kenp_spec.get('pages'))
+        basis_column = kenp_spec.get('sales', METRICS['sales'])
+        if royalty_column and basis_column not in (reader.fieldnames or []):
+            raise ValueError(f'KENP sales basis column not found: {basis_column}')
     selected = [(line, r) for line, r in original
                 if r["Advertiser account name"] == advertiser and r["Budget currency"] == currency]
     if not selected:
@@ -172,11 +185,15 @@ def analyze(source, advertiser, currency, brand, aliases, reference=None, advert
             raise ValueError('Saved brand reference does not match the selected account, currency and brand')
         if marketplace and reference.get('marketplace') != marketplace:
             raise ValueError('Saved brand reference has a different marketplace')
-        for rule in reference.get('rules', []) + reference.get('exceptions', []):
+        for rule in reference.get('rules', []) + reference.get('exceptions', []) + reference.get('competitors', []):
             if not rule.get('term', '').strip() or rule.get('status') not in ('approved','proposed','rejected'):
                 raise ValueError('Brand reference contains an invalid rule')
             if rule.get('match','phrase') not in ('phrase','exact','contains_compact'):
                 raise ValueError('Brand reference contains an unsupported matching method')
+            if 'kind' in rule and rule['kind'] not in kdp.RULE_KINDS:
+                raise ValueError('Brand reference rule has an unsupported kind')
+            if rule.get('kind') == 'title' and rule.get('match') == 'contains_compact':
+                raise ValueError('Title rules use phrase or exact matching')
         if any(r.get('category') not in ('brand_query','other_query','brand_review') for r in reference.get('exceptions', [])):
             raise ValueError('Brand reference exception has an unsupported class')
     context, products_by_group, owned = {}, {}, set()
@@ -192,12 +209,12 @@ def analyze(source, advertiser, currency, brand, aliases, reference=None, advert
         if not catalog.get('source') or catalog.get('ownership_verified') is not True:
             raise ValueError('Catalog needs source evidence and verified brand ownership')
         supplied = set(catalog.get('owned_asins', []))
-        if any(not re.fullmatch(r'(?:B[A-Z0-9]{9}|[0-9]{10})', str(a)) for a in supplied):
+        if any(not re.fullmatch(r'(?:B[A-Z0-9]{9}|[0-9]{9}[0-9X])', str(a)) for a in supplied):
             raise ValueError('Invalid ASIN in catalog')
         if supplied & set(context.get('products', {}).get('conflicted_asins', [])):
             raise ValueError('Resolve conflicting product ownership before using the catalog')
         excluded = set(catalog.get('excluded_asins', []))
-        if any(not re.fullmatch(r'(?:B[A-Z0-9]{9}|[0-9]{10})', str(a)) for a in excluded) or supplied & excluded:
+        if any(not re.fullmatch(r'(?:B[A-Z0-9]{9}|[0-9]{9}[0-9X])', str(a)) for a in excluded) or supplied & excluded:
             raise ValueError('Invalid or conflicting explicit catalog exclusions')
         owned = (owned | supplied) - excluded
         context['products'] = {**context.get('products', {}), 'kind':'saved_catalog',
@@ -210,6 +227,21 @@ def analyze(source, advertiser, currency, brand, aliases, reference=None, advert
     total, seen, starts, ends = empty_metrics(), set(), [], []
     # Independent source-column sums are checked against the classified result below.
     source_total = {k: sum((number(r[v], v, line) for line, r in selected), Decimal(0)) for k, v in METRICS.items()}
+    # KENP values are read once. A blank royalty cell contributes no royalties and is disclosed.
+    kenp_rows, kenp_blank = {}, 0
+    if royalty_column:
+        for line, r in selected:
+            royalty = r.get(royalty_column) or ''
+            pages = (r.get(pages_column) or '') if pages_column else ''
+            kenp_blank += not royalty.strip()
+            kenp_rows[line] = {'royalties': number(royalty, royalty_column, line) if royalty.strip() else Decimal(0),
+                               'pages_read': number(pages, pages_column, line) if pages.strip() else Decimal(0),
+                               'sales_basis': number(r[basis_column], basis_column, line)}
+    kenp_activity = any(v['royalties'] or v['pages_read'] for v in kenp_rows.values())
+    confirmed_books = account_type == 'kdp' or (reference or {}).get('account_type') == 'kdp'
+    kenp_mode = bool(royalty_column) and (kenp_activity or confirmed_books)
+    kenp_groups = {key: kdp.empty() for key in LABELS}
+    kenp_total = kdp.empty()
     for line, row in selected:
         signature = tuple(row.items())
         if signature in seen:
@@ -226,6 +258,9 @@ def analyze(source, advertiser, currency, brand, aliases, reference=None, advert
         if category == 'asin_unknown' and row['Search term'].strip().upper() in owned:
             category, reason = 'owned_asin', 'ASIN matches verified product evidence for the selected brand and marketplace'
         add(total, metrics); add(groups[category]["metrics"], metrics); groups[category]["rows"] += 1
+        if kenp_mode:
+            for k, v in kenp_rows[line].items():
+                kenp_total[k] += v; kenp_groups[category][k] += v
         campaign = campaigns.setdefault(cid, {"id": cid, "name": row["Campaign name"], "metrics": empty_metrics(),
                                                 "groups": {k: empty_metrics() for k in LABELS}})
         if campaign["name"] != row["Campaign name"]:
@@ -235,10 +270,16 @@ def analyze(source, advertiser, currency, brand, aliases, reference=None, advert
         classified.append({"source_line": line, "campaign_id": cid, "campaign_name": row["Campaign name"],
                            "ad_group_id": aid, "ad_group_name": row["Ad group name"], "query": row["Search term"],
                            "start": start.isoformat(), "end": end.isoformat(), "category": category,
-                           "reason": reason, **{k: str(v) for k, v in metrics.items()}})
+                           "reason": reason, **{k: str(v) for k, v in metrics.items()},
+                           **({'kenp_'+k: str(v) for k, v in kenp_rows[line].items()} if kenp_mode else {})})
     grouped_total = {k: sum((g["metrics"][k] for g in groups.values()), Decimal(0)) for k in METRICS}
     if total != source_total or grouped_total != source_total:
         raise ValueError("Classification does not reconcile to the selected source population")
+    if kenp_mode:
+        source_kenp = {k: sum((v[k] for v in kenp_rows.values()), Decimal(0)) for k in kdp.empty()}
+        grouped_kenp = {k: sum((g[k] for g in kenp_groups.values()), Decimal(0)) for k in kdp.empty()}
+        if kenp_total != source_kenp or grouped_kenp != source_kenp:
+            raise ValueError("KENP royalties do not reconcile to the selected source population")
     campaign_rows = []
     for c in campaigns.values():
         campaign_rows.append({"id": c["id"], "name": c["name"], **present(c["metrics"]),
@@ -251,7 +292,7 @@ def analyze(source, advertiser, currency, brand, aliases, reference=None, advert
     for receipt in context.values():
         receipt['same_date_envelope_as_search'] = (receipt['observed_start'],receipt['observed_end']) == (min(starts).isoformat(),max(ends).isoformat())
         receipt['use'] = 'Identity/configuration context only; metrics not added or compared to search-term totals'
-    return {"schema": "brand-traffic-review/default-templates", "brand": brand, "advertiser": advertiser,
+    report = {"schema": "brand-traffic-review/default-templates", "brand": brand, "advertiser": advertiser,
             "currency": currency, "source_path": str(source.resolve()), "source_sha256": hashlib.sha256(source.read_bytes()).hexdigest(),
             "source_rows": len(original), "selected_rows": len(selected), "excluded_other_scope_rows": len(original)-len(selected),
             "account_id": next(iter(accounts)), "campaign_count": len(campaigns),
@@ -272,6 +313,39 @@ def analyze(source, advertiser, currency, brand, aliases, reference=None, advert
                             "No matching campaign report has verified account-wide coverage; recent sales may still change.",
                             "Current bids, goals, negatives and eligible advertised products are not established by this file."] + context.get('products', {}).get('limitations', []),
             "reconciliation": {"source_vs_classes": "equal", "metrics_checked": list(METRICS), "duplicate_rows": 0}}
+    for key in ('account_type', 'competitors'):
+        if (reference or {}).get(key):
+            report['brand_reference'][key] = reference[key]
+    competitor_rows = [r for r in classified if r['reason'].startswith('Confirmed competitor')]
+    if any(c.get('status') == 'approved' for c in (reference or {}).get('competitors', [])):
+        metrics = empty_metrics()
+        for r in competitor_rows: add(metrics, {k: Decimal(r[k]) for k in METRICS})
+        report['competitor_queries'] = {'rows': len(competitor_rows), **present(metrics),
+            'examples': sorted({r['query'] for r in competitor_rows})[:6],
+            'note': 'Confirmed competitor searches are part of non-branded text searches, not a separate total.'}
+    isbn_ids = kdp.book_ids(set().union(*products_by_group.values()) if products_by_group else []) or \
+        kdp.book_ids((catalog or {}).get('owned_asins', []))
+    activity = 'KENP columns report Kindle Unlimited page reads' if kenp_activity else None
+    if kenp_spec.get('activity_label') and kenp_activity:
+        activity = kenp_spec['activity_label']
+    status = kdp.account_status(activity, confirmed_books, isbn_ids, kenp_mode, bool(royalty_column))
+    if status:
+        report['kdp'] = status
+    if kenp_mode:
+        for group in report['groups']:
+            group['kenp'] = kdp.present(groups[group['category']]['metrics']['spend'], **kenp_groups[group['category']])
+        report['totals']['kenp'] = kdp.present(total['spend'], **kenp_total)
+        report['kenp'] = {'formula': kdp.FORMULA, 'royalties_column': royalty_column, 'pages_column': pages_column,
+            'sales_basis_column': basis_column, 'source': kenp_spec.get('source', 'uploaded report'),
+            'values': kenp_spec.get('values', 'reported'), 'blank_royalty_rows': kenp_blank,
+            'reconciliation': 'equal', 'disclosures': list(kenp_spec.get('disclosures', []))}
+        report['limitations'].append('ACoS incl. KENP adds estimated Kindle Unlimited (KENP) royalties to attributed sales. Amazon estimates these royalties; standard ACoS is shown unchanged.')
+        if kenp_blank:
+            report['limitations'].append(f'{kenp_blank} rows have no KENP royalty value; they add no royalties.')
+        report['reconciliation']['metrics_checked'] = list(METRICS) + ['kenp_' + k for k in kdp.empty()]
+    elif status and status['status'] != 'possible':
+        report['limitations'].append('This data has no KENP royalties, so ACoS excludes Kindle Unlimited page reads.')
+    return report
 
 
 def render(report):
@@ -290,6 +364,9 @@ def main():
     parser.add_argument('--targeting', type=Path)
     parser.add_argument('--catalog', type=Path, help='Saved scoped and verified owned-ASIN catalog')
     parser.add_argument('--marketplace')
+    parser.add_argument('--account-type', choices=['kdp'], help='The user confirmed this account advertises books (KDP)')
+    parser.add_argument('--kenp-royalties-column', help='Choose one KENP royalties column when the export has several')
+    parser.add_argument('--kenp-pages-column', help='Choose one KENP pages-read column when the export has several')
     parser.add_argument('--json-output', type=Path, required=True)
     parser.add_argument('--html-output', type=Path, required=True)
     parser.add_argument('--state', type=Path, help='Existing private report progress file; defaults beside the HTML')
@@ -302,7 +379,8 @@ def main():
     reference = json.loads(args.brand_reference.read_text(encoding='utf-8')) if args.brand_reference else None
     report = analyze(args.source, args.advertiser, args.currency, args.brand, args.alias, reference,
                      args.advertised_products, args.targeting, args.marketplace,
-                     json.loads(args.catalog.read_text(encoding='utf-8')) if args.catalog else None)
+                     json.loads(args.catalog.read_text(encoding='utf-8')) if args.catalog else None,
+                     args.account_type, {'royalties': args.kenp_royalties_column, 'pages': args.kenp_pages_column})
     if args.workspace:
         from connection_context import inspect_connection
         report['connection_context'] = inspect_connection(args.workspace)
@@ -318,6 +396,9 @@ def main():
     result = {k: report[k] for k in ('selected_rows','campaign_count','ad_group_count','totals','groups','mixed_campaign_count','reconciliation')}
     result.update(saved)
     result['brand_decisions'] = report['brand_decisions']
+    for key in ('kdp', 'kenp', 'competitor_queries'):
+        if key in report:
+            result[key] = report[key]
     result['connection_context'] = report.get('connection_context', {'state': 'unknown', 'next_action': 'check_available_workspace'})
     from structure_plan import conversation_action
     result['recommended_next_action'] = conversation_action(report)

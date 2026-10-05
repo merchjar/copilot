@@ -63,15 +63,37 @@ def render_performance(report):
              ('Non-branded ACoS','nonbrand','Other text searches',groups['other_query']),
              ('Overall ACoS','account','Same-period campaigns' if report.get('account_totals') else 'All rows in this report',report.get('account_totals',report['totals']))]
     card_html = ''
+    kenp_pct = lambda x: f'{x:.1%}' if x is not None else 'No sales or royalties'
     for label, cls, caption, row in cards:
+        # Book accounts: standard ACoS stays the headline; KENP-inclusive ACoS sits beneath it.
+        kenp_line = kenp_dd = ''
+        if row.get('kenp'):
+            kenp_line = f'<p class="kenp-acos"><span>ACoS incl. KENP</span><strong>{kenp_pct(row["kenp"]["acos_incl_kenp"])}</strong></p>'
+            kenp_dd = f'<div><dt>KENP royalties</dt><dd>{money(row["kenp"]["royalties"])}</dd></div>'
         card_html += f'''<article class="score {cls}"><h2><i aria-hidden="true"></i>{label}</h2>
-<div class="number">{pct(row['acos'])}</div><p class="caption">{caption}</p>
-<dl><div><dt>Ad spend</dt><dd>{money(row['spend'])}</dd></div><div><dt>Attributed sales</dt><dd>{money(row['sales'])}</dd></div></dl></article>'''
+<div class="number">{pct(row['acos'])}</div><p class="caption">{caption}</p>{kenp_line}
+<dl><div><dt>Ad spend</dt><dd>{money(row['spend'])}</dd></div><div><dt>Attributed sales</dt><dd>{money(row['sales'])}</dd></div>{kenp_dd}</dl></article>'''
     brand, other, total = groups['brand_query'],groups['other_query'],report.get('account_totals',report['totals'])
     if other['acos'] is not None and total['acos'] is not None:
         finding=f"Non-branded ACoS is {other['acos']:.1%}, versus {total['acos']:.1%} overall."
     else:
         finding='The available sales do not support a complete ACoS comparison.'
+    kenp = report.get('kenp')
+    kenp_takeaway = kenp_board = kenp_detail = ''
+    if kenp and other.get('kenp') and total.get('kenp'):
+        a, b = other['kenp']['acos_incl_kenp'], total['kenp']['acos_incl_kenp']
+        if a is not None and b is not None:
+            kenp_takeaway = f' Including KENP royalties, non-branded ACoS is {a:.1%}, versus {b:.1%} overall.'
+        kenp_board = ' ACoS incl. KENP = ad spend ÷ (attributed sales + estimated KENP royalties). ' + ' '.join(kenp.get('disclosures', []))
+        source = 'Merch Jar data' if kenp.get('source') == 'Merch Jar connection' else 'the uploaded report'
+        kenp_detail = (f"<p><b>KENP:</b> Estimated Kindle Unlimited royalties come from {source} "
+                       f"({escape(kenp.get('royalties_column') or 'KENP royalties')}). Amazon estimates these royalties, so recent periods can change. "
+                       "Merch Jar also offers Blended metrics for book accounts; this report keeps ACoS based on sales and KENP royalties.</p>")
+    competitors = report.get('competitor_queries')
+    competitor_detail = ''
+    if competitors:
+        competitor_detail = (f"<p><b>Confirmed competitor searches:</b> {competitors['rows']:,} rows, {money(competitors['spend'])} spend and "
+                             f"{money(competitors['sales'])} sales. They are included in non-branded text searches.</p>")
     outside = sum(Decimal(g['spend']) for g in report['groups'] if g['category'] not in ('brand_query','other_query'))
     total_spend=Decimal(report['totals']['spend'])
     coverage=f"{money(outside)} ({outside/total_spend:.1%}) sits outside the text-search split." if total_spend else 'No spend was reported.'
@@ -106,10 +128,12 @@ def render_performance(report):
     website=report['brand_reference'].get('website')
     website_link=f'<a href="{escape(website,quote=True)}">Brand website</a>' if website and website.startswith(('https://','http://')) else ''
     css=(assets/'report.css').read_text(encoding='utf-8')+(assets/'report-refinements.css').read_text(encoding='utf-8')
+    if kenp: css += (assets/'kenp.css').read_text(encoding='utf-8')
     connected=bool(report.get('connection'))
     board_note='Branded and non-branded cover text searches. Overall includes all reported traffic, including ASINs and unreported terms.'
     if connected: board_note += ' Overall uses same-period campaign data.'
     else: board_note += ' Full-account coverage is unverified.'
+    board_note += kenp_board
     account_note='The account total has not been checked against a same-period campaign report.'
     if connected:
         gap=report['account_coverage']['search_to_campaign_delta']['spend']
@@ -120,7 +144,7 @@ def render_performance(report):
 <style>@font-face{{font-family:Reviewed Inter;src:url(data:font/woff2;base64,{font}) format('woff2');font-weight:100 900;font-style:normal;font-display:swap}}{css}</style></head><body>
 <header><div class="wrap head"><img alt="Merch Jar" width="762" height="150" src="data:image/webp;base64,{logo}"><span>Brand Traffic Review</span></div></header>
 <main class="wrap"><div class="intro"><div><p class="eyebrow">{escape(report['advertiser'])} · {escape(report['currency'])}</p><h1>Branded vs. non-branded</h1></div><p class="period">{period}<br><span>{period_note}</span></p></div>
-<section class="takeaway"><div><h2>{finding}</h2><p>Give branded demand and broader searches separate goals.</p></div><button class="button" type="button" data-report-go="plan">Open campaign plan →</button></section>
+<section class="takeaway"><div><h2>{finding}</h2><p>Give branded demand and broader searches separate goals.{escape(kenp_takeaway)}</p></div><button class="button" type="button" data-report-go="plan">Open campaign plan →</button></section>
 <section class="board" aria-label="ACoS comparison"><div class="comparison-labels"><span>Text searches</span><span>All reported traffic</span></div><div class="scores">{card_html}</div><p class="board-note">{board_note}</p></section>
 {chart(report)}
 {asin_section(report,money)}
@@ -130,7 +154,7 @@ def render_performance(report):
 <p><b>Proposed names, held for review:</b> {escape(proposed)}.</p><p><b>Observed review examples:</b> {escape(examples)}. {website_link}</p>
 <p>Confirm brand and product-line terms with the skill before treating this as the final split. Keep the approved brand reference for the next report. Generic product descriptions are not automatically branded.</p>
 <div class="table-scroll"><table><thead><tr><th>Traffic</th><th>Rows</th><th>Ad spend</th><th>Attributed sales</th></tr></thead><tbody>{breakdown}</tbody></table></div>
-<p>ACoS = total spend ÷ total attributed sales. Amounts above are rounded for display; calculations use the original amounts. All {report['selected_rows']:,} search-term rows reconcile. {account_note}</p>{support}
+<p>ACoS = total spend ÷ total attributed sales. Amounts above are rounded for display; calculations use the original amounts. All {report['selected_rows']:,} search-term rows reconcile. {account_note}</p>{support}{kenp_detail}{competitor_detail}
 <p>Supporting template metrics are not added to search-term metrics. Different date ranges can supply identity context, but cannot validate the same-period account total.</p><ul>{limits}</ul>
 <p class="source">{source_note}</p></div></details>
 <footer>Prepared with Merch Jar · {footer_note}</footer></main></body></html>'''

@@ -32,6 +32,10 @@ It lists accessible profiles, reads every search-term and campaign preview page 
 
 Optional `--brand-reference PATH` reuses saved rules. An uploaded reference must first have its account-to-profile mapping verified and stored as `merchjar_profile_id`; the adapter refuses an unverified mapping. It saves private raw read receipts and normalized data. No key is copied and it has no write endpoint. A read error stops the report; preserve the receipts and diagnose before a fresh consistent pull.
 
+Previews also return book (KDP) fields: `pages_read_<period>`, `estimated_royalties_<period>`, `adjusted_sales_<period>`, `adjusted_pages_read_<period>` and `adjusted_estimated_royalties_<period>`, where `<period>` is `START_to_END`. When they show KENP activity, or `--account-type kdp` is passed, the adapter reconciles them and reports ACoS incl. KENP from the adjusted values, stating any Ad Impact Multiplier other than 1. Product accounts return zeros for these fields and their report is unchanged. See [kdp-accounts.md](kdp-accounts.md).
+
+Page-global totals are compared across pages with exact equality for integer counts and a small absolute tolerance for decimal amounts, so trailing floating-point digits do not abort a long pull; a real population change still stops it.
+
 For an empty result it generates an explicit zero-activity coverage report, without inventing performance or campaign seeds. The executable adapter supports the current Sponsored Products preview shape. Other ad products require a verified adapter and separate partition.
 
 The example bodies in queries.json are read-only preview templates, not fixed reporting-date policy. Substitute the selected consistent period and profile. Follow all pages, respect rate limits, inspect actual metric fields and reconcile totals. Do not repeat page-global totals in the row sum. Data availability does not prove freshness or attribution maturity.

@@ -31,7 +31,7 @@ def build_structure(report, grouping=None):
         asins = item.get('asins', [])
         if not name or name.casefold() in names or not asins or not isinstance(asins, list):
             raise ValueError('Each product group needs a unique name and nonempty ASIN list')
-        if any(not isinstance(a,str) or not re.fullmatch(r'(?:B[A-Z0-9]{9}|[0-9]{10})',a) for a in asins):
+        if any(not isinstance(a,str) or not re.fullmatch(r'(?:B[A-Z0-9]{9}|[0-9]{9}[0-9X])',a) for a in asins):
             raise ValueError('Product groups need valid ASINs')
         if len(set(asins)) != len(asins) or assigned.intersection(asins):
             raise ValueError('Each ASIN belongs to one primary branded group; review overlaps separately')

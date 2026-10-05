@@ -51,3 +51,5 @@ Review products, targets, negatives and eligibility within each selected scope. 
 Create reviewed destinations paused, then the human enables them. Check brand and defense delivery separately, including replacement coverage, an appropriate observation period, combined results and rollback. Impressions alone are insufficient. A brand-ready group can have keyword exclusions reviewed while owned-ASIN exclusions remain pending defense. Keep useful current traffic until its corresponding change is ready.
 
 Before passing a reviewed proposal to Create Campaigns, specify actual campaigns, ad groups, advertised child ASINs, positive targets, bids, budgets and supported negatives. The interactive report is a proposal and evidence surface, not an executable launch manifest. No bulk-upload sheets or automatic monitoring.
+
+Book (KDP) accounts: group every format of a title (Kindle, paperback, hardcover, audiobook) together, and keep a series together when it shares a budget. Approved author, series and distinctive title terms become the branded keyword seeds. See [kdp-accounts.md](kdp-accounts.md).
