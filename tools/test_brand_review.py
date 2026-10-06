@@ -216,6 +216,59 @@ class KdpAccountTests(unittest.TestCase):
         self.assertNotIn('kenp', report)
         self.assertTrue(any('excludes Kindle Unlimited' in x for x in report['limitations']))
 
+    def test_not_split_panel_makes_the_cards_add_up_to_overall(self):
+        from report_unsplit import items
+        report = self.book_report()
+        html = render_performance(report)
+        panel = re.search(r'<section class="unsplit".*?</section>', html, re.S).group(0)
+        self.assertIn('Branded $35 + non-branded $90 + not split $23 = overall $148 ad spend.', panel)
+        for label in ('ASIN targeting (ownership unknown)', 'Possible brand variants, held for review', 'Unreported search terms'):
+            self.assertIn(label, panel)
+        self.assertIn('ACoS incl. KENP', panel)
+        parts = {p['key']: p for p in items(report)}
+        self.assertEqual(parts['asin_unknown']['spend'] + parts['brand_review']['spend'] + parts['missing_query']['spend'], Decimal(23))
+        self.assertEqual(parts['asin_unknown']['royalties'], Decimal(3))
+        self.assertEqual(parts['asin_unknown']['acos'], f'{13 / 12:.1%}')
+
+    def test_not_split_panel_separates_own_product_asins_when_a_catalog_exists(self):
+        source = write_report(self.folder, BOOK_ROWS, HEADER_VARIANTS[0])
+        catalog = {'scope': {'account_id': 'book-account', 'brand': 'Mara Quillon', 'marketplace': 'AMAZON.COM'},
+                   'source': 'test', 'ownership_verified': True, 'owned_asins': ['B0FICT0002'], 'complete': False}
+        report = analyze(source, 'Book sample', 'USD', 'Mara Quillon', [], BOOK_REFERENCE | {'marketplace': 'AMAZON.COM'},
+                         marketplace='AMAZON.COM', catalog=catalog)
+        panel = re.search(r'<section class="unsplit".*?</section>', render_performance(report), re.S).group(0)
+        self.assertIn('Your own-product ASINs', panel)
+        self.assertIn('Other or unknown-owner ASINs', panel)
+        self.assertNotIn('ownership unknown)', panel)
+
+    def test_report_with_only_text_searches_has_no_not_split_panel(self):
+        rows = [('northstar gear backpack', '40', '400', '0', '0'), ('hiking backpack', '80', '200', '0', '0')]
+        source = write_report(self.folder, rows, None, 'product-account', 'Gear sample')
+        report = analyze(source, 'Gear sample', 'USD', 'Northstar Gear', [])
+        self.assertNotIn('class="unsplit"', render_performance(report))
+
+    def test_author_initials_punctuation_matches_the_confirmed_name(self):
+        from analyze_search_terms import classify
+        for query in ('k.a. tucker books', 'k.a tucker kindle', 'the simple wild k.a. tucker', 'k. a. tucker', 'k a tucker', 'ka tucker'):
+            with self.subTest(query=query):
+                self.assertEqual(classify(query, ['KA Tucker'])[0], 'brand_query')
+                self.assertEqual(classify(query, ['K.A. Tucker'])[0], 'brand_query')
+        self.assertEqual(classify('k.a. tucker', ['KA Tucker'])[1], 'Initials equivalent of confirmed name: KA Tucker')
+        for query in ('kayla tucker books', 'k.a. tuckers', 'tucker'):
+            self.assertNotEqual(classify(query, ['KA Tucker'])[0], 'brand_query')
+        self.assertEqual(classify('north.star gear', ['Northstar Gear'])[0], 'other_query')
+        rule = {'term': 'ka tucker', 'match': 'phrase', 'status': 'approved', 'kind': 'author'}
+        reference = {'rules': [rule], 'exceptions': []}
+        self.assertEqual(classify('k.a. tucker kindle', ['Someone Else'], reference)[0], 'brand_query')
+
+    def test_initials_variants_are_disclosed_as_automatic(self):
+        source = write_report(self.folder, [('k.a. tucker books', '10', '20', '1', '100'), ('romance books', '5', '5', '0', '0')],
+                              HEADER_VARIANTS[0])
+        report = analyze(source, 'Book sample', 'USD', 'KA Tucker', [])
+        decision = next(d for d in report['brand_decisions'] if d['automatic'])
+        self.assertEqual(decision['reason'], 'Initials punctuation and spacing included automatically')
+        self.assertEqual(decision['examples'], ['k.a. tucker books'])
+
     def test_privacy_presentation_keeps_kenp_numbers_without_identity(self):
         from privacy_report import presentation
         report = self.book_report()
@@ -251,9 +304,15 @@ class KdpAccountTests(unittest.TestCase):
                 '--json-output', str(out / 'analysis.json'), '--html-output', str(out / 'report.html')], cwd=self.folder)
             outputs[label] = ((out / 'analysis.json').read_text(encoding='utf-8'), (out / 'report.html').read_text(encoding='utf-8'))
         self.assertEqual(outputs['old'][0], outputs['new'][0])
-        # The only intended page difference: the embedded list editor also accepts ISBN-10 IDs ending in X.
+        # Intended page differences only: the embedded list editor also accepts ISBN-10 IDs ending in X, and
+        # every report now shows the "Not split yet" panel (with its stylesheet) so the cards add up to Overall.
         old_html = outputs['old'][1].replace('(?:B[A-Z0-9]{9}|[0-9]{10})', '(?:B[A-Z0-9]{9}|[0-9]{9}[0-9X])')
-        self.assertEqual(old_html, outputs['new'][1])
+        new_html = outputs['new'][1]
+        css = (SKILL / 'assets/unsplit.css').read_text(encoding='utf-8')
+        panel = re.search(r'<section class="unsplit".*?</section>', new_html, re.S).group(0)
+        self.assertIn('Branded $40 + non-branded $80 + not split $20 = overall $140 ad spend.', panel)
+        self.assertIn('Your own-product ASINs', panel)
+        self.assertEqual(old_html, new_html.replace(css, '', 1).replace(panel, '', 1))
 
 
 START, END = '2026-09-01', '2026-09-30'
@@ -284,8 +343,12 @@ class ConnectedKdpTests(unittest.TestCase):
         self.folder = Path(tempfile.mkdtemp(prefix='kdp-connected-'))
         self.addCleanup(shutil.rmtree, self.folder, True)
 
-    def run_connected(self, search_rows, campaign_rows, extra=()):
+    def run_connected(self, search_rows, campaign_rows, extra=(), ads=None):
         responses = {'search_terms': preview_pages(search_rows), 'campaigns': preview_pages(campaign_rows)}
+        if ads is not None:
+            ad_rows = [{'profile_id': '77', 'ad_id': str(900 + i), 'creative_products_product_id': asin,
+                        'creative_products_product_id_type': 'ASIN'} for i, asin in enumerate(ads)]
+            responses['ads'] = preview_pages(ad_rows, per_page=2)
         (self.folder / 'responses.json').write_text(json.dumps(responses), encoding='utf-8')
         client = self.folder / 'fake_client.py'
         client.write_text(
@@ -319,7 +382,7 @@ class ConnectedKdpTests(unittest.TestCase):
         return search, campaigns
 
     def test_connected_kdp_uses_adjusted_values_and_discloses_multipliers(self):
-        report, html = self.run_connected(*self.book_rows())
+        report, html = self.run_connected(*self.book_rows(), ads=['B0FICT0002', 'B0FICT0002', '099999999X'])
         g = groups(report)
         self.assertEqual(report['kenp']['values'], 'adjusted')
         self.assertEqual(report['kenp']['fields']['royalties'], 'adjusted_estimated_royalties')
@@ -335,11 +398,27 @@ class ConnectedKdpTests(unittest.TestCase):
         self.assertEqual(report['kdp']['status'], 'detected')
 
     def test_connected_kdp_falls_back_to_reported_values_and_says_so(self):
-        report, html = self.run_connected(*self.book_rows(adjusted=False))
+        report, html = self.run_connected(*self.book_rows(adjusted=False), ads=['B0FICT0002'])
         self.assertEqual(report['kenp']['values'], 'reported')
         self.assertAlmostEqual(groups(report)['brand_query']['kenp']['acos_incl_kenp'], 20 / (30 + 20))
         self.assertIn('Adjusted values were unavailable', ' '.join(report['kenp']['disclosures']))
         self.assertIn('Adjusted values were unavailable', html)
+
+    def test_connected_kdp_reads_product_ads_as_the_owned_catalog(self):
+        report, html = self.run_connected(*self.book_rows(), ads=['B0FICT0002', 'B0FICT0002', '099999999X', ''])
+        products = report['context']['products']
+        self.assertEqual(products['owned_asins'], ['099999999X', 'B0FICT0002'])
+        self.assertEqual(products['catalog_label'], 'advertised titles')
+        self.assertFalse(products['catalog_complete'])
+        self.assertTrue(any("KDP account's 4 Product Ads (2 advertised ASINs)" in x for x in report['limitations']))
+        rows = {r['query']: r for r in report['rows']}
+        self.assertEqual(rows['B0FICT0002']['category'], 'owned_asin')
+        self.assertIn('ASINs from this KDP account', html)
+        self.assertIn('Your own-product ASINs', html)
+        pages = sorted(p.name for p in (self.folder / 'read').glob('ads-page-*.json'))
+        self.assertEqual(pages, ['ads-page-1.json', 'ads-page-2.json'])
+        body = json.loads((self.folder / 'read/ads-page-1.json').read_text(encoding='utf-8'))
+        self.assertEqual(body['data'][0]['creative_products_product_id'], 'B0FICT0002')
 
     def test_connected_product_account_with_zero_kdp_fields_is_unchanged(self):
         zero = {'pages_read': 0, 'estimated_royalties': 0, 'adjusted_sales': 30.0, 'adjusted_pages_read': 0,
@@ -352,6 +431,9 @@ class ConnectedKdpTests(unittest.TestCase):
         self.assertNotIn('incl. KENP', html)
         with (self.folder / 'read/connected-search-terms.csv').open(encoding='utf-8') as stream:
             self.assertEqual(next(csv.reader(stream)), REQUIRED)
+        # Product accounts: advertised products do not prove ownership, so Product Ads are not read.
+        self.assertFalse(list((self.folder / 'read').glob('ads-page-*.json')))
+        self.assertNotIn('products', report['context'])
 
     def test_connected_royalty_total_must_reconcile(self):
         search, campaigns = self.book_rows()

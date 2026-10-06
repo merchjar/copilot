@@ -5,6 +5,7 @@ from decimal import Decimal
 from html import escape
 from pathlib import Path
 from report_charts import chart
+from report_unsplit import render as unsplit_panel
 
 
 def asin_section(report, money):
@@ -133,7 +134,9 @@ def render_performance(report):
     if 'products' in context:
         p=context['products']
         product_period = '' if privacy else f" from {p['observed_start']} to {p['observed_end']}"
-        if p.get('kind') == 'saved_catalog':
+        if p.get('catalog_label') == 'advertised titles':
+            support+=f"<p><b>Owned titles:</b> {p['product_count']} ASINs from this KDP account's Product Ads. A KDP ad account can advertise only its own books; titles never advertised are missing, so the list is not complete. Product matches are kept separate from branded searches.</p>"
+        elif p.get('kind') == 'saved_catalog':
             coverage_note = 'Complete catalog as supplied.' if p.get('catalog_complete') else 'Partial catalog; additional owned products may be missing.'
             support+=f"<p><b>Saved product list:</b> {p['product_count']} verified owned ASINs. {coverage_note} Product matches are kept separate from branded searches.</p>"
         else:
@@ -147,6 +150,8 @@ def render_performance(report):
     website_link=f'<a href="{escape(website,quote=True)}">Brand website</a>' if website and website.startswith(('https://','http://')) else ''
     css=(assets/'report.css').read_text(encoding='utf-8')+(assets/'report-refinements.css').read_text(encoding='utf-8')
     if kenp: css += (assets/'kenp.css').read_text(encoding='utf-8')
+    unsplit = unsplit_panel(report, money)
+    if unsplit: css += (assets/'unsplit.css').read_text(encoding='utf-8')
     connected=bool(report.get('connection'))
     board_note='Branded and non-branded cover text searches. Overall includes all reported traffic, including ASINs and unreported terms.'
     if connected: board_note += ' Overall uses same-period campaign data.'
@@ -163,7 +168,7 @@ def render_performance(report):
 <header><div class="wrap head"><img alt="Merch Jar" width="762" height="150" src="data:image/webp;base64,{logo}"><span>Brand Traffic Review</span></div></header>
 <main class="wrap"><div class="intro"><div><p class="eyebrow">{escape(report['advertiser'])} · {escape(report['currency'])}</p><h1>Branded vs. non-branded</h1></div><p class="period">{period}<br><span>{period_note}</span></p></div>
 <section class="takeaway"><div><h2>{finding}</h2><p>Give branded demand and broader searches separate goals.{escape(kenp_takeaway)}</p></div><button class="button" type="button" data-report-go="plan">Open campaign plan →</button></section>
-<section class="board" aria-label="ACoS comparison"><div class="comparison-labels"><span>Text searches</span><span>All reported traffic</span></div><div class="scores">{card_html}</div><p class="board-note">{board_note}</p></section>
+<section class="board" aria-label="ACoS comparison"><div class="comparison-labels"><span>Text searches</span><span>All reported traffic</span></div><div class="scores">{card_html}</div><p class="board-note">{board_note}</p></section>{unsplit}
 {chart(report)}
 {asin_section(report,money)}
 <details id="basis"><summary>Brand terms &amp; report coverage {review_summary}</summary><div class="detail-body">

@@ -8,6 +8,8 @@ See the full history at: https://github.com/merchjar/copilot/releases
 ## v1.2.8 (2026-10-05)
 
 - Brand Traffic Review 2.1.0 recognizes KDP book accounts. When KENP data is present, the report leads with ACoS incl. KENP (spend divided by attributed sales plus estimated KENP royalties) for branded, non-branded and overall traffic, with sales-only ACoS as the secondary figure.
+- A Not split yet panel shows ASIN traffic, held brand variants, unreported terms and any campaign difference beside the cards, so the parts visibly add up to Overall.
+- Author names match initials punctuation automatically (KA Tucker = K.A. Tucker). Connected KDP accounts use their advertised Product Ads as the owned-title catalog.
 - Book brand references cover author and pen names, series and titles; everyday-phrase titles stay in review and confirmed competitor authors stay in non-branded traffic.
 - Connected reports use Merch Jar adjusted sales and royalties and state any Ad Impact Multiplier other than 1.
 - Fix: long connected pulls no longer stop when page totals differ only in trailing decimal digits, and restart once if a data sync changes the population mid-pull.

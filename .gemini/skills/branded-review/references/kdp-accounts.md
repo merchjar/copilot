@@ -28,6 +28,8 @@ For a book account, the brand is the author. Set `--brand` to the main author na
 
 - Approve author names, pen names and distinctive series names after a quick check with the user.
 - Approve a distinctive title. Hold a title that is an everyday phrase (“Home Again”, “The Last Summer”) as `proposed`, usually with `exact` matching, until the user decides; its spend stays in review. Title rules never use `contains_compact`.
+- With a Merch Jar connection, the adapter reads the profile's Product Ads (preview `ad_type: "ads"`, trigger `1 = 1`; ASIN in `creative_products_product_id`, type in `creative_products_product_id_type`) and uses those ASINs as the owned catalog. A KDP ad account can advertise only its own books, so advertised titles are verified owned titles. The list is labeled “advertised titles” and is not complete: titles never advertised are missing. This applies only to KDP accounts.
+- Author names match initials punctuation and spacing automatically (KA Tucker = K.A. Tucker = K. A. Tucker = K A Tucker); mention it once.
 - Collect every format's ASIN for the owned list: Kindle, paperback, hardcover, audiobook and box sets. Save it as the scoped catalog. The Advertised product report's brand field for books can be blank or show a publisher, so confirm ownership with the user instead of relying on it.
 - Other authors' names that shoppers search for are competitor traffic. Add only names the user confirms to `competitors`. They stay in non-branded, labeled `Confirmed competitor author`, with a `competitor_queries` subtotal. Do not infer which queries are author names; you can show a few high-spend non-branded queries and ask.
 

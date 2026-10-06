@@ -10,6 +10,7 @@ import hashlib
 import importlib.util
 import json
 import math
+import re
 from pathlib import Path
 import time
 from analyze_search_terms import analyze, METRICS, REQUIRED, LABELS, empty_metrics, present
@@ -143,6 +144,49 @@ def _reconcile(rows,first,ad_type,start,end,kdp_receipt):
     return rows,totals
 
 
+ADVERTISED_TITLES='Merch Jar advertised titles (Product Ads)'
+
+
+def read_product_ads(client,key,profile,folder,pause=time.sleep):
+    """Read every Product Ad (read-only preview, trigger 1 = 1) and return its advertised ASINs.
+    A KDP ad account can advertise only its own books, so these are verified owned titles there."""
+    asins=set(); first=None; page=1; count=0
+    while True:
+        body={'profile_id':profile,'ad_type':'ads','trigger':'1 = 1','action':'set_state',
+              'action_params':{'value':2},'per_page':100,'page':page}
+        result=client.request_json('POST','/api/v5/segments/preview',key,body=body)
+        if folder:
+            (folder/f'ads-page-{page}.json').write_text(json.dumps(result,indent=2),encoding='utf-8')
+        meta=result.get('pagination',{})
+        if meta.get('page')!=page or not isinstance(meta.get('total'),int) or not isinstance(meta.get('last_page'),int):
+            raise ValueError('Unsupported or missing preview pagination')
+        if first is None: first=(meta['total'],meta['last_page'])
+        if (meta['total'],meta['last_page'])!=first:
+            raise ValueError(POPULATION_CHANGED)
+        batch=result.get('data')
+        if not isinstance(batch,list): raise ValueError('Incomplete preview page')
+        for r in batch:
+            if str(r.get('profile_id'))!=profile: raise ValueError('Preview contains a different profile')
+            asin=str(r.get('creative_products_product_id') or '').strip().upper()
+            if asin and re.fullmatch(r'(?:B[A-Z0-9]{9}|[0-9]{9}[0-9X])',asin): asins.add(asin)
+        count+=len(batch)
+        if page>=max(1,meta['last_page']): break
+        pause(2.1);page+=1
+    if count!=first[0]: raise ValueError('Product Ad row count does not reconcile')
+    return {'ads':count,'asins':sorted(asins)}
+
+
+def advertised_titles_catalog(ads,account_id,brand,marketplace,supplied=None):
+    """Owned catalog for a KDP account from its Product Ads; merged with any saved catalog."""
+    owned=sorted(set(ads['asins'])|set((supplied or {}).get('owned_asins',[])))
+    source=ADVERTISED_TITLES+(f"; {supplied['source']}" if supplied and supplied.get('source') else '')
+    return {**(supplied or {}),'scope':{'account_id':account_id,'brand':brand,'marketplace':marketplace},
+            'source':source,'ownership_verified':True,'owned_asins':owned,
+            'complete':bool(supplied and supplied.get('complete') is True),'label':'advertised titles',
+            'disclosure':f"Owned titles come from this KDP account's {ads['ads']:,} Product Ads ({len(ads['asins'])} advertised ASINs). "
+                         'A KDP ad account can advertise only its own books. Titles that were never advertised are missing, so the list is not complete.'}
+
+
 def kenp_plan(sums,force=False):
     """Choose the KENP basis for connected data. Adjusted values are preferred; raw values are a disclosed fallback."""
     activity=any(sums.get(k) for k in ('pages_read','estimated_royalties','adjusted_pages_read','adjusted_estimated_royalties'))
@@ -240,10 +284,18 @@ def main():
         w=csv.DictWriter(f,fieldnames=REQUIRED+(list(KENP_COLUMNS.values()) if kenp else []));w.writeheader()
         w.writerows(normalize_rows(rows,profile,a.start,a.end,account_id,kenp))
     catalog=json.loads(Path(a.catalog).read_text(encoding='utf-8')) if a.catalog else None
+    marketplace=a.marketplace
+    if rows and (kenp or a.account_type=='kdp'):
+        # KDP accounts: advertised Product Ads are the author's own titles, so they seed the owned catalog.
+        time.sleep(2.1)
+        ads=read_product_ads(client,key,a.profile,folder)
+        if ads['asins']:
+            marketplace=a.marketplace or (reference or {}).get('marketplace') or profile.get('marketplace_id') or 'connected-profile'
+            catalog=advertised_titles_catalog(ads,account_id,a.brand,marketplace,catalog)
     kenp_spec={**KENP_COLUMNS,'source':'Merch Jar connection','values':'adjusted' if kenp['adjusted'] else 'reported',
                'disclosures':kenp['disclosures'],'activity_label':'Merch Jar data reports KENP page reads'} if kenp else None
     report=analyze(source,profile.get('nickname') or profile['name'],profile['currency_code'],a.brand,[],reference,
-        marketplace=a.marketplace,catalog=catalog,account_type=a.account_type,kenp_columns=kenp_spec) if rows else empty_report(source,profile,a.brand,a.start,a.end,reference)
+        marketplace=marketplace,catalog=catalog,account_type=a.account_type,kenp_columns=kenp_spec) if rows else empty_report(source,profile,a.brand,a.start,a.end,reference)
     report['schema']='brand-traffic-review/connected'
     report['account_id']=account_id
     report['account_totals']=present(campaign_totals)
@@ -264,10 +316,12 @@ def main():
         'source':'Read-only Segment previews','monetary_units':'Account currency units from preview metric fields; no cents conversion',
         'normalization':'Connected rows mapped to the shared calculation schema; not an Amazon console export',
         **({'pull_restarts':pulls['restarted_after_population_change']} if pulls else {})}
+    kenp_notes=[x for x in report.get('limitations',[]) if 'KENP' in x]
     report['limitations']=['Connected search-term and campaign totals are independently reconciled to each preview population.',
         'Differences between search terms and campaigns remain visible; never allocate the gap to non-brand.',
         'Data freshness and attribution maturity depend on source sync; recent sales can change.',
         'Connected report does not itself establish complete product ownership or current negative coverage.']
+    report['limitations']+=report.get('context',{}).get('products',{}).get('limitations',[])+kenp_notes
     saved=write_workspace(report,html_path,a.state)
     (folder/'analysis.json').write_text(json.dumps(report,indent=2),encoding='utf-8')
     print(json.dumps({'profile_id':a.profile,'rows':len(rows),'campaigns':len(campaigns),'totals':report['totals'],

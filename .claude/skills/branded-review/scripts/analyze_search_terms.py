@@ -60,8 +60,40 @@ def dates(value):
     return start, end
 
 
+def initials_pattern(name, loose=False):
+    """Whole-name pattern treating initials punctuation and spacing as equivalent:
+    KA Tucker = K.A. Tucker = K. A. Tucker = K A Tucker = k.a tucker. Letters never change.
+    Initials are single letters, dotted letters, or (as written in a confirmed name) two or three capitals;
+    `loose` also accepts one- or two-letter lowercase tokens before another word (saved author rules)."""
+    raw = name.split()
+    groups = []
+    for i, token in enumerate(raw):
+        letters = None
+        if re.fullmatch(r'(?:[^\W\d_]\.)+[^\W\d_]?\.?|[^\W\d_]\.?', token) or re.fullmatch(r'[A-Z]{2,3}', token) \
+                or (loose and i < len(raw) - 1 and re.fullmatch(r'[^\W\d_]{1,2}', token)):
+            letters = [c for c in normalize(token) if c.isalpha()]
+        if letters and groups and groups[-1][0] == 'initials':
+            groups[-1][1].extend(letters)
+        elif letters:
+            groups.append(('initials', letters))
+        else:
+            groups.append(('word', normalize(token)))
+    if not any(kind == 'initials' for kind, _ in groups) or not any(kind == 'word' for kind, _ in groups):
+        return None
+    pattern = ''
+    for i, (kind, value) in enumerate(groups):
+        if i:
+            pattern += r'[\s.\-]*' if groups[i - 1][0] == 'initials' else r'[\s\-]+'
+        pattern += r'\.?\s*'.join(re.escape(c) for c in value) + r'\.?' if kind == 'initials' else re.escape(value)
+    return r'(?<!\w)' + pattern + r'(?!\w)'
+
+
 def rule_matches(value, rule):
     term = normalize(rule['term'])
+    if rule.get('kind') in ('author', 'pen_name') and rule.get('match', 'phrase') == 'phrase':
+        pattern = initials_pattern(rule['term'], loose=True)
+        if pattern and re.search(pattern, value):
+            return True
     if rule.get('match') == 'contains_compact':
         return re.sub(r'[\s-]', '', term) in re.sub(r'[\s-]', '', value)
     if rule.get('match') == 'exact':
@@ -96,6 +128,9 @@ def classify(query, aliases, reference=None):
         pattern = r'(?<!\w)' + r'[\s\-\u2010-\u2015]*'.join(re.escape(c) for c in compact) + r'(?!\w)'
         if compact and re.search(pattern, value):
             return 'brand_query', f'Formatting equivalent of confirmed brand: {alias}'
+        pattern = initials_pattern(alias)
+        if pattern and re.search(pattern, value):
+            return 'brand_query', f'Initials equivalent of confirmed name: {alias}'
     if reference:
         # User-confirmed competitor names (for books, other authors) stay in non-branded traffic.
         for rule in reference.get('competitors', []):
@@ -145,16 +180,20 @@ def brand_decisions(rows):
             label = row['reason']
         elif row['reason'].startswith('Formatting equivalent'):
             label = 'Spacing/hyphen variants included automatically'
+        elif row['reason'].startswith('Initials equivalent'):
+            label = 'Initials punctuation and spacing included automatically'
         else:
             continue
         bucket = buckets.setdefault(label, {'rows': 0, 'metrics': empty_metrics(), 'queries': {}})
         metrics = {key: Decimal(row[key]) for key in METRICS}
         bucket['rows'] += 1; add(bucket['metrics'], metrics)
         bucket['queries'][row['query']] = bucket['queries'].get(row['query'], Decimal(0)) + metrics['spend']
-    return [{'reason': reason, 'automatic': reason.startswith('Spacing/'), 'rows': b['rows'],
+    automatic = lambda reason: reason.startswith(('Spacing/', 'Initials punctuation'))
+    return [{'reason': reason, 'automatic': automatic(reason), 'rows': b['rows'],
              'distinct_queries': len(b['queries']), **present(b['metrics']),
              'examples': sorted(b['queries'], key=lambda q: (-b['queries'][q], q))[:6],
-             'recommendation': 'Include equivalent spacing and hyphens; retain explicit exceptions.' if reason.startswith('Spacing/')
+             'recommendation': ('Include equivalent spacing and hyphens; retain explicit exceptions.' if reason.startswith('Spacing/') else
+                                'Include equivalent initials punctuation and spacing; retain explicit exceptions.') if automatic(reason)
                  else 'Review these examples together. Confirm brand spelling intent separately from model-only names; performance is not identity evidence.'}
             for reason, b in buckets.items()]
 
@@ -221,7 +260,10 @@ def analyze(source, advertiser, currency, brand, aliases, reference=None, advert
         context['products'] = {**context.get('products', {}), 'kind':'saved_catalog',
             'owned_asins':sorted(owned), 'product_count':len(owned), 'marketplace':marketplace,
             'catalog_complete':catalog.get('complete') is True, 'catalog_source':catalog['source'],
-            'observed_start':catalog.get('observed_start'), 'observed_end':catalog.get('observed_end')}
+            'observed_start':catalog.get('observed_start'), 'observed_end':catalog.get('observed_end'),
+            **({'catalog_label':catalog['label']} if catalog.get('label') else {})}
+        if catalog.get('disclosure'):
+            context['products']['limitations'] = [*context['products'].get('limitations', []), catalog['disclosure']]
     aliases = list(dict.fromkeys([brand, *(reference or {}).get('aliases', []), *aliases]))
     groups = {key: {"metrics": empty_metrics(), "rows": 0} for key in LABELS}
     campaigns, terms, windows, classified = {}, {}, defaultdict(list), []
