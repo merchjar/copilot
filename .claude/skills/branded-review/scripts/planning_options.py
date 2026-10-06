@@ -6,6 +6,7 @@ import hashlib
 import json
 from pathlib import Path
 from target_proposal import product_ad_groups
+from cli_paths import cli_path
 
 DEFAULTS = {'brand_campaigns':'shared', 'brand_ad_groups':'category',
             'brand_match':'phrase', 'defense_campaigns':'shared', 'defense_pairing':'related'}
@@ -117,8 +118,8 @@ def read_draft(path):
 
 def main():
     p=argparse.ArgumentParser(description='Validate report choices and save a proposed grouping. No API calls.')
-    p.add_argument('--analysis',type=Path,required=True);p.add_argument('--product-groups',type=Path,required=True)
-    p.add_argument('--draft',type=Path,required=True);p.add_argument('--output',type=Path,required=True)
+    p.add_argument('--analysis',type=cli_path,required=True);p.add_argument('--product-groups',type=cli_path,required=True)
+    p.add_argument('--draft',type=cli_path,required=True);p.add_argument('--output',type=cli_path,required=True)
     a=p.parse_args()
     if a.output.resolve() in {a.analysis.resolve(),a.draft.resolve()}:raise ValueError('Output cannot replace report inputs')
     report=json.loads(a.analysis.read_text(encoding='utf-8'));grouping=json.loads(a.product_groups.read_text(encoding='utf-8'))

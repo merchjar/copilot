@@ -19,6 +19,7 @@ import re
 import unicodedata
 from report_context import product_context, targeting_context
 import kdp
+from cli_paths import cli_path
 
 METRICS = {"spend": "Total cost", "sales": "Sales", "clicks": "Clicks",
            "purchases": "Purchases", "impressions": "Impressions"}
@@ -355,22 +356,22 @@ def render(report):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('source', type=Path)
+    parser.add_argument('source', type=cli_path)
     for field in ('advertiser', 'currency', 'brand'):
         parser.add_argument('--'+field, required=True)
     parser.add_argument('--alias', action='append', default=[])
-    parser.add_argument('--brand-reference', type=Path)
-    parser.add_argument('--advertised-products', type=Path)
-    parser.add_argument('--targeting', type=Path)
-    parser.add_argument('--catalog', type=Path, help='Saved scoped and verified owned-ASIN catalog')
+    parser.add_argument('--brand-reference', type=cli_path)
+    parser.add_argument('--advertised-products', type=cli_path)
+    parser.add_argument('--targeting', type=cli_path)
+    parser.add_argument('--catalog', type=cli_path, help='Saved scoped and verified owned-ASIN catalog')
     parser.add_argument('--marketplace')
     parser.add_argument('--account-type', choices=['kdp'], help='The user confirmed this account advertises books (KDP)')
     parser.add_argument('--kenp-royalties-column', help='Choose one KENP royalties column when the export has several')
     parser.add_argument('--kenp-pages-column', help='Choose one KENP pages-read column when the export has several')
-    parser.add_argument('--json-output', type=Path, required=True)
-    parser.add_argument('--html-output', type=Path, required=True)
-    parser.add_argument('--state', type=Path, help='Existing private report progress file; defaults beside the HTML')
-    parser.add_argument('--workspace', type=Path, help='Authorized project root for checking existing Copilot setup, independent of report source')
+    parser.add_argument('--json-output', type=cli_path, required=True)
+    parser.add_argument('--html-output', type=cli_path, required=True)
+    parser.add_argument('--state', type=cli_path, help='Existing private report progress file; defaults beside the HTML')
+    parser.add_argument('--workspace', type=cli_path, help='Authorized project root for checking existing Copilot setup, independent of report source')
     args = parser.parse_args()
     args.json_output = args.json_output.expanduser().resolve()
     args.html_output = args.html_output.expanduser().resolve()

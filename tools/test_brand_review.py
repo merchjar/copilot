@@ -23,6 +23,9 @@ from analyze_search_terms import analyze, REQUIRED
 from report_render import render_performance
 import connected_report
 import kdp
+from cli_paths import cli_path
+import argparse
+import re
 
 BASE = ['Budget currency', 'Date range', 'Advertiser account ID', 'Advertiser account name', 'Campaign ID',
         'Campaign name', 'Ad group ID', 'Ad group name', 'Search term', 'Total cost', 'Sales', 'Clicks',
@@ -122,11 +125,21 @@ class KdpAccountTests(unittest.TestCase):
         self.assertEqual(report['kenp']['formula'], kdp.FORMULA)
         self.assertEqual(report['kenp']['values'], 'reported')
         html = render_performance(report)
-        self.assertIn('ACoS incl. KENP', html)
         self.assertIn('KENP royalties', html)
-        self.assertIn('35.0%', html)
         self.assertNotIn('Blended ACoS', html)
-        self.assertNotIn('—', html)
+        self.assertNotIn('\u2014', html)
+
+    def test_kdp_report_leads_with_acos_including_kenp(self):
+        html = render_performance(self.book_report())
+        cards = re.findall(r'<h2><i aria-hidden="true"></i>([^<]+)</h2>\s*<div class="number">([^<]+)</div>', html)
+        self.assertEqual(cards, [('Branded ACoS incl. KENP', '35.0%'), ('Non-branded ACoS incl. KENP', '83.3%'),
+                                 ('Overall ACoS incl. KENP', '65.6%')])
+        sales_only = re.findall(r'<span>ACoS \(sales only\)</span><strong>([^<]+)</strong>', html)
+        self.assertEqual(sales_only, ['63.6%', '173.1%', '127.6%'])
+        self.assertIn('<h2>Including KENP royalties, non-branded ACoS is 83.3%, versus 65.6% overall.</h2>', html)
+        self.assertIn('Sales-only ACoS, without KENP royalties: 173.1% non-branded, 127.6% overall.', html)
+        self.assertIn('Sales + KENP royalties', html)
+        self.assertIn('ACoS incl. KENP · Reported ASIN rows', html)
 
     def test_kenp_header_variants_are_recognized(self):
         for headers in HEADER_VARIANTS:
@@ -349,6 +362,61 @@ class ConnectedKdpTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             connected_report.collect(client, 'unused', '77', 'search_terms', START, END, None,
                                      pause=lambda _: None, kdp_receipt={})
+
+
+class PopulationRetryTests(unittest.TestCase):
+    """A data sync landing mid-pull (19,437 to 19,464 rows at page 172 of 195) restarts the pull once."""
+
+    def setUp(self):
+        self.folder = Path(tempfile.mkdtemp(prefix='kdp-retry-')) / 'read'
+        self.folder.mkdir()
+        self.addCleanup(shutil.rmtree, self.folder.parent, True)
+
+    def run_pull(self, attempts):
+        responses = iter(page for attempt in attempts for page in attempt)
+        client = type('Client', (), {'request_json': staticmethod(lambda *a, **k: next(responses))})
+        receipt = {}
+        result = connected_report.collect(client, 'unused', '77', 'search_terms', START, END, self.folder,
+                                          pause=lambda _: None, pull_receipt=receipt)
+        return result, receipt
+
+    def test_population_change_restarts_once_and_keeps_aborted_receipts(self):
+        rows = [preview_row(0, q, 1.0, 2.0) for q in 'abc']
+        attempt1 = preview_pages(rows, per_page=2)
+        attempt1[1]['pagination']['total'] = 4  # a sync added a row before page 2
+        (got_rows, totals), receipt = self.run_pull([attempt1, preview_pages(rows, per_page=2)])
+        self.assertEqual(len(got_rows), 3)
+        self.assertEqual(totals['spend'], Decimal('3.0'))
+        aborted = self.folder.parent / 'read-aborted-attempt-1'
+        self.assertEqual(sorted(p.name for p in aborted.iterdir()), ['search_terms-page-1.json', 'search_terms-page-2.json'])
+        self.assertEqual(sorted(p.name for p in self.folder.iterdir()), ['search_terms-page-1.json', 'search_terms-page-2.json'])
+        self.assertEqual(receipt['restarted_after_population_change'][0]['ad_type'], 'search_terms')
+
+    def test_second_population_change_stops_with_the_existing_message(self):
+        rows = [preview_row(0, q, 1.0, 2.0) for q in 'abc']
+        def changing():
+            pages = preview_pages(rows, per_page=2)
+            pages[1]['pagination']['total'] = 4
+            return pages
+        with self.assertRaisesRegex(ValueError, 'Preview population changed during pagination'):
+            self.run_pull([changing(), changing()])
+
+
+class CliPathTests(unittest.TestCase):
+    """Git Bash with MSYS_NO_PATHCONV=1 passes /c/Users/... through; Windows Python would write to C:\\c\\Users."""
+
+    def test_drive_style_posix_paths_become_windows_drive_paths(self):
+        self.assertEqual(cli_path('/c/Users/name/private', windows=True), Path('C:/Users/name/private'))
+        self.assertEqual(cli_path('/cygdrive/d/reports/a.html', windows=True), Path('D:/reports/a.html'))
+        self.assertEqual(cli_path('/c', windows=True), Path('C:/'))
+        self.assertEqual(cli_path('C:/Users/name/a.html', windows=True), Path('C:/Users/name/a.html'))
+        self.assertEqual(cli_path('relative/a.html', windows=True), Path('relative/a.html'))
+
+    def test_other_root_relative_paths_are_rejected_on_windows_only(self):
+        with self.assertRaises(argparse.ArgumentTypeError):
+            cli_path('/tmp/report.html', windows=True)
+        self.assertEqual(cli_path('/c/Users/name', windows=False), Path('/c/Users/name'))
+        self.assertEqual(cli_path('/tmp/report.html', windows=False), Path('/tmp/report.html'))
 
 
 class PaginationToleranceTests(unittest.TestCase):

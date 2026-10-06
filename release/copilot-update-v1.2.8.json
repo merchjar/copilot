@@ -3,9 +3,9 @@
   "kind": "copilot-update",
   "source": "https://merchjar.com/library-install/copilot/copilot-update-v1.2.8.json",
   "packVersion": "1.2.8",
-  "released": "2026-10-05",
+  "released": "2026-10-06",
   "archive": "copilot-update-v1.2.8.zip",
-  "archiveSha256": "78cef4d71a01794690e030b32ee6c53eb3cdb62c347d09da3f7abfc686999e83",
+  "archiveSha256": "473ad8a3c7bf2badff0c2173a06bef603d9bbf6413f3911c57ecea053d07967b",
   "defaultSkills": [
     "account-review",
     "audit-log",
@@ -38,7 +38,7 @@
     "branded-review": {
       "version": "2.1.0",
       "requires": [],
-      "releaseNotes": "Recognizes KDP book accounts and adds ACoS incl. KENP royalties; long connected pulls no longer stop on rounding differences."
+      "releaseNotes": "Recognizes KDP book accounts and leads with ACoS incl. KENP royalties; connected pulls handle rounding differences and mid-pull data syncs."
     },
     "build-segment": {
       "version": "1.0",
@@ -136,13 +136,13 @@
     {
       "path": ".agents/skills/branded-review/SKILL.md",
       "archivePath": ".agents/skills/branded-review/SKILL.md",
-      "sha256": "b0dd375d1bc1dcde954dfeb5356e063e6bbb93b8b71aed3a0a9d40bfab33bc89",
+      "sha256": "812bf1b4769eca73c281423cb5969c0ec814a80bdf89d3dbdf4da385f45f35e4",
       "owner": "skill:branded-review"
     },
     {
       "path": ".agents/skills/branded-review/START-HERE.md",
       "archivePath": ".agents/skills/branded-review/START-HERE.md",
-      "sha256": "d5cdd8581f2645917de6462860eaa04d641630a7cb39f1817b3592309de970f8",
+      "sha256": "7a2d91397642d41beb64770c7b909fcd5527289ab217111994c08bbbd940d72e",
       "owner": "skill:branded-review"
     },
     {
@@ -268,7 +268,7 @@
     {
       "path": ".agents/skills/branded-review/references/analysis-and-output.md",
       "archivePath": ".agents/skills/branded-review/references/analysis-and-output.md",
-      "sha256": "9757587f2f8092612ceab5df18fb151176bb4e7a52c3185c3c0681b51acd4e3f",
+      "sha256": "fdfa88816892c0e02f5404639172b1d19f7a69b934a7c7b13bde45032d1c0447",
       "owner": "skill:branded-review"
     },
     {
@@ -286,13 +286,13 @@
     {
       "path": ".agents/skills/branded-review/references/connected.md",
       "archivePath": ".agents/skills/branded-review/references/connected.md",
-      "sha256": "7bca4546834fd74ed0574e82c44226ed1557493caae068db272f0f8333ab4289",
+      "sha256": "f705a9f9b09e82f3f49f756726e615a65c892ee165710b80888ac838daaab9d5",
       "owner": "skill:branded-review"
     },
     {
       "path": ".agents/skills/branded-review/references/conversation.md",
       "archivePath": ".agents/skills/branded-review/references/conversation.md",
-      "sha256": "e312edc137f00ed1cab01a7ad83ddd8ff150819732e1d5bd40b278252ac822aa",
+      "sha256": "5db64540717076b2f9ec90d4d1b4aacfbe1b93b84f97ab79f1a208228241b590",
       "owner": "skill:branded-review"
     },
     {
@@ -304,7 +304,7 @@
     {
       "path": ".agents/skills/branded-review/references/kdp-accounts.md",
       "archivePath": ".agents/skills/branded-review/references/kdp-accounts.md",
-      "sha256": "9d817ce935731ca5a74bf1ed22fd88c0cefd1cbae8bd5e04daa5e3ef91938521",
+      "sha256": "53db43899c203004b24951e9e1728e04cf22b93f564f78a9232b586e59dba3b3",
       "owner": "skill:branded-review"
     },
     {
@@ -370,7 +370,7 @@
     {
       "path": ".agents/skills/branded-review/scripts/analyze_search_terms.py",
       "archivePath": ".agents/skills/branded-review/scripts/analyze_search_terms.py",
-      "sha256": "9e9fa9be5966549895cbe9b6952b2a9d0cf6e8f9ec4b5b16e232c081e04d384b",
+      "sha256": "19703e51cd4e319109057fbe0f15b7ba7e875d009403f9d9792f262eadb23112",
       "owner": "skill:branded-review"
     },
     {
@@ -382,19 +382,25 @@
     {
       "path": ".agents/skills/branded-review/scripts/brand_exclusions.py",
       "archivePath": ".agents/skills/branded-review/scripts/brand_exclusions.py",
-      "sha256": "ae98a2666113e06ae572747a4f7adc86ab6b479cfb47ba96b4401472f45b39f5",
+      "sha256": "0082d88630e6c6d84b65b3d433f41b69469a57388259007f0cd84310a2496731",
       "owner": "skill:branded-review"
     },
     {
       "path": ".agents/skills/branded-review/scripts/campaign_map.py",
       "archivePath": ".agents/skills/branded-review/scripts/campaign_map.py",
-      "sha256": "6a004799934f747b5091a101f70d5ab979c8bcb5144704a9a9d1bec42c29ee9a",
+      "sha256": "216509fdbc687d7725c517150737569c0bba73c8ee593b77332120ff6bfef7e4",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/scripts/cli_paths.py",
+      "archivePath": ".agents/skills/branded-review/scripts/cli_paths.py",
+      "sha256": "1b3fa72ec09b95029f57c38ca831e4fe300f1ec6f054d9245c1fb0f09e0d47d5",
       "owner": "skill:branded-review"
     },
     {
       "path": ".agents/skills/branded-review/scripts/connected_report.py",
       "archivePath": ".agents/skills/branded-review/scripts/connected_report.py",
-      "sha256": "ce11e77841fe80c46a065e23854510e461c1d8524ee92404eeaf58ad84726559",
+      "sha256": "2cc4ddb791d45586964cdac0dd14b5a3c4b110f527f5f6a7b594a02b9217aae2",
       "owner": "skill:branded-review"
     },
     {
@@ -406,7 +412,7 @@
     {
       "path": ".agents/skills/branded-review/scripts/demo_walkthrough.py",
       "archivePath": ".agents/skills/branded-review/scripts/demo_walkthrough.py",
-      "sha256": "a5caa943ab53d985c3ee16c7ae060acdf791cfb95b2d9fbf370c70c71fcfa6c4",
+      "sha256": "6163a66c265fc40dd97bf8a1ed017f7586df34f06b267ffcd8ac29abd5cba0e2",
       "owner": "skill:branded-review"
     },
     {
@@ -424,13 +430,13 @@
     {
       "path": ".agents/skills/branded-review/scripts/plan_campaigns.py",
       "archivePath": ".agents/skills/branded-review/scripts/plan_campaigns.py",
-      "sha256": "1774badd9eac601b73eca1d7d36432c26afa725ac3ab05419d98876c5b9deeed",
+      "sha256": "29f3abb298b146f1b7376ec5bc16a976e6a32ec90bbe30efe1d7ae973829036e",
       "owner": "skill:branded-review"
     },
     {
       "path": ".agents/skills/branded-review/scripts/planning_options.py",
       "archivePath": ".agents/skills/branded-review/scripts/planning_options.py",
-      "sha256": "1090d57aefdd4b3c6e54545b32087f1f48f1670b2a0aef056d0ec7b4ea2c0afc",
+      "sha256": "3d3a08e70ececcda1bc8a7f3446b565daf617dff0e55dd41bac91e66198bd17e",
       "owner": "skill:branded-review"
     },
     {
@@ -448,7 +454,7 @@
     {
       "path": ".agents/skills/branded-review/scripts/report_charts.py",
       "archivePath": ".agents/skills/branded-review/scripts/report_charts.py",
-      "sha256": "16cfa8eaff7a9c38b14f7f5a3804f3a26e2a20fed5f5ed2aedd33220b30addd7",
+      "sha256": "a15f53ab41b6ce20c3eb7824e68fdf3e956c266c637b919bf62b1900d3babb80",
       "owner": "skill:branded-review"
     },
     {
@@ -460,7 +466,7 @@
     {
       "path": ".agents/skills/branded-review/scripts/report_delivery.py",
       "archivePath": ".agents/skills/branded-review/scripts/report_delivery.py",
-      "sha256": "81ab72e584f71df88d75e32893723ad7bfb9ec9e373f81ba32e980aad5f17947",
+      "sha256": "16f4959506ae88f9119543782f140f0eb9c323f7208973a2d950cf9e0763d553",
       "owner": "skill:branded-review"
     },
     {
@@ -472,19 +478,19 @@
     {
       "path": ".agents/skills/branded-review/scripts/report_preferences.py",
       "archivePath": ".agents/skills/branded-review/scripts/report_preferences.py",
-      "sha256": "4755e36936ec13dd0adb4f7917c2864da97582f832182cc4efcb7b37b83febcd",
+      "sha256": "521fdb138710805236cfbc861de6280d80b54eae5dc23c59907a6e97f9d51b03",
       "owner": "skill:branded-review"
     },
     {
       "path": ".agents/skills/branded-review/scripts/report_render.py",
       "archivePath": ".agents/skills/branded-review/scripts/report_render.py",
-      "sha256": "1cdac8a7f7aed11c1d30478f59bf0815a61b2a8ee08f0c32e4a988d78fdd4bae",
+      "sha256": "9324b49188ea9d04c6c6a916718ffb5fa21fa81ae4eedf572770bdbf1c46a139",
       "owner": "skill:branded-review"
     },
     {
       "path": ".agents/skills/branded-review/scripts/report_workspace.py",
       "archivePath": ".agents/skills/branded-review/scripts/report_workspace.py",
-      "sha256": "0bee4c8edc8626b6566aa7b22937745a7257edb6846dceb39576eb5c81107de6",
+      "sha256": "4da690a19b844897b6289ea676c42c6370a0d813451a8f2396b3bd9fd1e34905",
       "owner": "skill:branded-review"
     },
     {
@@ -706,13 +712,13 @@
     {
       "path": ".claude/skills/branded-review/SKILL.md",
       "archivePath": ".claude/skills/branded-review/SKILL.md",
-      "sha256": "b0dd375d1bc1dcde954dfeb5356e063e6bbb93b8b71aed3a0a9d40bfab33bc89",
+      "sha256": "812bf1b4769eca73c281423cb5969c0ec814a80bdf89d3dbdf4da385f45f35e4",
       "owner": "skill:branded-review"
     },
     {
       "path": ".claude/skills/branded-review/START-HERE.md",
       "archivePath": ".claude/skills/branded-review/START-HERE.md",
-      "sha256": "d5cdd8581f2645917de6462860eaa04d641630a7cb39f1817b3592309de970f8",
+      "sha256": "7a2d91397642d41beb64770c7b909fcd5527289ab217111994c08bbbd940d72e",
       "owner": "skill:branded-review"
     },
     {
@@ -838,7 +844,7 @@
     {
       "path": ".claude/skills/branded-review/references/analysis-and-output.md",
       "archivePath": ".claude/skills/branded-review/references/analysis-and-output.md",
-      "sha256": "9757587f2f8092612ceab5df18fb151176bb4e7a52c3185c3c0681b51acd4e3f",
+      "sha256": "fdfa88816892c0e02f5404639172b1d19f7a69b934a7c7b13bde45032d1c0447",
       "owner": "skill:branded-review"
     },
     {
@@ -856,13 +862,13 @@
     {
       "path": ".claude/skills/branded-review/references/connected.md",
       "archivePath": ".claude/skills/branded-review/references/connected.md",
-      "sha256": "7bca4546834fd74ed0574e82c44226ed1557493caae068db272f0f8333ab4289",
+      "sha256": "f705a9f9b09e82f3f49f756726e615a65c892ee165710b80888ac838daaab9d5",
       "owner": "skill:branded-review"
     },
     {
       "path": ".claude/skills/branded-review/references/conversation.md",
       "archivePath": ".claude/skills/branded-review/references/conversation.md",
-      "sha256": "e312edc137f00ed1cab01a7ad83ddd8ff150819732e1d5bd40b278252ac822aa",
+      "sha256": "5db64540717076b2f9ec90d4d1b4aacfbe1b93b84f97ab79f1a208228241b590",
       "owner": "skill:branded-review"
     },
     {
@@ -874,7 +880,7 @@
     {
       "path": ".claude/skills/branded-review/references/kdp-accounts.md",
       "archivePath": ".claude/skills/branded-review/references/kdp-accounts.md",
-      "sha256": "9d817ce935731ca5a74bf1ed22fd88c0cefd1cbae8bd5e04daa5e3ef91938521",
+      "sha256": "53db43899c203004b24951e9e1728e04cf22b93f564f78a9232b586e59dba3b3",
       "owner": "skill:branded-review"
     },
     {
@@ -940,7 +946,7 @@
     {
       "path": ".claude/skills/branded-review/scripts/analyze_search_terms.py",
       "archivePath": ".claude/skills/branded-review/scripts/analyze_search_terms.py",
-      "sha256": "9e9fa9be5966549895cbe9b6952b2a9d0cf6e8f9ec4b5b16e232c081e04d384b",
+      "sha256": "19703e51cd4e319109057fbe0f15b7ba7e875d009403f9d9792f262eadb23112",
       "owner": "skill:branded-review"
     },
     {
@@ -952,19 +958,25 @@
     {
       "path": ".claude/skills/branded-review/scripts/brand_exclusions.py",
       "archivePath": ".claude/skills/branded-review/scripts/brand_exclusions.py",
-      "sha256": "ae98a2666113e06ae572747a4f7adc86ab6b479cfb47ba96b4401472f45b39f5",
+      "sha256": "0082d88630e6c6d84b65b3d433f41b69469a57388259007f0cd84310a2496731",
       "owner": "skill:branded-review"
     },
     {
       "path": ".claude/skills/branded-review/scripts/campaign_map.py",
       "archivePath": ".claude/skills/branded-review/scripts/campaign_map.py",
-      "sha256": "6a004799934f747b5091a101f70d5ab979c8bcb5144704a9a9d1bec42c29ee9a",
+      "sha256": "216509fdbc687d7725c517150737569c0bba73c8ee593b77332120ff6bfef7e4",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/scripts/cli_paths.py",
+      "archivePath": ".claude/skills/branded-review/scripts/cli_paths.py",
+      "sha256": "1b3fa72ec09b95029f57c38ca831e4fe300f1ec6f054d9245c1fb0f09e0d47d5",
       "owner": "skill:branded-review"
     },
     {
       "path": ".claude/skills/branded-review/scripts/connected_report.py",
       "archivePath": ".claude/skills/branded-review/scripts/connected_report.py",
-      "sha256": "ce11e77841fe80c46a065e23854510e461c1d8524ee92404eeaf58ad84726559",
+      "sha256": "2cc4ddb791d45586964cdac0dd14b5a3c4b110f527f5f6a7b594a02b9217aae2",
       "owner": "skill:branded-review"
     },
     {
@@ -976,7 +988,7 @@
     {
       "path": ".claude/skills/branded-review/scripts/demo_walkthrough.py",
       "archivePath": ".claude/skills/branded-review/scripts/demo_walkthrough.py",
-      "sha256": "a5caa943ab53d985c3ee16c7ae060acdf791cfb95b2d9fbf370c70c71fcfa6c4",
+      "sha256": "6163a66c265fc40dd97bf8a1ed017f7586df34f06b267ffcd8ac29abd5cba0e2",
       "owner": "skill:branded-review"
     },
     {
@@ -994,13 +1006,13 @@
     {
       "path": ".claude/skills/branded-review/scripts/plan_campaigns.py",
       "archivePath": ".claude/skills/branded-review/scripts/plan_campaigns.py",
-      "sha256": "1774badd9eac601b73eca1d7d36432c26afa725ac3ab05419d98876c5b9deeed",
+      "sha256": "29f3abb298b146f1b7376ec5bc16a976e6a32ec90bbe30efe1d7ae973829036e",
       "owner": "skill:branded-review"
     },
     {
       "path": ".claude/skills/branded-review/scripts/planning_options.py",
       "archivePath": ".claude/skills/branded-review/scripts/planning_options.py",
-      "sha256": "1090d57aefdd4b3c6e54545b32087f1f48f1670b2a0aef056d0ec7b4ea2c0afc",
+      "sha256": "3d3a08e70ececcda1bc8a7f3446b565daf617dff0e55dd41bac91e66198bd17e",
       "owner": "skill:branded-review"
     },
     {
@@ -1018,7 +1030,7 @@
     {
       "path": ".claude/skills/branded-review/scripts/report_charts.py",
       "archivePath": ".claude/skills/branded-review/scripts/report_charts.py",
-      "sha256": "16cfa8eaff7a9c38b14f7f5a3804f3a26e2a20fed5f5ed2aedd33220b30addd7",
+      "sha256": "a15f53ab41b6ce20c3eb7824e68fdf3e956c266c637b919bf62b1900d3babb80",
       "owner": "skill:branded-review"
     },
     {
@@ -1030,7 +1042,7 @@
     {
       "path": ".claude/skills/branded-review/scripts/report_delivery.py",
       "archivePath": ".claude/skills/branded-review/scripts/report_delivery.py",
-      "sha256": "81ab72e584f71df88d75e32893723ad7bfb9ec9e373f81ba32e980aad5f17947",
+      "sha256": "16f4959506ae88f9119543782f140f0eb9c323f7208973a2d950cf9e0763d553",
       "owner": "skill:branded-review"
     },
     {
@@ -1042,19 +1054,19 @@
     {
       "path": ".claude/skills/branded-review/scripts/report_preferences.py",
       "archivePath": ".claude/skills/branded-review/scripts/report_preferences.py",
-      "sha256": "4755e36936ec13dd0adb4f7917c2864da97582f832182cc4efcb7b37b83febcd",
+      "sha256": "521fdb138710805236cfbc861de6280d80b54eae5dc23c59907a6e97f9d51b03",
       "owner": "skill:branded-review"
     },
     {
       "path": ".claude/skills/branded-review/scripts/report_render.py",
       "archivePath": ".claude/skills/branded-review/scripts/report_render.py",
-      "sha256": "1cdac8a7f7aed11c1d30478f59bf0815a61b2a8ee08f0c32e4a988d78fdd4bae",
+      "sha256": "9324b49188ea9d04c6c6a916718ffb5fa21fa81ae4eedf572770bdbf1c46a139",
       "owner": "skill:branded-review"
     },
     {
       "path": ".claude/skills/branded-review/scripts/report_workspace.py",
       "archivePath": ".claude/skills/branded-review/scripts/report_workspace.py",
-      "sha256": "0bee4c8edc8626b6566aa7b22937745a7257edb6846dceb39576eb5c81107de6",
+      "sha256": "4da690a19b844897b6289ea676c42c6370a0d813451a8f2396b3bd9fd1e34905",
       "owner": "skill:branded-review"
     },
     {
@@ -1276,13 +1288,13 @@
     {
       "path": ".gemini/skills/branded-review/SKILL.md",
       "archivePath": ".gemini/skills/branded-review/SKILL.md",
-      "sha256": "b0dd375d1bc1dcde954dfeb5356e063e6bbb93b8b71aed3a0a9d40bfab33bc89",
+      "sha256": "812bf1b4769eca73c281423cb5969c0ec814a80bdf89d3dbdf4da385f45f35e4",
       "owner": "skill:branded-review"
     },
     {
       "path": ".gemini/skills/branded-review/START-HERE.md",
       "archivePath": ".gemini/skills/branded-review/START-HERE.md",
-      "sha256": "d5cdd8581f2645917de6462860eaa04d641630a7cb39f1817b3592309de970f8",
+      "sha256": "7a2d91397642d41beb64770c7b909fcd5527289ab217111994c08bbbd940d72e",
       "owner": "skill:branded-review"
     },
     {
@@ -1408,7 +1420,7 @@
     {
       "path": ".gemini/skills/branded-review/references/analysis-and-output.md",
       "archivePath": ".gemini/skills/branded-review/references/analysis-and-output.md",
-      "sha256": "9757587f2f8092612ceab5df18fb151176bb4e7a52c3185c3c0681b51acd4e3f",
+      "sha256": "fdfa88816892c0e02f5404639172b1d19f7a69b934a7c7b13bde45032d1c0447",
       "owner": "skill:branded-review"
     },
     {
@@ -1426,13 +1438,13 @@
     {
       "path": ".gemini/skills/branded-review/references/connected.md",
       "archivePath": ".gemini/skills/branded-review/references/connected.md",
-      "sha256": "7bca4546834fd74ed0574e82c44226ed1557493caae068db272f0f8333ab4289",
+      "sha256": "f705a9f9b09e82f3f49f756726e615a65c892ee165710b80888ac838daaab9d5",
       "owner": "skill:branded-review"
     },
     {
       "path": ".gemini/skills/branded-review/references/conversation.md",
       "archivePath": ".gemini/skills/branded-review/references/conversation.md",
-      "sha256": "e312edc137f00ed1cab01a7ad83ddd8ff150819732e1d5bd40b278252ac822aa",
+      "sha256": "5db64540717076b2f9ec90d4d1b4aacfbe1b93b84f97ab79f1a208228241b590",
       "owner": "skill:branded-review"
     },
     {
@@ -1444,7 +1456,7 @@
     {
       "path": ".gemini/skills/branded-review/references/kdp-accounts.md",
       "archivePath": ".gemini/skills/branded-review/references/kdp-accounts.md",
-      "sha256": "9d817ce935731ca5a74bf1ed22fd88c0cefd1cbae8bd5e04daa5e3ef91938521",
+      "sha256": "53db43899c203004b24951e9e1728e04cf22b93f564f78a9232b586e59dba3b3",
       "owner": "skill:branded-review"
     },
     {
@@ -1510,7 +1522,7 @@
     {
       "path": ".gemini/skills/branded-review/scripts/analyze_search_terms.py",
       "archivePath": ".gemini/skills/branded-review/scripts/analyze_search_terms.py",
-      "sha256": "9e9fa9be5966549895cbe9b6952b2a9d0cf6e8f9ec4b5b16e232c081e04d384b",
+      "sha256": "19703e51cd4e319109057fbe0f15b7ba7e875d009403f9d9792f262eadb23112",
       "owner": "skill:branded-review"
     },
     {
@@ -1522,19 +1534,25 @@
     {
       "path": ".gemini/skills/branded-review/scripts/brand_exclusions.py",
       "archivePath": ".gemini/skills/branded-review/scripts/brand_exclusions.py",
-      "sha256": "ae98a2666113e06ae572747a4f7adc86ab6b479cfb47ba96b4401472f45b39f5",
+      "sha256": "0082d88630e6c6d84b65b3d433f41b69469a57388259007f0cd84310a2496731",
       "owner": "skill:branded-review"
     },
     {
       "path": ".gemini/skills/branded-review/scripts/campaign_map.py",
       "archivePath": ".gemini/skills/branded-review/scripts/campaign_map.py",
-      "sha256": "6a004799934f747b5091a101f70d5ab979c8bcb5144704a9a9d1bec42c29ee9a",
+      "sha256": "216509fdbc687d7725c517150737569c0bba73c8ee593b77332120ff6bfef7e4",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/scripts/cli_paths.py",
+      "archivePath": ".gemini/skills/branded-review/scripts/cli_paths.py",
+      "sha256": "1b3fa72ec09b95029f57c38ca831e4fe300f1ec6f054d9245c1fb0f09e0d47d5",
       "owner": "skill:branded-review"
     },
     {
       "path": ".gemini/skills/branded-review/scripts/connected_report.py",
       "archivePath": ".gemini/skills/branded-review/scripts/connected_report.py",
-      "sha256": "ce11e77841fe80c46a065e23854510e461c1d8524ee92404eeaf58ad84726559",
+      "sha256": "2cc4ddb791d45586964cdac0dd14b5a3c4b110f527f5f6a7b594a02b9217aae2",
       "owner": "skill:branded-review"
     },
     {
@@ -1546,7 +1564,7 @@
     {
       "path": ".gemini/skills/branded-review/scripts/demo_walkthrough.py",
       "archivePath": ".gemini/skills/branded-review/scripts/demo_walkthrough.py",
-      "sha256": "a5caa943ab53d985c3ee16c7ae060acdf791cfb95b2d9fbf370c70c71fcfa6c4",
+      "sha256": "6163a66c265fc40dd97bf8a1ed017f7586df34f06b267ffcd8ac29abd5cba0e2",
       "owner": "skill:branded-review"
     },
     {
@@ -1564,13 +1582,13 @@
     {
       "path": ".gemini/skills/branded-review/scripts/plan_campaigns.py",
       "archivePath": ".gemini/skills/branded-review/scripts/plan_campaigns.py",
-      "sha256": "1774badd9eac601b73eca1d7d36432c26afa725ac3ab05419d98876c5b9deeed",
+      "sha256": "29f3abb298b146f1b7376ec5bc16a976e6a32ec90bbe30efe1d7ae973829036e",
       "owner": "skill:branded-review"
     },
     {
       "path": ".gemini/skills/branded-review/scripts/planning_options.py",
       "archivePath": ".gemini/skills/branded-review/scripts/planning_options.py",
-      "sha256": "1090d57aefdd4b3c6e54545b32087f1f48f1670b2a0aef056d0ec7b4ea2c0afc",
+      "sha256": "3d3a08e70ececcda1bc8a7f3446b565daf617dff0e55dd41bac91e66198bd17e",
       "owner": "skill:branded-review"
     },
     {
@@ -1588,7 +1606,7 @@
     {
       "path": ".gemini/skills/branded-review/scripts/report_charts.py",
       "archivePath": ".gemini/skills/branded-review/scripts/report_charts.py",
-      "sha256": "16cfa8eaff7a9c38b14f7f5a3804f3a26e2a20fed5f5ed2aedd33220b30addd7",
+      "sha256": "a15f53ab41b6ce20c3eb7824e68fdf3e956c266c637b919bf62b1900d3babb80",
       "owner": "skill:branded-review"
     },
     {
@@ -1600,7 +1618,7 @@
     {
       "path": ".gemini/skills/branded-review/scripts/report_delivery.py",
       "archivePath": ".gemini/skills/branded-review/scripts/report_delivery.py",
-      "sha256": "81ab72e584f71df88d75e32893723ad7bfb9ec9e373f81ba32e980aad5f17947",
+      "sha256": "16f4959506ae88f9119543782f140f0eb9c323f7208973a2d950cf9e0763d553",
       "owner": "skill:branded-review"
     },
     {
@@ -1612,19 +1630,19 @@
     {
       "path": ".gemini/skills/branded-review/scripts/report_preferences.py",
       "archivePath": ".gemini/skills/branded-review/scripts/report_preferences.py",
-      "sha256": "4755e36936ec13dd0adb4f7917c2864da97582f832182cc4efcb7b37b83febcd",
+      "sha256": "521fdb138710805236cfbc861de6280d80b54eae5dc23c59907a6e97f9d51b03",
       "owner": "skill:branded-review"
     },
     {
       "path": ".gemini/skills/branded-review/scripts/report_render.py",
       "archivePath": ".gemini/skills/branded-review/scripts/report_render.py",
-      "sha256": "1cdac8a7f7aed11c1d30478f59bf0815a61b2a8ee08f0c32e4a988d78fdd4bae",
+      "sha256": "9324b49188ea9d04c6c6a916718ffb5fa21fa81ae4eedf572770bdbf1c46a139",
       "owner": "skill:branded-review"
     },
     {
       "path": ".gemini/skills/branded-review/scripts/report_workspace.py",
       "archivePath": ".gemini/skills/branded-review/scripts/report_workspace.py",
-      "sha256": "0bee4c8edc8626b6566aa7b22937745a7257edb6846dceb39576eb5c81107de6",
+      "sha256": "4da690a19b844897b6289ea676c42c6370a0d813451a8f2396b3bd9fd1e34905",
       "owner": "skill:branded-review"
     },
     {
@@ -1846,13 +1864,13 @@
     {
       "path": ".github/skills/branded-review/SKILL.md",
       "archivePath": ".github/skills/branded-review/SKILL.md",
-      "sha256": "b0dd375d1bc1dcde954dfeb5356e063e6bbb93b8b71aed3a0a9d40bfab33bc89",
+      "sha256": "812bf1b4769eca73c281423cb5969c0ec814a80bdf89d3dbdf4da385f45f35e4",
       "owner": "skill:branded-review"
     },
     {
       "path": ".github/skills/branded-review/START-HERE.md",
       "archivePath": ".github/skills/branded-review/START-HERE.md",
-      "sha256": "d5cdd8581f2645917de6462860eaa04d641630a7cb39f1817b3592309de970f8",
+      "sha256": "7a2d91397642d41beb64770c7b909fcd5527289ab217111994c08bbbd940d72e",
       "owner": "skill:branded-review"
     },
     {
@@ -1978,7 +1996,7 @@
     {
       "path": ".github/skills/branded-review/references/analysis-and-output.md",
       "archivePath": ".github/skills/branded-review/references/analysis-and-output.md",
-      "sha256": "9757587f2f8092612ceab5df18fb151176bb4e7a52c3185c3c0681b51acd4e3f",
+      "sha256": "fdfa88816892c0e02f5404639172b1d19f7a69b934a7c7b13bde45032d1c0447",
       "owner": "skill:branded-review"
     },
     {
@@ -1996,13 +2014,13 @@
     {
       "path": ".github/skills/branded-review/references/connected.md",
       "archivePath": ".github/skills/branded-review/references/connected.md",
-      "sha256": "7bca4546834fd74ed0574e82c44226ed1557493caae068db272f0f8333ab4289",
+      "sha256": "f705a9f9b09e82f3f49f756726e615a65c892ee165710b80888ac838daaab9d5",
       "owner": "skill:branded-review"
     },
     {
       "path": ".github/skills/branded-review/references/conversation.md",
       "archivePath": ".github/skills/branded-review/references/conversation.md",
-      "sha256": "e312edc137f00ed1cab01a7ad83ddd8ff150819732e1d5bd40b278252ac822aa",
+      "sha256": "5db64540717076b2f9ec90d4d1b4aacfbe1b93b84f97ab79f1a208228241b590",
       "owner": "skill:branded-review"
     },
     {
@@ -2014,7 +2032,7 @@
     {
       "path": ".github/skills/branded-review/references/kdp-accounts.md",
       "archivePath": ".github/skills/branded-review/references/kdp-accounts.md",
-      "sha256": "9d817ce935731ca5a74bf1ed22fd88c0cefd1cbae8bd5e04daa5e3ef91938521",
+      "sha256": "53db43899c203004b24951e9e1728e04cf22b93f564f78a9232b586e59dba3b3",
       "owner": "skill:branded-review"
     },
     {
@@ -2080,7 +2098,7 @@
     {
       "path": ".github/skills/branded-review/scripts/analyze_search_terms.py",
       "archivePath": ".github/skills/branded-review/scripts/analyze_search_terms.py",
-      "sha256": "9e9fa9be5966549895cbe9b6952b2a9d0cf6e8f9ec4b5b16e232c081e04d384b",
+      "sha256": "19703e51cd4e319109057fbe0f15b7ba7e875d009403f9d9792f262eadb23112",
       "owner": "skill:branded-review"
     },
     {
@@ -2092,19 +2110,25 @@
     {
       "path": ".github/skills/branded-review/scripts/brand_exclusions.py",
       "archivePath": ".github/skills/branded-review/scripts/brand_exclusions.py",
-      "sha256": "ae98a2666113e06ae572747a4f7adc86ab6b479cfb47ba96b4401472f45b39f5",
+      "sha256": "0082d88630e6c6d84b65b3d433f41b69469a57388259007f0cd84310a2496731",
       "owner": "skill:branded-review"
     },
     {
       "path": ".github/skills/branded-review/scripts/campaign_map.py",
       "archivePath": ".github/skills/branded-review/scripts/campaign_map.py",
-      "sha256": "6a004799934f747b5091a101f70d5ab979c8bcb5144704a9a9d1bec42c29ee9a",
+      "sha256": "216509fdbc687d7725c517150737569c0bba73c8ee593b77332120ff6bfef7e4",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/scripts/cli_paths.py",
+      "archivePath": ".github/skills/branded-review/scripts/cli_paths.py",
+      "sha256": "1b3fa72ec09b95029f57c38ca831e4fe300f1ec6f054d9245c1fb0f09e0d47d5",
       "owner": "skill:branded-review"
     },
     {
       "path": ".github/skills/branded-review/scripts/connected_report.py",
       "archivePath": ".github/skills/branded-review/scripts/connected_report.py",
-      "sha256": "ce11e77841fe80c46a065e23854510e461c1d8524ee92404eeaf58ad84726559",
+      "sha256": "2cc4ddb791d45586964cdac0dd14b5a3c4b110f527f5f6a7b594a02b9217aae2",
       "owner": "skill:branded-review"
     },
     {
@@ -2116,7 +2140,7 @@
     {
       "path": ".github/skills/branded-review/scripts/demo_walkthrough.py",
       "archivePath": ".github/skills/branded-review/scripts/demo_walkthrough.py",
-      "sha256": "a5caa943ab53d985c3ee16c7ae060acdf791cfb95b2d9fbf370c70c71fcfa6c4",
+      "sha256": "6163a66c265fc40dd97bf8a1ed017f7586df34f06b267ffcd8ac29abd5cba0e2",
       "owner": "skill:branded-review"
     },
     {
@@ -2134,13 +2158,13 @@
     {
       "path": ".github/skills/branded-review/scripts/plan_campaigns.py",
       "archivePath": ".github/skills/branded-review/scripts/plan_campaigns.py",
-      "sha256": "1774badd9eac601b73eca1d7d36432c26afa725ac3ab05419d98876c5b9deeed",
+      "sha256": "29f3abb298b146f1b7376ec5bc16a976e6a32ec90bbe30efe1d7ae973829036e",
       "owner": "skill:branded-review"
     },
     {
       "path": ".github/skills/branded-review/scripts/planning_options.py",
       "archivePath": ".github/skills/branded-review/scripts/planning_options.py",
-      "sha256": "1090d57aefdd4b3c6e54545b32087f1f48f1670b2a0aef056d0ec7b4ea2c0afc",
+      "sha256": "3d3a08e70ececcda1bc8a7f3446b565daf617dff0e55dd41bac91e66198bd17e",
       "owner": "skill:branded-review"
     },
     {
@@ -2158,7 +2182,7 @@
     {
       "path": ".github/skills/branded-review/scripts/report_charts.py",
       "archivePath": ".github/skills/branded-review/scripts/report_charts.py",
-      "sha256": "16cfa8eaff7a9c38b14f7f5a3804f3a26e2a20fed5f5ed2aedd33220b30addd7",
+      "sha256": "a15f53ab41b6ce20c3eb7824e68fdf3e956c266c637b919bf62b1900d3babb80",
       "owner": "skill:branded-review"
     },
     {
@@ -2170,7 +2194,7 @@
     {
       "path": ".github/skills/branded-review/scripts/report_delivery.py",
       "archivePath": ".github/skills/branded-review/scripts/report_delivery.py",
-      "sha256": "81ab72e584f71df88d75e32893723ad7bfb9ec9e373f81ba32e980aad5f17947",
+      "sha256": "16f4959506ae88f9119543782f140f0eb9c323f7208973a2d950cf9e0763d553",
       "owner": "skill:branded-review"
     },
     {
@@ -2182,19 +2206,19 @@
     {
       "path": ".github/skills/branded-review/scripts/report_preferences.py",
       "archivePath": ".github/skills/branded-review/scripts/report_preferences.py",
-      "sha256": "4755e36936ec13dd0adb4f7917c2864da97582f832182cc4efcb7b37b83febcd",
+      "sha256": "521fdb138710805236cfbc861de6280d80b54eae5dc23c59907a6e97f9d51b03",
       "owner": "skill:branded-review"
     },
     {
       "path": ".github/skills/branded-review/scripts/report_render.py",
       "archivePath": ".github/skills/branded-review/scripts/report_render.py",
-      "sha256": "1cdac8a7f7aed11c1d30478f59bf0815a61b2a8ee08f0c32e4a988d78fdd4bae",
+      "sha256": "9324b49188ea9d04c6c6a916718ffb5fa21fa81ae4eedf572770bdbf1c46a139",
       "owner": "skill:branded-review"
     },
     {
       "path": ".github/skills/branded-review/scripts/report_workspace.py",
       "archivePath": ".github/skills/branded-review/scripts/report_workspace.py",
-      "sha256": "0bee4c8edc8626b6566aa7b22937745a7257edb6846dceb39576eb5c81107de6",
+      "sha256": "4da690a19b844897b6289ea676c42c6370a0d813451a8f2396b3bd9fd1e34905",
       "owner": "skill:branded-review"
     },
     {
@@ -2488,13 +2512,13 @@
     {
       "path": "skills/branded-review/SKILL.md",
       "archivePath": "skills/branded-review/SKILL.md",
-      "sha256": "b0dd375d1bc1dcde954dfeb5356e063e6bbb93b8b71aed3a0a9d40bfab33bc89",
+      "sha256": "812bf1b4769eca73c281423cb5969c0ec814a80bdf89d3dbdf4da385f45f35e4",
       "owner": "skill:branded-review"
     },
     {
       "path": "skills/branded-review/START-HERE.md",
       "archivePath": "skills/branded-review/START-HERE.md",
-      "sha256": "d5cdd8581f2645917de6462860eaa04d641630a7cb39f1817b3592309de970f8",
+      "sha256": "7a2d91397642d41beb64770c7b909fcd5527289ab217111994c08bbbd940d72e",
       "owner": "skill:branded-review"
     },
     {
@@ -2620,7 +2644,7 @@
     {
       "path": "skills/branded-review/references/analysis-and-output.md",
       "archivePath": "skills/branded-review/references/analysis-and-output.md",
-      "sha256": "9757587f2f8092612ceab5df18fb151176bb4e7a52c3185c3c0681b51acd4e3f",
+      "sha256": "fdfa88816892c0e02f5404639172b1d19f7a69b934a7c7b13bde45032d1c0447",
       "owner": "skill:branded-review"
     },
     {
@@ -2638,13 +2662,13 @@
     {
       "path": "skills/branded-review/references/connected.md",
       "archivePath": "skills/branded-review/references/connected.md",
-      "sha256": "7bca4546834fd74ed0574e82c44226ed1557493caae068db272f0f8333ab4289",
+      "sha256": "f705a9f9b09e82f3f49f756726e615a65c892ee165710b80888ac838daaab9d5",
       "owner": "skill:branded-review"
     },
     {
       "path": "skills/branded-review/references/conversation.md",
       "archivePath": "skills/branded-review/references/conversation.md",
-      "sha256": "e312edc137f00ed1cab01a7ad83ddd8ff150819732e1d5bd40b278252ac822aa",
+      "sha256": "5db64540717076b2f9ec90d4d1b4aacfbe1b93b84f97ab79f1a208228241b590",
       "owner": "skill:branded-review"
     },
     {
@@ -2656,7 +2680,7 @@
     {
       "path": "skills/branded-review/references/kdp-accounts.md",
       "archivePath": "skills/branded-review/references/kdp-accounts.md",
-      "sha256": "9d817ce935731ca5a74bf1ed22fd88c0cefd1cbae8bd5e04daa5e3ef91938521",
+      "sha256": "53db43899c203004b24951e9e1728e04cf22b93f564f78a9232b586e59dba3b3",
       "owner": "skill:branded-review"
     },
     {
@@ -2722,7 +2746,7 @@
     {
       "path": "skills/branded-review/scripts/analyze_search_terms.py",
       "archivePath": "skills/branded-review/scripts/analyze_search_terms.py",
-      "sha256": "9e9fa9be5966549895cbe9b6952b2a9d0cf6e8f9ec4b5b16e232c081e04d384b",
+      "sha256": "19703e51cd4e319109057fbe0f15b7ba7e875d009403f9d9792f262eadb23112",
       "owner": "skill:branded-review"
     },
     {
@@ -2734,19 +2758,25 @@
     {
       "path": "skills/branded-review/scripts/brand_exclusions.py",
       "archivePath": "skills/branded-review/scripts/brand_exclusions.py",
-      "sha256": "ae98a2666113e06ae572747a4f7adc86ab6b479cfb47ba96b4401472f45b39f5",
+      "sha256": "0082d88630e6c6d84b65b3d433f41b69469a57388259007f0cd84310a2496731",
       "owner": "skill:branded-review"
     },
     {
       "path": "skills/branded-review/scripts/campaign_map.py",
       "archivePath": "skills/branded-review/scripts/campaign_map.py",
-      "sha256": "6a004799934f747b5091a101f70d5ab979c8bcb5144704a9a9d1bec42c29ee9a",
+      "sha256": "216509fdbc687d7725c517150737569c0bba73c8ee593b77332120ff6bfef7e4",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/scripts/cli_paths.py",
+      "archivePath": "skills/branded-review/scripts/cli_paths.py",
+      "sha256": "1b3fa72ec09b95029f57c38ca831e4fe300f1ec6f054d9245c1fb0f09e0d47d5",
       "owner": "skill:branded-review"
     },
     {
       "path": "skills/branded-review/scripts/connected_report.py",
       "archivePath": "skills/branded-review/scripts/connected_report.py",
-      "sha256": "ce11e77841fe80c46a065e23854510e461c1d8524ee92404eeaf58ad84726559",
+      "sha256": "2cc4ddb791d45586964cdac0dd14b5a3c4b110f527f5f6a7b594a02b9217aae2",
       "owner": "skill:branded-review"
     },
     {
@@ -2758,7 +2788,7 @@
     {
       "path": "skills/branded-review/scripts/demo_walkthrough.py",
       "archivePath": "skills/branded-review/scripts/demo_walkthrough.py",
-      "sha256": "a5caa943ab53d985c3ee16c7ae060acdf791cfb95b2d9fbf370c70c71fcfa6c4",
+      "sha256": "6163a66c265fc40dd97bf8a1ed017f7586df34f06b267ffcd8ac29abd5cba0e2",
       "owner": "skill:branded-review"
     },
     {
@@ -2776,13 +2806,13 @@
     {
       "path": "skills/branded-review/scripts/plan_campaigns.py",
       "archivePath": "skills/branded-review/scripts/plan_campaigns.py",
-      "sha256": "1774badd9eac601b73eca1d7d36432c26afa725ac3ab05419d98876c5b9deeed",
+      "sha256": "29f3abb298b146f1b7376ec5bc16a976e6a32ec90bbe30efe1d7ae973829036e",
       "owner": "skill:branded-review"
     },
     {
       "path": "skills/branded-review/scripts/planning_options.py",
       "archivePath": "skills/branded-review/scripts/planning_options.py",
-      "sha256": "1090d57aefdd4b3c6e54545b32087f1f48f1670b2a0aef056d0ec7b4ea2c0afc",
+      "sha256": "3d3a08e70ececcda1bc8a7f3446b565daf617dff0e55dd41bac91e66198bd17e",
       "owner": "skill:branded-review"
     },
     {
@@ -2800,7 +2830,7 @@
     {
       "path": "skills/branded-review/scripts/report_charts.py",
       "archivePath": "skills/branded-review/scripts/report_charts.py",
-      "sha256": "16cfa8eaff7a9c38b14f7f5a3804f3a26e2a20fed5f5ed2aedd33220b30addd7",
+      "sha256": "a15f53ab41b6ce20c3eb7824e68fdf3e956c266c637b919bf62b1900d3babb80",
       "owner": "skill:branded-review"
     },
     {
@@ -2812,7 +2842,7 @@
     {
       "path": "skills/branded-review/scripts/report_delivery.py",
       "archivePath": "skills/branded-review/scripts/report_delivery.py",
-      "sha256": "81ab72e584f71df88d75e32893723ad7bfb9ec9e373f81ba32e980aad5f17947",
+      "sha256": "16f4959506ae88f9119543782f140f0eb9c323f7208973a2d950cf9e0763d553",
       "owner": "skill:branded-review"
     },
     {
@@ -2824,19 +2854,19 @@
     {
       "path": "skills/branded-review/scripts/report_preferences.py",
       "archivePath": "skills/branded-review/scripts/report_preferences.py",
-      "sha256": "4755e36936ec13dd0adb4f7917c2864da97582f832182cc4efcb7b37b83febcd",
+      "sha256": "521fdb138710805236cfbc861de6280d80b54eae5dc23c59907a6e97f9d51b03",
       "owner": "skill:branded-review"
     },
     {
       "path": "skills/branded-review/scripts/report_render.py",
       "archivePath": "skills/branded-review/scripts/report_render.py",
-      "sha256": "1cdac8a7f7aed11c1d30478f59bf0815a61b2a8ee08f0c32e4a988d78fdd4bae",
+      "sha256": "9324b49188ea9d04c6c6a916718ffb5fa21fa81ae4eedf572770bdbf1c46a139",
       "owner": "skill:branded-review"
     },
     {
       "path": "skills/branded-review/scripts/report_workspace.py",
       "archivePath": "skills/branded-review/scripts/report_workspace.py",
-      "sha256": "0bee4c8edc8626b6566aa7b22937745a7257edb6846dceb39576eb5c81107de6",
+      "sha256": "4da690a19b844897b6289ea676c42c6370a0d813451a8f2396b3bd9fd1e34905",
       "owner": "skill:branded-review"
     },
     {

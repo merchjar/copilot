@@ -9,8 +9,11 @@ def chart(report):
     groups = {g['category']:g for g in report['groups']}
     brand, other = groups['brand_query'], groups['other_query']
     shares, rows = {}, []
-    for key, label in [('spend', 'Ad spend'), ('sales', 'Attributed sales')]:
-        a, b = Decimal(brand[key]), Decimal(other[key])
+    # Book accounts with KENP data compare revenue as attributed sales plus KENP royalties.
+    kenp = bool(report.get('kenp') and brand.get('kenp') and other.get('kenp'))
+    revenue = lambda g: Decimal(g['kenp']['sales_basis']) + Decimal(g['kenp']['royalties'])
+    for key, label in [('spend', 'Ad spend'), ('sales', 'Sales + KENP royalties' if kenp else 'Attributed sales')]:
+        a, b = (revenue(brand), revenue(other)) if kenp and key == 'sales' else (Decimal(brand[key]), Decimal(other[key]))
         total = a + b
         if a < 0 or b < 0 or total <= 0:
             rows.append(f'<div class="mix-row"><span class="mix-label">{label}</span><p class="mix-empty">No positive total available for this comparison.</p></div>')
@@ -24,7 +27,8 @@ def chart(report):
         rows.append(f'<div class="mix-row"><span class="mix-label">{label}</span><div class="mix-bar" role="img" aria-label="Text-search {label.lower()}: {left} branded, {right} non-branded"><span class="mix-segment brand" style="width:{share:.10f}%">{left if not narrow else ""}</span><span class="mix-segment nonbrand" style="width:{100-share:.10f}%">{right if not narrow else ""}</span></div>{alternative}</div>')
     finding = ''
     if len(shares) == 2:
-        finding = f'<p class="mix-insight">Brand searches account for <strong>{percent(shares["spend"])} of spend</strong> and <strong>{percent(shares["sales"])} of attributed sales</strong> in the text-search split.</p>'
-    return '<section class="spend-sales" aria-labelledby="mix-title"><h2 id="mix-title">Where spend and sales come from</h2><p class="chart-scope">Share of text-search spend and attributed sales</p><div class="mix-key"><span><i aria-hidden="true"></i>Branded</span><span><i aria-hidden="true"></i>Non-branded</span></div>'+''.join(rows)+finding+'<p class="mix-footnote">ASIN traffic, unreported terms and terms awaiting review stay outside this comparison.</p></section>'
+        revenue_label = 'of sales and KENP royalties' if kenp else 'of attributed sales'
+        finding = f'<p class="mix-insight">Brand searches account for <strong>{percent(shares["spend"])} of spend</strong> and <strong>{percent(shares["sales"])} {revenue_label}</strong> in the text-search split.</p>'
+    return '<section class="spend-sales" aria-labelledby="mix-title"><h2 id="mix-title">Where spend and sales come from</h2><p class="chart-scope">Share of text-search spend and '+('sales plus KENP royalties' if kenp else 'attributed sales')+'</p><div class="mix-key"><span><i aria-hidden="true"></i>Branded</span><span><i aria-hidden="true"></i>Non-branded</span></div>'+''.join(rows)+finding+'<p class="mix-footnote">ASIN traffic, unreported terms and terms awaiting review stay outside this comparison.</p></section>'
 
 

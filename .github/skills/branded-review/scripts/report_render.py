@@ -11,6 +11,9 @@ def asin_section(report, money):
     groups = {g['category']:g for g in report['groups']}
     owned, other = groups['owned_asin'], groups['asin_unknown']
     total = {k: Decimal(str(owned[k])) + Decimal(str(other[k])) for k in ('spend','sales','rows')}
+    kenp = bool(report.get('kenp') and owned.get('kenp') and other.get('kenp'))
+    if kenp:
+        total['kenp'] = {k: Decimal(owned['kenp'][k]) + Decimal(other['kenp'][k]) for k in ('royalties','sales_basis')}
     products = report.get('context', {}).get('products', {})
     complete = products.get('catalog_complete') is True
     identified = complete or products.get('product_count', 0) > 0 or owned['rows'] > 0
@@ -24,8 +27,15 @@ def asin_section(report, money):
         else:
             spend, sales = Decimal(str(values['spend'])), Decimal(str(values['sales']))
             value = f'{spend/sales:.1%}' if sales > 0 else 'No sales'
+            caption, royalty_dd = 'ACoS · Reported ASIN rows', ''
+            if kenp:
+                royalties = Decimal(str(values['kenp']['royalties']))
+                base = Decimal(str(values['kenp']['sales_basis'])) + royalties
+                value = f'{spend/base:.1%}' if base > 0 else 'No sales or royalties'
+                caption = 'ACoS incl. KENP · Reported ASIN rows'
+                royalty_dd = f'<div><dt>KENP royalties</dt><dd>{money(royalties)}</dd></div>'
             if not values['rows']: value = 'No ASIN traffic'
-            body = f'<strong class="asin-value">{value}</strong><p class="asin-caption">ACoS · Reported ASIN rows</p><dl class="asin-metrics"><div><dt>Ad spend</dt><dd>{money(spend)}</dd></div><div><dt>Attributed sales</dt><dd>{money(sales)}</dd></div></dl>'
+            body = f'<strong class="asin-value">{value}</strong><p class="asin-caption">{caption}</p><dl class="asin-metrics"><div><dt>Ad spend</dt><dd>{money(spend)}</dd></div><div><dt>Attributed sales</dt><dd>{money(sales)}</dd></div>{royalty_dd}</dl>'
         ownership_note = '<p class="ownership-note">May include your products missing from the list.</p>' if key == 'other' and identified and not complete and has_rows else ''
         cards.append(f'<article class="asin-card asin-{key}" data-ownership="{"needed" if missing else "available"}"><h3>{title}</h3>{body}{ownership_note}</article>')
     if not has_rows:
@@ -64,14 +74,18 @@ def render_performance(report):
              ('Overall ACoS','account','Same-period campaigns' if report.get('account_totals') else 'All rows in this report',report.get('account_totals',report['totals']))]
     card_html = ''
     kenp_pct = lambda x: f'{x:.1%}' if x is not None else 'No sales or royalties'
+    # Book accounts with KENP data lead with ACoS incl. KENP; sales-only ACoS moves to the secondary line.
+    kenp_headline = bool(report.get('kenp')) and all(row.get('kenp') for *_, row in cards)
     for label, cls, caption, row in cards:
-        # Book accounts: standard ACoS stays the headline; KENP-inclusive ACoS sits beneath it.
         kenp_line = kenp_dd = ''
-        if row.get('kenp'):
-            kenp_line = f'<p class="kenp-acos"><span>ACoS incl. KENP</span><strong>{kenp_pct(row["kenp"]["acos_incl_kenp"])}</strong></p>'
+        headline = pct(row['acos'])
+        if kenp_headline:
+            label = label + ' incl. KENP'
+            headline = kenp_pct(row['kenp']['acos_incl_kenp'])
+            kenp_line = f'<p class="kenp-acos"><span>ACoS (sales only)</span><strong>{pct(row["acos"])}</strong></p>'
             kenp_dd = f'<div><dt>KENP royalties</dt><dd>{money(row["kenp"]["royalties"])}</dd></div>'
         card_html += f'''<article class="score {cls}"><h2><i aria-hidden="true"></i>{label}</h2>
-<div class="number">{pct(row['acos'])}</div><p class="caption">{caption}</p>{kenp_line}
+<div class="number">{headline}</div><p class="caption">{caption}</p>{kenp_line}
 <dl><div><dt>Ad spend</dt><dd>{money(row['spend'])}</dd></div><div><dt>Attributed sales</dt><dd>{money(row['sales'])}</dd></div>{kenp_dd}</dl></article>'''
     brand, other, total = groups['brand_query'],groups['other_query'],report.get('account_totals',report['totals'])
     if other['acos'] is not None and total['acos'] is not None:
@@ -80,10 +94,14 @@ def render_performance(report):
         finding='The available sales do not support a complete ACoS comparison.'
     kenp = report.get('kenp')
     kenp_takeaway = kenp_board = kenp_detail = ''
-    if kenp and other.get('kenp') and total.get('kenp'):
+    if kenp_headline:
         a, b = other['kenp']['acos_incl_kenp'], total['kenp']['acos_incl_kenp']
         if a is not None and b is not None:
-            kenp_takeaway = f' Including KENP royalties, non-branded ACoS is {a:.1%}, versus {b:.1%} overall.'
+            finding = f'Including KENP royalties, non-branded ACoS is {a:.1%}, versus {b:.1%} overall.'
+        else:
+            finding = 'The available sales and KENP royalties do not support a complete ACoS comparison.'
+        if other['acos'] is not None and total['acos'] is not None:
+            kenp_takeaway = f" Sales-only ACoS, without KENP royalties: {other['acos']:.1%} non-branded, {total['acos']:.1%} overall."
         kenp_board = ' ACoS incl. KENP = ad spend ÷ (attributed sales + estimated KENP royalties). ' + ' '.join(kenp.get('disclosures', []))
         source = 'Merch Jar data' if kenp.get('source') == 'Merch Jar connection' else 'the uploaded report'
         kenp_detail = (f"<p><b>KENP:</b> Estimated Kindle Unlimited royalties come from {source} "

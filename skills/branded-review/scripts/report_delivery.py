@@ -3,6 +3,7 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
+from cli_paths import cli_path
 
 
 def report_artifact(path):
@@ -26,7 +27,7 @@ def report_artifact(path):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('report', type=Path, help='Existing report, absolute filesystem path')
+    parser.add_argument('report', type=cli_path, help='Existing report, absolute filesystem path')
     args = parser.parse_args()
     print(json.dumps({'report_artifact': report_artifact(args.report)}, ensure_ascii=False))
 

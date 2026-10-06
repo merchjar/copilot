@@ -34,7 +34,7 @@ Optional `--brand-reference PATH` reuses saved rules. An uploaded reference must
 
 Previews also return book (KDP) fields: `pages_read_<period>`, `estimated_royalties_<period>`, `adjusted_sales_<period>`, `adjusted_pages_read_<period>` and `adjusted_estimated_royalties_<period>`, where `<period>` is `START_to_END`. When they show KENP activity, or `--account-type kdp` is passed, the adapter reconciles them and reports ACoS incl. KENP from the adjusted values, stating any Ad Impact Multiplier other than 1. Product accounts return zeros for these fields and their report is unchanged. See [kdp-accounts.md](kdp-accounts.md).
 
-Page-global totals are compared across pages with exact equality for integer counts and a small absolute tolerance for decimal amounts, so trailing floating-point digits do not abort a long pull; a real population change still stops it.
+Page-global totals are compared across pages with exact equality for integer counts and a small absolute tolerance for decimal amounts, so trailing floating-point digits do not abort a long pull. If the population really changes mid-pull (for example a data sync lands), the adapter keeps that attempt's page receipts in a sibling `-aborted-attempt-1` folder and restarts once from page 1; a second change stops the report. Pass Windows drive paths; `/c/...` paths from Git Bash are converted to `C:/...`.
 
 For an empty result it generates an explicit zero-activity coverage report, without inventing performance or campaign seeds. The executable adapter supports the current Sponsored Products preview shape. Other ad products require a verified adapter and separate partition.
 

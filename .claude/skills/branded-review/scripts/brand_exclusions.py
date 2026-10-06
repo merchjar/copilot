@@ -5,6 +5,7 @@ import hashlib
 import json
 from pathlib import Path
 import re
+from cli_paths import cli_path
 
 
 def normalized(text):
@@ -89,11 +90,11 @@ def markdown(result):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--analysis', type=Path, required=True)
-    parser.add_argument('--catalog', type=Path)
-    parser.add_argument('--existing', type=Path)
-    parser.add_argument('--output', type=Path, required=True)
-    parser.add_argument('--markdown', type=Path)
+    parser.add_argument('--analysis', type=cli_path, required=True)
+    parser.add_argument('--catalog', type=cli_path)
+    parser.add_argument('--existing', type=cli_path)
+    parser.add_argument('--output', type=cli_path, required=True)
+    parser.add_argument('--markdown', type=cli_path)
     args = parser.parse_args()
     read = lambda p: json.loads(p.read_text(encoding='utf-8')) if p else None
     result = draft(read(args.analysis), read(args.catalog), read(args.existing))

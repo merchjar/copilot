@@ -28,7 +28,7 @@ The bundled analyzer applies confirmed competitor entries (the reference's `comp
 
 Compute ACoS = sum(spend) / sum(attributed sales), displayed as a percent. A $10/$100 row and a $90/$100 row combine to 50%, not a spend-weighted average of row ACoS. If sales is zero, show “No attributed sales” with spend retained; if sales is missing, show unavailable. Preserve negative corrections and explain why a conventional ratio may be misleading.
 
-For book accounts with KENP data, keep standard ACoS unchanged and add ACoS incl. KENP = sum(spend) / (sum(attributed sales) + sum(estimated KENP royalties)) for branded, non-branded and overall. Royalties reconcile across classes like spend and sales. See [kdp-accounts.md](kdp-accounts.md).
+For book accounts with KENP data, lead with ACoS incl. KENP = sum(spend) / (sum(attributed sales) + sum(estimated KENP royalties)) for branded, non-branded and overall, and keep sales-only ACoS (unchanged calculation) as the secondary figure. On a Kindle Unlimited-heavy account, sales-only ACoS alone badly overstates cost. Royalties reconcile across classes like spend and sales. See [kdp-accounts.md](kdp-accounts.md).
 
 Each report partition has explicit population totals. Class totals including unknowns must reconcile to imported population totals. Compare a matching campaign report separately and display any difference as unresolved coverage. Never allocate the difference to non-brand, product pages, invalid traffic or waste without evidence.
 

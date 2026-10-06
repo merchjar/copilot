@@ -9,6 +9,7 @@ from pathlib import Path
 import re
 import tempfile
 from report_interactions import preferences
+from cli_paths import cli_path
 
 
 def read_draft(path):
@@ -170,7 +171,7 @@ def check_destinations(skill_root, destinations):
 
 def main():
     p=argparse.ArgumentParser(description=__doc__)
-    for name in ('analysis','changes','reference','catalog'):p.add_argument('--'+name,type=Path,required=True)
+    for name in ('analysis','changes','reference','catalog'):p.add_argument('--'+name,type=cli_path,required=True)
     p.add_argument('--apply',action='store_true',help='Save the user-requested changes after validation')
     a=p.parse_args()
     paths=[getattr(a,k).expanduser().resolve() for k in ('analysis','changes','reference','catalog')]

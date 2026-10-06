@@ -8,6 +8,7 @@ from html import escape
 from pathlib import Path
 from report_delivery import report_artifact
 from structure_plan import structure_html, lists_html
+from cli_paths import cli_path
 
 
 def inventory(report):
@@ -71,8 +72,8 @@ def render(report=None, embedded=False, product_groups=None):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--html-output', type=Path, required=True)
-    parser.add_argument('--analysis', type=Path, help='Optional saved analysis for an observed-campaign inventory; may contain private names')
+    parser.add_argument('--html-output', type=cli_path, required=True)
+    parser.add_argument('--analysis', type=cli_path, help='Optional saved analysis for an observed-campaign inventory; may contain private names')
     args = parser.parse_args()
     output = args.html_output.expanduser().resolve()
     output.parent.mkdir(parents=True, exist_ok=True)

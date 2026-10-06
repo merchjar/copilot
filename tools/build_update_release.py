@@ -21,7 +21,7 @@ DEFAULT_SKILLS = [
     'merchjar-connect', 'performance-check', 'review-segment', 'troubleshoot',
 ]
 RELEASE_NOTES = {
-    'branded-review': 'Recognizes KDP book accounts and adds ACoS incl. KENP royalties; long connected pulls no longer stop on rounding differences.',
+    'branded-review': 'Recognizes KDP book accounts and leads with ACoS incl. KENP royalties; connected pulls handle rounding differences and mid-pull data syncs.',
     'account-review': 'Can recommend Campaign Naming when inconsistent names block account work.',
     'campaign-naming-cleanup': 'Responds faster, proposes a reusable taxonomy first, and preserves method separately from match type.',
     'create-campaigns': 'Reuses the saved account naming taxonomy, including the distinct Auto, KW, PT, or Mixed method.',

@@ -16,6 +16,7 @@ from analyze_search_terms import analyze, METRICS, REQUIRED, LABELS, empty_metri
 import kdp
 from report_render import render
 from report_delivery import report_artifact
+from cli_paths import cli_path
 
 
 def metric_fields(start,end):
@@ -64,7 +65,37 @@ def kdp_sums(rows,reported,start,end):
     return out
 
 
-def collect(client,key,profile,ad_type,start,end,folder,pause=time.sleep,kdp_receipt=None):
+class PopulationChanged(ValueError):
+    """The preview population changed between pages, for example when a data sync lands mid-read."""
+
+
+POPULATION_CHANGED='Preview population changed during pagination; retain receipts and refresh consistently'
+
+
+def collect(client,key,profile,ad_type,start,end,folder,pause=time.sleep,kdp_receipt=None,pull_receipt=None):
+    """Read every preview page. If the population changes mid-pull, keep that attempt's page receipts in a
+    sibling folder and restart once from page 1; a second change stops the report."""
+    try:
+        rows,first=_pull(client,key,profile,ad_type,start,end,folder,pause)
+    except PopulationChanged:
+        aborted=None
+        if folder:
+            aborted=Path(folder).parent/f'{Path(folder).name}-aborted-attempt-1'
+            aborted.mkdir(parents=True,exist_ok=True)
+            for receipt in Path(folder).glob(f'{ad_type}-page-*.json'):
+                receipt.replace(aborted/receipt.name)
+        if pull_receipt is not None:
+            pull_receipt.setdefault('restarted_after_population_change',[]).append(
+                {'ad_type':ad_type,'aborted_receipts':str(aborted) if aborted else None})
+        pause(10)
+        try:
+            rows,first=_pull(client,key,profile,ad_type,start,end,folder,pause)
+        except PopulationChanged as exc:
+            raise ValueError(POPULATION_CHANGED) from exc
+    return _reconcile(rows,first,ad_type,start,end,kdp_receipt)
+
+
+def _pull(client,key,profile,ad_type,start,end,folder,pause):
     fields=metric_fields(start,end)
     trigger=' or '.join(f'{f}({start}..{end}) > 0' for f in ('impressions','spend','sales'))
     rows=[]; first=None; page=1
@@ -79,7 +110,7 @@ def collect(client,key,profile,ad_type,start,end,folder,pause=time.sleep,kdp_rec
             raise ValueError('Unsupported or missing preview pagination')
         if first is None: first={'total':meta['total'],'last_page':meta['last_page'],'totals':result.get('totals')}
         if (meta['total'],meta['last_page']) != (first['total'],first['last_page']) or not same_totals(first['totals'],result.get('totals')):
-            raise ValueError('Preview population changed during pagination; retain receipts and refresh consistently')
+            raise PopulationChanged(POPULATION_CHANGED)
         batch=result.get('data')
         if not isinstance(batch,list) or (not batch and page < meta['last_page']):
             raise ValueError('Incomplete preview page')
@@ -91,6 +122,11 @@ def collect(client,key,profile,ad_type,start,end,folder,pause=time.sleep,kdp_rec
         rows.extend(batch)
         if page >= max(1,meta['last_page']): break
         pause(2.1);page+=1
+    return rows,first
+
+
+def _reconcile(rows,first,ad_type,start,end,kdp_receipt):
+    fields=metric_fields(start,end)
     if len(rows)!=first['total']: raise ValueError('Preview row count does not reconcile')
     grain=('campaign_id','ad_group_id','search_term') if ad_type=='search_terms' else ('campaign_id',)
     identities=[tuple(r.get(f) for f in grain) for r in rows]
@@ -160,12 +196,12 @@ def empty_report(source,profile,brand,start,end,reference=None):
 
 def main():
     p=argparse.ArgumentParser(description=__doc__)
-    p.add_argument('--client',required=True,help='Installed merchjar-connect/scripts/merchjar_client.py')
+    p.add_argument('--client',required=True,type=cli_path,help='Installed merchjar-connect/scripts/merchjar_client.py')
     p.add_argument('--profile',required=True);p.add_argument('--start',required=True);p.add_argument('--end',required=True)
-    p.add_argument('--brand',required=True);p.add_argument('--brand-reference');p.add_argument('--output-dir',required=True)
-    p.add_argument('--html-output',required=True)
-    p.add_argument('--state',help='Existing private progress file for this same report')
-    p.add_argument('--catalog',help='Reuse the scoped verified owned-ASIN catalog')
+    p.add_argument('--brand',required=True);p.add_argument('--brand-reference',type=cli_path);p.add_argument('--output-dir',required=True,type=cli_path)
+    p.add_argument('--html-output',required=True,type=cli_path)
+    p.add_argument('--state',type=cli_path,help='Existing private progress file for this same report')
+    p.add_argument('--catalog',type=cli_path,help='Reuse the scoped verified owned-ASIN catalog')
     p.add_argument('--marketplace',help='Marketplace matching the saved brand reference and catalog')
     p.add_argument('--account-type',choices=['kdp'],help='The user confirmed this account advertises books (KDP)')
     a=p.parse_args()
@@ -195,10 +231,10 @@ def main():
     from report_workspace import write_workspace, output_paths
     if set(output_paths(html_path,a.state)) & reserved:
         raise ValueError('Workspace output must not overwrite a source, client or reference')
-    search_kdp,campaign_kdp={},{}
-    rows,totals=collect(client,key,a.profile,'search_terms',a.start,a.end,folder,kdp_receipt=search_kdp)
+    search_kdp,campaign_kdp,pulls={},{},{}
+    rows,totals=collect(client,key,a.profile,'search_terms',a.start,a.end,folder,kdp_receipt=search_kdp,pull_receipt=pulls)
     time.sleep(2.1)
-    campaigns,campaign_totals=collect(client,key,a.profile,'campaigns',a.start,a.end,folder,kdp_receipt=campaign_kdp)
+    campaigns,campaign_totals=collect(client,key,a.profile,'campaigns',a.start,a.end,folder,kdp_receipt=campaign_kdp,pull_receipt=pulls)
     kenp=kenp_plan({**search_kdp,'sales':totals['sales']},force=a.account_type=='kdp') if rows else None
     with source.open('w',encoding='utf-8',newline='') as f:
         w=csv.DictWriter(f,fieldnames=REQUIRED+(list(KENP_COLUMNS.values()) if kenp else []));w.writeheader()
@@ -226,7 +262,8 @@ def main():
     report['connection']={'profile_id':a.profile,'marketplace_id':profile.get('marketplace_id'),'timezone':profile.get('timezone'),
         'currency':profile['currency_code'],'read_at':datetime.now(timezone.utc).isoformat(),
         'source':'Read-only Segment previews','monetary_units':'Account currency units from preview metric fields; no cents conversion',
-        'normalization':'Connected rows mapped to the shared calculation schema; not an Amazon console export'}
+        'normalization':'Connected rows mapped to the shared calculation schema; not an Amazon console export',
+        **({'pull_restarts':pulls['restarted_after_population_change']} if pulls else {})}
     report['limitations']=['Connected search-term and campaign totals are independently reconciled to each preview population.',
         'Differences between search terms and campaigns remain visible; never allocate the gap to non-brand.',
         'Data freshness and attribution maturity depend on source sync; recent sales can change.',

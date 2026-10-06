@@ -5,6 +5,7 @@ from html import escape
 from pathlib import Path
 import report_workspace
 from transition_progress import REVIEW_CHECKS, role_status
+from cli_paths import cli_path
 
 ASSETS = Path(__file__).resolve().parents[1]/'assets'
 
@@ -95,9 +96,9 @@ def main():
     from report_render import render
     from report_delivery import report_artifact
     p=argparse.ArgumentParser(description='Create a separate anonymized walkthrough with simulated progress. No account calls.')
-    p.add_argument('--analysis',type=Path,required=True)
-    p.add_argument('--html-output',type=Path,required=True)
-    p.add_argument('--product-groups',type=Path,help='Optional private proposed grouping; identities will be replaced')
+    p.add_argument('--analysis',type=cli_path,required=True)
+    p.add_argument('--html-output',type=cli_path,required=True)
+    p.add_argument('--product-groups',type=cli_path,help='Optional private proposed grouping; identities will be replaced')
     a=p.parse_args();source=a.analysis.resolve();dest=a.html_output.resolve()
     if source==dest or dest.exists():raise ValueError('Choose a new, separate demo output; existing files are preserved')
     report=json.loads(source.read_text(encoding='utf-8-sig'))

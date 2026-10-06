@@ -2,7 +2,7 @@
   "schema_version": 2,
   "pack_version": "1.2.8",
   "tag": "v1.2.8",
-  "generated": "2026-10-05",
+  "generated": "2026-10-06",
   "template_count": 7,
   "counts": {
     "templates": 7,
@@ -329,7 +329,7 @@
       "ships_in_pack": false,
       "has_scripts": true,
       "has_references": true,
-      "body_sha": "79a75221ea5021ae",
+      "body_sha": "8686ce1cc310b18e",
       "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.8/skills/branded-review/SKILL.md",
       "connection_mode": "optional",
       "connected_skills": [

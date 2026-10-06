@@ -33,12 +33,13 @@ For a book account, the brand is the author. Set `--brand` to the main author na
 
 ## KENP in the report
 
-- Standard ACoS stays the headline and is unchanged: spend / attributed sales.
-- ACoS incl. KENP = spend / (attributed sales + estimated KENP royalties), shown for branded, non-branded and overall. The analyzer computes it; never estimate it yourself.
+- ACoS incl. KENP = spend / (attributed sales + estimated KENP royalties) is the headline for branded, non-branded and overall, in the report and in chat. The analyzer computes it; never estimate it yourself.
+- Sales-only ACoS (spend / attributed sales, unchanged calculation) is the secondary figure, labeled “ACoS (sales only)”. On a Kindle Unlimited-heavy account it can be several times higher, so never lead with it.
+- The spend-and-revenue chart and the ASIN cards also count KENP royalties as revenue.
 - Uploaded reports use the report's estimated KENP royalties, with Sales as the sales basis.
 - Merch Jar data uses adjusted sales and adjusted estimated royalties, which apply the account's Ad Impact Multipliers. The report states any multiplier other than 1 (for example KENP royalties x1.25). If adjusted fields are missing, it falls back to reported values and says so. Repeat that disclosure in chat.
 - Royalties reconcile across classes like spend and sales. The source total must match.
 - KENP royalties are Amazon estimates, and recent periods can change. Royalties are earnings, not list-price sales, so describe ACoS incl. KENP as a fuller return view, not profit.
 - Merch Jar's Blended metrics (blended profit, blended ACoS) are profit-margin views. Do not headline them in this report; one brief mention that Merch Jar offers them is enough.
 
-In chat, add one line after the standard ACoS figures: “Including KENP royalties: branded X%, non-branded Y%, overall Z%.” Natural requests to expect: “I advertise books.” “Add my pen name.” “Rowan Ashcombe is another author.”
+In chat, lead with “Including KENP royalties, ACoS is X% branded, Y% non-branded and Z% overall,” then give sales-only ACoS in a short second line. Natural requests to expect: “I advertise books.” “Add my pen name.” “Rowan Ashcombe is another author.”
