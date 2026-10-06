@@ -141,7 +141,7 @@ def render_performance(report):
     held_parts = [f"{money(c['spend'])} of {held_words[c['category']]}" for c in held['components'] if c['rows']]
     board_lines = f'<p class="board-sum">{sum_line}</p>'
     if held_parts:
-        board_lines += f'<p class="board-held">Held for review, not in either card: {" and ".join(held_parts)}.</p>'
+        board_lines += f'<p class="board-held"><i class="held-swatch" aria-hidden="true"></i>Held for review, not in either card: {" and ".join(held_parts)}.</p>'
     unknown = next(c for c in nonbranded['components'] if c['category'] == 'asin_unknown')
     if not b['owned_catalog'] and Decimal(unknown['spend']) > 0:
         own = 'your own books' if books else 'your own products'

@@ -5,7 +5,7 @@
   "packVersion": "1.2.8",
   "released": "2026-10-06",
   "archive": "copilot-update-v1.2.8.zip",
-  "archiveSha256": "d4738cd64a7c8e12f7b40c881d5f5e652011b760f8d1777a2ed2a1c3a3430500",
+  "archiveSha256": "48eb0d9ccd4f1cc8bcbc10384eaf6eba2e37fab6657a0a7117e71b74471e8abf",
   "defaultSkills": [
     "account-review",
     "audit-log",
@@ -160,7 +160,7 @@
     {
       "path": ".agents/skills/branded-review/assets/buckets.css",
       "archivePath": ".agents/skills/branded-review/assets/buckets.css",
-      "sha256": "807d42ff604d7be929949fddec7cd8a7b5dc15bc3590765fd6f5d39e58214824",
+      "sha256": "f47e322a4df7fd9f66b9c1efa8c658de8b4de0aa43ec445f24b5420b182fa52c",
       "owner": "skill:branded-review"
     },
     {
@@ -496,7 +496,7 @@
     {
       "path": ".agents/skills/branded-review/scripts/report_render.py",
       "archivePath": ".agents/skills/branded-review/scripts/report_render.py",
-      "sha256": "b4aa4cbf081c585df26db229659a5fe9d526f2a77e549b4c1861b7dacf19e720",
+      "sha256": "5284dd4702b62d2ef5dd8a602d74f0d03689c63d918c3a021fbde211756e5996",
       "owner": "skill:branded-review"
     },
     {
@@ -748,7 +748,7 @@
     {
       "path": ".claude/skills/branded-review/assets/buckets.css",
       "archivePath": ".claude/skills/branded-review/assets/buckets.css",
-      "sha256": "807d42ff604d7be929949fddec7cd8a7b5dc15bc3590765fd6f5d39e58214824",
+      "sha256": "f47e322a4df7fd9f66b9c1efa8c658de8b4de0aa43ec445f24b5420b182fa52c",
       "owner": "skill:branded-review"
     },
     {
@@ -1084,7 +1084,7 @@
     {
       "path": ".claude/skills/branded-review/scripts/report_render.py",
       "archivePath": ".claude/skills/branded-review/scripts/report_render.py",
-      "sha256": "b4aa4cbf081c585df26db229659a5fe9d526f2a77e549b4c1861b7dacf19e720",
+      "sha256": "5284dd4702b62d2ef5dd8a602d74f0d03689c63d918c3a021fbde211756e5996",
       "owner": "skill:branded-review"
     },
     {
@@ -1336,7 +1336,7 @@
     {
       "path": ".gemini/skills/branded-review/assets/buckets.css",
       "archivePath": ".gemini/skills/branded-review/assets/buckets.css",
-      "sha256": "807d42ff604d7be929949fddec7cd8a7b5dc15bc3590765fd6f5d39e58214824",
+      "sha256": "f47e322a4df7fd9f66b9c1efa8c658de8b4de0aa43ec445f24b5420b182fa52c",
       "owner": "skill:branded-review"
     },
     {
@@ -1672,7 +1672,7 @@
     {
       "path": ".gemini/skills/branded-review/scripts/report_render.py",
       "archivePath": ".gemini/skills/branded-review/scripts/report_render.py",
-      "sha256": "b4aa4cbf081c585df26db229659a5fe9d526f2a77e549b4c1861b7dacf19e720",
+      "sha256": "5284dd4702b62d2ef5dd8a602d74f0d03689c63d918c3a021fbde211756e5996",
       "owner": "skill:branded-review"
     },
     {
@@ -1924,7 +1924,7 @@
     {
       "path": ".github/skills/branded-review/assets/buckets.css",
       "archivePath": ".github/skills/branded-review/assets/buckets.css",
-      "sha256": "807d42ff604d7be929949fddec7cd8a7b5dc15bc3590765fd6f5d39e58214824",
+      "sha256": "f47e322a4df7fd9f66b9c1efa8c658de8b4de0aa43ec445f24b5420b182fa52c",
       "owner": "skill:branded-review"
     },
     {
@@ -2260,7 +2260,7 @@
     {
       "path": ".github/skills/branded-review/scripts/report_render.py",
       "archivePath": ".github/skills/branded-review/scripts/report_render.py",
-      "sha256": "b4aa4cbf081c585df26db229659a5fe9d526f2a77e549b4c1861b7dacf19e720",
+      "sha256": "5284dd4702b62d2ef5dd8a602d74f0d03689c63d918c3a021fbde211756e5996",
       "owner": "skill:branded-review"
     },
     {
@@ -2584,7 +2584,7 @@
     {
       "path": "skills/branded-review/assets/buckets.css",
       "archivePath": "skills/branded-review/assets/buckets.css",
-      "sha256": "807d42ff604d7be929949fddec7cd8a7b5dc15bc3590765fd6f5d39e58214824",
+      "sha256": "f47e322a4df7fd9f66b9c1efa8c658de8b4de0aa43ec445f24b5420b182fa52c",
       "owner": "skill:branded-review"
     },
     {
@@ -2920,7 +2920,7 @@
     {
       "path": "skills/branded-review/scripts/report_render.py",
       "archivePath": "skills/branded-review/scripts/report_render.py",
-      "sha256": "b4aa4cbf081c585df26db229659a5fe9d526f2a77e549b4c1861b7dacf19e720",
+      "sha256": "5284dd4702b62d2ef5dd8a602d74f0d03689c63d918c3a021fbde211756e5996",
       "owner": "skill:branded-review"
     },
     {
