@@ -85,22 +85,28 @@ def render_performance(report):
     # Book accounts with KENP data lead with ACoS incl. KENP; sales-only ACoS moves to the secondary line.
     kenp_headline = bool(kenp) and bool(branded.get('kenp')) and bool(total.get('kenp'))
     books = bool(kenp) or report.get('kdp', {}).get('status') in ('detected', 'confirmed')
+    acos_heading = 'ACoS incl. KENP' if kenp_headline else 'ACoS'
     def part_lines(bucket):
-        items = []
+        # One row per component, then a Total row equal to the card's ad spend and headline ACoS.
+        rows = []
         for c in bucket['components']:
             if c['category'] == 'owned_asin' and not b['owned_catalog']:
-                items.append(f'<li class="part-missing"><span>{escape(c["label"])}</span><b>Add ASIN list</b></li>')
+                rows.append(f'<tr class="missing"><td>{escape(c["label"])}</td><td colspan="2">Add ASIN list</td></tr>')
                 continue
             value = (kenp_pct(c['kenp']['acos_incl_kenp']) if kenp_headline else pct(c['acos'])) if c['rows'] else 'No traffic'
-            name = 'ACoS incl. KENP' if kenp_headline else 'ACoS'
-            items.append(f'<li><span>{escape(c["label"])}<small>{name} {value}</small></span><b>{money(c["spend"])}</b></li>')
-        return '<ul class="score-parts">' + ''.join(items) + '</ul>'
+            rows.append(f'<tr><td>{escape(c["label"])}</td><td>{money(c["spend"])}</td><td>{value}</td></tr>')
+        total_acos = kenp_pct(bucket['kenp']['acos_incl_kenp']) if kenp_headline else pct(bucket['acos'])
+        rows.append(f'<tr class="total"><td>Total</td><td>{money(bucket["spend"])}</td><td>{total_acos}</td></tr>')
+        return (f'<table class="score-table"><thead><tr><th scope="col">Where it comes from</th><th scope="col">Spend</th>'
+                f'<th scope="col">{acos_heading}</th></tr></thead><tbody>{"".join(rows)}</tbody></table>')
     cards = [('Branded ACoS','brand','Brand searches and your products',branded,part_lines(branded)),
              ('Non-branded ACoS','nonbrand','Other searches and products',nonbranded,part_lines(nonbranded)),
              ('Overall ACoS','account','All rows in this report',total,'')]
     card_html = ''
     for label, cls, caption, row, parts in cards:
         kenp_line = kenp_dd = ''
+        # The table's Total row carries ad spend for the two split cards.
+        spend_dd = '' if parts else f'<div><dt>Ad spend</dt><dd>{money(row["spend"])}</dd></div>'
         headline = pct(row['acos'])
         if kenp_headline:
             label = label + ' incl. KENP'
@@ -109,7 +115,7 @@ def render_performance(report):
             kenp_dd = f'<div><dt>KENP royalties</dt><dd>{money(row["kenp"]["royalties"])}</dd></div>'
         card_html += f'''<article class="score {cls}"><h2><i aria-hidden="true"></i>{label}</h2>
 <div class="number">{headline}</div><p class="caption">{caption}</p>{kenp_line}{parts}
-<dl><div><dt>Ad spend</dt><dd>{money(row['spend'])}</dd></div><div><dt>Attributed sales</dt><dd>{money(row['sales'])}</dd></div>{kenp_dd}</dl></article>'''
+<dl>{spend_dd}<div><dt>Attributed sales</dt><dd>{money(row['sales'])}</dd></div>{kenp_dd}</dl></article>'''
     other = nonbranded
     if other['acos'] is not None and total['acos'] is not None:
         finding=f"Non-branded ACoS is {other['acos']:.1%}, versus {total['acos']:.1%} overall."

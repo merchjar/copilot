@@ -35,7 +35,8 @@ def chart(report):
             rows.append(f'<div class="mix-row"><span class="mix-label">{label}</span><p class="mix-empty">No positive total available for this comparison.</p></div>')
             continue
         segments = [('brand', 'Branded', d['branded']), ('nonbrand', 'Non-branded', d['non_branded']), ('held', 'Held for review', d['held'])]
-        segments = [s for s in segments if s[2] > 0 or s[0] != 'held']
+        # Held rows under 0.5% of a row are not drawn; they stay in the legend and the held line.
+        segments = [s for s in segments if s[0] != 'held' or s[2] >= Decimal('0.5')]
         # Keep tiny marks accurate; put their values beneath the bar rather than widening them.
         narrow = any(0 < share < 8 for *_, share in segments)
         aria = ', '.join(f'{percent(share)} {name.lower()}' for _, name, share in segments)

@@ -231,8 +231,14 @@ class KdpAccountTests(unittest.TestCase):
         html = render_performance(report)
         self.assertIn('Branded $35 + non-branded $103 + held for review $10 = overall $148 ad spend.', html)
         self.assertIn('Held for review, not in either card: $8 of possible name variants and $2 of unreported search terms.', html)
-        self.assertIn('<span>Searches for Mara Quillon<small>ACoS incl. KENP 35.0%</small></span><b>$35</b>', html)
-        self.assertIn('<span>Ads on your own books</span><b>Add ASIN list</b>', html)
+        # Each split card is a table whose Total row equals the card's ad spend and headline ACoS.
+        self.assertIn('<th scope="col">Spend</th><th scope="col">ACoS incl. KENP</th>', html)
+        self.assertIn('<tr><td>Searches for Mara Quillon</td><td>$35</td><td>35.0%</td></tr>', html)
+        self.assertIn('<tr class="missing"><td>Ads on your own books</td><td colspan="2">Add ASIN list</td></tr>', html)
+        self.assertIn('<tr class="total"><td>Total</td><td>$35</td><td>35.0%</td></tr>', html)
+        self.assertIn('<tr><td>Other searches</td><td>$90</td><td>83.3%</td></tr>', html)
+        self.assertIn('<tr><td>Ads on other books or unknown ASINs</td><td>$13</td><td>108.3%</td></tr>', html)
+        self.assertIn('<tr class="total"><td>Total</td><td>$103</td><td>85.8%</td></tr>', html)
         self.assertNotIn('class="unsplit"', html)
         self.assertNotIn('\u2014', html)
 
@@ -250,7 +256,9 @@ class KdpAccountTests(unittest.TestCase):
         product = render_performance(analyze(source, 'Gear sample', 'USD', 'Northstar Gear', []))
         self.assertIn('Non-branded includes $10 of ads on other or unknown ASINs.', product)
         self.assertIn('move ads on your own products into Branded', product)
-        self.assertIn('<span>Ads on other or unknown ASINs<small>ACoS No sales</small></span><b>$10</b>', product)
+        self.assertIn('<th scope="col">Spend</th><th scope="col">ACoS</th>', product)
+        self.assertIn('<tr><td>Ads on other or unknown ASINs</td><td>$10</td><td>No sales</td></tr>', product)
+        self.assertIn('<tr class="total"><td>Total</td><td>$90</td><td>45.0%</td></tr>', product)
 
     def test_owned_catalog_puts_own_product_ads_in_branded_as_their_own_line(self):
         source = write_report(self.folder, BOOK_ROWS, HEADER_VARIANTS[0])
@@ -261,8 +269,9 @@ class KdpAccountTests(unittest.TestCase):
         b = report['traffic_buckets']
         self.assertEqual((b['branded']['spend'], b['non_branded']['spend']), ('44', '94'))
         html = render_performance(report)
-        self.assertIn('<span>Ads on your own books<small>ACoS incl. KENP 75.0%</small></span><b>$9</b>', html)
-        self.assertIn('<span>Ads on other books<small>', html)
+        self.assertIn('<tr><td>Ads on your own books</td><td>$9</td><td>75.0%</td></tr>', html)
+        self.assertIn('<tr><td>Ads on other books</td><td>$4</td>', html)
+        self.assertIn('<tr class="total"><td>Total</td><td>$44</td>', html)
         self.assertNotIn('Non-branded includes', html)
         self.assertIn('Branded $44 + non-branded $94 + held for review $10 = overall $148 ad spend.', html)
 
@@ -280,6 +289,35 @@ class KdpAccountTests(unittest.TestCase):
         self.assertIn('Branded accounts for <strong>24% of ad spend</strong> and <strong>44% of sales and KENP royalties</strong> '
                       'across all reported traffic.', html)
         self.assertIn('Share of all reported ad spend and sales plus KENP royalties', html)
+
+    def test_plan_opens_with_a_default_group_when_products_are_known(self):
+        from structure_plan import default_grouping, structure_html
+        source = write_report(self.folder, BOOK_ROWS, HEADER_VARIANTS[0])
+        catalog = {'scope': {'account_id': 'book-account', 'brand': 'Mara Quillon', 'marketplace': 'AMAZON.COM'},
+                   'source': 'test', 'ownership_verified': True, 'owned_asins': ['B0FICT0002', '099999999X'], 'complete': False}
+        report = analyze(source, 'Book sample', 'USD', 'Mara Quillon', [], BOOK_REFERENCE | {'marketplace': 'AMAZON.COM'},
+                         marketplace='AMAZON.COM', catalog=catalog)
+        grouping = default_grouping(report)
+        self.assertEqual(grouping['groups'][0]['name'], 'All books')
+        self.assertEqual(grouping['groups'][0]['asins'], ['099999999X', 'B0FICT0002'])
+        html = structure_html(report)
+        self.assertIn('Starting point: all your books in one group. Ask Copilot to regroup them, for example by series.', html)
+        self.assertNotIn('Your products need grouping', html)
+        self.assertIn('"assigned": 2', html)
+        saved = {'account_id': 'book-account', 'groups': [{'name': 'Saltglass', 'asins': ['B0FICT0002', '099999999X'], 'reason': 'Series'}]}
+        self.assertNotIn('Starting point', structure_html(report, saved))
+        self.assertIsNone(default_grouping(self.book_report()))
+
+    def test_tiny_held_segment_is_not_drawn_but_stays_listed(self):
+        from report_charts import chart
+        rows = [('mara quillon', '500', '600', '10', '100'), ('epic fantasy books', '499', '300', '5', '50'),
+                ('', '1', '0', '0', '0')]
+        source = write_report(self.folder, rows, HEADER_VARIANTS[0])
+        report = analyze(source, 'Book sample', 'USD', 'Mara Quillon', [])
+        html = chart(report)
+        self.assertNotIn('mix-segment held', html)
+        self.assertIn('Held for review', html)
+        self.assertIn('$1 of unreported search terms', render_performance(report))
 
     def test_campaign_total_moves_to_the_footnote_and_reads_naturally(self):
         report = self.book_report()
@@ -352,15 +390,17 @@ class KdpAccountTests(unittest.TestCase):
         buckets = new_json.pop('traffic_buckets')
         self.assertEqual(old_json, new_json)
         self.assertEqual((buckets['branded']['spend'], buckets['non_branded']['spend'], buckets['held']['spend']), ('50', '80', '10'))
-        # Intended change: the Performance tab now uses the two all-traffic cards. The Campaign plan and
-        # Setup tabs and the page scripts are unchanged (apart from the ISBN-10 pattern in the list editor).
+        # Intended changes: the Performance tab uses the two all-traffic cards, and the plan opens with a
+        # default "All products" group. The page scripts are unchanged (apart from the ISBN-10 pattern).
         old_html = outputs['old'][1].replace('(?:B[A-Z0-9]{9}|[0-9]{10})', '(?:B[A-Z0-9]{9}|[0-9]{9}[0-9X])')
         new_html = outputs['new'][1]
-        tail = lambda html: html[html.index('<section id="plan-panel"'):]
-        self.assertEqual(tail(old_html), tail(new_html))
+        scripts = lambda html: html[html.rindex('</main>'):]
+        self.assertEqual(scripts(old_html), scripts(new_html))
         self.assertIn('Branded $50 + non-branded $80 + held for review $10 = overall $140 ad spend.', new_html)
-        self.assertIn('<span>Ads on your own products<small>ACoS 20.0%</small></span><b>$10</b>', new_html)
-        self.assertIn('<span>Searches for Northstar Gear<small>ACoS 10.0%</small></span><b>$40</b>', new_html)
+        self.assertIn('<tr><td>Searches for Northstar Gear</td><td>$40</td><td>10.0%</td></tr>', new_html)
+        self.assertIn('<tr><td>Ads on your own products</td><td>$10</td><td>20.0%</td></tr>', new_html)
+        self.assertIn('<tr class="total"><td>Total</td><td>$50</td><td>11.1%</td></tr>', new_html)
+        self.assertIn('Starting point: all your products in one group.', new_html)
 
 
 START, END = '2026-09-01', '2026-09-30'
@@ -462,7 +502,7 @@ class ConnectedKdpTests(unittest.TestCase):
         rows = {r['query']: r for r in report['rows']}
         self.assertEqual(rows['B0FICT0002']['category'], 'owned_asin')
         self.assertIn('ASINs from this KDP account', html)
-        self.assertIn('<span>Ads on your own books<small>', html)
+        self.assertIn('<tr><td>Ads on your own books</td>', html)
         pages = sorted(p.name for p in (self.folder / 'read').glob('ads-page-*.json'))
         self.assertEqual(pages, ['ads-page-1.json', 'ads-page-2.json'])
         body = json.loads((self.folder / 'read/ads-page-1.json').read_text(encoding='utf-8'))

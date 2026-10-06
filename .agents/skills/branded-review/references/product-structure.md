@@ -4,6 +4,8 @@ Read after an ASIN list or Advertised product report arrives. Product names, cat
 
 ## A useful first proposal
 
+When owned products are known but no groups are saved, the Campaign plan opens with every owned product in one starting group ("All books" for KDP accounts, "All products" otherwise), so the structure shows immediately. Treat it as a starting point: propose better groups from product names and categories (for books, by series) and save them with `report_workspace.py --product-groups`. Never leave a connected report with an owned catalog on an empty plan.
+
 Account for every confirmed owned ASIN, including products held for clarification. Propose related product categories using the product being sold, not incidental compatibility text. If only ASINs exist, request names or authorized connected product data; do not invent categories. Ownership does not prove inventory, ad eligibility or whether every product should be advertised.
 
 Start with one new branded campaign, a shared budget and one ad group per related category. Use approved brand names and spellings as **Phrase** keywords across relevant groups. Category labels organize products; do not append category/model terms to create exhaustive keyword lists. The two spellings `Northstar Gear` and `NorthstarGear` can be separate candidates when confirmed. Reporting normalization alone does not establish Amazon match coverage. Distinctive product-line terms may apply to only some products and need explicit product scope before creation.

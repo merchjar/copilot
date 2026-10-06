@@ -32,8 +32,13 @@ def render(report, grouping, structure):
     elif not s['groups']:
         missing='<div class="grouping-needed"><b>Your products need grouping.</b><p>Ask Copilot to group your products from their names, then compare the structures here.</p></div>'
     else:missing=''
+    starting=''
+    if grouping.get('default'):
+        books=grouping['groups'][0]['name']=='All books'
+        starting=('<p class="grouping-default">Starting point: '+('all your books' if books else 'all your products')+
+                  ' in one group. Ask Copilot to regroup them, for example '+('by series.' if books else 'by product line or category.')+'</p>')
     return f'''<section class="structure-plan planning-builder"><h2>Choose your proposed campaign structure</h2>
-<p>Create new branded coverage and separate own-product defense. Keep existing campaigns running while replacements get established.</p>
+<p>Create new branded coverage and separate own-product defense. Keep existing campaigns running while replacements get established.</p>{starting}
 <script type="application/json" class="planning-data">{encoded}</script>
 <div class="planning-controls"><label>Traffic<select data-plan-view><option value="brand">Brand searches</option><option value="defense">Own-product defense</option></select></label>
 <label data-brand-control>Campaign budgets<select data-choice="brand_campaigns"><option value="shared">One campaign, shared budget</option><option value="category">Separate campaign per category</option></select></label>

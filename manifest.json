@@ -329,7 +329,7 @@
       "ships_in_pack": false,
       "has_scripts": true,
       "has_references": true,
-      "body_sha": "b3be88e8e58847eb",
+      "body_sha": "31bf33f5679105cb",
       "raw_url": "https://raw.githubusercontent.com/merchjar/copilot/v1.2.8/skills/branded-review/SKILL.md",
       "connection_mode": "optional",
       "connected_skills": [
