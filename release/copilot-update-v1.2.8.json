@@ -5,7 +5,7 @@
   "packVersion": "1.2.8",
   "released": "2026-10-06",
   "archive": "copilot-update-v1.2.8.zip",
-  "archiveSha256": "473ad8a3c7bf2badff0c2173a06bef603d9bbf6413f3911c57ecea053d07967b",
+  "archiveSha256": "cf12e6b23adc1dd25b8a1bd5d13896db578ab60de4f3deb6a43594ac8179e97d",
   "defaultSkills": [
     "account-review",
     "audit-log",
@@ -394,7 +394,7 @@
     {
       "path": ".agents/skills/branded-review/scripts/cli_paths.py",
       "archivePath": ".agents/skills/branded-review/scripts/cli_paths.py",
-      "sha256": "1b3fa72ec09b95029f57c38ca831e4fe300f1ec6f054d9245c1fb0f09e0d47d5",
+      "sha256": "b9d9b9b2614c9968b131f9eb04af4e6a05a7de89f8fb243c829740a8e41cf3f6",
       "owner": "skill:branded-review"
     },
     {
@@ -970,7 +970,7 @@
     {
       "path": ".claude/skills/branded-review/scripts/cli_paths.py",
       "archivePath": ".claude/skills/branded-review/scripts/cli_paths.py",
-      "sha256": "1b3fa72ec09b95029f57c38ca831e4fe300f1ec6f054d9245c1fb0f09e0d47d5",
+      "sha256": "b9d9b9b2614c9968b131f9eb04af4e6a05a7de89f8fb243c829740a8e41cf3f6",
       "owner": "skill:branded-review"
     },
     {
@@ -1546,7 +1546,7 @@
     {
       "path": ".gemini/skills/branded-review/scripts/cli_paths.py",
       "archivePath": ".gemini/skills/branded-review/scripts/cli_paths.py",
-      "sha256": "1b3fa72ec09b95029f57c38ca831e4fe300f1ec6f054d9245c1fb0f09e0d47d5",
+      "sha256": "b9d9b9b2614c9968b131f9eb04af4e6a05a7de89f8fb243c829740a8e41cf3f6",
       "owner": "skill:branded-review"
     },
     {
@@ -2122,7 +2122,7 @@
     {
       "path": ".github/skills/branded-review/scripts/cli_paths.py",
       "archivePath": ".github/skills/branded-review/scripts/cli_paths.py",
-      "sha256": "1b3fa72ec09b95029f57c38ca831e4fe300f1ec6f054d9245c1fb0f09e0d47d5",
+      "sha256": "b9d9b9b2614c9968b131f9eb04af4e6a05a7de89f8fb243c829740a8e41cf3f6",
       "owner": "skill:branded-review"
     },
     {
@@ -2770,7 +2770,7 @@
     {
       "path": "skills/branded-review/scripts/cli_paths.py",
       "archivePath": "skills/branded-review/scripts/cli_paths.py",
-      "sha256": "1b3fa72ec09b95029f57c38ca831e4fe300f1ec6f054d9245c1fb0f09e0d47d5",
+      "sha256": "b9d9b9b2614c9968b131f9eb04af4e6a05a7de89f8fb243c829740a8e41cf3f6",
       "owner": "skill:branded-review"
     },
     {
