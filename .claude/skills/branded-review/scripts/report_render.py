@@ -61,7 +61,11 @@ def render_performance(report):
     font = base64.b64encode((assets/'inter.woff2').read_bytes()).decode('ascii')
     logo = base64.b64encode((assets/'merchjar-logo.webp').read_bytes()).decode('ascii')
     groups = {g['category']:g for g in report['groups']}
-    money = lambda x: f"${Decimal(x):,.0f}" if report['currency']=='USD' else f"{Decimal(x):,.0f} {escape(report['currency'])}"
+    def money(x):
+        # Whole currency units; a negative amount reads -$649, never $-649.
+        value = Decimal(str(x)).quantize(Decimal(1))
+        sign = '-' if value < 0 else ''
+        return f"{sign}${abs(value):,.0f}" if report['currency']=='USD' else f"{sign}{abs(value):,.0f} {escape(report['currency'])}"
     pct = lambda x: f'{x:.1%}' if x is not None else 'No sales'
     privacy = bool(report.get('privacy'))
     if privacy:

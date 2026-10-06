@@ -23,8 +23,13 @@ def items(report):
     owned, unknown = groups['owned_asin'], groups['asin_unknown']
     identified = owned['rows'] > 0 or products.get('product_count', 0) > 0
     complete = products.get('catalog_complete') is True
+    books = kenp or report.get('kdp', {}).get('status') in ('detected', 'confirmed')
     parts = []
-    if identified:
+    if identified and books:
+        parts.append(('owned_asin', 'Your own books', owned, 'Ads shown on your own book pages or targeting your books.'))
+        parts.append(('asin_unknown', 'Other books' if complete else 'Other books or unknown ASINs', unknown,
+                      'Product targeting outside your own titles.' if complete else 'Outside your known titles, which may be incomplete.'))
+    elif identified:
         parts.append(('owned_asin', 'Your own-product ASINs', owned, 'Ads shown on your own product pages or targeting your ASINs.'))
         parts.append(('asin_unknown', 'Other ASINs' if complete else 'Other or unknown-owner ASINs', unknown,
                       'Product targeting outside your owned list.' if complete else 'Outside your owned list, which may be incomplete.'))
@@ -86,7 +91,7 @@ def render(report, money):
     equation = (f"Branded {money(groups['brand_query']['spend'])} + non-branded {money(groups['other_query']['spend'])}"
                 f" + not split {money(not_split)}")
     if gap is not None:
-        equation += f" + campaign difference {money(gap)}"
+        equation += f" {'-' if gap < 0 else '+'} campaign difference {money(abs(gap))}"
     equation += f" = overall {money(overall_spend)} ad spend. Amounts are rounded."
     return (f'<section class="unsplit" aria-labelledby="unsplit-heading"><div class="unsplit-head">'
             f'<h2 id="unsplit-heading">Not split yet</h2><p>{money(not_split)} of overall spend sits outside the branded and '

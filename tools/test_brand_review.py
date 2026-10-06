@@ -237,9 +237,19 @@ class KdpAccountTests(unittest.TestCase):
         report = analyze(source, 'Book sample', 'USD', 'Mara Quillon', [], BOOK_REFERENCE | {'marketplace': 'AMAZON.COM'},
                          marketplace='AMAZON.COM', catalog=catalog)
         panel = re.search(r'<section class="unsplit".*?</section>', render_performance(report), re.S).group(0)
-        self.assertIn('Your own-product ASINs', panel)
-        self.assertIn('Other or unknown-owner ASINs', panel)
+        self.assertIn('Your own books', panel)
+        self.assertIn('Other books or unknown ASINs', panel)
+        self.assertIn('Ads shown on your own book pages or targeting your books.', panel)
+        self.assertNotIn('own-product ASINs', panel)
         self.assertNotIn('ownership unknown)', panel)
+
+    def test_negative_campaign_difference_reads_naturally(self):
+        report = self.book_report()
+        report['account_totals'] = {**report['totals'], 'spend': '100', 'sales': '116'}
+        panel = re.search(r'<section class="unsplit".*?</section>', render_performance(report), re.S).group(0)
+        self.assertIn('<strong>-$48</strong>', panel)
+        self.assertIn('not split $23 - campaign difference $48 = overall $100 ad spend.', panel)
+        self.assertNotIn('$-', render_performance(report))
 
     def test_report_with_only_text_searches_has_no_not_split_panel(self):
         rows = [('northstar gear backpack', '40', '400', '0', '0'), ('hiking backpack', '80', '200', '0', '0')]
@@ -414,7 +424,7 @@ class ConnectedKdpTests(unittest.TestCase):
         rows = {r['query']: r for r in report['rows']}
         self.assertEqual(rows['B0FICT0002']['category'], 'owned_asin')
         self.assertIn('ASINs from this KDP account', html)
-        self.assertIn('Your own-product ASINs', html)
+        self.assertIn('Your own books', html)
         pages = sorted(p.name for p in (self.folder / 'read').glob('ads-page-*.json'))
         self.assertEqual(pages, ['ads-page-1.json', 'ads-page-2.json'])
         body = json.loads((self.folder / 'read/ads-page-1.json').read_text(encoding='utf-8'))
