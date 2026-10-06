@@ -1,0 +1,12 @@
+/* Branded and non-branded cards cover all traffic; component lines show where each card's spend comes from. */
+.score-parts{list-style:none;margin:16px 0 0;padding:12px 0 0;border-top:1px dashed #deded6;display:grid;gap:9px}
+.score-parts li{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:13px;color:var(--ink2);min-width:0}
+.score-parts span{min-width:0}
+.score-parts small{display:block;font-size:11px;color:var(--ink3);margin-top:1px}
+.score-parts b{font-weight:600;color:var(--ink);white-space:nowrap;font-variant-numeric:tabular-nums}
+.score-parts .part-missing b{font-weight:500;color:var(--ink3)}
+.board-sum{margin:0;padding:14px 2px 0;font-size:13px;font-weight:500;color:var(--ink)}
+.board-held,.board-prompt{margin:4px 0 0;padding:0 2px;font-size:12px;color:var(--ink2)}
+.mix-segment.held{background:#ecebe3;color:var(--ink2)}
+.mix-key span.key-held i{background:#ecebe3;box-shadow:inset 0 0 0 1px #d6d5cc}
+@media(max-width:540px){.score .score-parts{grid-column:1/-1}.score.brand:before{content:'BRANDED AND NON-BRANDED'}.score.account:before{content:'OVERALL'}}

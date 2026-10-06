@@ -46,6 +46,6 @@ The files in `examples/` contain a fictional Northstar Gear account. They are sa
 
 > Use the sample files to show me how this works.
 
-The sample's approved name is Northstar Gear. Expected results: 10% branded ACoS, 40% non-branded ACoS and 21.2% across the supplied report. Product and blank-query spend remain outside the text split.
+The sample's approved name is Northstar Gear. Expected results: 11.1% branded ACoS (brand searches plus ads on the sample's own product), 40% non-branded ACoS and 21.2% overall. The $10 of spend without a reported search term is held outside both cards.
 
 This download makes no automatic account changes and sends no telemetry. Review the generated report before sharing account data.

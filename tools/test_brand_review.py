@@ -132,12 +132,13 @@ class KdpAccountTests(unittest.TestCase):
     def test_kdp_report_leads_with_acos_including_kenp(self):
         html = render_performance(self.book_report())
         cards = re.findall(r'<h2><i aria-hidden="true"></i>([^<]+)</h2>\s*<div class="number">([^<]+)</div>', html)
-        self.assertEqual(cards, [('Branded ACoS incl. KENP', '35.0%'), ('Non-branded ACoS incl. KENP', '83.3%'),
+        # Non-branded = other searches ($90, $52 sales, $56 royalties) + unknown ASINs ($13, $9, $3).
+        self.assertEqual(cards, [('Branded ACoS incl. KENP', '35.0%'), ('Non-branded ACoS incl. KENP', '85.8%'),
                                  ('Overall ACoS incl. KENP', '65.6%')])
         sales_only = re.findall(r'<span>ACoS \(sales only\)</span><strong>([^<]+)</strong>', html)
-        self.assertEqual(sales_only, ['63.6%', '173.1%', '127.6%'])
-        self.assertIn('<h2>Including KENP royalties, non-branded ACoS is 83.3%, versus 65.6% overall.</h2>', html)
-        self.assertIn('Sales-only ACoS, without KENP royalties: 173.1% non-branded, 127.6% overall.', html)
+        self.assertEqual(sales_only, ['63.6%', '168.9%', '127.6%'])
+        self.assertIn('<h2>Including KENP royalties, non-branded ACoS is 85.8%, versus 65.6% overall.</h2>', html)
+        self.assertIn('Sales-only ACoS, without KENP royalties: 168.9% non-branded, 127.6% overall.', html)
         self.assertIn('Sales + KENP royalties', html)
         self.assertIn('ACoS incl. KENP · Reported ASIN rows', html)
 
@@ -216,46 +217,79 @@ class KdpAccountTests(unittest.TestCase):
         self.assertNotIn('kenp', report)
         self.assertTrue(any('excludes Kindle Unlimited' in x for x in report['limitations']))
 
-    def test_not_split_panel_makes_the_cards_add_up_to_overall(self):
-        from report_unsplit import items
+    def test_cards_cover_all_traffic_and_add_up_to_overall(self):
+        from report_buckets import buckets
         report = self.book_report()
+        b = report['traffic_buckets']
+        self.assertEqual(b, buckets(report))
+        self.assertTrue(b['reconciled'])
+        for key in ('spend', 'sales', 'clicks', 'purchases', 'impressions'):
+            self.assertEqual(sum(Decimal(b[n][key]) for n in ('branded', 'non_branded', 'held')), Decimal(report['totals'][key]))
+        royalties = sum(Decimal(b[n]['kenp']['royalties']) for n in ('branded', 'non_branded', 'held'))
+        self.assertEqual(royalties, Decimal(report['totals']['kenp']['royalties']))
+        self.assertEqual((b['branded']['spend'], b['non_branded']['spend'], b['held']['spend']), ('35', '103', '10'))
         html = render_performance(report)
-        panel = re.search(r'<section class="unsplit".*?</section>', html, re.S).group(0)
-        self.assertIn('Branded $35 + non-branded $90 + not split $23 = overall $148 ad spend.', panel)
-        for label in ('ASIN targeting (ownership unknown)', 'Possible brand variants, held for review', 'Unreported search terms'):
-            self.assertIn(label, panel)
-        self.assertIn('ACoS incl. KENP', panel)
-        parts = {p['key']: p for p in items(report)}
-        self.assertEqual(parts['asin_unknown']['spend'] + parts['brand_review']['spend'] + parts['missing_query']['spend'], Decimal(23))
-        self.assertEqual(parts['asin_unknown']['royalties'], Decimal(3))
-        self.assertEqual(parts['asin_unknown']['acos'], f'{13 / 12:.1%}')
+        self.assertIn('Branded $35 + non-branded $103 + held for review $10 = overall $148 ad spend.', html)
+        self.assertIn('Held for review, not in either card: $8 of possible name variants and $2 of unreported search terms.', html)
+        self.assertIn('<span>Searches for Mara Quillon<small>ACoS incl. KENP 35.0%</small></span><b>$35</b>', html)
+        self.assertIn('<span>Ads on your own books</span><b>Add ASIN list</b>', html)
+        self.assertNotIn('class="unsplit"', html)
+        self.assertNotIn('\u2014', html)
 
-    def test_not_split_panel_separates_own_product_asins_when_a_catalog_exists(self):
+    def test_without_a_catalog_unknown_asins_count_in_non_branded_with_the_prompt(self):
+        report = self.book_report()
+        parts = {c['category']: c for c in report['traffic_buckets']['non_branded']['components']}
+        self.assertEqual(parts['asin_unknown']['label'], 'Ads on other books or unknown ASINs')
+        self.assertEqual(parts['asin_unknown']['spend'], '13')
+        html = render_performance(report)
+        self.assertIn('Non-branded includes $13 of ads on other books or unknown ASINs. Add your ASIN list or Amazon\'s '
+                      'Advertised product report to move ads on your own books into Branded.', html)
+        rows = [('northstar gear backpack', '40', '400', '0', '0'), ('hiking backpack', '80', '200', '0', '0'),
+                ('B000000009', '10', '0', '0', '0')]
+        source = write_report(self.folder, rows, None, 'product-account', 'Gear sample')
+        product = render_performance(analyze(source, 'Gear sample', 'USD', 'Northstar Gear', []))
+        self.assertIn('Non-branded includes $10 of ads on other or unknown ASINs.', product)
+        self.assertIn('move ads on your own products into Branded', product)
+        self.assertIn('<span>Ads on other or unknown ASINs<small>ACoS No sales</small></span><b>$10</b>', product)
+
+    def test_owned_catalog_puts_own_product_ads_in_branded_as_their_own_line(self):
         source = write_report(self.folder, BOOK_ROWS, HEADER_VARIANTS[0])
         catalog = {'scope': {'account_id': 'book-account', 'brand': 'Mara Quillon', 'marketplace': 'AMAZON.COM'},
                    'source': 'test', 'ownership_verified': True, 'owned_asins': ['B0FICT0002'], 'complete': False}
         report = analyze(source, 'Book sample', 'USD', 'Mara Quillon', [], BOOK_REFERENCE | {'marketplace': 'AMAZON.COM'},
                          marketplace='AMAZON.COM', catalog=catalog)
-        panel = re.search(r'<section class="unsplit".*?</section>', render_performance(report), re.S).group(0)
-        self.assertIn('Your own books', panel)
-        self.assertIn('Other books or unknown ASINs', panel)
-        self.assertIn('Ads shown on your own book pages or targeting your books.', panel)
-        self.assertNotIn('own-product ASINs', panel)
-        self.assertNotIn('ownership unknown)', panel)
+        b = report['traffic_buckets']
+        self.assertEqual((b['branded']['spend'], b['non_branded']['spend']), ('44', '94'))
+        html = render_performance(report)
+        self.assertIn('<span>Ads on your own books<small>ACoS incl. KENP 75.0%</small></span><b>$9</b>', html)
+        self.assertIn('<span>Ads on other books<small>', html)
+        self.assertNotIn('Non-branded includes', html)
+        self.assertIn('Branded $44 + non-branded $94 + held for review $10 = overall $148 ad spend.', html)
 
-    def test_negative_campaign_difference_reads_naturally(self):
+    def test_chart_shares_match_the_cards(self):
+        from report_charts import shares
         report = self.book_report()
-        report['account_totals'] = {**report['totals'], 'spend': '100', 'sales': '116'}
-        panel = re.search(r'<section class="unsplit".*?</section>', render_performance(report), re.S).group(0)
-        self.assertIn('<strong>-$48</strong>', panel)
-        self.assertIn('not split $23 - campaign difference $48 = overall $100 ad spend.', panel)
-        self.assertNotIn('$-', render_performance(report))
+        data, kenp = shares(report)
+        b, total = report['traffic_buckets'], Decimal(report['totals']['spend'])
+        self.assertTrue(kenp)
+        for name in ('branded', 'non_branded', 'held'):
+            self.assertEqual(data['spend'][name], Decimal(b[name]['spend']) / total * 100)
+        revenue = {n: Decimal(b[n]['kenp']['sales_basis']) + Decimal(b[n]['kenp']['royalties']) for n in ('branded', 'non_branded', 'held')}
+        self.assertEqual(data['revenue']['branded'], revenue['branded'] / sum(revenue.values()) * 100)
+        html = render_performance(report)
+        self.assertIn('Branded accounts for <strong>24% of ad spend</strong> and <strong>44% of sales and KENP royalties</strong> '
+                      'across all reported traffic.', html)
+        self.assertIn('Share of all reported ad spend and sales plus KENP royalties', html)
 
-    def test_report_with_only_text_searches_has_no_not_split_panel(self):
-        rows = [('northstar gear backpack', '40', '400', '0', '0'), ('hiking backpack', '80', '200', '0', '0')]
-        source = write_report(self.folder, rows, None, 'product-account', 'Gear sample')
-        report = analyze(source, 'Gear sample', 'USD', 'Northstar Gear', [])
-        self.assertNotIn('class="unsplit"', render_performance(report))
+    def test_campaign_total_moves_to_the_footnote_and_reads_naturally(self):
+        report = self.book_report()
+        report['connection'] = {'profile_id': '77'}
+        report['account_totals'] = {**report['totals'], 'spend': '100', 'sales': '116'}
+        report['account_coverage'] = {'search_to_campaign_delta': {'spend': '-48'}}
+        html = render_performance(report)
+        self.assertIn('Same-period campaign total: $100 (search-term data covers $48 more).', html)
+        self.assertIn('= overall $148 ad spend.', html)
+        self.assertNotIn('$-', html)
 
     def test_author_initials_punctuation_matches_the_confirmed_name(self):
         from analyze_search_terms import classify
@@ -313,16 +347,20 @@ class KdpAccountTests(unittest.TestCase):
                 '--targeting', str(examples / 'targeting.csv'),
                 '--json-output', str(out / 'analysis.json'), '--html-output', str(out / 'report.html')], cwd=self.folder)
             outputs[label] = ((out / 'analysis.json').read_text(encoding='utf-8'), (out / 'report.html').read_text(encoding='utf-8'))
-        self.assertEqual(outputs['old'][0], outputs['new'][0])
-        # Intended page differences only: the embedded list editor also accepts ISBN-10 IDs ending in X, and
-        # every report now shows the "Not split yet" panel (with its stylesheet) so the cards add up to Overall.
+        # Intended change: the analysis gains combined traffic_buckets; every per-class field is unchanged.
+        old_json, new_json = json.loads(outputs['old'][0]), json.loads(outputs['new'][0])
+        buckets = new_json.pop('traffic_buckets')
+        self.assertEqual(old_json, new_json)
+        self.assertEqual((buckets['branded']['spend'], buckets['non_branded']['spend'], buckets['held']['spend']), ('50', '80', '10'))
+        # Intended change: the Performance tab now uses the two all-traffic cards. The Campaign plan and
+        # Setup tabs and the page scripts are unchanged (apart from the ISBN-10 pattern in the list editor).
         old_html = outputs['old'][1].replace('(?:B[A-Z0-9]{9}|[0-9]{10})', '(?:B[A-Z0-9]{9}|[0-9]{9}[0-9X])')
         new_html = outputs['new'][1]
-        css = (SKILL / 'assets/unsplit.css').read_text(encoding='utf-8')
-        panel = re.search(r'<section class="unsplit".*?</section>', new_html, re.S).group(0)
-        self.assertIn('Branded $40 + non-branded $80 + not split $20 = overall $140 ad spend.', panel)
-        self.assertIn('Your own-product ASINs', panel)
-        self.assertEqual(old_html, new_html.replace(css, '', 1).replace(panel, '', 1))
+        tail = lambda html: html[html.index('<section id="plan-panel"'):]
+        self.assertEqual(tail(old_html), tail(new_html))
+        self.assertIn('Branded $50 + non-branded $80 + held for review $10 = overall $140 ad spend.', new_html)
+        self.assertIn('<span>Ads on your own products<small>ACoS 20.0%</small></span><b>$10</b>', new_html)
+        self.assertIn('<span>Searches for Northstar Gear<small>ACoS 10.0%</small></span><b>$40</b>', new_html)
 
 
 START, END = '2026-09-01', '2026-09-30'
@@ -424,7 +462,7 @@ class ConnectedKdpTests(unittest.TestCase):
         rows = {r['query']: r for r in report['rows']}
         self.assertEqual(rows['B0FICT0002']['category'], 'owned_asin')
         self.assertIn('ASINs from this KDP account', html)
-        self.assertIn('Your own books', html)
+        self.assertIn('<span>Ads on your own books<small>', html)
         pages = sorted(p.name for p in (self.folder / 'read').glob('ads-page-*.json'))
         self.assertEqual(pages, ['ads-page-1.json', 'ads-page-2.json'])
         body = json.loads((self.folder / 'read/ads-page-1.json').read_text(encoding='utf-8'))

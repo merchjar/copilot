@@ -5,7 +5,7 @@
   "packVersion": "1.2.8",
   "released": "2026-10-06",
   "archive": "copilot-update-v1.2.8.zip",
-  "archiveSha256": "0563721b1f5cf4a82dd58a33b199cbd5f8b8675aa571094ea5987124c8bc214c",
+  "archiveSha256": "d4738cd64a7c8e12f7b40c881d5f5e652011b760f8d1777a2ed2a1c3a3430500",
   "defaultSkills": [
     "account-review",
     "audit-log",
@@ -136,13 +136,13 @@
     {
       "path": ".agents/skills/branded-review/SKILL.md",
       "archivePath": ".agents/skills/branded-review/SKILL.md",
-      "sha256": "dd229ffb66c50d96797d56b6562e6ba91f1174dde575fe8d9844af5a62fb0fe1",
+      "sha256": "2bff9ba8c7b6dcad3cf5364172e2ef5d698c48c3d4ba424bf0a4423487b9dd3c",
       "owner": "skill:branded-review"
     },
     {
       "path": ".agents/skills/branded-review/START-HERE.md",
       "archivePath": ".agents/skills/branded-review/START-HERE.md",
-      "sha256": "7a2d91397642d41beb64770c7b909fcd5527289ab217111994c08bbbd940d72e",
+      "sha256": "d85880d9b290262b50160c7d3b5a4528d6b51d1bb5180aa0ae38e1ab92447fe7",
       "owner": "skill:branded-review"
     },
     {
@@ -155,6 +155,12 @@
       "path": ".agents/skills/branded-review/assets/README.md",
       "archivePath": ".agents/skills/branded-review/assets/README.md",
       "sha256": "83f5d247ed8a7efa5e87c75398d29b55b9e5be003a315fc771224881b5245bed",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".agents/skills/branded-review/assets/buckets.css",
+      "archivePath": ".agents/skills/branded-review/assets/buckets.css",
+      "sha256": "807d42ff604d7be929949fddec7cd8a7b5dc15bc3590765fd6f5d39e58214824",
       "owner": "skill:branded-review"
     },
     {
@@ -236,12 +242,6 @@
       "owner": "skill:branded-review"
     },
     {
-      "path": ".agents/skills/branded-review/assets/unsplit.css",
-      "archivePath": ".agents/skills/branded-review/assets/unsplit.css",
-      "sha256": "62d79ad0a8d0f62ede7fd3698d60f370a60e523d9af8fcc888af3cdf1c2fb74f",
-      "owner": "skill:branded-review"
-    },
-    {
       "path": ".agents/skills/branded-review/assets/workspace.css",
       "archivePath": ".agents/skills/branded-review/assets/workspace.css",
       "sha256": "0e559a40e5793765347e6f1e1700dd39c4173b758fc62547ab162eb4154b70c7",
@@ -274,7 +274,7 @@
     {
       "path": ".agents/skills/branded-review/references/analysis-and-output.md",
       "archivePath": ".agents/skills/branded-review/references/analysis-and-output.md",
-      "sha256": "8344547e300b92a06a3c7ccdd26645506cf5bd40a5b6898259100d0f25ee258d",
+      "sha256": "1bbf78976be1b1b5db8076ae1a8f2d2aa95b1f4e073f7c67ebcc9283b88cf7f2",
       "owner": "skill:branded-review"
     },
     {
@@ -298,7 +298,7 @@
     {
       "path": ".agents/skills/branded-review/references/conversation.md",
       "archivePath": ".agents/skills/branded-review/references/conversation.md",
-      "sha256": "6f1314a5bb695da53e5ef7f15dc93709625d218efe0d2ea607ab1fb77a948a6b",
+      "sha256": "000a749b2306d74d245206b0c02d011ddaf13351bb18b30cf3211f329af3fdee",
       "owner": "skill:branded-review"
     },
     {
@@ -370,13 +370,13 @@
     {
       "path": ".agents/skills/branded-review/references/report-workspace.md",
       "archivePath": ".agents/skills/branded-review/references/report-workspace.md",
-      "sha256": "c8780f12ccf439b2ceb8be4e717e482c98d0bf3ea1d510c99053ea51be206d03",
+      "sha256": "e2635bba02566c133a4003274ea0c2abb33aa84b6d6792ceaceafc6a3d4294e5",
       "owner": "skill:branded-review"
     },
     {
       "path": ".agents/skills/branded-review/scripts/analyze_search_terms.py",
       "archivePath": ".agents/skills/branded-review/scripts/analyze_search_terms.py",
-      "sha256": "3453ae24ed3082ea339dddb3caea81d79cfe6a6440d3803980fec4ad1b0657f8",
+      "sha256": "1645120083b3ccb41a116c6f68eb9ed67450b2778939087dbba315fa802ed2d6",
       "owner": "skill:branded-review"
     },
     {
@@ -458,9 +458,15 @@
       "owner": "skill:branded-review"
     },
     {
+      "path": ".agents/skills/branded-review/scripts/report_buckets.py",
+      "archivePath": ".agents/skills/branded-review/scripts/report_buckets.py",
+      "sha256": "727a1ea12153e34babfea94e1c9006af505d825de7d10228d1a2591038bc3af3",
+      "owner": "skill:branded-review"
+    },
+    {
       "path": ".agents/skills/branded-review/scripts/report_charts.py",
       "archivePath": ".agents/skills/branded-review/scripts/report_charts.py",
-      "sha256": "a15f53ab41b6ce20c3eb7824e68fdf3e956c266c637b919bf62b1900d3babb80",
+      "sha256": "7298dd51ee4ab20029a405bae064af1f07bffca8f562142af3ef52c97b1b3cb8",
       "owner": "skill:branded-review"
     },
     {
@@ -490,13 +496,7 @@
     {
       "path": ".agents/skills/branded-review/scripts/report_render.py",
       "archivePath": ".agents/skills/branded-review/scripts/report_render.py",
-      "sha256": "61fce6a4a74296af6101ee581be091cec6d177bfc05dd2857881641d4b5a4a3e",
-      "owner": "skill:branded-review"
-    },
-    {
-      "path": ".agents/skills/branded-review/scripts/report_unsplit.py",
-      "archivePath": ".agents/skills/branded-review/scripts/report_unsplit.py",
-      "sha256": "7e7d10622e80f06c077a363c659cedfc58e280533bacb60e9241f77ed61b1479",
+      "sha256": "b4aa4cbf081c585df26db229659a5fe9d526f2a77e549b4c1861b7dacf19e720",
       "owner": "skill:branded-review"
     },
     {
@@ -724,13 +724,13 @@
     {
       "path": ".claude/skills/branded-review/SKILL.md",
       "archivePath": ".claude/skills/branded-review/SKILL.md",
-      "sha256": "dd229ffb66c50d96797d56b6562e6ba91f1174dde575fe8d9844af5a62fb0fe1",
+      "sha256": "2bff9ba8c7b6dcad3cf5364172e2ef5d698c48c3d4ba424bf0a4423487b9dd3c",
       "owner": "skill:branded-review"
     },
     {
       "path": ".claude/skills/branded-review/START-HERE.md",
       "archivePath": ".claude/skills/branded-review/START-HERE.md",
-      "sha256": "7a2d91397642d41beb64770c7b909fcd5527289ab217111994c08bbbd940d72e",
+      "sha256": "d85880d9b290262b50160c7d3b5a4528d6b51d1bb5180aa0ae38e1ab92447fe7",
       "owner": "skill:branded-review"
     },
     {
@@ -743,6 +743,12 @@
       "path": ".claude/skills/branded-review/assets/README.md",
       "archivePath": ".claude/skills/branded-review/assets/README.md",
       "sha256": "83f5d247ed8a7efa5e87c75398d29b55b9e5be003a315fc771224881b5245bed",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".claude/skills/branded-review/assets/buckets.css",
+      "archivePath": ".claude/skills/branded-review/assets/buckets.css",
+      "sha256": "807d42ff604d7be929949fddec7cd8a7b5dc15bc3590765fd6f5d39e58214824",
       "owner": "skill:branded-review"
     },
     {
@@ -824,12 +830,6 @@
       "owner": "skill:branded-review"
     },
     {
-      "path": ".claude/skills/branded-review/assets/unsplit.css",
-      "archivePath": ".claude/skills/branded-review/assets/unsplit.css",
-      "sha256": "62d79ad0a8d0f62ede7fd3698d60f370a60e523d9af8fcc888af3cdf1c2fb74f",
-      "owner": "skill:branded-review"
-    },
-    {
       "path": ".claude/skills/branded-review/assets/workspace.css",
       "archivePath": ".claude/skills/branded-review/assets/workspace.css",
       "sha256": "0e559a40e5793765347e6f1e1700dd39c4173b758fc62547ab162eb4154b70c7",
@@ -862,7 +862,7 @@
     {
       "path": ".claude/skills/branded-review/references/analysis-and-output.md",
       "archivePath": ".claude/skills/branded-review/references/analysis-and-output.md",
-      "sha256": "8344547e300b92a06a3c7ccdd26645506cf5bd40a5b6898259100d0f25ee258d",
+      "sha256": "1bbf78976be1b1b5db8076ae1a8f2d2aa95b1f4e073f7c67ebcc9283b88cf7f2",
       "owner": "skill:branded-review"
     },
     {
@@ -886,7 +886,7 @@
     {
       "path": ".claude/skills/branded-review/references/conversation.md",
       "archivePath": ".claude/skills/branded-review/references/conversation.md",
-      "sha256": "6f1314a5bb695da53e5ef7f15dc93709625d218efe0d2ea607ab1fb77a948a6b",
+      "sha256": "000a749b2306d74d245206b0c02d011ddaf13351bb18b30cf3211f329af3fdee",
       "owner": "skill:branded-review"
     },
     {
@@ -958,13 +958,13 @@
     {
       "path": ".claude/skills/branded-review/references/report-workspace.md",
       "archivePath": ".claude/skills/branded-review/references/report-workspace.md",
-      "sha256": "c8780f12ccf439b2ceb8be4e717e482c98d0bf3ea1d510c99053ea51be206d03",
+      "sha256": "e2635bba02566c133a4003274ea0c2abb33aa84b6d6792ceaceafc6a3d4294e5",
       "owner": "skill:branded-review"
     },
     {
       "path": ".claude/skills/branded-review/scripts/analyze_search_terms.py",
       "archivePath": ".claude/skills/branded-review/scripts/analyze_search_terms.py",
-      "sha256": "3453ae24ed3082ea339dddb3caea81d79cfe6a6440d3803980fec4ad1b0657f8",
+      "sha256": "1645120083b3ccb41a116c6f68eb9ed67450b2778939087dbba315fa802ed2d6",
       "owner": "skill:branded-review"
     },
     {
@@ -1046,9 +1046,15 @@
       "owner": "skill:branded-review"
     },
     {
+      "path": ".claude/skills/branded-review/scripts/report_buckets.py",
+      "archivePath": ".claude/skills/branded-review/scripts/report_buckets.py",
+      "sha256": "727a1ea12153e34babfea94e1c9006af505d825de7d10228d1a2591038bc3af3",
+      "owner": "skill:branded-review"
+    },
+    {
       "path": ".claude/skills/branded-review/scripts/report_charts.py",
       "archivePath": ".claude/skills/branded-review/scripts/report_charts.py",
-      "sha256": "a15f53ab41b6ce20c3eb7824e68fdf3e956c266c637b919bf62b1900d3babb80",
+      "sha256": "7298dd51ee4ab20029a405bae064af1f07bffca8f562142af3ef52c97b1b3cb8",
       "owner": "skill:branded-review"
     },
     {
@@ -1078,13 +1084,7 @@
     {
       "path": ".claude/skills/branded-review/scripts/report_render.py",
       "archivePath": ".claude/skills/branded-review/scripts/report_render.py",
-      "sha256": "61fce6a4a74296af6101ee581be091cec6d177bfc05dd2857881641d4b5a4a3e",
-      "owner": "skill:branded-review"
-    },
-    {
-      "path": ".claude/skills/branded-review/scripts/report_unsplit.py",
-      "archivePath": ".claude/skills/branded-review/scripts/report_unsplit.py",
-      "sha256": "7e7d10622e80f06c077a363c659cedfc58e280533bacb60e9241f77ed61b1479",
+      "sha256": "b4aa4cbf081c585df26db229659a5fe9d526f2a77e549b4c1861b7dacf19e720",
       "owner": "skill:branded-review"
     },
     {
@@ -1312,13 +1312,13 @@
     {
       "path": ".gemini/skills/branded-review/SKILL.md",
       "archivePath": ".gemini/skills/branded-review/SKILL.md",
-      "sha256": "dd229ffb66c50d96797d56b6562e6ba91f1174dde575fe8d9844af5a62fb0fe1",
+      "sha256": "2bff9ba8c7b6dcad3cf5364172e2ef5d698c48c3d4ba424bf0a4423487b9dd3c",
       "owner": "skill:branded-review"
     },
     {
       "path": ".gemini/skills/branded-review/START-HERE.md",
       "archivePath": ".gemini/skills/branded-review/START-HERE.md",
-      "sha256": "7a2d91397642d41beb64770c7b909fcd5527289ab217111994c08bbbd940d72e",
+      "sha256": "d85880d9b290262b50160c7d3b5a4528d6b51d1bb5180aa0ae38e1ab92447fe7",
       "owner": "skill:branded-review"
     },
     {
@@ -1331,6 +1331,12 @@
       "path": ".gemini/skills/branded-review/assets/README.md",
       "archivePath": ".gemini/skills/branded-review/assets/README.md",
       "sha256": "83f5d247ed8a7efa5e87c75398d29b55b9e5be003a315fc771224881b5245bed",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".gemini/skills/branded-review/assets/buckets.css",
+      "archivePath": ".gemini/skills/branded-review/assets/buckets.css",
+      "sha256": "807d42ff604d7be929949fddec7cd8a7b5dc15bc3590765fd6f5d39e58214824",
       "owner": "skill:branded-review"
     },
     {
@@ -1412,12 +1418,6 @@
       "owner": "skill:branded-review"
     },
     {
-      "path": ".gemini/skills/branded-review/assets/unsplit.css",
-      "archivePath": ".gemini/skills/branded-review/assets/unsplit.css",
-      "sha256": "62d79ad0a8d0f62ede7fd3698d60f370a60e523d9af8fcc888af3cdf1c2fb74f",
-      "owner": "skill:branded-review"
-    },
-    {
       "path": ".gemini/skills/branded-review/assets/workspace.css",
       "archivePath": ".gemini/skills/branded-review/assets/workspace.css",
       "sha256": "0e559a40e5793765347e6f1e1700dd39c4173b758fc62547ab162eb4154b70c7",
@@ -1450,7 +1450,7 @@
     {
       "path": ".gemini/skills/branded-review/references/analysis-and-output.md",
       "archivePath": ".gemini/skills/branded-review/references/analysis-and-output.md",
-      "sha256": "8344547e300b92a06a3c7ccdd26645506cf5bd40a5b6898259100d0f25ee258d",
+      "sha256": "1bbf78976be1b1b5db8076ae1a8f2d2aa95b1f4e073f7c67ebcc9283b88cf7f2",
       "owner": "skill:branded-review"
     },
     {
@@ -1474,7 +1474,7 @@
     {
       "path": ".gemini/skills/branded-review/references/conversation.md",
       "archivePath": ".gemini/skills/branded-review/references/conversation.md",
-      "sha256": "6f1314a5bb695da53e5ef7f15dc93709625d218efe0d2ea607ab1fb77a948a6b",
+      "sha256": "000a749b2306d74d245206b0c02d011ddaf13351bb18b30cf3211f329af3fdee",
       "owner": "skill:branded-review"
     },
     {
@@ -1546,13 +1546,13 @@
     {
       "path": ".gemini/skills/branded-review/references/report-workspace.md",
       "archivePath": ".gemini/skills/branded-review/references/report-workspace.md",
-      "sha256": "c8780f12ccf439b2ceb8be4e717e482c98d0bf3ea1d510c99053ea51be206d03",
+      "sha256": "e2635bba02566c133a4003274ea0c2abb33aa84b6d6792ceaceafc6a3d4294e5",
       "owner": "skill:branded-review"
     },
     {
       "path": ".gemini/skills/branded-review/scripts/analyze_search_terms.py",
       "archivePath": ".gemini/skills/branded-review/scripts/analyze_search_terms.py",
-      "sha256": "3453ae24ed3082ea339dddb3caea81d79cfe6a6440d3803980fec4ad1b0657f8",
+      "sha256": "1645120083b3ccb41a116c6f68eb9ed67450b2778939087dbba315fa802ed2d6",
       "owner": "skill:branded-review"
     },
     {
@@ -1634,9 +1634,15 @@
       "owner": "skill:branded-review"
     },
     {
+      "path": ".gemini/skills/branded-review/scripts/report_buckets.py",
+      "archivePath": ".gemini/skills/branded-review/scripts/report_buckets.py",
+      "sha256": "727a1ea12153e34babfea94e1c9006af505d825de7d10228d1a2591038bc3af3",
+      "owner": "skill:branded-review"
+    },
+    {
       "path": ".gemini/skills/branded-review/scripts/report_charts.py",
       "archivePath": ".gemini/skills/branded-review/scripts/report_charts.py",
-      "sha256": "a15f53ab41b6ce20c3eb7824e68fdf3e956c266c637b919bf62b1900d3babb80",
+      "sha256": "7298dd51ee4ab20029a405bae064af1f07bffca8f562142af3ef52c97b1b3cb8",
       "owner": "skill:branded-review"
     },
     {
@@ -1666,13 +1672,7 @@
     {
       "path": ".gemini/skills/branded-review/scripts/report_render.py",
       "archivePath": ".gemini/skills/branded-review/scripts/report_render.py",
-      "sha256": "61fce6a4a74296af6101ee581be091cec6d177bfc05dd2857881641d4b5a4a3e",
-      "owner": "skill:branded-review"
-    },
-    {
-      "path": ".gemini/skills/branded-review/scripts/report_unsplit.py",
-      "archivePath": ".gemini/skills/branded-review/scripts/report_unsplit.py",
-      "sha256": "7e7d10622e80f06c077a363c659cedfc58e280533bacb60e9241f77ed61b1479",
+      "sha256": "b4aa4cbf081c585df26db229659a5fe9d526f2a77e549b4c1861b7dacf19e720",
       "owner": "skill:branded-review"
     },
     {
@@ -1900,13 +1900,13 @@
     {
       "path": ".github/skills/branded-review/SKILL.md",
       "archivePath": ".github/skills/branded-review/SKILL.md",
-      "sha256": "dd229ffb66c50d96797d56b6562e6ba91f1174dde575fe8d9844af5a62fb0fe1",
+      "sha256": "2bff9ba8c7b6dcad3cf5364172e2ef5d698c48c3d4ba424bf0a4423487b9dd3c",
       "owner": "skill:branded-review"
     },
     {
       "path": ".github/skills/branded-review/START-HERE.md",
       "archivePath": ".github/skills/branded-review/START-HERE.md",
-      "sha256": "7a2d91397642d41beb64770c7b909fcd5527289ab217111994c08bbbd940d72e",
+      "sha256": "d85880d9b290262b50160c7d3b5a4528d6b51d1bb5180aa0ae38e1ab92447fe7",
       "owner": "skill:branded-review"
     },
     {
@@ -1919,6 +1919,12 @@
       "path": ".github/skills/branded-review/assets/README.md",
       "archivePath": ".github/skills/branded-review/assets/README.md",
       "sha256": "83f5d247ed8a7efa5e87c75398d29b55b9e5be003a315fc771224881b5245bed",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": ".github/skills/branded-review/assets/buckets.css",
+      "archivePath": ".github/skills/branded-review/assets/buckets.css",
+      "sha256": "807d42ff604d7be929949fddec7cd8a7b5dc15bc3590765fd6f5d39e58214824",
       "owner": "skill:branded-review"
     },
     {
@@ -2000,12 +2006,6 @@
       "owner": "skill:branded-review"
     },
     {
-      "path": ".github/skills/branded-review/assets/unsplit.css",
-      "archivePath": ".github/skills/branded-review/assets/unsplit.css",
-      "sha256": "62d79ad0a8d0f62ede7fd3698d60f370a60e523d9af8fcc888af3cdf1c2fb74f",
-      "owner": "skill:branded-review"
-    },
-    {
       "path": ".github/skills/branded-review/assets/workspace.css",
       "archivePath": ".github/skills/branded-review/assets/workspace.css",
       "sha256": "0e559a40e5793765347e6f1e1700dd39c4173b758fc62547ab162eb4154b70c7",
@@ -2038,7 +2038,7 @@
     {
       "path": ".github/skills/branded-review/references/analysis-and-output.md",
       "archivePath": ".github/skills/branded-review/references/analysis-and-output.md",
-      "sha256": "8344547e300b92a06a3c7ccdd26645506cf5bd40a5b6898259100d0f25ee258d",
+      "sha256": "1bbf78976be1b1b5db8076ae1a8f2d2aa95b1f4e073f7c67ebcc9283b88cf7f2",
       "owner": "skill:branded-review"
     },
     {
@@ -2062,7 +2062,7 @@
     {
       "path": ".github/skills/branded-review/references/conversation.md",
       "archivePath": ".github/skills/branded-review/references/conversation.md",
-      "sha256": "6f1314a5bb695da53e5ef7f15dc93709625d218efe0d2ea607ab1fb77a948a6b",
+      "sha256": "000a749b2306d74d245206b0c02d011ddaf13351bb18b30cf3211f329af3fdee",
       "owner": "skill:branded-review"
     },
     {
@@ -2134,13 +2134,13 @@
     {
       "path": ".github/skills/branded-review/references/report-workspace.md",
       "archivePath": ".github/skills/branded-review/references/report-workspace.md",
-      "sha256": "c8780f12ccf439b2ceb8be4e717e482c98d0bf3ea1d510c99053ea51be206d03",
+      "sha256": "e2635bba02566c133a4003274ea0c2abb33aa84b6d6792ceaceafc6a3d4294e5",
       "owner": "skill:branded-review"
     },
     {
       "path": ".github/skills/branded-review/scripts/analyze_search_terms.py",
       "archivePath": ".github/skills/branded-review/scripts/analyze_search_terms.py",
-      "sha256": "3453ae24ed3082ea339dddb3caea81d79cfe6a6440d3803980fec4ad1b0657f8",
+      "sha256": "1645120083b3ccb41a116c6f68eb9ed67450b2778939087dbba315fa802ed2d6",
       "owner": "skill:branded-review"
     },
     {
@@ -2222,9 +2222,15 @@
       "owner": "skill:branded-review"
     },
     {
+      "path": ".github/skills/branded-review/scripts/report_buckets.py",
+      "archivePath": ".github/skills/branded-review/scripts/report_buckets.py",
+      "sha256": "727a1ea12153e34babfea94e1c9006af505d825de7d10228d1a2591038bc3af3",
+      "owner": "skill:branded-review"
+    },
+    {
       "path": ".github/skills/branded-review/scripts/report_charts.py",
       "archivePath": ".github/skills/branded-review/scripts/report_charts.py",
-      "sha256": "a15f53ab41b6ce20c3eb7824e68fdf3e956c266c637b919bf62b1900d3babb80",
+      "sha256": "7298dd51ee4ab20029a405bae064af1f07bffca8f562142af3ef52c97b1b3cb8",
       "owner": "skill:branded-review"
     },
     {
@@ -2254,13 +2260,7 @@
     {
       "path": ".github/skills/branded-review/scripts/report_render.py",
       "archivePath": ".github/skills/branded-review/scripts/report_render.py",
-      "sha256": "61fce6a4a74296af6101ee581be091cec6d177bfc05dd2857881641d4b5a4a3e",
-      "owner": "skill:branded-review"
-    },
-    {
-      "path": ".github/skills/branded-review/scripts/report_unsplit.py",
-      "archivePath": ".github/skills/branded-review/scripts/report_unsplit.py",
-      "sha256": "7e7d10622e80f06c077a363c659cedfc58e280533bacb60e9241f77ed61b1479",
+      "sha256": "b4aa4cbf081c585df26db229659a5fe9d526f2a77e549b4c1861b7dacf19e720",
       "owner": "skill:branded-review"
     },
     {
@@ -2560,13 +2560,13 @@
     {
       "path": "skills/branded-review/SKILL.md",
       "archivePath": "skills/branded-review/SKILL.md",
-      "sha256": "dd229ffb66c50d96797d56b6562e6ba91f1174dde575fe8d9844af5a62fb0fe1",
+      "sha256": "2bff9ba8c7b6dcad3cf5364172e2ef5d698c48c3d4ba424bf0a4423487b9dd3c",
       "owner": "skill:branded-review"
     },
     {
       "path": "skills/branded-review/START-HERE.md",
       "archivePath": "skills/branded-review/START-HERE.md",
-      "sha256": "7a2d91397642d41beb64770c7b909fcd5527289ab217111994c08bbbd940d72e",
+      "sha256": "d85880d9b290262b50160c7d3b5a4528d6b51d1bb5180aa0ae38e1ab92447fe7",
       "owner": "skill:branded-review"
     },
     {
@@ -2579,6 +2579,12 @@
       "path": "skills/branded-review/assets/README.md",
       "archivePath": "skills/branded-review/assets/README.md",
       "sha256": "83f5d247ed8a7efa5e87c75398d29b55b9e5be003a315fc771224881b5245bed",
+      "owner": "skill:branded-review"
+    },
+    {
+      "path": "skills/branded-review/assets/buckets.css",
+      "archivePath": "skills/branded-review/assets/buckets.css",
+      "sha256": "807d42ff604d7be929949fddec7cd8a7b5dc15bc3590765fd6f5d39e58214824",
       "owner": "skill:branded-review"
     },
     {
@@ -2660,12 +2666,6 @@
       "owner": "skill:branded-review"
     },
     {
-      "path": "skills/branded-review/assets/unsplit.css",
-      "archivePath": "skills/branded-review/assets/unsplit.css",
-      "sha256": "62d79ad0a8d0f62ede7fd3698d60f370a60e523d9af8fcc888af3cdf1c2fb74f",
-      "owner": "skill:branded-review"
-    },
-    {
       "path": "skills/branded-review/assets/workspace.css",
       "archivePath": "skills/branded-review/assets/workspace.css",
       "sha256": "0e559a40e5793765347e6f1e1700dd39c4173b758fc62547ab162eb4154b70c7",
@@ -2698,7 +2698,7 @@
     {
       "path": "skills/branded-review/references/analysis-and-output.md",
       "archivePath": "skills/branded-review/references/analysis-and-output.md",
-      "sha256": "8344547e300b92a06a3c7ccdd26645506cf5bd40a5b6898259100d0f25ee258d",
+      "sha256": "1bbf78976be1b1b5db8076ae1a8f2d2aa95b1f4e073f7c67ebcc9283b88cf7f2",
       "owner": "skill:branded-review"
     },
     {
@@ -2722,7 +2722,7 @@
     {
       "path": "skills/branded-review/references/conversation.md",
       "archivePath": "skills/branded-review/references/conversation.md",
-      "sha256": "6f1314a5bb695da53e5ef7f15dc93709625d218efe0d2ea607ab1fb77a948a6b",
+      "sha256": "000a749b2306d74d245206b0c02d011ddaf13351bb18b30cf3211f329af3fdee",
       "owner": "skill:branded-review"
     },
     {
@@ -2794,13 +2794,13 @@
     {
       "path": "skills/branded-review/references/report-workspace.md",
       "archivePath": "skills/branded-review/references/report-workspace.md",
-      "sha256": "c8780f12ccf439b2ceb8be4e717e482c98d0bf3ea1d510c99053ea51be206d03",
+      "sha256": "e2635bba02566c133a4003274ea0c2abb33aa84b6d6792ceaceafc6a3d4294e5",
       "owner": "skill:branded-review"
     },
     {
       "path": "skills/branded-review/scripts/analyze_search_terms.py",
       "archivePath": "skills/branded-review/scripts/analyze_search_terms.py",
-      "sha256": "3453ae24ed3082ea339dddb3caea81d79cfe6a6440d3803980fec4ad1b0657f8",
+      "sha256": "1645120083b3ccb41a116c6f68eb9ed67450b2778939087dbba315fa802ed2d6",
       "owner": "skill:branded-review"
     },
     {
@@ -2882,9 +2882,15 @@
       "owner": "skill:branded-review"
     },
     {
+      "path": "skills/branded-review/scripts/report_buckets.py",
+      "archivePath": "skills/branded-review/scripts/report_buckets.py",
+      "sha256": "727a1ea12153e34babfea94e1c9006af505d825de7d10228d1a2591038bc3af3",
+      "owner": "skill:branded-review"
+    },
+    {
       "path": "skills/branded-review/scripts/report_charts.py",
       "archivePath": "skills/branded-review/scripts/report_charts.py",
-      "sha256": "a15f53ab41b6ce20c3eb7824e68fdf3e956c266c637b919bf62b1900d3babb80",
+      "sha256": "7298dd51ee4ab20029a405bae064af1f07bffca8f562142af3ef52c97b1b3cb8",
       "owner": "skill:branded-review"
     },
     {
@@ -2914,13 +2920,7 @@
     {
       "path": "skills/branded-review/scripts/report_render.py",
       "archivePath": "skills/branded-review/scripts/report_render.py",
-      "sha256": "61fce6a4a74296af6101ee581be091cec6d177bfc05dd2857881641d4b5a4a3e",
-      "owner": "skill:branded-review"
-    },
-    {
-      "path": "skills/branded-review/scripts/report_unsplit.py",
-      "archivePath": "skills/branded-review/scripts/report_unsplit.py",
-      "sha256": "7e7d10622e80f06c077a363c659cedfc58e280533bacb60e9241f77ed61b1479",
+      "sha256": "b4aa4cbf081c585df26db229659a5fe9d526f2a77e549b4c1861b7dacf19e720",
       "owner": "skill:branded-review"
     },
     {

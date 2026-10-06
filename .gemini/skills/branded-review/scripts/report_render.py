@@ -5,7 +5,7 @@ from decimal import Decimal
 from html import escape
 from pathlib import Path
 from report_charts import chart
-from report_unsplit import render as unsplit_panel
+from report_buckets import buckets as traffic_buckets
 
 
 def asin_section(report, money):
@@ -51,9 +51,11 @@ def asin_section(report, money):
     else:
         note = 'Add the full brand ASIN list to resolve the remaining ownership matches.'
         badge = 'Partial ownership list'
+    placement = ('Ads on your own products count in Branded as their own line; other ASINs count in Non-branded.' if identified
+                 else 'Until ownership is known, all ASIN traffic counts in Non-branded.')
     from structure_plan import asin_help
     help_html = asin_help() if not complete and not report.get('privacy') else ''
-    return f'''<section class="asin-section" aria-labelledby="asin-heading"><div class="asin-heading"><h2 id="asin-heading">ASIN traffic</h2><span>{badge}</span></div><div class="asin-grid">{''.join(cards)}</div><div class="asin-guidance"><p class="asin-goal">Set separate goals for own-product defense and other product targeting.</p><p class="asin-note">{escape(note)} These rows stay separate from branded and non-branded text searches.</p>{help_html}</div></section>'''
+    return f'''<section class="asin-section" aria-labelledby="asin-heading"><div class="asin-heading"><h2 id="asin-heading">ASIN traffic</h2><span>{badge}</span></div><div class="asin-grid">{''.join(cards)}</div><div class="asin-guidance"><p class="asin-goal">Set separate goals for own-product defense and other product targeting.</p><p class="asin-note">{escape(note)} {placement}</p>{help_html}</div></section>'''
 
 
 def render_performance(report):
@@ -74,14 +76,30 @@ def render_performance(report):
         start = date.fromisoformat(report['observed_start']); end = date.fromisoformat(report['observed_end'])
         period = f"{start:%b} {start.day}, {start.year} – {end:%b} {end.day}, {end.year}"
         period_note = 'Reported activity dates'
-    cards = [('Branded ACoS','brand','Matched brand terms',groups['brand_query']),
-             ('Non-branded ACoS','nonbrand','Other text searches',groups['other_query']),
-             ('Overall ACoS','account','Same-period campaigns' if report.get('account_totals') else 'All rows in this report',report.get('account_totals',report['totals']))]
-    card_html = ''
+    # Two cards cover all traffic: branded = brand searches + ads on your own products; non-branded = other
+    # searches + other or unknown ASINs. Held name variants and unreported terms sit in one line below.
+    b = traffic_buckets(report)
+    branded, nonbranded, held, total = b['branded'], b['non_branded'], b['held'], report['totals']
+    kenp = report.get('kenp')
     kenp_pct = lambda x: f'{x:.1%}' if x is not None else 'No sales or royalties'
     # Book accounts with KENP data lead with ACoS incl. KENP; sales-only ACoS moves to the secondary line.
-    kenp_headline = bool(report.get('kenp')) and all(row.get('kenp') for *_, row in cards)
-    for label, cls, caption, row in cards:
+    kenp_headline = bool(kenp) and bool(branded.get('kenp')) and bool(total.get('kenp'))
+    books = bool(kenp) or report.get('kdp', {}).get('status') in ('detected', 'confirmed')
+    def part_lines(bucket):
+        items = []
+        for c in bucket['components']:
+            if c['category'] == 'owned_asin' and not b['owned_catalog']:
+                items.append(f'<li class="part-missing"><span>{escape(c["label"])}</span><b>Add ASIN list</b></li>')
+                continue
+            value = (kenp_pct(c['kenp']['acos_incl_kenp']) if kenp_headline else pct(c['acos'])) if c['rows'] else 'No traffic'
+            name = 'ACoS incl. KENP' if kenp_headline else 'ACoS'
+            items.append(f'<li><span>{escape(c["label"])}<small>{name} {value}</small></span><b>{money(c["spend"])}</b></li>')
+        return '<ul class="score-parts">' + ''.join(items) + '</ul>'
+    cards = [('Branded ACoS','brand','Brand searches and your products',branded,part_lines(branded)),
+             ('Non-branded ACoS','nonbrand','Other searches and products',nonbranded,part_lines(nonbranded)),
+             ('Overall ACoS','account','All rows in this report',total,'')]
+    card_html = ''
+    for label, cls, caption, row, parts in cards:
         kenp_line = kenp_dd = ''
         headline = pct(row['acos'])
         if kenp_headline:
@@ -90,19 +108,18 @@ def render_performance(report):
             kenp_line = f'<p class="kenp-acos"><span>ACoS (sales only)</span><strong>{pct(row["acos"])}</strong></p>'
             kenp_dd = f'<div><dt>KENP royalties</dt><dd>{money(row["kenp"]["royalties"])}</dd></div>'
         card_html += f'''<article class="score {cls}"><h2><i aria-hidden="true"></i>{label}</h2>
-<div class="number">{headline}</div><p class="caption">{caption}</p>{kenp_line}
+<div class="number">{headline}</div><p class="caption">{caption}</p>{kenp_line}{parts}
 <dl><div><dt>Ad spend</dt><dd>{money(row['spend'])}</dd></div><div><dt>Attributed sales</dt><dd>{money(row['sales'])}</dd></div>{kenp_dd}</dl></article>'''
-    brand, other, total = groups['brand_query'],groups['other_query'],report.get('account_totals',report['totals'])
+    other = nonbranded
     if other['acos'] is not None and total['acos'] is not None:
         finding=f"Non-branded ACoS is {other['acos']:.1%}, versus {total['acos']:.1%} overall."
     else:
         finding='The available sales do not support a complete ACoS comparison.'
-    kenp = report.get('kenp')
     kenp_takeaway = kenp_board = kenp_detail = ''
     if kenp_headline:
-        a, b = other['kenp']['acos_incl_kenp'], total['kenp']['acos_incl_kenp']
-        if a is not None and b is not None:
-            finding = f'Including KENP royalties, non-branded ACoS is {a:.1%}, versus {b:.1%} overall.'
+        a, c = other['kenp']['acos_incl_kenp'], total['kenp']['acos_incl_kenp']
+        if a is not None and c is not None:
+            finding = f'Including KENP royalties, non-branded ACoS is {a:.1%}, versus {c:.1%} overall.'
         else:
             finding = 'The available sales and KENP royalties do not support a complete ACoS comparison.'
         if other['acos'] is not None and total['acos'] is not None:
@@ -116,10 +133,24 @@ def render_performance(report):
     competitor_detail = ''
     if competitors:
         competitor_detail = (f"<p><b>Confirmed competitor searches:</b> {competitors['rows']:,} rows, {money(competitors['spend'])} spend and "
-                             f"{money(competitors['sales'])} sales. They are included in non-branded text searches.</p>")
-    outside = sum(Decimal(g['spend']) for g in report['groups'] if g['category'] not in ('brand_query','other_query'))
+                             f"{money(competitors['sales'])} sales. They are included in Non-branded as other searches.</p>")
+    held_spend = Decimal(held['spend'])
+    sum_line = (f"Branded {money(branded['spend'])} + non-branded {money(nonbranded['spend'])}"
+                + (f" + held for review {money(held_spend)}" if held_spend else '') + f" = overall {money(total['spend'])} ad spend.")
+    held_words = {'brand_review': 'possible name variants', 'missing_query': 'unreported search terms'}
+    held_parts = [f"{money(c['spend'])} of {held_words[c['category']]}" for c in held['components'] if c['rows']]
+    board_lines = f'<p class="board-sum">{sum_line}</p>'
+    if held_parts:
+        board_lines += f'<p class="board-held">Held for review, not in either card: {" and ".join(held_parts)}.</p>'
+    unknown = next(c for c in nonbranded['components'] if c['category'] == 'asin_unknown')
+    if not b['owned_catalog'] and Decimal(unknown['spend']) > 0:
+        own = 'your own books' if books else 'your own products'
+        board_lines += (f'<p class="board-prompt">Non-branded includes {money(unknown["spend"])} of ads on '
+                        f'{"other books or unknown ASINs" if books else "other or unknown ASINs"}. Add your ASIN list or Amazon\'s '
+                        f'Advertised product report to move ads on {own} into Branded.</p>')
     total_spend=Decimal(report['totals']['spend'])
-    coverage=f"{money(outside)} ({outside/total_spend:.1%}) sits outside the text-search split." if total_spend else 'No spend was reported.'
+    coverage=(f"{money(held_spend)} ({held_spend/total_spend:.1%}) is held for review or has no reported search term, outside both cards."
+              if held_spend and total_spend else 'Every search-term row is in the branded or non-branded card.' if total_spend else 'No spend was reported.')
     rules=report['brand_reference'].get('rules',[])
     approved=', '.join(r['term'] for r in rules if r.get('status')=='approved') or ', '.join(report['brand_reference']['aliases'])
     proposed=', '.join(r['term'] for r in rules if r.get('status')=='proposed') or 'Review observed spelling variants.'
@@ -129,7 +160,7 @@ def render_performance(report):
     review_summary = ''
     if variants:
         pending = groups['brand_review']
-        review_notice = f"<p><b>Brand review:</b> {money(pending['spend'])} spend and {money(pending['sales'])} sales remain outside the text split. Examples: {escape(examples)}. Review these spellings and any model-only names before finalizing the split.</p>"
+        review_notice = f"<p><b>Brand review:</b> {money(pending['spend'])} spend and {money(pending['sales'])} sales are held outside both cards. Examples: {escape(examples)}. Review these spellings and any model-only names before finalizing the split.</p>"
         review_summary = f"<span class=\"review-summary\">{money(pending['spend'])} spend awaiting brand confirmation</span>"
     elif any(r.get('status') == 'proposed' for r in rules):
         review_summary = '<span class="review-summary">Brand rules under review</span>'
@@ -139,12 +170,12 @@ def render_performance(report):
         p=context['products']
         product_period = '' if privacy else f" from {p['observed_start']} to {p['observed_end']}"
         if p.get('catalog_label') == 'advertised titles':
-            support+=f"<p><b>Owned titles:</b> {p['product_count']} ASINs from this KDP account's Product Ads. A KDP ad account can advertise only its own books; titles never advertised are missing, so the list is not complete. Product matches are kept separate from branded searches.</p>"
+            support+=f"<p><b>Owned titles:</b> {p['product_count']} ASINs from this KDP account's Product Ads. A KDP ad account can advertise only its own books; titles never advertised are missing, so the list is not complete. Ads on these products count in Branded as their own line.</p>"
         elif p.get('kind') == 'saved_catalog':
             coverage_note = 'Complete catalog as supplied.' if p.get('catalog_complete') else 'Partial catalog; additional owned products may be missing.'
-            support+=f"<p><b>Saved product list:</b> {p['product_count']} verified owned ASINs. {coverage_note} Product matches are kept separate from branded searches.</p>"
+            support+=f"<p><b>Saved product list:</b> {p['product_count']} verified owned ASINs. {coverage_note} Ads on these products count in Branded as their own line.</p>"
         else:
-            support+=f"<p><b>Advertised products:</b> {p['product_count']} brand-matched ASINs{product_period}. This is an advertised subset, not the full catalog. Product matches are kept separate from branded searches.</p>"
+            support+=f"<p><b>Advertised products:</b> {p['product_count']} brand-matched ASINs{product_period}. This is an advertised subset, not the full catalog. Ads on these products count in Branded as their own line.</p>"
     if 'targeting' in context:
         t=context['targeting']
         target_period = '' if privacy else f" {t['observed_start']} to {t['observed_end']}."
@@ -153,18 +184,23 @@ def render_performance(report):
     website=report['brand_reference'].get('website')
     website_link=f'<a href="{escape(website,quote=True)}">Brand website</a>' if website and website.startswith(('https://','http://')) else ''
     css=(assets/'report.css').read_text(encoding='utf-8')+(assets/'report-refinements.css').read_text(encoding='utf-8')
+    css += (assets/'buckets.css').read_text(encoding='utf-8')
     if kenp: css += (assets/'kenp.css').read_text(encoding='utf-8')
-    unsplit = unsplit_panel(report, money)
-    if unsplit: css += (assets/'unsplit.css').read_text(encoding='utf-8')
     connected=bool(report.get('connection'))
-    board_note='Branded and non-branded cover text searches. Overall includes all reported traffic, including ASINs and unreported terms.'
-    if connected: board_note += ' Overall uses same-period campaign data.'
+    own_words = 'your own books' if books else 'your own products'
+    other_words = 'other books' if books and b['owned_catalog'] else 'other books or unknown ASINs' if books else 'other products' if b['owned_catalog'] else 'other or unknown ASINs'
+    board_note=f'Branded = searches for your brand + ads on {own_words}. Non-branded = other searches + ads on {other_words}. Overall is the search-term total.'
+    account = report.get('account_totals')
+    if connected and account:
+        gap = Decimal(account['spend']) - total_spend
+        board_note += (f" Same-period campaign total: {money(account['spend'])} (search-term data covers {money(abs(gap))} {'less' if gap > 0 else 'more'})."
+                       if gap else f" Same-period campaign total: {money(account['spend'])}, matching the search-term data.")
     else: board_note += ' Full-account coverage is unverified.'
     board_note += kenp_board
     account_note='The account total has not been checked against a same-period campaign report.'
     if connected:
         gap=report['account_coverage']['search_to_campaign_delta']['spend']
-        account_note=f"Same-period campaign spend differs from reported search-term spend by {money(gap)}. This gap is not assigned to either query class."
+        account_note=f"Same-period campaign spend differs from reported search-term spend by {money(gap)}. This difference is not assigned to either card."
     source_note = 'Source details hidden in this presentation.' if privacy else f"Source: {escape(Path(report['source_path']).name)}"
     footer_note = 'Identity hidden · Original metrics preserved · No account changes' if privacy else 'Local report · No account changes'
     return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{escape(report['advertiser'])} | Brand Traffic Review</title>
@@ -172,7 +208,7 @@ def render_performance(report):
 <header><div class="wrap head"><img alt="Merch Jar" width="762" height="150" src="data:image/webp;base64,{logo}"><span>Brand Traffic Review</span></div></header>
 <main class="wrap"><div class="intro"><div><p class="eyebrow">{escape(report['advertiser'])} · {escape(report['currency'])}</p><h1>Branded vs. non-branded</h1></div><p class="period">{period}<br><span>{period_note}</span></p></div>
 <section class="takeaway"><div><h2>{finding}</h2><p>Give branded demand and broader searches separate goals.{escape(kenp_takeaway)}</p></div><button class="button" type="button" data-report-go="plan">Open campaign plan →</button></section>
-<section class="board" aria-label="ACoS comparison"><div class="comparison-labels"><span>Text searches</span><span>All reported traffic</span></div><div class="scores">{card_html}</div><p class="board-note">{board_note}</p></section>{unsplit}
+<section class="board" aria-label="ACoS comparison"><div class="comparison-labels"><span>Branded and non-branded</span><span>Overall</span></div><div class="scores">{card_html}</div>{board_lines}<p class="board-note">{board_note}</p></section>
 {chart(report)}
 {asin_section(report,money)}
 <details id="basis"><summary>Brand terms &amp; report coverage {review_summary}</summary><div class="detail-body">

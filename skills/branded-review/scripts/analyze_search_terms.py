@@ -388,6 +388,9 @@ def analyze(source, advertiser, currency, brand, aliases, reference=None, advert
         report['reconciliation']['metrics_checked'] = list(METRICS) + ['kenp_' + k for k in kdp.empty()]
     elif status and status['status'] != 'possible':
         report['limitations'].append('This data has no KENP royalties, so ACoS excludes Kindle Unlimited page reads.')
+    # Reporting buckets over all traffic (per-class groups above stay for compatibility).
+    from report_buckets import buckets
+    report['traffic_buckets'] = buckets(report)
     return report
 
 
