@@ -66,6 +66,19 @@ def presentation(report):
         result['account_totals'] = metrics(report['account_totals'])
         result['account_coverage'] = {'search_to_campaign_delta': {
             'spend': str(numeric(report['account_coverage']['search_to_campaign_delta']['spend']))}}
+    if report.get('kenp'):
+        # Book accounts keep KENP figures; only numbers and generated disclosures are carried through.
+        import kdp
+        def kenp_metrics(row):
+            k = row['kenp']
+            return kdp.present(numeric(row['spend']), numeric(k['royalties']), numeric(k['pages_read']), numeric(k['sales_basis']))
+        for group in result['groups']:
+            group['kenp'] = kenp_metrics(by_class[group['category']])
+        result['totals']['kenp'] = kenp_metrics(report['totals'])
+        if result.get('account_totals') is not None and report['account_totals'].get('kenp'):
+            result['account_totals']['kenp'] = kenp_metrics(report['account_totals'])
+        result['kenp'] = {'formula': kdp.FORMULA, 'source': report['kenp'].get('source'),
+                          'royalties_column': 'KENP royalties', 'disclosures': list(report['kenp'].get('disclosures', []))}
     return result
 
 

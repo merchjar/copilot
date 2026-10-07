@@ -43,7 +43,7 @@
  function validate(){
   const current=read(),errors=[];
   if(!current.brand_reference.aliases.some(a=>a.toLowerCase()===context.scope.brand.toLowerCase()))errors.push('Keep the primary brand name in the list. Ask Copilot to change the brand itself.');
-  const invalid=current.owned_asins.filter(a=>!/^(?:B[A-Z0-9]{9}|[0-9]{10})$/.test(a));
+  const invalid=current.owned_asins.filter(a=>!/^(?:B[A-Z0-9]{9}|[0-9]{9}[0-9X])$/.test(a));
   if(invalid.length)errors.push('Check these ASINs: '+invalid.slice(0,5).join(', ')+'. Use the full Amazon product identifier.');
   if(current.catalog_complete&&!current.owned_asins.length)errors.push('Add your ASINs before marking this as the full list.');
   if((current.brand_reference.rules||[]).some(r=>!r.term.trim()))errors.push('Enter a term for each rule, or remove the blank row.');

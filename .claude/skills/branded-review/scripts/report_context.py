@@ -39,7 +39,7 @@ def product_context(path, account_id, currency, brand, marketplace):
     missing_ids = []
     for row in rows:
         asin = row['Advertised product ID'].upper().strip()
-        if not re.fullmatch(r'(?:B[A-Z0-9]{9}|[0-9]{10})', asin):
+        if not re.fullmatch(r'(?:B[A-Z0-9]{9}|[0-9]{9}[0-9X])', asin):
             if row['Advertised product marketplace'] == marketplace:
                 missing_ids.append({'title':row.get('Advertised product name', '').strip(),
                                     'product_id':asin})

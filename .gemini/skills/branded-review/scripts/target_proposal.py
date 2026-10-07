@@ -6,7 +6,7 @@ import re
 
 def parent_asin(product):
     raw=product.get('parent_asin',[])
-    valid={p for p in raw if isinstance(p,str) and re.fullmatch(r'(?:B[A-Z0-9]{9}|[0-9]{10})',p)}
+    valid={p for p in raw if isinstance(p,str) and re.fullmatch(r'(?:B[A-Z0-9]{9}|[0-9]{9}[0-9X])',p)}
     return next(iter(valid)) if len(valid)==1 and len(set(raw))==1 else None
 
 

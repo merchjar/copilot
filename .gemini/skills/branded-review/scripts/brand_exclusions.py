@@ -5,6 +5,7 @@ import hashlib
 import json
 from pathlib import Path
 import re
+from cli_paths import cli_path
 
 
 def normalized(text):
@@ -41,7 +42,7 @@ def draft(report, catalog=None, existing=None):
         if not catalog.get('source') or not catalog.get('ownership_verified'): raise ValueError('Catalog needs a source and verified brand ownership')
         owned = set(catalog['owned_asins'])
         catalog_info = {'complete': catalog.get('complete') is True, 'coverage': 'Supplied brand catalog', 'source': catalog['source']}
-    if any(not re.fullmatch(r'(?:B[A-Z0-9]{9}|[0-9]{10})', str(asin)) for asin in owned):
+    if any(not re.fullmatch(r'(?:B[A-Z0-9]{9}|[0-9]{9}[0-9X])', str(asin)) for asin in owned):
         raise ValueError('Invalid ASIN in owned-product input')
     entries = [{'type': 'KEYWORD', 'value': term, **data, 'status': 'proposed'} for term, data in sorted(candidates.items())]
     entries += [{'type': 'PRODUCT', 'value': asin, 'match_type': 'PRODUCT_EXACT', 'status': 'proposed',
@@ -89,11 +90,11 @@ def markdown(result):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--analysis', type=Path, required=True)
-    parser.add_argument('--catalog', type=Path)
-    parser.add_argument('--existing', type=Path)
-    parser.add_argument('--output', type=Path, required=True)
-    parser.add_argument('--markdown', type=Path)
+    parser.add_argument('--analysis', type=cli_path, required=True)
+    parser.add_argument('--catalog', type=cli_path)
+    parser.add_argument('--existing', type=cli_path)
+    parser.add_argument('--output', type=cli_path, required=True)
+    parser.add_argument('--markdown', type=cli_path)
     args = parser.parse_args()
     read = lambda p: json.loads(p.read_text(encoding='utf-8')) if p else None
     result = draft(read(args.analysis), read(args.catalog), read(args.existing))

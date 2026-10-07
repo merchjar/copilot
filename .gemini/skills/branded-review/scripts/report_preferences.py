@@ -9,6 +9,7 @@ from pathlib import Path
 import re
 import tempfile
 from report_interactions import preferences
+from cli_paths import cli_path
 
 
 def read_draft(path):
@@ -67,7 +68,7 @@ def names(value):
 
 
 def asins(value):
-    if not isinstance(value,list) or any(not isinstance(x,str) or not re.fullmatch(r'(?:B[A-Z0-9]{9}|[0-9]{10})',x) for x in value):
+    if not isinstance(value,list) or any(not isinstance(x,str) or not re.fullmatch(r'(?:B[A-Z0-9]{9}|[0-9]{9}[0-9X])',x) for x in value):
         raise ValueError('Owned ASINs must be valid uppercase ASINs')
     if len(set(value)) != len(value): raise ValueError('Remove duplicate ASINs')
     return sorted(value)
@@ -170,7 +171,7 @@ def check_destinations(skill_root, destinations):
 
 def main():
     p=argparse.ArgumentParser(description=__doc__)
-    for name in ('analysis','changes','reference','catalog'):p.add_argument('--'+name,type=Path,required=True)
+    for name in ('analysis','changes','reference','catalog'):p.add_argument('--'+name,type=cli_path,required=True)
     p.add_argument('--apply',action='store_true',help='Save the user-requested changes after validation')
     a=p.parse_args()
     paths=[getattr(a,k).expanduser().resolve() for k in ('analysis','changes','reference','catalog')]

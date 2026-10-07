@@ -10,6 +10,7 @@ from analyze_search_terms import empty_metrics, add, present, normalize, rule_ma
 from migration_plan import build_migration, migration_markdown
 from structure_plan import build_structure, needs_asins
 from brand_exclusions import draft as draft_exclusions
+from cli_paths import cli_path
 
 
 def _build_plan_evidence(report, pilot_group=None, product_groups=None):
@@ -276,7 +277,7 @@ def main():
     p.add_argument('--analysis',required=True);p.add_argument('--output',required=True);p.add_argument('--markdown',required=True)
     p.add_argument('--pilot-group',nargs=2,metavar=('CAMPAIGN_ID','AD_GROUP_ID'))
     p.add_argument('--connected-context',help='Private receipt for successful current Merch Jar configuration reads')
-    p.add_argument('--product-groups',type=Path,help='Proposed product groups spanning the known owned list')
+    p.add_argument('--product-groups',type=cli_path,help='Proposed product groups spanning the known owned list')
     a=p.parse_args()
     paths=[Path(a.analysis).resolve(),Path(a.output).resolve(),Path(a.markdown).resolve()]
     if len(set(paths))!=3: raise ValueError('Input and output paths must differ')

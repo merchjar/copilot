@@ -20,13 +20,15 @@ The conversational mechanism is a compact include/review/exclude proposal before
 | other_asin | Reported ASIN confirmed outside the selected ownership scope |
 | unknown | Ambiguous query or unresolved/missing ASIN ownership |
 
-Keep cross-brand queries separate by default; do not count the same row in two summary groups. Generic plus competitor can form a clearly labeled non-brand-query total. ASIN context remains separate from query intent; if showing a broader “brand-related” view, explicitly define its composition. An ASIN not found in a partial list remains unknown.
+The bundled analyzer applies confirmed competitor entries (the reference's `competitors` list) inside `other_query`: each row carries a `Confirmed competitor` reason and the result adds a `competitor_queries` subtotal, so the non-branded headline still covers generic plus competitor searches. Own-brand identifiers take precedence. Keep cross-brand queries separate by default; do not count the same row in two summary groups. Generic plus competitor can form a clearly labeled non-brand-query total. ASIN context remains separate from query intent; if showing a broader “brand-related” view, explicitly define its composition. An ASIN not found in a partial list remains unknown.
 
 “Mixed” is an aggregate observation about a target/ad group/campaign containing different row classes. Unknown rows do not become non-brand. Target identity and actual placement are different facts; product targeting may serve on search pages as well as product pages. Do not infer placement solely from targeting configuration.
 
 ## Calculations and coverage
 
 Compute ACoS = sum(spend) / sum(attributed sales), displayed as a percent. A $10/$100 row and a $90/$100 row combine to 50%, not a spend-weighted average of row ACoS. If sales is zero, show “No attributed sales” with spend retained; if sales is missing, show unavailable. Preserve negative corrections and explain why a conventional ratio may be misleading.
+
+For book accounts with KENP data, lead with ACoS incl. KENP = sum(spend) / (sum(attributed sales) + sum(estimated KENP royalties)) for branded, non-branded and overall, and keep sales-only ACoS (unchanged calculation) as the secondary figure. On a Kindle Unlimited-heavy account, sales-only ACoS alone badly overstates cost. Royalties reconcile across classes like spend and sales. See [kdp-accounts.md](kdp-accounts.md).
 
 Each report partition has explicit population totals. Class totals including unknowns must reconcile to imported population totals. Compare a matching campaign report separately and display any difference as unresolved coverage. Never allocate the difference to non-brand, product pages, invalid traffic or waste without evidence.
 
@@ -42,7 +44,9 @@ The review answers: how each traffic class performs; where they are mixed; wheth
 - A local HTML report when file generation is available; otherwise a readable table plus export. State the actual delivered format.
 - A campaign-change proposal only when requested or useful, following migration.md.
 
-Use the same calculated values across the report and exports. The default HTML is an executive report: scope/date, branded ACoS, non-branded ACoS, account total, one takeaway and a next decision. Spend/sales sit beneath each headline number. Qualify account totals as the supplied export until independently reconciled. Keep a compact visible coverage line; place query tables, mixed-campaign details and source evidence behind a disclosure or in supporting files. Additional charts do not automatically strengthen the report. Escape customer text; do not load private data into remote scripts or add telemetry.
+Reporting buckets (`traffic_buckets` in the analysis, computed by `report_buckets.py`) cover all traffic: Branded = `brand_query` + `owned_asin`; Non-branded = `other_query` + `asin_unknown`; Held = `brand_review` + `missing_query`. Branded + non-branded + held equals the search-term total exactly, for every metric and for KENP royalties. Row classes above are unchanged and remain the evidence. Show each card's component lines with spend and ACoS, keep own-product defense as its own line, and put the same-period campaign total in a footnote rather than in Overall.
+
+Use the same calculated values across the report and exports. The default HTML is an executive report: scope/date, branded ACoS, non-branded ACoS, overall ACoS, one takeaway and a next decision. Spend/sales sit beneath each headline number. Qualify account totals as the supplied export until independently reconciled. Keep a compact visible coverage line; place query tables, mixed-campaign details and source evidence behind a disclosure or in supporting files. Additional charts do not automatically strengthen the report. Escape customer text; do not load private data into remote scripts or add telemetry.
 
 Default presentation reuses the actual reviewed website wordmark and Inter font, cream background and white cards. Use muted teal #95B9B1 for brand searches, warm stone #D9D7CE for non-brand, ink #22212B for totals, slate #A8B7C6 for own-product defense, lime #D8E681 for takeaways and cobalt for actions. The compact result board, spacing and hierarchy matter as much as color. The bundled renderer embeds its local assets for offline use. No fake sync controls or always-on-dashboard claim; refresh requires new inputs or a requested connected pull.
 

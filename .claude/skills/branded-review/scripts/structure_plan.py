@@ -31,7 +31,7 @@ def build_structure(report, grouping=None):
         asins = item.get('asins', [])
         if not name or name.casefold() in names or not asins or not isinstance(asins, list):
             raise ValueError('Each product group needs a unique name and nonempty ASIN list')
-        if any(not isinstance(a,str) or not re.fullmatch(r'(?:B[A-Z0-9]{9}|[0-9]{10})',a) for a in asins):
+        if any(not isinstance(a,str) or not re.fullmatch(r'(?:B[A-Z0-9]{9}|[0-9]{9}[0-9X])',a) for a in asins):
             raise ValueError('Product groups need valid ASINs')
         if len(set(asins)) != len(asins) or assigned.intersection(asins):
             raise ValueError('Each ASIN belongs to one primary branded group; review overlaps separately')
@@ -121,7 +121,21 @@ def lists_html(report):
     return f'''<section class="saved-lists"><h2>Review the lists used in this plan</h2><div class="saved-list-columns"><div><h3>Brand names and product lines</h3><div class="list-terms">{terms}</div>{'<details><summary>How additional spellings count in this report</summary><ul>'+extra+'</ul></details>' if extra else ''}{exceptions_html}{negative_html}<p class="field-note">The report groups case, spacing and hyphen variants together. That does not automatically add those spellings as Amazon negatives.</p></div><div><h3>Your product ASINs</h3><p><b>{len(owned)} owned ASINs</b> · {'Complete catalog as supplied' if complete else 'Partial list' if owned else 'List needed'}</p><div class="saved-asin-preview">{asin_preview}</div>{all_asins}<p>Use these as <b>negative product targets</b> in non-branded campaigns where supported, after separate own-product defense delivery has been reviewed. ASINs are product exclusions, not Negative phrase keywords.</p>{asin_help() if not complete else ''}</div></div><p>All negatives above are proposals. Saving these lists does not apply them to campaigns.</p><button type="button" class="quiet-button" data-edit-brand-lists>Review or edit these lists</button></section>'''
 
 
+def default_grouping(report):
+    """Starting grouping when products are known but none are grouped yet: every owned product in one group."""
+    products = report.get('context', {}).get('products', {})
+    owned = sorted(set(products.get('owned_asins', [])))
+    if not owned:
+        return None
+    books = bool(report.get('kenp')) or report.get('kdp', {}).get('status') in ('detected', 'confirmed')
+    return {'account_id': report.get('account_id'), 'default': True,
+            'groups': [{'name': 'All books' if books else 'All products', 'asins': owned,
+                        'reason': 'Starting point: every known owned product shares one branded budget until you regroup them'}]}
+
+
 def structure_html(report, grouping=None):
     if report.get('privacy'): return ''
     from planning_view import render
+    if not (grouping or {}).get('groups'):
+        grouping = default_grouping(report) or grouping
     return render(report, grouping, build_structure(report, grouping))

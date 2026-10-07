@@ -9,6 +9,7 @@ import re
 from campaign_map import render as campaign_map
 from transition_progress import sync_report, add_evidence, role_status
 from structure_plan import needs_asins, structure_html, lists_html, build_structure
+from cli_paths import cli_path
 
 
 def scope_css(css, scope):
@@ -199,12 +200,12 @@ def write_workspace(report, html_output, state_path=None, evidence_path=None, wo
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--analysis',required=True,type=Path)
-    parser.add_argument('--html-output',required=True,type=Path)
-    parser.add_argument('--state',type=Path)
-    parser.add_argument('--evidence',type=Path)
-    parser.add_argument('--workspace',type=Path,help='Currently authorized session root; refreshes setup guidance without new performance data or API calls')
-    parser.add_argument('--product-groups',type=Path,help='Proposed full product grouping; no account changes or eligibility approval')
+    parser.add_argument('--analysis',required=True,type=cli_path)
+    parser.add_argument('--html-output',required=True,type=cli_path)
+    parser.add_argument('--state',type=cli_path)
+    parser.add_argument('--evidence',type=cli_path)
+    parser.add_argument('--workspace',type=cli_path,help='Currently authorized session root; refreshes setup guidance without new performance data or API calls')
+    parser.add_argument('--product-groups',type=cli_path,help='Proposed full product grouping; no account changes or eligibility approval')
     args=parser.parse_args()
     if args.analysis.resolve() in set(output_paths(args.html_output,args.state)):
         raise ValueError('Do not overwrite the analysis input')
