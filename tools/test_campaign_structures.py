@@ -106,6 +106,21 @@ class StructuresTest(unittest.TestCase):
                 m.mutate(path, revision, definition('second'))
             self.assertEqual(m.read_store(path)[1], new_revision)
 
+    def test_product_group_setting(self):
+        s = definition()
+        s['roles'] = [dict(id='auto', mode='auto-combined', job='Discovery'),
+                      dict(id='research', mode='keyword-broad', job='Explore'),
+                      dict(id='exact', mode='keyword-exact', job='Test', product_group='skip')]
+        s['budget_policy']['weights'] = {'auto': 1, 'research': 1, 'exact': 1}
+        data = m.validate(dict(schema_version=1, structures=[s]))
+        # Structures saved before Creation 1.4 have no setting and include the group.
+        self.assertEqual(m.select(data, '123', 'launch')['product_groups'], {'research': 'include', 'exact': 'skip'})
+        for role, value in ((0, 'include'), (1, 'maybe'), (1, '')):
+            bad = copy.deepcopy(s)
+            bad['roles'][role]['product_group'] = value
+            with self.assertRaises(ValueError):
+                m.validate(dict(schema_version=1, structures=[bad]))
+
     def test_schema_rejects_batch_amount_and_competing_defaults(self):
         s = definition()
         s['budget_policy']['amount'] = 90

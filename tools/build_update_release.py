@@ -24,9 +24,9 @@ RELEASE_NOTES = {
     'branded-review': 'Recognizes KDP book accounts and leads with ACoS incl. KENP royalties; connected pulls handle rounding differences and mid-pull data syncs.',
     'account-review': 'Can recommend Campaign Naming when inconsistent names block account work.',
     'campaign-naming-cleanup': 'Responds faster, proposes a reusable taxonomy first, and preserves method separately from match type.',
-    'create-campaigns': 'Reuses the saved account naming taxonomy, including the distinct Auto, KW, PT, or Mixed method.',
+    'create-campaigns': "Research and Exact now hold a product-targeting ad group beside the keyword group, seeded from ASINs that sold in the product's search terms or ones you supply, created paused.",
     'manage-library': 'Adds all-skill update checks, version-aware replacement, backups, recovery, and manager self-update.',
-    'merchjar-connect': 'Adds the shared naming method field, saved vocabularies, and safer Windows API command guidance.',
+    'merchjar-connect': 'Documents product-target creation, reading targets back by ID, and setting a target bid after creation.',
 }
 TEXT_SUFFIXES = {'.md', '.py', '.json', '.txt', '.sh', '.toml', '.yaml', '.yml'}
 

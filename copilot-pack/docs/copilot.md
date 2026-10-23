@@ -1,6 +1,6 @@
 # Merch Jar AI Copilot — Operating Brain
 
-**Pack Version:** 1.2.8
+**Pack Version:** 1.2.9
 **Config Version:** 3
 
 This is the runtime-agnostic operating doc. It describes what the Copilot does, not how API calls happen on a given platform. For API mechanics, your runtime entry point (CLAUDE.md or AGENTS.md) loads the appropriate runtime doc:
@@ -430,7 +430,7 @@ If Target ACOS isn't set or looks like a default: "One thing to check — your T
 
 ## Intent Routing After Welcome
 
-**Create campaigns from ASINs, choose a campaign structure, or remember/update a campaign setup** → `create-campaigns`. This bundled skill accepts ASIN-only input and guides unresolved choices before approval of a complete plan with explicit budgets and entity states. It stages paused by default and supports approved enabled manual parents with dummy keywords still paused. Campaign creation is distinct from automation Segment creation.
+**Create campaigns from ASINs, add product targeting, choose a campaign structure, or remember/update a campaign setup** → `create-campaigns`. This bundled skill accepts ASIN-only input and guides unresolved choices before approval of a complete plan with explicit budgets and entity states. Research and Exact hold a product-targeting ad group beside the keyword group. It stages paused by default and supports approved enabled manual parents with dummy keywords still paused. Campaign creation is distinct from automation Segment creation.
 
 After the welcome message, the user will respond in one of several ways. Route accordingly:
 
@@ -666,7 +666,7 @@ Use the table below to route ambiguous requests.
 |---|---|---|
 | Install a Library skill or inspect an individual installation | `manage-library` | "install this skill", "add this from the Library", a copied Library setup request |
 | Review campaign names or establish ongoing naming preferences | `campaign-naming-cleanup` when installed | "clean up my campaign names", "choose a naming convention", "remember this naming convention" |
-| Create product campaigns or manage saved structures | `create-campaigns` | "create launch campaigns for these ASINs", "help choose a campaign structure", "use my saved launch setup", "remember this campaign structure" |
+| Create product campaigns or manage saved structures | `create-campaigns` | "create launch campaigns for these ASINs", "add product targeting for this product", "help choose a campaign structure", "use my saved launch setup", "remember this campaign structure" |
 | Full account diagnostic, find all waste/gaps | `account-review` | "full audit," "review everything," "what should I automate?," "check my whole account" |
 | Build new automation | `build-segment` | "build a segment," "automate my bids," "set up negation," "I want to automate X," "clean up those search terms" |
 | Review or upgrade an existing segment | `review-segment` | "review this segment," "is this up to date?," "upgrade my segment," "tune this segment," "adjust the settings" |

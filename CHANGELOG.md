@@ -5,6 +5,14 @@ record of what changed in each version. This file is a thin pointer.
 
 See the full history at: https://github.com/merchjar/copilot/releases
 
+## v1.2.9 (unreleased)
+
+- Create Campaigns 1.4: Research and Exact campaigns now hold a product-targeting ad group beside the keyword group, because Amazon keeps keywords and product targets in separate groups. Exact gets exact product targets; Research gets expanded targets on the same ASINs, or category targets when a category ID is known.
+- Product targets come from ASINs that sold in the product's own search terms, or from ASINs you supply. Sales in ad groups shared with other products are shown as evidence, not used automatically. A new product with no search terms gets empty product-target groups that don't serve until ASINs are added.
+- Everything is created paused. Targets take their group's default bid; a different approved bid is set after creation, then only the approved items are enabled.
+- Saved structures can skip the product-targeting group (`product_group: skip`). Structures saved earlier include it.
+- Merch Jar Connect 1.6 documents the product-target request shape, target readback by ID (`targets:read`) and bid updates after creation.
+
 ## v1.2.8 (2026-10-05)
 
 - Brand Traffic Review 2.1.0 recognizes KDP book accounts. When KENP data is present, the report leads with ACoS incl. KENP (spend divided by attributed sales plus estimated KENP royalties) for branded, non-branded and overall traffic, with sales-only ACoS as the secondary figure.
