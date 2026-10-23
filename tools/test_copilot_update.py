@@ -91,8 +91,8 @@ class UpdateTests(unittest.TestCase):
         self.assertTrue(result['applied'])
         self.assertEqual(result['scope'], ['create-campaigns', 'merchjar-connect'])
         self.assertEqual((self.folder / 'AGENTS.md').read_bytes(), old_agents)
-        self.assertIn('version: "1.3"', (self.folder / 'skills/create-campaigns/SKILL.md').read_text(encoding='utf-8'))
-        self.assertIn('version: "1.5"', (self.folder / 'skills/merchjar-connect/SKILL.md').read_text(encoding='utf-8'))
+        self.assertIn('version: "1.4"', (self.folder / 'skills/create-campaigns/SKILL.md').read_text(encoding='utf-8'))
+        self.assertIn('version: "1.6"', (self.folder / 'skills/merchjar-connect/SKILL.md').read_text(encoding='utf-8'))
 
     def test_optional_naming_installs_into_fresh_default_copilot_with_dependency(self):
         self.old()

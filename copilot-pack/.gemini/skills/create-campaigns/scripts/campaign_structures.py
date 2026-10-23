@@ -70,12 +70,16 @@ def validate(data):
         require(isinstance(s['roles'], list) and bool(s['roles']), 'Missing roles')
         role_ids = set()
         for role in s['roles']:
-            require(isinstance(role, dict) and set(role) == {'id', 'mode', 'job'}, 'Invalid role')
+            require(isinstance(role, dict) and {'id', 'mode', 'job'} <= set(role) <=
+                    {'id', 'mode', 'job', 'product_group'}, 'Invalid role')
             require(all(isinstance(v, str) and v.strip() for v in role.values()), 'Empty role field')
             require(role['id'] not in role_ids, 'Duplicate role ID')
             role_ids.add(role['id'])
             require(role['mode'] in ('auto-combined', 'keyword-broad', 'keyword-exact'),
                     'Target mode outside initial supported planning schema')
+            # Research and Exact hold a product-target ad group beside the keyword group unless skipped.
+            require('product_group' not in role or (role['mode'] != 'auto-combined' and
+                    role['product_group'] in ('include', 'skip')), 'Invalid product group setting')
         require(isinstance(s['naming'], str) and bool(s['naming'].strip()), 'Missing naming pattern')
         policy = s['budget_policy']
         require(isinstance(policy, dict) and set(policy) == {'basis', 'weights'} and
@@ -139,17 +143,27 @@ def mutate(path, expected, definition=None, remove=None):
         lock.unlink()
 
 
+def product_group(role):
+    """Effective product-target group setting; structures saved before Creation 1.4 include it."""
+    if role['mode'] == 'auto-combined':
+        return None
+    return role.get('product_group', 'include')
+
+
 def select(data, profile, purpose, named=None):
     applicable = [s for s in data['structures'] if s['scope'] in
                   ('global', 'profile:' + profile) and purpose in s['purposes']]
+    def chosen(s):
+        groups = {r['id']: product_group(r) for r in s['roles'] if product_group(r)}
+        return {'selected': s, 'choices': [], 'product_groups': groups}
     if named:
         matches = [s for s in applicable if s['id'] == named]
         require(len(matches) == 1, 'Named structure is not applicable')
-        return {'selected': matches[0], 'choices': []}
+        return chosen(matches[0])
     for scope in ('profile:' + profile, 'global'):
         defaults = [s for s in applicable if s['scope'] == scope and s['default']]
         if defaults:
-            return {'selected': defaults[0], 'choices': []}
+            return chosen(defaults[0])
     return {'selected': None, 'choices': applicable}
 
 

@@ -42,7 +42,16 @@ def validate(plan):
         if budget < minimum_budget:
             raise ValueError(f'Campaign budget is below {minimum_budget}; minimum batch total is {minimum_budget * len(campaigns)}')
         total += budget
-        for bid in [campaign['default_bid'], *campaign.get('target_bids', [])]:
+        # Research and Exact carry a keyword group and a product-target group, each with its own default.
+        groups = campaign.get('ad_groups', [])
+        if not groups:
+            groups = [dict(default_bid=campaign['default_bid'])]
+        elif 'default_bid' in campaign:
+            raise ValueError('Give default bids per ad group or per campaign, not both')
+        bids = [*campaign.get('target_bids', [])]
+        for group in groups:
+            bids += [group['default_bid'], *group.get('target_bids', [])]
+        for bid in bids:
             amount = money(bid, quantum)
             if not minimum_bid <= amount <= maximum_bid:
                 raise ValueError(f'Bid is outside {minimum_bid}–{maximum_bid}')

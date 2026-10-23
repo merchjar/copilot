@@ -10,9 +10,9 @@ Copilot: Do you want a separate budget for each product, or are some of these pr
 
 User: Separate budgets. I don't have keywords yet.
 
-Copilot: We can build Auto, Research and Exact for each product, with dummy keywords in the manual campaigns. I'll stage them paused. What daily budget would you like per campaign? There will be 30 campaigns.
+Copilot: We can build Auto, Research and Exact for each product, with dummy keywords in the manual campaigns. Research and Exact also get a product-targeting ad group. These products have no search terms yet, so those groups start empty and won't serve until you add ASINs. I'll stage everything paused. What daily budget would you like per campaign? There will be 30 campaigns.
 
-The next response uses the supplied amount, resolves bids, shows overlap and eligibility gaps, and presents all thirty campaigns, groups and Product Ads plus ten BROAD and ten EXACT dummy keywords before asking for creation approval. Copilot supplies the terms; the user uploads ASINs only. Empty manual groups are not needed for this path.
+The next response uses the supplied amount, resolves bids, shows overlap and eligibility gaps, and presents all thirty campaigns, fifty groups and Product Ads plus ten BROAD and ten EXACT dummy keywords before asking for creation approval. Copilot supplies the terms; the user uploads ASINs only. The twenty product-target groups are listed as empty, with no invented ASINs.
 
 **Returning user**
 
@@ -53,6 +53,24 @@ An explicitly selected EUR 5 batch total cannot be spread below the campaign min
 User: Enable the campaigns, but leave the dummy keywords paused.
 
 Copilot includes enabled campaign, group and Product Ad states and paused dummy keywords in the plan. It explains which Auto or real targets will serve, creates and reconciles the paused structure, then applies only the approved enablement. It never claims placeholders make parent enablement impossible.
+
+**Product targets from search terms**
+
+User: Add Research and Exact for B0EXAMPLE1. It's been selling in my Auto campaign.
+
+Copilot reads that product's search terms that sold over the last 60 days. Three ASINs sold in ad groups that advertise only this product, so it proposes them as exact targets in the Exact product-target group and as expanded targets in the Research one, with their order counts and cost per click. Two more sold in a group shared with other products; it lists them separately and asks whether to include them, because the report can't say which product made those sales.
+
+**User-supplied ASINs**
+
+User: Target these two competitor ASINs in Exact.
+
+Copilot adds them as paused exact targets in the Exact product-target group. It asks whether Research should get expanded targets on the same ASINs rather than assuming it.
+
+**Skip product targeting**
+
+User: No product targeting this time.
+
+Copilot drops both product-target groups from this plan only. If the user says to remember it, it saves `product_group: skip` on the Research and Exact roles of the saved structure.
 
 **Partial result**
 

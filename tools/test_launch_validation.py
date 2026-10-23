@@ -25,6 +25,14 @@ class LaunchValidationTest(unittest.TestCase):
         for bad in ['0.01','1000.01','NaN','0.175']:
             p=plan(); p['campaigns'][0]['default_bid']=bad
             with self.assertRaises(ValueError): m.validate(p)
+    def test_keyword_and_product_target_group_bids(self):
+        p=plan(); c=p['campaigns'][0]; del c['default_bid']
+        c['ad_groups']=[dict(default_bid='0.17'),dict(default_bid='0.25',target_bids=['0.40'])]
+        self.assertEqual(m.validate(p)['configured_total'],'150')
+        c['ad_groups'][1]['target_bids']=['0.015']
+        with self.assertRaises(ValueError): m.validate(p)
+        c['ad_groups'][1]['target_bids']=['0.40']; c['default_bid']='0.17'
+        with self.assertRaisesRegex(ValueError,'not both'): m.validate(p)
     def test_do_not_apply_eur_limits_to_other_marketplaces(self):
         p=plan(); p['marketplace']='JP'; p['currency']='JPY'
         with self.assertRaisesRegex(ValueError,'limits'): m.validate(p)

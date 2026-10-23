@@ -91,6 +91,7 @@ def main() -> int:
     run([PY, "tools/test_installed_skills.py"], "installed skill discovery")
     run([PY, "tools/test_campaign_structures.py"], "campaign structure checks")
     run([PY, "tools/test_launch_validation.py"], "campaign launch validation")
+    run([PY, "tools/test_product_targets.py"], "product-target planning")
     if args.test:
         if not args.profiles:
             print("--test needs --profiles", file=sys.stderr); return 2

@@ -4,14 +4,14 @@ description: Connect an AI agent to a Merch Jar account (Amazon Sponsored Produc
 license: Proprietary. Use requires an active Merch Jar account; see LICENSE in the repo root.
 compatibility: Shell + network access (Claude Code, Codex, Cursor, Gemini CLI, any Agent Skills client that can run Python 3.9+). Claude Desktop/Cowork uses the Chrome extension instead of the shell client; the safety rules and references still apply.
 metadata:
-  version: "1.5"
+  version: "1.6"
   tags: "connect, api, setup, safety, references"
   goal: "set-up"
   risk: "read-only"
   requires-skills: ""
   requires-scopes: "profiles:read"
   produces: "a connected account (profiles listed) and a working API client the other skills call"
-  last-updated: "2026-09-10"
+  last-updated: "2026-10-23"
 ---
 
 # Merch Jar Connect

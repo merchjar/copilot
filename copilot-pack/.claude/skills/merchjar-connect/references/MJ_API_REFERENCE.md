@@ -36,7 +36,8 @@ Each API key is granted one or more scopes that control which endpoints it can a
 | `campaigns:write` | POST /api/v5/campaigns |
 | `ad_groups:write` | POST /api/v5/ad-groups |
 | `ads:write` | POST /api/v5/product-ads |
-| `targets:write` | POST /api/v5/targets |
+| `targets:write` | POST /api/v5/targets, PATCH /api/v5/targets/:id |
+| `targets:read` | GET /api/v5/targets, GET /api/v5/targets/:id (keywords and targets by exact ID, no metrics) |
 | `negative-targets:write` | POST /api/v5/negative-targets |
 | `custom_fields:read` | GET custom-fields catalog, values, history; snapshot + CSV export |
 | `custom_fields:write` | Create/update/delete custom field definitions; bulk value writes; rollback; CSV import |
@@ -594,7 +595,7 @@ Campaign rename is supported: `PATCH /api/v5/campaigns/{id}` with only `{"name":
 |---|---|---|
 | `PATCH /ad-groups/:id` | `{ "bid": { "defaultBid": n } }` and/or `{ "state": "ENABLED" \| "PAUSED" }` | Only those two fields. `Idempotency-Key` header required. |
 | `DELETE /ad-groups/:id` | none | Archives the ad group and confirms Amazon reports `ARCHIVED` before local projection. Scope `ad_groups:archive`. `Idempotency-Key` required. |
-| `PATCH /targets/:id` | `{ "bid": { "bid": n } }` and/or `{ "state": ... }` | Keywords and targets. `Idempotency-Key` required. |
+| `PATCH /targets/:id` | `{ "bid": { "bid": n } }` and/or `{ "state": ... }` | Keywords and targets. `Idempotency-Key` required. Bid in currency units; a product-target bid update passed live October 23, 2026 and left the state PAUSED. |
 | `DELETE /targets/:id` | none | Archives the target. Scope `targets:archive`. |
 | `PATCH /product-ads/:id` | `{ "state": ... }` | State only. |
 | `DELETE /product-ads/:id` | none | Archives the product ad; Amazon may omit an archived ad from read-back. Scope `ads:archive`. |
@@ -612,7 +613,7 @@ Create endpoints proxy Amazon Ads v1 batch creates. Campaign settings use `PATCH
 |---|---|---|---|
 | `POST /campaigns` | `campaigns:write` | `campaigns[]` | Manual and automatic creates verified Sep 7. Send `marketplaceScope`, `marketplaces`, `startDateTime`, `budgets`, and both `autoCreationSettings` booleans. `autoCreateTargets: true` selects automatic targeting; false selects manual targeting. Keep `autoManageCampaign: false` unless lifecycle management is explicitly intended. |
 | `POST /ad-groups` | `ad_groups:write` | `adGroups[]` | Working (MER-3148, verified 2026-09-03). `bid.defaultBid` + `currencyCode` required. Keyword/theme targets and product targets must live in separate ad groups. |
-| `POST /targets` | `targets:write` | `targets[]` | Strict schema supports keyword, product, product-category and THEME branches; Amazon validates business combinations. Do not explicitly create the four automatic groups, which Amazon generates for an automatic campaign. The Sep 6 attempt to create those themes under a manual campaign returned an unknown outcome; it does not prove a general endpoint failure. |
+| `POST /targets` | `targets:write` | `targets[]` | Strict schema supports keyword, product, product-category and THEME branches; Amazon validates business combinations. Exact and expanded (`PRODUCT_EXACT`, `PRODUCT_SIMILAR`) product targets verified October 23, 2026; category targets September 7, 2026. No create-time bid. Do not explicitly create the four automatic groups, which Amazon generates for an automatic campaign. The Sep 6 attempt to create those themes under a manual campaign returned an unknown outcome; it does not prove a general endpoint failure. |
 | `POST /negative-targets` | `negative-targets:write` | `negativeTargets[]` | Working. Ad-group-level negative **product** targets only (ASIN, `PRODUCT_EXACT`). Amazon archives negatives rather than pausing them; the app may display them as paused. |
 | `POST /product-ads` | `ads:write` | `ads[]` | Verified Sep 7 with a real DE ASIN. Needs an eligible product (ASIN, or SKU with `productIdType: SKU`) and a valid parent ad group. |
 
@@ -642,6 +643,14 @@ After approval, create campaigns first and map successful responses to their req
 ```
 
 The ID above is an example; substitute the successfully created parent group's ID. Use `EXACT` for an exact-match keyword. Fetch the full OpenAPI JSON for strict item variants rather than relying on one rendered PRODUCT example.
+
+**Product target create shape, verified live October 23, 2026:** same six fields as a keyword, with `targetType: PRODUCT` and `targetDetails.productTarget` holding exactly `matchType` (`PRODUCT_EXACT` or `PRODUCT_SIMILAR`, Amazon's expanded targeting), `productId` and `productIdType: ASIN`. Product targets go in their own ad group, never beside keywords. Like keywords, they take no create-time bid and inherit the group's default bid; set a different bid afterwards with `PATCH /targets/:id`. Amazon's response writes the ASIN as `productTarget.product.productId`. Category targets (`PRODUCT_CATEGORY`) nest `productCategoryRefinement` twice inside `productCategoryTarget`, with `matchType: MULTISIGNAL_BROAD`; a September 7 create resolved its category name in Amazon while Merch Jar showed the label blank. There is no category lookup endpoint.
+
+```json
+{"targets":[{"adGroupId":"1234567890123456","adProduct":"SPONSORED_PRODUCTS","negative":false,"state":"PAUSED","targetType":"PRODUCT","targetDetails":{"productTarget":{"matchType":"PRODUCT_EXACT","productId":"B0EXAMPLE1","productIdType":"ASIN"}}}]}
+```
+
+**Target readback:** `GET /targets/:id` and `GET /targets` (filters `campaign_id`, `ad_group_id`, `state`, `target_type`, `negative`) need `targets:read`, return no metrics and report `bid` in minor units, `null` while inheriting. A public create, update or archive has already projected when it returns. Without that scope, preview `keywords` or `targets` scoped to the new campaigns and match `target_id`; preview `bid` is the effective bid in currency units. Preview rows can be present while `pagination.total` reads 0 (campaigns, keywords and targets, October 23); count rows.
 
 Create all explicit entities paused. Amazon generates the four automatic groups from the Auto campaign flag; do not add THEME targets for this combined Auto structure. Verify generated groups in Amazon when Merch Jar's readback is incomplete. A September 7 test product showed only three groups after more than five minutes, so do not assume every product has all four or repair the gap with an unverified create. Confirm eligibility and effective delivery state per product.
 

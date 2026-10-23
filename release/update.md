@@ -12,9 +12,9 @@ Locate the current Copilot folder containing `AGENTS.md` or `CLAUDE.md`. Do not 
 
 Resolve the filenames in this guide against the guide's HTTPS origin. This keeps an explicitly supplied preview on that preview origin.
 
-Use `tools/update_copilot.py` when it exists. For an older Copilot without that file, download `copilot-update-bootstrap.py` from this guide's origin to a temporary file and verify its SHA256 is `742ec25e066340bcf631797901b59d7871569c04059933cac9012402b3838d91` before running it. The bootstrap is the same updater included in version 1.2.8.
+Use `tools/update_copilot.py` when it exists. For an older Copilot without that file, download `copilot-update-bootstrap.py` from this guide's origin to a temporary file and verify its SHA256 is `742ec25e066340bcf631797901b59d7871569c04059933cac9012402b3838d91` before running it. The bootstrap is the same updater included in version 1.2.9.
 
-Run a read-only check and then a dry run against `copilot-update-v1.2.8.json` from this guide's origin. For this copied update request, continue with `--apply` when there are no conflicts. The request already authorizes the local update, backup and verification. Do not ask again merely because a required official dependency must be updated too.
+Run a read-only check and then a dry run against `copilot-update-v1.2.9.json` from this guide's origin. For this copied update request, continue with `--apply` when there are no conflicts. The request already authorizes the local update, backup and verification. Do not ask again merely because a required official dependency must be updated too.
 
 For the normal whole-Copilot update, omit `--skill`. This updates the default Copilot and any already-installed official optional skills. It does not add absent optional skills. For one requested skill, use `--skill ID`; compatible dependencies are included.
 

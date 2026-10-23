@@ -37,7 +37,7 @@ The executable `validate()` function defines schema version 1. A store has exact
 | `purposes` | Nonempty list such as `launch`, `discovery`, `known-targets` |
 | `default` | Boolean; at most one default per scope and purpose |
 | `grouping` | `per-product` or `shared-purpose`; storage is not execution acceptance |
-| `roles` | Objects with unique `id`, explanatory `job` and `mode`: `auto-combined`, `keyword-broad`, `keyword-exact` |
+| `roles` | Objects with unique `id`, explanatory `job` and `mode`: `auto-combined`, `keyword-broad`, `keyword-exact`. Keyword roles may add `product_group`: `include` or `skip`. Absent means `include`: structures saved before Creation 1.4 now get a product-target ad group beside the keyword group. Older helpers reject a store that uses this field. |
 | `naming` | Pattern such as `{asin} - {role}`; resolve tokens and check resulting names before approval |
 | `budget_policy` | `basis: fresh-batch-total`, `weights` keyed by role ID with positive numeric ratios |
 | `bid_defaults` | Currency code keyed maps of role ID to positive bid, or `{}`; never convert currencies silently |
@@ -46,6 +46,6 @@ The executable `validate()` function defines schema version 1. A store has exact
 
 No batch amount, product list, live campaign IDs, seeds or credentials are fields in this schema. Use private per-batch manifests and receipts for those. The initial schema deliberately requires a fresh batch budget and supports only the initial role modes. If an explicit durable policy cannot be represented, explain that limit and retain a portable non-secret description; do not silently approximate it or claim it was saved.
 
-Resolve current explicit instructions first, then a selected named structure, profile default, global default, and finally a recommendation. `select` implements the stored portion and returns choices when there is no default. Apply conversation overrides to a working copy only. Account facts and capability limits still constrain execution. Currency conflict means the bid is unresolved, not that a numeric bid can be carried into the new currency.
+Resolve current explicit instructions first, then a selected named structure, profile default, global default, and finally a recommendation. `select` implements the stored portion and returns choices when there is no default; for a selected structure it also returns `product_groups`, the effective setting per keyword role. Apply conversation overrides to a working copy only. Account facts and capability limits still constrain execution. Currency conflict means the bid is unresolved, not that a numeric bid can be carried into the new currency.
 
 When persistent files or Python are unavailable, offer a portable definition and say it applies to this conversation until successfully stored. Never claim memory from a proposed write or from chat history alone.

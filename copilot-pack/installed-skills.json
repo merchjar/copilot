@@ -69,19 +69,21 @@
     {
       "id": "create-campaigns",
       "declared_name": "create-campaigns",
-      "version": "1.3",
-      "description": "Help choose, review and create a campaign structure from pasted ASINs or a one-column file, staged paused by default with explicitly approved launch states. Use when creating launch campaigns, adding product discovery, following a supplied campaign structure, or saving and reusing campaign setup preferences. Existing-account restructuring and Smart Campaign rules are separate workflows.",
+      "version": "1.4",
+      "description": "Help choose, review and create a campaign structure from pasted ASINs or a one-column file, staged paused by default with explicitly approved launch states. Research and Exact campaigns hold a product-targeting ad group beside the keyword group. Use when creating launch campaigns, adding product discovery or product targeting, following a supplied campaign structure, or saving and reusing campaign setup preferences. Existing-account restructuring and Smart Campaign rules are separate workflows.",
       "entry": "skills/create-campaigns/SKILL.md",
       "requires": [
         "merchjar-connect"
       ],
       "files_sha256": {
-        "SKILL.md": "06ade09edd94827e8dc7f7db1c85fbb8abedfa0d4bd3d388435e3c2fc7116960",
-        "references/conversations.md": "eda71e0bc7594c47584b50f4d1f8a1e8b923f6bcd910db26c6c2fb1861c3c007",
-        "references/launch-validation.md": "853fc61a2ef087273ae1522be7c6c3918860b0b62c6b463d3eb690ba4f76e931",
-        "references/preferences.md": "796430ce2e65ca65fc89095e87f550b232c6df1626270e75ff8627d5d96e2c18",
-        "scripts/campaign_structures.py": "d6295ea5d54ca0b8391031ea9de267577f4702a99259849b84a1f815004d140a",
-        "scripts/validate_launch.py": "8dd3654db08b0791e230f59ecdff1395c5bbc28f61ca16474da515be663ea9bb"
+        "SKILL.md": "c80971ea2a4079f6b381616a61659c2fe2e6c19a1d4af740181ced7f21d4d923",
+        "references/conversations.md": "3ec68acda245b89262dbc22f789f9046e102e4c6e84a6ba7bc432c41d878a2ec",
+        "references/launch-validation.md": "e6bba8983b5e9f6bf73157e9e67432a311c441c86709b30c88b4b380f0fedb84",
+        "references/preferences.md": "df9cbe5a21976187a2307a2d2b29febf42bdefbac78b5270961f550ede938141",
+        "references/product-targets.md": "5c44b57c30ec79643121435bf196e9107671587b3b688d1d0f8d1dab22f123cc",
+        "scripts/campaign_structures.py": "366acb3cbc34b508337031012a2d05af6118f21ece400892e587de2eb9a93bc7",
+        "scripts/product_targets.py": "a0843be7261f4ffa0e7024b760c75501e83797431d64eca0bb09de54fa2dd9bb",
+        "scripts/validate_launch.py": "08f7897c1a385a8ff0548d1c1b8e9f85440ddfc10e44a9c3adf653e0f098427e"
       },
       "skipped_links": [],
       "update_status": "not_checked",
@@ -139,13 +141,13 @@
     {
       "id": "merchjar-connect",
       "declared_name": "merchjar-connect",
-      "version": "1.5",
+      "version": "1.6",
       "description": "Connect an AI agent to a Merch Jar account (Amazon Sponsored Products PPC) through the Merch Jar API. Use when starting any Merch Jar session, and whenever another Merch Jar skill needs the API client, the API key, the safety protocol, or the DSL and API references. Handles key setup (config file or MERCHJAR_API_KEY), profile discovery, the shell client, and the non-negotiable deploy safety rules.",
       "entry": "skills/merchjar-connect/SKILL.md",
       "requires": [],
       "files_sha256": {
-        "SKILL.md": "e41c1334eb0edefcdcdde7caa53139617af09d2ea750e65f1fe44a68d1e0b01c",
-        "references/MJ_API_REFERENCE.md": "c751f20ce59ae87f6f4ec2e89b200ef8b585aa60004bbe696831c9eaddd5f279",
+        "SKILL.md": "3837e7c6a5e5d899332f8e9b5f9fb2e68e067940b59ac2ff0509c3fa060eb13d",
+        "references/MJ_API_REFERENCE.md": "52a1994d3e073e868418ffea13099fbd113c891bb12893d8ec0d6dd5303b34a2",
         "references/SEGMENT_CREATION_GUIDELINES.md": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
         "references/V2_SYNTAX_REFERENCE.md": "b0dbbe07cc5718c52d8de76715a752a521138013d7f77d348396810680c12558",
         "references/campaign-naming.md": "a7b07c12fc9c06aac6aa0efd8698368efbd50c8050d1af58bb46c62e0eb32955",
