@@ -76,14 +76,14 @@
         "merchjar-connect"
       ],
       "files_sha256": {
-        "SKILL.md": "1b9a7cc790ce3d152a5bfc14312595b72efc26c7d0104766c29495488824c149",
-        "references/conversations.md": "e7394d5263d72e374d4cd08ff86bfc7e23d12402f42cc7228eb31da473c0b389",
-        "references/launch-validation.md": "a669259feaef32f75893cfe6ae913ac79125f5b8b2dcb9cfa3f877f6e62f845c",
-        "references/preferences.md": "090ac0dcff3321094d250f9c771912133f09a896f21f40ceed3ce95f03905840",
+        "SKILL.md": "c80971ea2a4079f6b381616a61659c2fe2e6c19a1d4af740181ced7f21d4d923",
+        "references/conversations.md": "3ec68acda245b89262dbc22f789f9046e102e4c6e84a6ba7bc432c41d878a2ec",
+        "references/launch-validation.md": "e6bba8983b5e9f6bf73157e9e67432a311c441c86709b30c88b4b380f0fedb84",
+        "references/preferences.md": "df9cbe5a21976187a2307a2d2b29febf42bdefbac78b5270961f550ede938141",
         "references/product-targets.md": "5c44b57c30ec79643121435bf196e9107671587b3b688d1d0f8d1dab22f123cc",
-        "scripts/campaign_structures.py": "a44def763165cf46489f107532f73578e6ecaa67e63771f98583d351e1426f47",
-        "scripts/product_targets.py": "fc636e23c6657793d86cb5ef1a308bb47a69f151f8e3ba7b959ea90d220919cb",
-        "scripts/validate_launch.py": "b75da25e40c65e8a66b47236d6c727113a47c4939fcc80c81ac761d407596e5a"
+        "scripts/campaign_structures.py": "366acb3cbc34b508337031012a2d05af6118f21ece400892e587de2eb9a93bc7",
+        "scripts/product_targets.py": "a0843be7261f4ffa0e7024b760c75501e83797431d64eca0bb09de54fa2dd9bb",
+        "scripts/validate_launch.py": "08f7897c1a385a8ff0548d1c1b8e9f85440ddfc10e44a9c3adf653e0f098427e"
       },
       "skipped_links": [],
       "update_status": "not_checked",
@@ -129,10 +129,10 @@
       "entry": "skills/manage-library/SKILL.md",
       "requires": [],
       "files_sha256": {
-        "SKILL.md": "f8712b38454bb970aefb0c7aeedfb8bcc7193d09957b5f82e59eadd547db669f",
-        "scripts/install_skill.py": "56c7f0ff488a09e64133d7a09c1152b723b34f5895b647c0a1657e14d64c88e6",
-        "scripts/installed_skills.py": "49ef642e7d31b0bdca6f9b37e80ce4cbeb4097404442c32204d95d72e28a26f4",
-        "scripts/update_copilot.py": "010557b3f6739b2c786afbcc07fafbba51481978a7e50319bf1aca733d0f1498"
+        "SKILL.md": "49094f1ac150dda8a34063b1041ef318b218b93e07e702095d6f3e5375cb3ab4",
+        "scripts/install_skill.py": "f4f6ece2e76993f95051d799115fce06838b08e6435f9493d18298e5de8783df",
+        "scripts/installed_skills.py": "2c49dbcde4912683d3d05f4fe11dbd714c466d7de0980badb4052069c519e840",
+        "scripts/update_copilot.py": "742ec25e066340bcf631797901b59d7871569c04059933cac9012402b3838d91"
       },
       "skipped_links": [],
       "update_status": "not_checked",
@@ -147,12 +147,12 @@
       "requires": [],
       "files_sha256": {
         "SKILL.md": "3837e7c6a5e5d899332f8e9b5f9fb2e68e067940b59ac2ff0509c3fa060eb13d",
-        "references/MJ_API_REFERENCE.md": "42a2f694093505014dc4d3e4378f8920d8641cd9fbdc06c5520f7c315a8e05bd",
-        "references/SEGMENT_CREATION_GUIDELINES.md": "07e01447140ef88fe7a2259bd21b27b2a34b1312b8e712e101005c9b8975e68c",
-        "references/V2_SYNTAX_REFERENCE.md": "5ec9d7758f608c75520b0b2d6c0bd3bb86e159c0c372d476aee09e661ddc38a3",
-        "references/campaign-naming.md": "5170551c69dd289067c1753817d7ed055513d30db554f67b69dedd3adce3f4d0",
-        "scripts/campaign_naming.py": "6de2cda0657d09ab34b2c3fbfcd56814fb61b1adbabd1168966ddacad51fcf0f",
-        "scripts/merchjar_client.py": "08e3b32a6a85445d89b0a8b30706c2e3b4749d9de06d1238062e53cfc26f273e"
+        "references/MJ_API_REFERENCE.md": "52a1994d3e073e868418ffea13099fbd113c891bb12893d8ec0d6dd5303b34a2",
+        "references/SEGMENT_CREATION_GUIDELINES.md": "df702a3ac4756996a517fe334d2d51f0349e344b20d9ae23cbd6d58791633d95",
+        "references/V2_SYNTAX_REFERENCE.md": "b0dbbe07cc5718c52d8de76715a752a521138013d7f77d348396810680c12558",
+        "references/campaign-naming.md": "a7b07c12fc9c06aac6aa0efd8698368efbd50c8050d1af58bb46c62e0eb32955",
+        "scripts/campaign_naming.py": "89c45f85f4d34a359424620634778c37d4260792135ba508f0bea2de6a2ce1e7",
+        "scripts/merchjar_client.py": "4c9561a001ad21dbd88ef7737c5d370c1d1f7ccc37cfcce871662b82ae2e3911"
       },
       "skipped_links": [],
       "update_status": "not_checked",
